@@ -1,62 +1,48 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const menuToggle = document.getElementById('menu-toggle');
+    const mobileToggle = document.getElementById('mobile-toggle');
     const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('menu-overlay');
-    const parentLinks = document.querySelectorAll('.has-submenu > .menu-link');
-    const subLinks = document.querySelectorAll('.submenu a');
+    const dropdownItems = document.querySelectorAll('li[data-dropdown]');
     const pageCard = document.getElementById('page-card');
+    const links = document.querySelectorAll('.dropdown-menu a');
 
-    function toggleMenu() {
-        if (sidebar) sidebar.classList.toggle('open');
-        if (overlay) overlay.classList.toggle('active');
-    }
-
-    // 1. ABRIR E FECHAR A GAVETA NO MOBILE
-    if (menuToggle) {
-        menuToggle.addEventListener('click', (e) => {
+    // 1. ABRIR E FECHAR O MENU MOBILE NO BOTAO ☰
+    if (mobileToggle && sidebar) {
+        mobileToggle.addEventListener('click', (e) => {
             e.stopPropagation();
-            toggleMenu();
+            sidebar.classList.toggle('open');
         });
     }
 
-    if (overlay) {
-        overlay.addEventListener('click', toggleMenu);
-    }
+    // 2. COMPORTAMENTO DOS SUBMENUS NO MOBILE (CLIQUE/TOQUE)
+    dropdownItems.forEach(item => {
+        const linkPai = item.querySelector('.link');
+        const submenu = item.querySelector('.dropdown-menu');
 
-    // 2. EXIBIR SUBMENU NO CLIQUE
-    parentLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
+        if (linkPai && submenu) {
+            linkPai.addEventListener('click', (e) => {
+                // Apenas se estiver em tela mobile
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    
+                    // Fecha outros submenus que possam estar abertos
+                    document.querySelectorAll('.dropdown-menu').forEach(sub => {
+                        if (sub !== submenu) sub.classList.remove('show');
+                    });
 
-            const parentLi = link.parentElement;
-            const submenu = parentLi.querySelector('.submenu');
-
-            if (submenu) {
-                const jaAberto = submenu.classList.contains('open-submenu');
-
-                document.querySelectorAll('.submenu').forEach(sub => sub.classList.remove('open-submenu'));
-                document.querySelectorAll('.has-submenu').forEach(item => item.classList.remove('active'));
-
-                if (!jaAberto) {
-                    submenu.classList.add('open-submenu');
-                    parentLi.classList.add('active');
+                    // Alterna visibilidade do submenu atual
+                    submenu.classList.toggle('show');
                 }
-            }
-        });
+            });
+        }
     });
 
-    // 3. CARREGAR PÁGINAS E FECHAR MENU MOBILE
-    subLinks.forEach(link => {
+    // 3. CARREGAMENTO DAS PÁGINAS E FECHAMENTO DO MENU AO SELECIONAR
+    links.forEach(link => {
         link.addEventListener('click', async (e) => {
             e.preventDefault();
-            e.stopPropagation();
 
             const pageUrl = link.getAttribute('data-page');
             if (!pageUrl) return;
-
-            subLinks.forEach(l => l.classList.remove('active-link'));
-            link.classList.add('active-link');
 
             if (pageCard) {
                 pageCard.innerHTML = '<p style="color: var(--color-text-muted);">Carregando...</p>';
@@ -71,11 +57,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // Fecha apenas se estiver em telas mobile
-            if (window.innerWidth <= 768 && sidebar && overlay) {
+            // Fecha a barra lateral no mobile após selecionar um item
+            if (sidebar && window.innerWidth <= 768) {
                 sidebar.classList.remove('open');
-                overlay.classList.remove('active');
             }
         });
+    });
+
+    // 4. FECHAR MENU AO CLICAR FORA DELE
+    document.addEventListener('click', (e) => {
+        if (sidebar && window.innerWidth <= 768) {
+            if (!sidebar.contains(e.target) && !mobileToggle.contains(e.target)) {
+                sidebar.classList.remove('open');
+            }
+        }
     });
 });
