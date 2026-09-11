@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manual Técnico - Veicular</title>
 
-    <!-- Importação do CSS (Caminho relativo correto) -->
-    <link rel="stylesheet" href="./css/style.css?v=2.0">
+    <!-- Importação do arquivo CSS externo -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <!-- Header do Smartphone (Invisível no Computador) -->
+    <!-- Topo Fixo do Mobile -->
     <div class="mobile-header">
         <h2>Manual Técnico</h2>
-        <button class="toggle-btn" id="mobile-toggle" type="button">☰ Menu</button>
+        <button class="toggle-btn" id="mobile-toggle" aria-label="Abrir Menu">≡ Menu</button>
     </div>
 
-    <!-- Navegação Principal -->
+    <!-- Cabeçalho Principal e Menu Lateral -->
     <header class="main_header">
         <div>
             <div class="main_header_logo">
@@ -24,7 +24,8 @@
                     <h1>Manual Técnico</h1>
                 </a>
             </div>
-            
+
+            <!-- Menu/Sidebar unificado -->
             <nav id="sidebar">
                 <ul>
                     <!-- 1. Sistema de Lubrificação -->
@@ -106,7 +107,7 @@
         </div>
     </header>
 
-    <!-- Conteúdo Principal -->
+    <!-- Conteúdo Principal Dinâmico -->
     <main class="portfolio" id="content">
         <div class="portfolio_articles">
             <article class="portfolio_article" id="page-card" style="grid-column: 1 / -1; padding: 2rem;">
@@ -118,7 +119,51 @@
         </div>
     </main>
 
-    <!-- Script com chamadas corrigidas -->
-    <script src="./menu.js?v=2.0"></script>
+    <!-- JavaScript Interno -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const links = document.querySelectorAll('.dropdown-menu a');
+            const pageCard = document.getElementById('page-card');
+            const mobileToggle = document.getElementById('mobile-toggle');
+            const sidebar = document.getElementById('sidebar');
+
+            // Carregamento de Páginas via Fetch
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    const pageUrl = link.getAttribute('data-page');
+
+                    if (!pageUrl) return;
+
+                    pageCard.innerHTML = '<p style="color: var(--color-text-muted, #888);">Carregando informações...</p>';
+
+                    fetch(pageUrl)
+                        .then(response => {
+                            if (!response.ok) throw new Error('Não foi possível carregar este conteúdo.');
+                            return response.text();
+                        })
+                        .then(html => {
+                            pageCard.innerHTML = html;
+                        })
+                        .catch(err => {
+                            pageCard.innerHTML = `<h2 style="color: var(--color-accent, #ff0000);">Erro ao carregar</h2><p>${err.message}</p>`;
+                        });
+
+                    // Fecha o menu lateral no mobile após clicar
+                    if (sidebar) {
+                        sidebar.classList.remove('open');
+                    }
+                });
+            });
+
+            // Toggle do Menu Mobile
+            if (mobileToggle && sidebar) {
+                mobileToggle.addEventListener('click', () => {
+                    sidebar.classList.toggle('open');
+                });
+            }
+        });
+    </script>
 </body>
 </html>
