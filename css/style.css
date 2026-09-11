@@ -33,22 +33,16 @@ body {
     min-height: 100vh;
 }
 
-/* REGRA DE OURO: Oculta TODOS os submenus por padrão em qualquer tela */
-ul.dropdown-menu,
-.dropdown-menu {
-    display: none !important;
-}
-
 /* ==========================================================================
    2. REGRAS PARA DESKTOP (Telas maiores que 768px)
    ========================================================================== */
 @media (min-width: 769px) {
-    /* Esconde cabeçalho mobile */
+    /* Oculta o topo mobile */
     .mobile-header {
         display: none !important;
     }
 
-    /* Topo fixo */
+    /* Topo fixo do Desktop */
     .main_header {
         position: sticky;
         top: 0;
@@ -73,7 +67,7 @@ ul.dropdown-menu,
         color: var(--color-text-main);
     }
 
-    /* Menu horizontal superior */
+    /* Menu horizontal */
     #sidebar {
         position: static !important;
         width: auto !important;
@@ -104,16 +98,13 @@ ul.dropdown-menu,
         color: var(--color-accent);
     }
 
-    /* Submenu no Desktop: Exibe APENAS com passar de mouse (hover) */
+    /* SUBMENU DESKTOP - Oculto por padrão */
     li[data-dropdown] {
         position: relative;
     }
 
-    li[data-dropdown]:hover > .dropdown-menu {
-        display: block !important;
-    }
-
-    .dropdown-menu {
+    li[data-dropdown] > .dropdown-menu {
+        display: none !important; /* Força ficar fechado */
         position: absolute !important;
         top: 100%;
         left: 0;
@@ -125,13 +116,17 @@ ul.dropdown-menu,
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
         z-index: 1000;
     }
+
+    /* Abre APENAS o submenu do item específico que está com o mouse em cima */
+    li[data-dropdown]:hover > .dropdown-menu {
+        display: block !important;
+    }
 }
 
 /* ==========================================================================
    3. REGRAS PARA MOBILE (Telas até 768px)
    ========================================================================== */
 @media (max-width: 768px) {
-    /* Topo com botão Hambúrguer */
     .mobile-header {
         display: flex !important;
         position: fixed;
@@ -156,7 +151,6 @@ ul.dropdown-menu,
         cursor: pointer;
     }
 
-    /* Gaveta Lateral Oculta por padrão */
     #sidebar {
         position: fixed;
         top: 60px;
@@ -182,8 +176,9 @@ ul.dropdown-menu,
         list-style: none;
     }
 
-    /* Submenu no Mobile: Exibe APENAS com a classe .show via clique */
+    /* SUBMENU MOBILE - Oculto por padrão */
     .dropdown-menu {
+        display: none !important;
         position: static !important;
         width: 100%;
         background-color: var(--color-bg-secondary);
@@ -191,9 +186,9 @@ ul.dropdown-menu,
         border-radius: var(--radius-sm);
         padding: 0.5rem 0;
         margin-top: 0.5rem;
-        box-shadow: none !important;
     }
 
+    /* Exibe apenas se tiver a classe .show via clique */
     .dropdown-menu.show {
         display: block !important;
     }
@@ -204,7 +199,7 @@ ul.dropdown-menu,
 }
 
 /* ==========================================================================
-   4. ESTILOS DOS LINKS E CARDS DE CONTEÚDO
+   4. ESTILOS DOS LINKS E CONTEÚDO
    ========================================================================== */
 .dropdown-menu li {
     list-style: none;
