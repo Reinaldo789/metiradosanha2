@@ -1,216 +1,204 @@
-<!--
-    Code by Rodrigo Brito <contato@rodrigobrito.dev.br>
-    T1G3R - Cyber warrior
--->
 <!DOCTYPE html>
-<html lang="pt-br" itemscope itemtype="http://schema.org/WebPage">
+<html lang="pt-BR">
 <head>
-    <!-- Google Tag Manager -->
-    <link rel="preconnect" href="https://www.googletagmanager.com">
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KBGXKNM');</script>
-    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Técnico - Veicular</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { display: flex; background-color: #f4f6f9; min-height: 100vh; }
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        /* Estilos do Menu Lateral */
+        #sidebar { width: 300px; background-color: #1e293b; color: #fff; height: 100vh; position: fixed; overflow-y: auto; transition: all 0.3s ease; z-index: 1000; }
+        .sidebar-header { padding: 20px; background-color: #0f172a; border-bottom: 1px solid #334155; }
+        .sidebar-header h2 { font-size: 1.2rem; color: #f8fafc; }
 
-    <title>Rodrigo Brito - Offensive Security</title>
-    <meta name="title" content="Rodrigo Brito - Offensive Security" />
-    <meta name="description" content="Trabalho na interseção entre segurança ofensiva, engenharia de software e operações cibernéticas" />
-    <meta name="robots" content="index,follow" />
-    <link rel="canonical" href="https://www.rodrigobrito.dev.br" />
+        .menu-item { border-bottom: 1px solid #334155; }
+        .menu-btn { width: 100%; padding: 15px 20px; background: none; border: none; color: #cbd5e1; text-align: left; font-size: 0.95rem; font-weight: 600; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: background 0.2s; }
+        .menu-btn:hover { background-color: #334155; color: #fff; }
+        .arrow { font-size: 0.8rem; transition: transform 0.3s; }
+        .menu-btn.active .arrow { transform: rotate(180deg); }
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Rodrigo Brito - Offensive Security" />
-    <meta property="og:locale" content="pt_BR" />
-    <meta property="og:url" content="https://www.rodrigobrito.dev.br" />
-    <meta property="og:title" content="Rodrigo Brito - Offensive Security" />
-    <meta property="og:description" content="Trabalho na interseção entre segurança ofensiva, engenharia de software e operações cibernéticas" />
-    <meta property="og:image" content="https://www.rodrigobrito.dev.br/img/share-3.png" />
-    <meta property="article:publisher" content="https://www.facebook.com/RodrigoBritoWebDeveloper" />
-    <meta property="article:author" content="https://www.facebook.com/rodrigo.carvalhodebrito" />
-    <meta property="fb:app_id" content="550149899141611" />
+        /* Submenus */
+        .submenu { list-style: none; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background-color: #0f172a; }
+        .submenu li a { display: block; padding: 12px 20px 12px 35px; color: #94a3b8; text-decoration: none; font-size: 0.9rem; transition: color 0.2s, background 0.2s; }
+        .submenu li a:hover, .submenu li a.active-link { color: #38bdf8; background-color: #1e293b; font-weight: bold; }
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@RCBrito101" />
-    <meta name="twitter:creator" content="@RCBrito101" />
-    <meta name="twitter:url" content="https://www.rodrigobrito.dev.br" />
-    <meta name="twitter:title" content="Rodrigo Brito - Offensive Security" />
-    <meta name="twitter:description" content="Trabalho na interseção entre segurança ofensiva, engenharia de software e operações cibernéticas" />
-    <meta name="twitter:image" content="https://www.rodrigobrito.dev.br/img/share-3.png" />
+        /* Conteúdo Principal */
+        #content { margin-left: 300px; padding: 40px; flex: 1; transition: margin-left 0.3s ease; }
+        .card { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .system-badge { display: inline-block; background-color: #e0f2fe; color: #0369a1; padding: 4px 12px; border-radius: 12px; font-size: 0.85rem; font-weight: bold; margin-bottom: 10px; }
+        h1 { color: #0f172a; margin-bottom: 15px; }
+        p { color: #475569; line-height: 1.6; }
 
-    <!-- Schema.org -->
-    <meta itemprop="name" content="Rodrigo Brito - Offensive Security" />
-    <meta itemprop="description" content="Trabalho na interseção entre segurança ofensiva, engenharia de software e operações cibernéticas" />
-    <meta itemprop="url" content="https://www.rodrigobrito.dev.br/" />
-    <meta itemprop="image" content="https://www.rodrigobrito.dev.br/img/share-3.png" />
+        /* Responsividade para Mobile */
+        .mobile-header { display: none; background: #0f172a; color: #fff; padding: 15px 20px; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; right: 0; z-index: 1100; }
+        .toggle-btn { background: #334155; color: #fff; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; }
 
-    <meta name="csrf-token" content="YB8DIFot6FjdS80jdSWtrkcD1QwQbUsXSjkqc882" />
-
-    <!-- Web Application Manifest -->
-    <link rel="manifest" href="https://www.rodrigobrito.dev.br/manifest.json" />
-    <meta name="theme-color" content="#FE4A22" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="application-name" content="R. Brito" />
-
-    <!-- Icons & Apple -->
-    <link rel="icon" type="image/x-icon" href="https://www.rodrigobrito.dev.br/img/logo.ico" />
-    <link rel="icon" sizes="512x512" href="/images/icons/icon-512x512.png" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title" content="R. Brito" />
-    <link rel="apple-touch-icon" href="/images/icons/icon-512x512.png" />
-
-    <!-- Stylesheets Preload -->
-    <link rel="preload" as="style" href="https://www.rodrigobrito.dev.br/build/assets/styles-CNOEE0pu.css" />
-    <link rel="preload" as="style" href="https://www.rodrigobrito.dev.br/build/assets/style-nZqA1XXY.css" />
-    <link rel="stylesheet" href="https://www.rodrigobrito.dev.br/build/assets/styles-CNOEE0pu.css" />
-    <link rel="stylesheet" href="https://www.rodrigobrito.dev.br/build/assets/style-nZqA1XXY.css" />
-
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/serviceworker.js', { scope: '.' })
-                .then(reg => console.log('PWA ServiceWorker registrado:', reg.scope))
-                .catch(err => console.error('PWA ServiceWorker falhou:', err));
+        @media (max-width: 768px) {
+            #sidebar { left: -300px; top: 60px; height: calc(100vh - 60px); }
+            #sidebar.open { left: 0; }
+            #content { margin-left: 0; margin-top: 60px; padding: 20px; }
+            .mobile-header { display: flex; }
         }
-    </script>
+    </style>
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBGXKNM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
 
-    <header class="main_header">
-        <div>
-            <div class="main_header_logo">
-                <a title="Home" href="https://www.rodrigobrito.dev.br">
-                    <img src="https://www.rodrigobrito.dev.br/img/logo.webp" alt="Logotipo - Rodrigo Brito" width="75" height="75" />
-                    <h1>Rodrigo Brito</h1>
-                </a>
-            </div>
-            <nav aria-label="Navegação Principal">
-                <button class="j_menu_mobile_open icon-bars icon-no-text" aria-label="Abrir Menu de Navegação" title="Abrir Menu"></button>
-                <div class="j_menu_mobile_tab">
-                    <button class="j_menu_mobile_close icon-times icon-no-text" aria-label="Fechar Menu de Navegação" title="Fechar Menu"></button>
-                    <ul>
-                        <li><a class="link active" href="https://www.rodrigobrito.dev.br">Home</a></li>
-                        <li data-dropdown>
-                            <a class="link" href="https://www.rodrigobrito.dev.br/portfolio">Portfólio</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="https://www.rodrigobrito.dev.br/portfolio/em/e-commerce">E-commerce</a></li>
-                                <li><a href="https://www.rodrigobrito.dev.br/portfolio/em/institucional">Institucional</a></li>
-                                <li><a href="https://www.rodrigobrito.dev.br/portfolio/em/landing-page">Landing Page</a></li>
-                                <li><a href="https://www.rodrigobrito.dev.br/portfolio/em/laravel">Laravel</a></li>
-                                <li><a href="https://www.rodrigobrito.dev.br/portfolio/em/nextjs">Next.js</a></li>
-                                <li><a href="https://www.rodrigobrito.dev.br/portfolio/em/react">React</a></li>
-                                <li><a href="https://www.rodrigobrito.dev.br/portfolio/em/saas">SaaS</a></li>
-                                <li><a href="https://www.rodrigobrito.dev.br/portfolio/em/sistemas">Sistemas</a></li>
-                                <li><a href="https://www.rodrigobrito.dev.br/portfolio/em/vue">Vue</a></li>
-                                <li><a href="https://www.rodrigobrito.dev.br/portfolio/em/wordpress">WordPress</a></li>
-                            </ul>
-                        </li>
-                        <li data-dropdown>
-                            <a class="link" href="https://www.rodrigobrito.dev.br/blog">Blog</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="https://www.rodrigobrito.dev.br/blog/em/analise-de-malware">Análise de Malware</a></li>
-                                <li><a href="https://www.rodrigobrito.dev.br/blog/em/devsecops">DevSecOps</a></li>
-                                <li><a href="https://www.rodrigobrito.dev.br/blog/em/inteligencia-de-ameacas-ciberneticas">Inteligência de Ameaças Cibernéticas</a></li>
-                                <li><a href="https://www.rodrigobrito.dev.br/blog/em/javascript">JavaScript</a></li>
-                                <li><a href="https://www.rodrigobrito.dev.br/blog/em/js-tricks">JS Tricks</a></li>
-                                <li><a href="https://www.rodrigobrito.dev.br/blog/em/laravel">Laravel</a></li>
-                                <li><a href="https://www.rodrigobrito.dev.br/blog/em/osint">OSINT</a></li>
-                                <li><a href="https://www.rodrigobrito.dev.br/blog/em/seguranca-cibernetica">Segurança Cibernética</a></li>
-                            </ul>
-                        </li>
-                        <li><a class="link" href="https://www.rodrigobrito.dev.br/sobre">Sobre mim</a></li>
-                    </ul>
-                </div>
-            </nav>
+    <!-- Header para Celulares -->
+    <div class="mobile-header">
+        <h2>Manual Técnico</h2>
+        <button class="toggle-btn" id="mobile-toggle">☰ Menu</button>
+    </div>
+
+    <!-- Menu Lateral -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h2>Sistemas do Veículo</h2>
         </div>
-    </header>
 
-    <main class="main_content">
-        <section class="home_featured">
-            <div class="home_featured_content">
-                <canvas class="snow"></canvas>
-                <header>
-                    <h2 data-anime="400" class="fadeInDown">Rodrigo Brito <br>Offensive Security / Web Development</h2>
-                    <p class="headline">Red Team | FullStack PHP | AppSec</p>
-                    <p data-anime="1200" class="fadeInDown">
-                        <button data-go=".home_opt_in" aria-label="Ir para a seção de portfólio">Conheça meu Portfólio</button>
-                    </p>
-                </header>
-            </div>
-            <div class="home_featured_app">
-                <img data-anime="2000" class="fadeInUp" src="https://www.rodrigobrito.dev.br/img/avatar-2.webp" alt="Rodrigo Brito" title="Rodrigo Brito" width="300" height="300" />
-                <img data-anime="2000" class="fadeInUp" src="https://www.rodrigobrito.dev.br/img/breve-2.webp" alt="Brevê Guerra Cibernética" title="Brevê Guerra Cibernética" width="350" height="100" />
-            </div>
-        </section>
+        <!-- 1. Sistema de Lubrificação -->
+        <div class="menu-item">
+            <button class="menu-btn">Sistema de Lubrificação <span class="arrow">▼</span></button>
+            <ul class="submenu">
+                <li><a href="#" data-system="Sistema de Lubrificação" data-page="Tabela de Lubrificação">Tabela de Lubrificação</a></li>
+                <li><a href="#" data-system="Sistema de Lubrificação" data-page="Luz e Pressão">Luz e Pressão</a></li>
+            </ul>
+        </div>
 
-        <section class="home_opt_in">
-            <div class="portfolio fadeInScroll">
-                <div class="portfolio_content">
-                    <header class="portfolio_header">
-                        <h2>Portfólio</h2>
-                        <p>Confira meus trabalhos e projetos</p>
-                    </header>
-                    <div class="portfolio_articles fadeInScroll">
-                        <article class="portfolio_article">
-                            <a title="RSquad Academy" href="https://www.rodrigobrito.dev.br/portfolio/rsquad-academy">
-                                <picture>
-                                    <source media="(max-width: 512px)" srcset="https://www.rodrigobrito.dev.br/storage/portfolio/min/rsquad-academy1782584470.webp" />
-                                    <source media="(max-width: 762px)" srcset="https://www.rodrigobrito.dev.br/storage/portfolio/medium/rsquad-academy1782584470.webp" />
-                                    <img src="https://www.rodrigobrito.dev.br/storage/portfolio/rsquad-academy1782584470.webp" title="RSquad Academy" width="360" height="208" alt="RSquad Academy" />
-                                </picture>
-                            </a>
-                            <header>
-                                <p class="meta">
-                                    <span>Categorias:</span>&nbsp;
-                                    <a title="Projetos em Sistemas" href="https://www.rodrigobrito.dev.br/portfolio/em/sistemas">Sistemas</a> &bull; 
-                                    <a title="Projetos em Institucional" href="https://www.rodrigobrito.dev.br/portfolio/em/institucional">Institucional</a> &bull; 
-                                    <a title="Projetos em Laravel" href="https://www.rodrigobrito.dev.br/portfolio/em/laravel">Laravel</a> &bull; 27/06/2026
-                                </p>
-                                <h2><a title="RSquad Academy" href="https://www.rodrigobrito.dev.br/portfolio/rsquad-academy">RSquad Academy</a></h2>
-                                <p><a title="RSquad Academy" href="https://www.rodrigobrito.dev.br/portfolio/rsquad-academy">Plataforma educacional para capacitação em cibersegurança</a></p>
-                            </header>
-                        </article>
-                    </div>
-                </div>
-            </div>
-            <div class="opt_in_link fadeInScroll">
-                <a href="https://www.rodrigobrito.dev.br/portfolio" aria-label="Ver portfólio completo">Conheça todo o portfólio</a>
-            </div>
-        </section>
+        <!-- 2. Sistema Elétrico -->
+        <div class="menu-item">
+            <button class="menu-btn">Sistema Elétrico <span class="arrow">▼</span></button>
+            <ul class="submenu">
+                <li><a href="#" data-system="Sistema Elétrico" data-page="Fusíveis e Lampadas">Fusíveis e Lampadas</a></li>
+                <li><a href="#" data-system="Sistema Elétrico" data-page="Farol e seta">Farol e seta</a></li>
+            </ul>
+        </div>
 
-        <section id="technologies">
-            <header>
-                <h2>Habilidades</h2>
-            </header>
-            <div class="fadeInScroll">
-                <div class="card">
-                    <article class="inner">
-                        <div class="face front">
-                            <img src="https://www.rodrigobrito.dev.br/storage/certificates-categories/seguranca-da-informacao1741457019.webp" alt="Segurança da Informação" title="Segurança da Informação" width="100" height="100" loading="lazy" />
-                        </div>
-                        <div class="face back">
-                            <h3>Segurança da Informação</h3>
-                        </div>
-                    </article>
-                </div>
-                <div class="card">
-                    <article class="inner">
-                        <div class="face front">
-                            <img src="https://www.rodrigobrito.dev.br/storage/certificates-categories/seguranca-ofensiva1748780234.webp" alt="Segurança Ofensiva" title="Segurança Ofensiva" width="100" height="100" loading="lazy" />
-                        </div>
-                        <div class="face back">
-                            <h3>Segurança Ofensiva</h3>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
+        <!-- 3. Linha Combustível -->
+        <div class="menu-item">
+            <button class="menu-btn">Linha Combustível <span class="arrow">▼</span></button>
+            <ul class="submenu">
+                <li><a href="#" data-system="Linha Combustível" data-page="Tanque, Filtro, Mang.">Tanque, Filtro, Mang.</a></li>
+                <li><a href="#" data-system="Linha Combustível" data-page="Bomba Elétrica">Bomba Elétrica</a></li>
+                <li><a href="#" data-system="Linha Combustível" data-page="Bomba Engrenagem">Bomba Engrenagem</a></li>
+                <li><a href="#" data-system="Linha Combustível" data-page="Válvula KUV">Válvula KUV</a></li>
+                <li><a href="#" data-system="Linha Combustível" data-page="Bomba Alta Pressão">Bomba Alta Pressão</a></li>
+                <li><a href="#" data-system="Linha Combustível" data-page="Tubo Rail">Tubo Rail</a></li>
+            </ul>
+        </div>
+
+        <!-- 4. Sensores e Atuadores -->
+        <div class="menu-item">
+            <button class="menu-btn">Sensores e Atuadores <span class="arrow">▼</span></button>
+            <ul class="submenu">
+                <li><a href="#" data-system="Sensores e Atuadores" data-page="Válvula MProp">Válvula MProp</a></li>
+                <li><a href="#" data-system="Sensores e Atuadores" data-page="Sensor Rotação">Sensor Rotação</a></li>
+                <li><a href="#" data-system="Sensores e Atuadores" data-page="Sensor Fase">Sensor Fase</a></li>
+                <li><a href="#" data-system="Sensores e Atuadores" data-page="Sensor Pres. Adm">Sensor Pres. Adm</a></li>
+                <li><a href="#" data-system="Sensores e Atuadores" data-page="Pedal Acelerador">Pedal Acelerador</a></li>
+                <li><a href="#" data-system="Sensores e Atuadores" data-page="Sensor Temp. ECM">Sensor Temp. ECM</a></li>
+                <li><a href="#" data-system="Sensores e Atuadores" data-page="Modulador Turbina">Modulador Turbina</a></li>
+                <li><a href="#" data-system="Sensores e Atuadores" data-page="Sensor Pres. Rail">Sensor Pres. Rail</a></li>
+                <li><a href="#" data-system="Sensores e Atuadores" data-page="Bicos Injetores">Bicos Injetores</a></li>
+            </ul>
+        </div>
+
+        <!-- 5. Admissão e Escape -->
+        <div class="menu-item">
+            <button class="menu-btn">Admissão e Escape <span class="arrow">▼</span></button>
+            <ul class="submenu">
+                <li><a href="#" data-system="Admissão e Escape" data-page="Filtros e Mangueiras">Filtros e Mangueiras</a></li>
+                <li><a href="#" data-system="Admissão e Escape" data-page="Turbina">Turbina</a></li>
+            </ul>
+        </div>
+
+        <!-- 6. Sistema de Direção -->
+        <div class="menu-item">
+            <button class="menu-btn">Sistema de Direção <span class="arrow">▼</span></button>
+            <ul class="submenu">
+                <li><a href="#" data-system="Sistema de Direção" data-page="Bomba de Direção">Bomba de Direção</a></li>
+                <li><a href="#" data-system="Sistema de Direção" data-page="Caixa de direção">Caixa de direção</a></li>
+                <li><a href="#" data-system="Sistema de Direção" data-page="Oleo de direção">Oleo de direção</a></li>
+            </ul>
+        </div>
+
+        <!-- 7. Sistemas de Freios -->
+        <div class="menu-item">
+            <button class="menu-btn">Sistemas de Freios <span class="arrow">▼</span></button>
+            <ul class="submenu">
+                <li><a href="#" data-system="Sistemas de Freios" data-page="Bomba de Vácuo">Bomba de Vácuo</a></li>
+                <li><a href="#" data-system="Sistemas de Freios" data-page="Freios Traseiros / Mão">Freios Traseiros / Mão</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Área de Conteúdo -->
+    <main id="content">
+        <div class="card">
+            <span class="system-badge" id="system-badge">Sistema</span>
+            <h1 id="page-title">Selecione uma opção</h1>
+            <p id="page-content">Escolha um item do menu lateral para visualizar os detalhes técnicos.</p>
+        </div>
     </main>
+
+    <!-- JavaScript Vanilla -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtns = document.querySelectorAll('.menu-btn');
+            const links = document.querySelectorAll('.submenu a');
+            const sidebar = document.getElementById('sidebar');
+            const mobileToggle = document.getElementById('mobile-toggle');
+
+            // Toggle dos submenus (Accordion)
+            menuBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const submenu = btn.nextElementSibling;
+                    const isOpen = btn.classList.contains('active');
+
+                    // Fecha todos os outros submenus
+                    document.querySelectorAll('.menu-btn').forEach(b => {
+                        b.classList.remove('active');
+                        b.nextElementSibling.style.maxHeight = null;
+                    });
+
+                    // Abre o submenu clicado se não estava aberto
+                    if (!isOpen) {
+                        btn.classList.add('active');
+                        submenu.style.maxHeight = submenu.scrollHeight + "px";
+                    }
+                });
+            });
+
+            // Clique nos links do Submenu
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    // Destaca o link selecionado
+                    links.forEach(l => l.classList.remove('active-link'));
+                    link.classList.add('active-link');
+
+                    // Atualiza o conteúdo da tela dinamicamente
+                    const systemName = link.getAttribute('data-system');
+                    const pageName = link.getAttribute('data-page');
+
+                    document.getElementById('system-badge').innerText = systemName;
+                    document.getElementById('page-title').innerText = pageName;
+                    document.getElementById('page-content').innerText = `Aqui vão as instruções, diagramas e dados técnicos referentes a: ${pageName} (${systemName}).`;
+
+                    // Fecha o menu no celular ao clicar em um item
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.remove('open');
+                    }
+                });
+            });
+
+            // Toggle Menu Mobile
+            mobileToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+        });
+    </script>
 </body>
 </html>
