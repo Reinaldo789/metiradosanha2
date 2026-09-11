@@ -7,12 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const pageCard = document.getElementById('page-card');
 
     function toggleMenu() {
-        sidebar.classList.toggle('open');
-        overlay.classList.toggle('active');
+        if (sidebar) sidebar.classList.toggle('open');
+        if (overlay) overlay.classList.toggle('active');
     }
 
-    // 1. ABRIR E FECHAR A GAVETA LATERAL
-    if (menuToggle && sidebar) {
+    // 1. ABRIR E FECHAR A GAVETA NO MOBILE
+    if (menuToggle) {
         menuToggle.addEventListener('click', (e) => {
             e.stopPropagation();
             toggleMenu();
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         overlay.addEventListener('click', toggleMenu);
     }
 
-    // 2. EXIBIR SUBMENU DENTRO DA CAIXA COM TEXTO DESTACADO
+    // 2. EXIBIR SUBMENU NO CLIQUE
     parentLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -35,11 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (submenu) {
                 const jaAberto = submenu.classList.contains('open-submenu');
 
-                // Reseta todos os submenus e cores
                 document.querySelectorAll('.submenu').forEach(sub => sub.classList.remove('open-submenu'));
                 document.querySelectorAll('.has-submenu').forEach(item => item.classList.remove('active'));
 
-                // Abre o submenu atual
                 if (!jaAberto) {
                     submenu.classList.add('open-submenu');
                     parentLi.classList.add('active');
@@ -48,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 3. CARREGAR PÁGINAS E FECHAR O MENU
+    // 3. CARREGAR PÁGINAS E FECHAR MENU MOBILE
     subLinks.forEach(link => {
         link.addEventListener('click', async (e) => {
             e.preventDefault();
@@ -73,9 +71,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // Fecha a gaveta
-            sidebar.classList.remove('open');
-            overlay.classList.remove('active');
+            // Fecha apenas se estiver em telas mobile
+            if (window.innerWidth <= 768 && sidebar && overlay) {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+            }
         });
     });
 });
