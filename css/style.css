@@ -33,21 +33,22 @@ body {
     min-height: 100vh;
 }
 
-/* Esconde elementos do submenu por padrão */
+/* REGRA DE OURO: Oculta TODOS os submenus por padrão em qualquer tela */
+ul.dropdown-menu,
 .dropdown-menu {
-    display: none;
+    display: none !important;
 }
 
 /* ==========================================================================
-   2. REGRAS PARA COMPUTADOR (DESKTOP: Telas maiores que 768px)
+   2. REGRAS PARA DESKTOP (Telas maiores que 768px)
    ========================================================================== */
 @media (min-width: 769px) {
-    /* Oculta totalmente o topo e botão mobile */
+    /* Esconde cabeçalho mobile */
     .mobile-header {
         display: none !important;
     }
 
-    /* Cabeçalho Fixo do Desktop */
+    /* Topo fixo */
     .main_header {
         position: sticky;
         top: 0;
@@ -72,7 +73,16 @@ body {
         color: var(--color-text-main);
     }
 
-    /* Força alinhamento dos menus em linha horizontal */
+    /* Menu horizontal superior */
+    #sidebar {
+        position: static !important;
+        width: auto !important;
+        height: auto !important;
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+    }
+
     #sidebar ul {
         display: flex !important;
         flex-direction: row !important;
@@ -94,7 +104,7 @@ body {
         color: var(--color-accent);
     }
 
-    /* Submenu Flutuante no Desktop */
+    /* Submenu no Desktop: Exibe APENAS com passar de mouse (hover) */
     li[data-dropdown] {
         position: relative;
     }
@@ -104,7 +114,7 @@ body {
     }
 
     .dropdown-menu {
-        position: absolute;
+        position: absolute !important;
         top: 100%;
         left: 0;
         min-width: 200px;
@@ -115,23 +125,13 @@ body {
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
         z-index: 1000;
     }
-
-    /* Remove estilos da gaveta mobile no Desktop */
-    #sidebar {
-        position: static !important;
-        width: auto !important;
-        height: auto !important;
-        background: transparent !important;
-        border: none !important;
-        padding: 0 !important;
-    }
 }
 
 /* ==========================================================================
-   3. REGRAS PARA SMARTPHONE (MOBILE: Telas até 768px)
+   3. REGRAS PARA MOBILE (Telas até 768px)
    ========================================================================== */
 @media (max-width: 768px) {
-    /* Exibe topo fixo com botão ☰ no mobile */
+    /* Topo com botão Hambúrguer */
     .mobile-header {
         display: flex !important;
         position: fixed;
@@ -156,7 +156,7 @@ body {
         cursor: pointer;
     }
 
-    /* Gaveta Lateral Oculta */
+    /* Gaveta Lateral Oculta por padrão */
     #sidebar {
         position: fixed;
         top: 60px;
@@ -182,7 +182,7 @@ body {
         list-style: none;
     }
 
-    /* Submenu Sanfona (Empurra os itens para baixo no mobile) */
+    /* Submenu no Mobile: Exibe APENAS com a classe .show via clique */
     .dropdown-menu {
         position: static !important;
         width: 100%;
@@ -204,7 +204,7 @@ body {
 }
 
 /* ==========================================================================
-   4. ESTILOS DOS LINKS E CARDS
+   4. ESTILOS DOS LINKS E CARDS DE CONTEÚDO
    ========================================================================== */
 .dropdown-menu li {
     list-style: none;
