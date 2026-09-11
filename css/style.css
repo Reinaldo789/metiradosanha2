@@ -1,44 +1,132 @@
-/* ==========================================================================
-   CORREÇÃO DO SUBMENU (FLUXO RELATIVO NA LATERAL)
-   ========================================================================== */
+:root {
+    --color-bg-primary: #0b0f19;
+    --color-bg-secondary: #111827;
+    --color-bg-card: #1f2937;
+    --color-accent: #FE4A22;
+    --color-text-main: #f9fafb;
+    --color-text-muted: #9ca3af;
+    --color-border: #1f2937;
+    --color-border-bright: #374151;
+    --font-sans: 'Segoe UI', system-ui, sans-serif;
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --transition-fast: 0.2s ease;
+}
 
-/* Remove o posicionamento absoluto e faz o menu empurrar os itens de baixo */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-main);
+    min-height: 100vh;
+}
+
+/* Header Fixo */
+.main_header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--color-bg-primary);
+    border-bottom: 1px solid var(--color-border);
+    padding: 1rem 2rem;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toggle-btn {
+    background: var(--color-bg-card);
+    color: var(--color-text-main);
+    border: 1px solid var(--color-border-bright);
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-weight: 600;
+    transition: background var(--transition-fast);
+}
+
+.toggle-btn:hover {
+    background: var(--color-border-bright);
+}
+
+/* Sidebar Estilo Gaveta */
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: -320px;
+    width: 290px;
+    height: 100vh;
+    background-color: var(--color-bg-secondary);
+    border-right: 1px solid var(--color-border);
+    transition: left 0.3s ease-in-out;
+    z-index: 2000;
+    overflow-y: auto;
+    padding: 2rem 1.25rem;
+    box-shadow: 5px 0 25px rgba(0, 0, 0, 0.5);
+}
+
+#sidebar.open {
+    left: 0 !important;
+}
+
+#sidebar ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+#sidebar a.link {
+    color: var(--color-text-main);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: block;
+    padding: 0.4rem 0;
+    transition: color var(--transition-fast);
+}
+
+#sidebar a.link:hover {
+    color: var(--color-accent);
+}
+
+/* Submenu em fluxo relativo (Empurra os itens de baixo) */
 .dropdown-menu {
     display: none;
-    position: static; /* Não flutua mais por cima do texto */
-    background-color: var(--color-bg-secondary);
+    position: static;
+    background-color: var(--color-bg-primary);
     border: 1px solid var(--color-border-bright);
     border-radius: var(--radius-sm);
     padding: 0.5rem 0;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
-    box-shadow: none;
     width: 100%;
 }
 
-/* Exibe o submenu quando passar o mouse no Desktop */
-@media (min-width: 769px) {
-    li[data-dropdown]:hover .dropdown-menu {
-        display: block;
-    }
-}
-
-/* Exibe o submenu via classe .show no Mobile */
 .dropdown-menu.show {
     display: block !important;
 }
 
-/* Ajuste dos links dentro do submenu */
 .dropdown-menu li {
     list-style: none;
 }
 
 .dropdown-menu a {
     display: block;
-    padding: 0.5rem 1rem 0.5rem 1.5rem;
+    padding: 0.53rem 1rem 0.53rem 1.25rem;
     color: var(--color-text-muted);
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     transition: background var(--transition-fast), color var(--transition-fast);
 }
 
@@ -46,4 +134,18 @@
 .dropdown-menu a.active-link {
     background-color: var(--color-bg-card);
     color: var(--color-accent);
+}
+
+/* Conteúdo */
+.portfolio {
+    padding: 3rem 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.portfolio_article {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 2.5rem;
 }
