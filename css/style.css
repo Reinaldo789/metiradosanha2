@@ -51,65 +51,11 @@ body {
    2. REGRAS EXCLUSIVAS PARA DESKTOP (Telas maiores que 768px)
    ========================================================================== */
 @media (min-width: 769px) {
-    /* Oculta o header do celular e o botão ☰ */
-    .mobile-header {
-        display: none !important;
-    }
-
-    /* Cabeçalho Fixo Superior */
-    .main_header {
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        background-color: rgba(11, 15, 25, 0.95);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid var(--color-border);
-        padding: 1rem 2rem;
-    }
-
-    .main_header > div {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .main_header_logo h1 {
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: var(--color-text-main);
-    }
-
-    /* Navegação em linha */
-    #sidebar ul {
-        display: flex;
-        list-style: none;
-        gap: 1.5rem;
-        align-items: center;
-    }
-
-    nav a.link {
-        color: var(--color-text-muted);
-        text-decoration: none;
-        font-weight: 500;
-        font-size: 0.95rem;
-        transition: color var(--transition-fast);
-        padding: 0.5rem 0;
-    }
-
-    nav a.link:hover,
-    nav a.link.active {
-        color: var(--color-accent);
-    }
-
-    /* Submenu Flutuante no Desktop */
     li[data-dropdown] {
         position: relative;
     }
 
     .dropdown-menu {
-        display: none;
         position: absolute;
         top: 100%;
         left: 0;
@@ -122,76 +68,15 @@ body {
         z-index: 1000;
     }
 
-    li[data-dropdown]:hover .dropdown-menu {
-        display: block;
+    /* Força exibição APENAS no hover no Desktop */
+    li[data-dropdown]:hover > .dropdown-menu {
+        display: block !important;
     }
 }
 
-/* ==========================================================================
-   3. REGRAS EXCLUSIVAS PARA MOBILE (Telas até 768px)
-   ========================================================================== */
+/* MOBILE (Telas até 768px): Abre apenas com a classe .show via clique */
 @media (max-width: 768px) {
-    /* Topo Fixo com Botão ☰ */
-    .mobile-header {
-        display: flex !important;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 60px;
-        background-color: var(--color-bg-secondary);
-        border-bottom: 1px solid var(--color-border);
-        padding: 0 1.5rem;
-        justify-content: space-between;
-        align-items: center;
-        z-index: 1100;
-    }
-
-    .mobile-header h2 {
-        font-size: 1.1rem;
-        color: var(--color-text-main);
-    }
-
-    .toggle-btn {
-        background: var(--color-bg-card);
-        color: var(--color-text-main);
-        border: 1px solid var(--color-border-bright);
-        padding: 6px 12px;
-        border-radius: var(--radius-sm);
-        cursor: pointer;
-        font-weight: 600;
-    }
-
-    /* Gaveta Lateral Oculta por Padrão */
-    #sidebar {
-        position: fixed;
-        top: 60px;
-        left: -100%; /* Escondido à esquerda */
-        width: 280px;
-        height: calc(100vh - 60px);
-        background-color: var(--color-bg-primary);
-        border-right: 1px solid var(--color-border);
-        transition: left 0.3s ease;
-        z-index: 1050;
-        overflow-y: auto;
-        padding: 1.5rem;
-    }
-
-    /* Abre a gaveta ao clicar no botão */
-    #sidebar.open {
-        left: 0;
-    }
-
-    #sidebar ul {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        list-style: none;
-    }
-
-    /* Submenu Sanfona (Empurra os itens para baixo) */
     .dropdown-menu {
-        display: none;
         position: static;
         width: 100%;
         background-color: var(--color-bg-secondary);
@@ -201,13 +86,9 @@ body {
         margin-top: 0.5rem;
     }
 
+    /* Apenas a classe .show ativa o submenu no Mobile */
     .dropdown-menu.show {
         display: block !important;
-    }
-
-    /* Espaçamento superior no conteúdo principal */
-    main.portfolio {
-        margin-top: 60px;
     }
 }
 
