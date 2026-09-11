@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <!-- Header Único -->
+    <!-- Header com Botão para Mobile -->
     <header class="main_header">
         <div class="header-container">
             <h1>Manual Técnico</h1>
@@ -16,28 +16,28 @@
         </div>
     </header>
 
-    <!-- Sidebar Única -->
+    <!-- Sidebar do Menu Vertical / Mobile -->
     <nav id="sidebar">
-        <ul>
-            <li data-dropdown>
-                <a href="#" class="link">Sistema de Lubrificação</a>
-                <ul class="dropdown-menu">
+        <ul class="menu-list">
+            <li class="has-submenu">
+                <a href="#" class="menu-link">Sistema de Lubrificação</a>
+                <ul class="submenu">
                     <li><a href="#" data-page="paginas/lubrificacao/tabela.html">Tabela de Lubrificação</a></li>
                     <li><a href="#" data-page="paginas/lubrificacao/luz-pressao.html">Luz e Pressão</a></li>
                 </ul>
             </li>
 
-            <li data-dropdown>
-                <a href="#" class="link">Sistema Elétrico</a>
-                <ul class="dropdown-menu">
-                    <li><a href="#" data-page="paginas/eletrico/fusiveis-lampadas.html">Fusíveis e Lampadas</a></li>
-                    <li><a href="#" data-page="paginas/eletrico/farol-seta.html">Farol e seta</a></li>
+            <li class="has-submenu">
+                <a href="#" class="menu-link">Sistema Elétrico</a>
+                <ul class="submenu">
+                    <li><a href="#" data-page="paginas/eletrico/fusiveis-lampadas.html">Fusíveis e Lâmpadas</a></li>
+                    <li><a href="#" data-page="paginas/eletrico/farol-seta.html">Farol e Seta</a></li>
                 </ul>
             </li>
 
-            <li data-dropdown>
-                <a href="#" class="link">Linha Combustível</a>
-                <ul class="dropdown-menu">
+            <li class="has-submenu">
+                <a href="#" class="menu-link">Linha Combustível</a>
+                <ul class="submenu">
                     <li><a href="#" data-page="paginas/combustivel/tanque-filtro.html">Tanque, Filtro, Mang.</a></li>
                     <li><a href="#" data-page="paginas/combustivel/bomba-eletrica.html">Bomba Elétrica</a></li>
                     <li><a href="#" data-page="paginas/combustivel/bomba-engrenagem.html">Bomba Engrenagem</a></li>
@@ -47,9 +47,9 @@
                 </ul>
             </li>
 
-            <li data-dropdown>
-                <a href="#" class="link">Sensores e Atuadores</a>
-                <ul class="dropdown-menu">
+            <li class="has-submenu">
+                <a href="#" class="menu-link">Sensores e Atuadores</a>
+                <ul class="submenu">
                     <li><a href="#" data-page="paginas/sensores/mprop.html">Válvula MProp</a></li>
                     <li><a href="#" data-page="paginas/sensores/rotacao.html">Sensor Rotação</a></li>
                     <li><a href="#" data-page="paginas/sensores/fase.html">Sensor Fase</a></li>
@@ -62,26 +62,26 @@
                 </ul>
             </li>
 
-            <li data-dropdown>
-                <a href="#" class="link">Admissão e Escape</a>
-                <ul class="dropdown-menu">
+            <li class="has-submenu">
+                <a href="#" class="menu-link">Admissão e Escape</a>
+                <ul class="submenu">
                     <li><a href="#" data-page="paginas/admissao/filtros.html">Filtros e Mangueiras</a></li>
                     <li><a href="#" data-page="paginas/admissao/turbina.html">Turbina</a></li>
                 </ul>
             </li>
 
-            <li data-dropdown>
-                <a href="#" class="link">Sistema de Direção</a>
-                <ul class="dropdown-menu">
+            <li class="has-submenu">
+                <a href="#" class="menu-link">Sistema de Direção</a>
+                <ul class="submenu">
                     <li><a href="#" data-page="paginas/direcao/bomba.html">Bomba de Direção</a></li>
-                    <li><a href="#" data-page="paginas/direcao/caixa.html">Caixa de direção</a></li>
-                    <li><a href="#" data-page="paginas/direcao/oleo.html">Oleo de direção</a></li>
+                    <li><a href="#" data-page="paginas/direcao/caixa.html">Caixa de Direção</a></li>
+                    <li><a href="#" data-page="paginas/direcao/oleo.html">Óleo de Direção</a></li>
                 </ul>
             </li>
 
-            <li data-dropdown>
-                <a href="#" class="link">Sistemas de Freios</a>
-                <ul class="dropdown-menu">
+            <li class="has-submenu">
+                <a href="#" class="menu-link">Sistemas de Freios</a>
+                <ul class="submenu">
                     <li><a href="#" data-page="paginas/freios/bomba-vacuo.html">Bomba de Vácuo</a></li>
                     <li><a href="#" data-page="paginas/freios/traseiros-mao.html">Freios Traseiros / Mão</a></li>
                 </ul>
@@ -92,7 +92,7 @@
     <!-- Conteúdo Principal -->
     <main class="portfolio">
         <article class="portfolio_article" id="page-card">
-            <h2>Selecione um item no menu acima</h2>
+            <h2>Selecione um item no menu</h2>
             <p>O conteúdo técnico referente ao sistema escolhido será carregado aqui.</p>
         </article>
     </main>
