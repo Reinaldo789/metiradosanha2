@@ -2,28 +2,20 @@
    1. VARIÁVEIS GLOBAIS E RESET
    ========================================================================== */
 :root {
-    /* Cores Principais */
     --color-bg-primary: #0b0f19;
     --color-bg-secondary: #111827;
     --color-bg-card: #1f2937;
     --color-bg-card-hover: #374151;
     
-    /* Acentos e Brand */
-    --color-accent: #FE4A22; /* Laranja do tema */
+    --color-accent: #FE4A22;
     --color-accent-hover: #e03e1a;
-    --color-accent-glow: rgba(254, 74, 34, 0.3);
     
-    /* Tipografia e Textos */
     --color-text-main: #f9fafb;
     --color-text-muted: #9ca3af;
-    --color-text-dim: #6b7280;
     --color-border: #1f2937;
     --color-border-bright: #374151;
 
-    /* Fontes e Transições */
     --font-sans: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    --transition-fast: 0.2s ease;
-    --transition-normal: 0.3s ease;
     --radius-sm: 6px;
     --radius-md: 12px;
 }
@@ -34,25 +26,81 @@
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
+body {
     font-family: var(--font-sans);
     background-color: var(--color-bg-primary);
     color: var(--color-text-main);
+    min-height: 100vh;
 }
 
-body {
-    min-height: 100vh;
-    line-height: 1.6;
-    overflow-x: hidden;
+/* Esconde elementos do submenu por padrão */
+.dropdown-menu {
+    display: none;
 }
 
 /* ==========================================================================
-   2. REGRAS EXCLUSIVAS PARA DESKTOP (Telas maiores que 768px)
+   2. REGRAS PARA COMPUTADOR (DESKTOP: Telas maiores que 768px)
    ========================================================================== */
 @media (min-width: 769px) {
+    /* Oculta totalmente o topo e botão mobile */
+    .mobile-header {
+        display: none !important;
+    }
+
+    /* Cabeçalho Fixo do Desktop */
+    .main_header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background-color: rgba(11, 15, 25, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--color-border);
+        padding: 1rem 2rem;
+    }
+
+    .main_header > div {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .main_header_logo h1 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--color-text-main);
+    }
+
+    /* Força alinhamento dos menus em linha horizontal */
+    #sidebar ul {
+        display: flex !important;
+        flex-direction: row !important;
+        list-style: none;
+        gap: 1.5rem;
+        align-items: center;
+    }
+
+    nav a.link {
+        color: var(--color-text-muted);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.95rem;
+        padding: 0.5rem 0;
+        transition: color 0.2s;
+    }
+
+    nav a.link:hover {
+        color: var(--color-accent);
+    }
+
+    /* Submenu Flutuante no Desktop */
     li[data-dropdown] {
         position: relative;
+    }
+
+    li[data-dropdown]:hover > .dropdown-menu {
+        display: block !important;
     }
 
     .dropdown-menu {
@@ -68,32 +116,95 @@ body {
         z-index: 1000;
     }
 
-    /* Força exibição APENAS no hover no Desktop */
-    li[data-dropdown]:hover > .dropdown-menu {
-        display: block !important;
+    /* Remove estilos da gaveta mobile no Desktop */
+    #sidebar {
+        position: static !important;
+        width: auto !important;
+        height: auto !important;
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
     }
 }
 
-/* MOBILE (Telas até 768px): Abre apenas com a classe .show via clique */
+/* ==========================================================================
+   3. REGRAS PARA SMARTPHONE (MOBILE: Telas até 768px)
+   ========================================================================== */
 @media (max-width: 768px) {
+    /* Exibe topo fixo com botão ☰ no mobile */
+    .mobile-header {
+        display: flex !important;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        background-color: var(--color-bg-secondary);
+        border-bottom: 1px solid var(--color-border);
+        padding: 0 1.5rem;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1100;
+    }
+
+    .toggle-btn {
+        background: var(--color-bg-card);
+        color: var(--color-text-main);
+        border: 1px solid var(--color-border-bright);
+        padding: 6px 12px;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+    }
+
+    /* Gaveta Lateral Oculta */
+    #sidebar {
+        position: fixed;
+        top: 60px;
+        left: -100%;
+        width: 280px;
+        height: calc(100vh - 60px);
+        background-color: var(--color-bg-primary);
+        border-right: 1px solid var(--color-border);
+        transition: left 0.3s ease;
+        z-index: 1050;
+        overflow-y: auto;
+        padding: 1.5rem;
+    }
+
+    #sidebar.open {
+        left: 0;
+    }
+
+    #sidebar ul {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        list-style: none;
+    }
+
+    /* Submenu Sanfona (Empurra os itens para baixo no mobile) */
     .dropdown-menu {
-        position: static;
+        position: static !important;
         width: 100%;
         background-color: var(--color-bg-secondary);
         border: 1px solid var(--color-border-bright);
         border-radius: var(--radius-sm);
         padding: 0.5rem 0;
         margin-top: 0.5rem;
+        box-shadow: none !important;
     }
 
-    /* Apenas a classe .show ativa o submenu no Mobile */
     .dropdown-menu.show {
         display: block !important;
+    }
+
+    main.portfolio {
+        margin-top: 60px;
     }
 }
 
 /* ==========================================================================
-   4. ESTILOS COMUNS DOS LINKS DO SUBMENU E CARDS DE CONTEÚDO
+   4. ESTILOS DOS LINKS E CARDS
    ========================================================================== */
 .dropdown-menu li {
     list-style: none;
@@ -106,7 +217,7 @@ body {
     text-decoration: none;
     font-size: 0.88rem;
     white-space: nowrap;
-    transition: background var(--transition-fast), color var(--transition-fast);
+    transition: background 0.2s, color 0.2s;
 }
 
 .dropdown-menu a:hover,
@@ -115,7 +226,6 @@ body {
     color: var(--color-accent);
 }
 
-/* Estilização da área onde a página é carregada */
 .portfolio {
     padding: 3rem 1.5rem;
     max-width: 1200px;
@@ -127,16 +237,4 @@ body {
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     padding: 2rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.system-badge {
-    display: inline-block;
-    background-color: rgba(254, 74, 34, 0.15);
-    color: var(--color-accent);
-    padding: 4px 12px;
-    border-radius: 12px;
-    font-size: 0.85rem;
-    font-weight: bold;
-    margin-bottom: 12px;
 }
