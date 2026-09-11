@@ -50,7 +50,6 @@ body {
     color: #ffffff;
 }
 
-/* Botão Arredondado (Pill Style) */
 .toggle-btn {
     background-color: transparent;
     color: #ffffff;
@@ -59,47 +58,14 @@ body {
     border-radius: 50px;
     font-size: 0.9rem;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
 }
 
-/* Overlay Escuro ao Abrir o Menu */
-.menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.6);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease;
-    z-index: 1500;
-}
-
-.menu-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* Sidebar Fixo Deslizante */
+/* Base do Menu Lateral */
 #sidebar {
-    position: fixed;
-    top: 0;
-    left: -320px;
-    width: 300px;
-    height: 100vh;
     background-color: var(--color-bg-sidebar);
     border-right: 1px solid var(--color-border);
-    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 2000;
     overflow-y: auto;
-    padding: 5rem 1.25rem 2rem 1.25rem;
-}
-
-#sidebar.open {
-    left: 0;
+    padding: 1.5rem 1.25rem;
 }
 
 .menu-list {
@@ -109,7 +75,6 @@ body {
     gap: 1.2rem;
 }
 
-/* Links do Menu Pai */
 .menu-link {
     color: var(--color-text-muted);
     text-decoration: none;
@@ -124,7 +89,7 @@ body {
     color: var(--color-accent);
 }
 
-/* Caixa do Submenu (Identica à foto) */
+/* Submenu em Caixa Enquadrada */
 .submenu {
     display: none;
     list-style: none;
@@ -132,7 +97,6 @@ body {
     border-radius: 12px;
     padding: 0.75rem 0.5rem;
     margin-top: 0.75rem;
-    background-color: transparent;
 }
 
 .submenu.open-submenu {
@@ -157,13 +121,79 @@ body {
     background-color: rgba(255, 255, 255, 0.05);
 }
 
-/* Área de Conteúdo */
-.portfolio {
-    margin-top: 65px;
-    padding: 2rem 1.25rem;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
+/* ==========================================================================
+   DESKTOP (Tela com menu sempre fixo à esquerda)
+   ========================================================================== */
+@media (min-width: 769px) {
+    .toggle-btn {
+        display: none; /* Esconde o botão no desktop */
+    }
+
+    .menu-overlay {
+        display: none;
+    }
+
+    #sidebar {
+        position: fixed;
+        top: 65px;
+        left: 0;
+        width: 300px;
+        height: calc(100vh - 65px);
+        z-index: 100;
+    }
+
+    .portfolio {
+        margin-left: 300px;
+        margin-top: 65px;
+        padding: 2rem 2.5rem;
+    }
+}
+
+/* ==========================================================================
+   MOBILE (Tela pequena com gaveta deslizante)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .toggle-btn {
+        display: block;
+    }
+
+    .menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+        z-index: 1500;
+    }
+
+    .menu-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    #sidebar {
+        position: fixed;
+        top: 0;
+        left: -320px;
+        width: 300px;
+        height: 100vh;
+        transition: left 0.3s ease;
+        z-index: 2000;
+        padding-top: 5rem;
+    }
+
+    #sidebar.open {
+        left: 0;
+    }
+
+    .portfolio {
+        margin-top: 65px;
+        padding: 1.5rem 1rem;
+    }
 }
 
 .portfolio_article {
