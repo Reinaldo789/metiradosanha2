@@ -8,19 +8,22 @@
 </head>
 <body>
 
-    <!-- Header com Botão para Mobile -->
+    <!-- Overlay de fundo escuro quando o menu abre -->
+    <div class="menu-overlay" id="menu-overlay"></div>
+
+    <!-- Topo Fixo -->
     <header class="main_header">
         <div class="header-container">
-            <h1>Manual Técnico</h1>
+            <h1 class="header-title">Manual Técnico</h1>
             <button class="toggle-btn" id="menu-toggle">≡ Menu</button>
         </div>
     </header>
 
-    <!-- Sidebar do Menu Vertical / Mobile -->
+    <!-- Gaveta Lateral -->
     <nav id="sidebar">
         <ul class="menu-list">
             <li class="has-submenu">
-                <a href="#" class="menu-link">Sistema de Lubrificação</a>
+                <a href="#" class="menu-link">Lubrificação</a>
                 <ul class="submenu">
                     <li><a href="#" data-page="paginas/lubrificacao/tabela.html">Tabela de Lubrificação</a></li>
                     <li><a href="#" data-page="paginas/lubrificacao/luz-pressao.html">Luz e Pressão</a></li>
@@ -28,7 +31,7 @@
             </li>
 
             <li class="has-submenu">
-                <a href="#" class="menu-link">Sistema Elétrico</a>
+                <a href="#" class="menu-link">Elétrico</a>
                 <ul class="submenu">
                     <li><a href="#" data-page="paginas/eletrico/fusiveis-lampadas.html">Fusíveis e Lâmpadas</a></li>
                     <li><a href="#" data-page="paginas/eletrico/farol-seta.html">Farol e Seta</a></li>
@@ -36,7 +39,7 @@
             </li>
 
             <li class="has-submenu">
-                <a href="#" class="menu-link">Linha Combustível</a>
+                <a href="#" class="menu-link">Combustível</a>
                 <ul class="submenu">
                     <li><a href="#" data-page="paginas/combustivel/tanque-filtro.html">Tanque, Filtro, Mang.</a></li>
                     <li><a href="#" data-page="paginas/combustivel/bomba-eletrica.html">Bomba Elétrica</a></li>
@@ -48,7 +51,7 @@
             </li>
 
             <li class="has-submenu">
-                <a href="#" class="menu-link">Sensores e Atuadores</a>
+                <a href="#" class="menu-link">Sensores</a>
                 <ul class="submenu">
                     <li><a href="#" data-page="paginas/sensores/mprop.html">Válvula MProp</a></li>
                     <li><a href="#" data-page="paginas/sensores/rotacao.html">Sensor Rotação</a></li>
@@ -63,7 +66,7 @@
             </li>
 
             <li class="has-submenu">
-                <a href="#" class="menu-link">Admissão e Escape</a>
+                <a href="#" class="menu-link">Admissão/Escape</a>
                 <ul class="submenu">
                     <li><a href="#" data-page="paginas/admissao/filtros.html">Filtros e Mangueiras</a></li>
                     <li><a href="#" data-page="paginas/admissao/turbina.html">Turbina</a></li>
@@ -71,7 +74,7 @@
             </li>
 
             <li class="has-submenu">
-                <a href="#" class="menu-link">Sistema de Direção</a>
+                <a href="#" class="menu-link">Direção</a>
                 <ul class="submenu">
                     <li><a href="#" data-page="paginas/direcao/bomba.html">Bomba de Direção</a></li>
                     <li><a href="#" data-page="paginas/direcao/caixa.html">Caixa de Direção</a></li>
@@ -80,7 +83,7 @@
             </li>
 
             <li class="has-submenu">
-                <a href="#" class="menu-link">Sistemas de Freios</a>
+                <a href="#" class="menu-link">Freios</a>
                 <ul class="submenu">
                     <li><a href="#" data-page="paginas/freios/bomba-vacuo.html">Bomba de Vácuo</a></li>
                     <li><a href="#" data-page="paginas/freios/traseiros-mao.html">Freios Traseiros / Mão</a></li>
