@@ -1,90 +1,75 @@
-/**
- * Gerenciamento de Menu e Carregamento Dinâmico
- * Desenvolvido para o Manual Técnico
- */
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Seleção de elementos da DOM
-    const links = document.querySelectorAll('.dropdown-menu a');
-    const pageCard = document.getElementById('page-card');
     const mobileToggle = document.getElementById('mobile-toggle');
     const sidebar = document.getElementById('sidebar');
+    const dropdownItems = document.querySelectorAll('li[data-dropdown]');
+    const pageCard = document.getElementById('page-card');
+    const links = document.querySelectorAll('.dropdown-menu a');
 
-    /**
-     * Carrega o conteúdo HTML do arquivo solicitado via Fetch API
-     * @param {string} url - Caminho para o arquivo HTML
-     */
-    const loadPage = async (url) => {
-        if (!pageCard) return;
+    // 1. ABRIR E FECHAR O MENU MOBILE NO BOTAO ☰
+    if (mobileToggle && sidebar) {
+        mobileToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebar.classList.toggle('open');
+        });
+    }
 
-        // Feedback visual de carregamento
-        pageCard.innerHTML = `
-            <div style="text-align: center; padding: 2rem;">
-                <p style="color: var(--color-text-muted);">Carregando informações técnicas...</p>
-            </div>
-        `;
+    // 2. COMPORTAMENTO DOS SUBMENUS NO MOBILE (CLIQUE/TOQUE)
+    dropdownItems.forEach(item => {
+        const linkPai = item.querySelector('.link');
+        const submenu = item.querySelector('.dropdown-menu');
 
-        try {
-            const response = await fetch(url);
-            
-            if (!response.ok) {
-                throw new Error(`Erro ao carregar a página (${response.status})`);
-            }
+        if (linkPai && submenu) {
+            linkPai.addEventListener('click', (e) => {
+                // Apenas se estiver em tela mobile
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    
+                    // Fecha outros submenus que possam estar abertos
+                    document.querySelectorAll('.dropdown-menu').forEach(sub => {
+                        if (sub !== submenu) sub.classList.remove('show');
+                    });
 
-            const html = await response.text();
-            pageCard.innerHTML = html;
-
-        } catch (error) {
-            pageCard.innerHTML = `
-                <div style="padding: 1rem;">
-                    <h2 style="color: var(--color-accent); margin-bottom: 0.5rem;">Falha no Carregamento</h2>
-                    <p style="color: var(--color-text-muted);">${error.message}. Verifique se o caminho do arquivo está correto.</p>
-                </div>
-            `;
+                    // Alterna visibilidade do submenu atual
+                    submenu.classList.toggle('show');
+                }
+            });
         }
-    };
+    });
 
-    /**
-     * Event Listener para os links do menu
-     */
+    // 3. CARREGAMENTO DAS PÁGINAS E FECHAMENTO DO MENU AO SELECIONAR
     links.forEach(link => {
-        link.addEventListener('click', (event) => {
-            event.preventDefault();
+        link.addEventListener('click', async (e) => {
+            e.preventDefault();
 
-            // Remove a classe ativa de todos e adiciona no clicado
-            links.forEach(l => l.classList.remove('active-link'));
-            link.classList.add('active-link');
-
-            // Obtém o caminho do arquivo definido no data-page
             const pageUrl = link.getAttribute('data-page');
+            if (!pageUrl) return;
 
-            if (pageUrl) {
-                loadPage(pageUrl);
+            if (pageCard) {
+                pageCard.innerHTML = '<p style="color: var(--color-text-muted);">Carregando...</p>';
+
+                try {
+                    const response = await fetch(pageUrl);
+                    if (!response.ok) throw new Error(`Erro (${response.status})`);
+                    const html = await response.text();
+                    pageCard.innerHTML = html;
+                } catch (err) {
+                    pageCard.innerHTML = `<h3 style="color: var(--color-accent);">Erro</h3><p>${err.message}</p>`;
+                }
             }
 
-            // Fecha o menu no modo mobile ao clicar em um item
-            if (sidebar && sidebar.classList.contains('open')) {
+            // Fecha a barra lateral no mobile após selecionar um item
+            if (sidebar && window.innerWidth <= 768) {
                 sidebar.classList.remove('open');
             }
         });
     });
 
-    /**
-     * Controle de Abertura/Fechamento do Menu Mobile
-     */
-    if (mobileToggle && sidebar) {
-        mobileToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('open');
-        });
-
-        // Fecha o menu se o usuário clicar fora dele
-        document.addEventListener('click', (event) => {
-            const isClickInsideMenu = sidebar.contains(event.target);
-            const isClickOnToggle = mobileToggle.contains(event.target);
-
-            if (!isClickInsideMenu && !isClickOnToggle && sidebar.classList.contains('open')) {
+    // 4. FECHAR MENU AO CLICAR FORA DELE
+    document.addEventListener('click', (e) => {
+        if (sidebar && window.innerWidth <= 768) {
+            if (!sidebar.contains(e.target) && !mobileToggle.contains(e.target)) {
                 sidebar.classList.remove('open');
             }
-        });
-    }
+        }
+    });
 });
