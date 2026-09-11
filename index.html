@@ -6,14 +6,14 @@
     <title>Manual Técnico - Veicular</title>
 
     <!-- Importação do arquivo CSS externo -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Topo Fixo do Mobile -->
+    <!-- Header Mobile (Aparece apenas em telas menores) -->
     <div class="mobile-header">
         <h2>Manual Técnico</h2>
-        <button class="toggle-btn" id="mobile-toggle" aria-label="Abrir Menu">≡ Menu</button>
+        <button class="toggle-btn" id="mobile-toggle" aria-label="Abrir Menu">☰ Menu</button>
     </div>
 
     <!-- Cabeçalho Principal e Menu Lateral -->
@@ -24,8 +24,7 @@
                     <h1>Manual Técnico</h1>
                 </a>
             </div>
-
-            <!-- Menu/Sidebar unificado -->
+            
             <nav id="sidebar">
                 <ul>
                     <!-- 1. Sistema de Lubrificação -->
@@ -119,7 +118,7 @@
         </div>
     </main>
 
-    <!-- JavaScript Interno -->
+    <!-- JavaScript para Carregamento Dinâmico -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const links = document.querySelectorAll('.dropdown-menu a');
@@ -127,7 +126,7 @@
             const mobileToggle = document.getElementById('mobile-toggle');
             const sidebar = document.getElementById('sidebar');
 
-            // Carregamento de Páginas via Fetch
+            // Função para carregar página via Fetch
             links.forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -136,7 +135,7 @@
 
                     if (!pageUrl) return;
 
-                    pageCard.innerHTML = '<p style="color: var(--color-text-muted, #888);">Carregando informações...</p>';
+                    pageCard.innerHTML = '<p style="color: var(--color-text-muted);">Carregando informações...</p>';
 
                     fetch(pageUrl)
                         .then(response => {
@@ -147,18 +146,16 @@
                             pageCard.innerHTML = html;
                         })
                         .catch(err => {
-                            pageCard.innerHTML = `<h2 style="color: var(--color-accent, #ff0000);">Erro ao carregar</h2><p>${err.message}</p>`;
+                            pageCard.innerHTML = `<h2 style="color: var(--color-accent);">Erro ao carregar</h2><p>${err.message}</p>`;
                         });
 
-                    // Fecha o menu lateral no mobile após clicar
-                    if (sidebar) {
-                        sidebar.classList.remove('open');
-                    }
+                    // Fecha menu no mobile se aberto
+                    sidebar.classList.remove('open');
                 });
             });
 
             // Toggle do Menu Mobile
-            if (mobileToggle && sidebar) {
+            if (mobileToggle) {
                 mobileToggle.addEventListener('click', () => {
                     sidebar.classList.toggle('open');
                 });
