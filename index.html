@@ -19,12 +19,36 @@
     <!-- Sidebar Única -->
     <nav id="sidebar">
         <ul>
-            <li><a href="#" class="link" data-page="paginas/lubrificacao.html">Lubrificação</a></li>
-            <li><a href="#" class="link" data-page="paginas/eletrico.html">Elétrico</a></li>
-            <li><a href="#" class="link" data-page="paginas/combustivel.html">Combustível</a></li>
-            
             <li data-dropdown>
-                <a href="#" class="link">Sensores</a>
+                <a href="#" class="link">Sistema de Lubrificação</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" data-page="paginas/lubrificacao/tabela.html">Tabela de Lubrificação</a></li>
+                    <li><a href="#" data-page="paginas/lubrificacao/luz-pressao.html">Luz e Pressão</a></li>
+                </ul>
+            </li>
+
+            <li data-dropdown>
+                <a href="#" class="link">Sistema Elétrico</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" data-page="paginas/eletrico/fusiveis-lampadas.html">Fusíveis e Lampadas</a></li>
+                    <li><a href="#" data-page="paginas/eletrico/farol-seta.html">Farol e seta</a></li>
+                </ul>
+            </li>
+
+            <li data-dropdown>
+                <a href="#" class="link">Linha Combustível</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" data-page="paginas/combustivel/tanque-filtro.html">Tanque, Filtro, Mang.</a></li>
+                    <li><a href="#" data-page="paginas/combustivel/bomba-eletrica.html">Bomba Elétrica</a></li>
+                    <li><a href="#" data-page="paginas/combustivel/bomba-engrenagem.html">Bomba Engrenagem</a></li>
+                    <li><a href="#" data-page="paginas/combustivel/valvula-kuv.html">Válvula KUV</a></li>
+                    <li><a href="#" data-page="paginas/combustivel/bomba-alta.html">Bomba Alta Pressão</a></li>
+                    <li><a href="#" data-page="paginas/combustivel/tubo-rail.html">Tubo Rail</a></li>
+                </ul>
+            </li>
+
+            <li data-dropdown>
+                <a href="#" class="link">Sensores e Atuadores</a>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-page="paginas/sensores/mprop.html">Válvula MProp</a></li>
                     <li><a href="#" data-page="paginas/sensores/rotacao.html">Sensor Rotação</a></li>
@@ -39,7 +63,7 @@
             </li>
 
             <li data-dropdown>
-                <a href="#" class="link">Admissão/Escape</a>
+                <a href="#" class="link">Admissão e Escape</a>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-page="paginas/admissao/filtros.html">Filtros e Mangueiras</a></li>
                     <li><a href="#" data-page="paginas/admissao/turbina.html">Turbina</a></li>
@@ -47,15 +71,21 @@
             </li>
 
             <li data-dropdown>
-                <a href="#" class="link">Direção</a>
+                <a href="#" class="link">Sistema de Direção</a>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-page="paginas/direcao/bomba.html">Bomba de Direção</a></li>
-                    <li><a href="#" data-page="paginas/direcao/caixa.html">Caixa de Direção</a></li>
-                    <li><a href="#" data-page="paginas/direcao/oleo.html">Óleo de Direção</a></li>
+                    <li><a href="#" data-page="paginas/direcao/caixa.html">Caixa de direção</a></li>
+                    <li><a href="#" data-page="paginas/direcao/oleo.html">Oleo de direção</a></li>
                 </ul>
             </li>
 
-            <li><a href="#" class="link" data-page="paginas/freios.html">Freios</a></li>
+            <li data-dropdown>
+                <a href="#" class="link">Sistemas de Freios</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" data-page="paginas/freios/bomba-vacuo.html">Bomba de Vácuo</a></li>
+                    <li><a href="#" data-page="paginas/freios/traseiros-mao.html">Freios Traseiros / Mão</a></li>
+                </ul>
+            </li>
         </ul>
     </nav>
 
