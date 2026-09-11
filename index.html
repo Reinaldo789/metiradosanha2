@@ -4,70 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manual Técnico</title>
-    <!-- Importação do CSS apontando para a pasta css/ -->
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <!-- Topo Fixo do Mobile -->
-    <div class="mobile-header">
-        <h2>Manual Técnico</h2>
-        <button class="toggle-btn" id="mobile-toggle">≡ Menu</button>
-    </div>
-
-    <!-- Cabeçalho Principal (Desktop) / Gaveta (Mobile) -->
+    <!-- Header Único -->
     <header class="main_header">
         <div class="header-container">
-            <div class="main_header_logo">
-                <h1>Manual Técnico</h1>
-                <button class="toggle-btn" id="mobile-toggle">≡ Menu</button>
-            </div>
-            
-            <nav id="sidebar">
-                <ul>
-                    <li><a href="#" class="link" data-page="paginas/lubrificacao.html">Lubrificação</a></li>
-                    <li><a href="#" class="link" data-page="paginas/eletrico.html">Elétrico</a></li>
-                    <li><a href="#" class="link" data-page="paginas/combustivel.html">Combustível</a></li>
-                    
-                    <li data-dropdown>
-                        <a href="#" class="link">Sensores</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" data-page="paginas/sensores/mprop.html">Válvula MProp</a></li>
-                            <li><a href="#" data-page="paginas/sensores/rotacao.html">Sensor Rotação</a></li>
-                            <li><a href="#" data-page="paginas/sensores/fase.html">Sensor Fase</a></li>
-                            <li><a href="#" data-page="paginas/sensores/pres-adm.html">Sensor Pres. Adm</a></li>
-                            <li><a href="#" data-page="paginas/sensores/pedal.html">Pedal Acelerador</a></li>
-                            <li><a href="#" data-page="paginas/sensores/temp-ecm.html">Sensor Temp. ECM</a></li>
-                            <li><a href="#" data-page="paginas/sensores/modulador.html">Modulador Turbina</a></li>
-                            <li><a href="#" data-page="paginas/sensores/pres-rail.html">Sensor Pres. Rail</a></li>
-                            <li><a href="#" data-page="paginas/sensores/bicos.html">Bicos Injetores</a></li>
-                        </ul>
-                    </li>
-
-                    <li data-dropdown>
-                        <a href="#" class="link">Admissão/Escape</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" data-page="paginas/admissao/filtros.html">Filtros e Mangueiras</a></li>
-                            <li><a href="#" data-page="paginas/admissao/turbina.html">Turbina</a></li>
-                        </ul>
-                    </li>
-
-                    <li data-dropdown>
-                        <a href="#" class="link">Direção</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" data-page="paginas/direcao/bomba.html">Bomba de Direção</a></li>
-                            <li><a href="#" data-page="paginas/direcao/caixa.html">Caixa de Direção</a></li>
-                            <li><a href="#" data-page="paginas/direcao/oleo.html">Óleo de Direção</a></li>
-                        </ul>
-                    </li>
-
-                    <li><a href="#" class="link" data-page="paginas/freios.html">Freios</a></li>
-                </ul>
-            </nav>
+            <h1>Manual Técnico</h1>
+            <button class="toggle-btn" id="menu-toggle">≡ Menu</button>
         </div>
     </header>
 
-    <!-- Área de Conteúdo Dinâmico -->
+    <!-- Sidebar Única -->
+    <nav id="sidebar">
+        <ul>
+            <li><a href="#" class="link" data-page="paginas/lubrificacao.html">Lubrificação</a></li>
+            <li><a href="#" class="link" data-page="paginas/eletrico.html">Elétrico</a></li>
+            <li><a href="#" class="link" data-page="paginas/combustivel.html">Combustível</a></li>
+            
+            <li data-dropdown>
+                <a href="#" class="link">Sensores</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" data-page="paginas/sensores/mprop.html">Válvula MProp</a></li>
+                    <li><a href="#" data-page="paginas/sensores/rotacao.html">Sensor Rotação</a></li>
+                    <li><a href="#" data-page="paginas/sensores/fase.html">Sensor Fase</a></li>
+                    <li><a href="#" data-page="paginas/sensores/pres-adm.html">Sensor Pres. Adm</a></li>
+                    <li><a href="#" data-page="paginas/sensores/pedal.html">Pedal Acelerador</a></li>
+                    <li><a href="#" data-page="paginas/sensores/temp-ecm.html">Sensor Temp. ECM</a></li>
+                    <li><a href="#" data-page="paginas/sensores/modulador.html">Modulador Turbina</a></li>
+                    <li><a href="#" data-page="paginas/sensores/pres-rail.html">Sensor Pres. Rail</a></li>
+                    <li><a href="#" data-page="paginas/sensores/bicos.html">Bicos Injetores</a></li>
+                </ul>
+            </li>
+
+            <li data-dropdown>
+                <a href="#" class="link">Admissão/Escape</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" data-page="paginas/admissao/filtros.html">Filtros e Mangueiras</a></li>
+                    <li><a href="#" data-page="paginas/admissao/turbina.html">Turbina</a></li>
+                </ul>
+            </li>
+
+            <li data-dropdown>
+                <a href="#" class="link">Direção</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" data-page="paginas/direcao/bomba.html">Bomba de Direção</a></li>
+                    <li><a href="#" data-page="paginas/direcao/caixa.html">Caixa de Direção</a></li>
+                    <li><a href="#" data-page="paginas/direcao/oleo.html">Óleo de Direção</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#" class="link" data-page="paginas/freios.html">Freios</a></li>
+        </ul>
+    </nav>
+
+    <!-- Conteúdo Principal -->
     <main class="portfolio">
         <article class="portfolio_article" id="page-card">
             <h2>Selecione um item no menu acima</h2>
@@ -75,7 +67,6 @@
         </article>
     </main>
 
-    <!-- Importação do Javascript -->
     <script src="menu.js"></script>
 </body>
 </html>
