@@ -342,80 +342,76 @@ li[data-dropdown]:hover .dropdown-menu {
    AJUSTES DO MENU MOBILE E DESKTOP
    ========================================================================== */
 
-/* Esconde o botão e o cabeçalho mobile por padrão no Computador */
-.mobile-header {
-    display: none;
-}
+/* ==========================================================================
+   SUBMENU RESPONSIVO (FLUTUANTE NO DESKTOP, EMPURRADO NO MOBILE)
+   ========================================================================== */
 
-/* Esconde o submenu por padrão */
+/* Escondido por padrão */
 .dropdown-menu {
     display: none;
 }
 
-/* Exibe o submenu quando passar o mouse no Desktop */
+/* 1. COMPORTAMENTO NO DESKTOP (Telas maiores que 768px) */
 @media (min-width: 769px) {
+    li[data-dropdown] {
+        position: relative; /* Referência para o submenu flutuar */
+    }
+
+    .dropdown-menu {
+        position: absolute; /* Flutua sobre a página */
+        top: 100%;
+        left: 0;
+        min-width: 200px;
+        background-color: var(--color-bg-secondary);
+        border: 1px solid var(--color-border-bright);
+        border-radius: var(--radius-sm);
+        padding: 0.5rem 0;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    }
+
+    /* Exibe ao passar o mouse */
     li[data-dropdown]:hover .dropdown-menu {
         display: block;
     }
 }
 
-/* ==========================================================================
-   6. RESPONSIVIDADE (MOBILE)
-   ========================================================================== */
+/* 2. COMPORTAMENTO NO MOBILE (Telas até 768px) */
 @media (max-width: 768px) {
-    /* Exibe o botão e topo apenas no Mobile */
-    .mobile-header {
-        display: flex;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 60px;
+    .dropdown-menu {
+        position: static; /* Empurra os itens de baixo */
+        width: 100%;
         background-color: var(--color-bg-secondary);
-        border-bottom: 1px solid var(--color-border);
-        padding: 0 1.5rem;
-        justify-content: space-between;
-        align-items: center;
-        z-index: 1100;
-    }
-   /* Oculta a navegação desktop e transforma em um painel lateral retrátil */
-    #sidebar {
-        position: fixed;
-        top: 60px;
-        left: -100%; /* Escondido fora da tela */
-        width: 280px;
-        height: calc(100vh - 60px);
-        background-color: var(--color-bg-primary);
-        border-right: 1px solid var(--color-border);
-        transition: left 0.3s ease;
-        z-index: 1050;
-        overflow-y: auto;
-        padding: 1.5rem;
-    }
-
-    /* Classe ativada via JavaScript para abrir o menu */
-    #sidebar.open {
-        left: 0;
-    }
-
-    /* Ajuste da lista e submenus no Mobile */
-    nav ul {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    /* Exibe o submenu quando a classe .show for adicionada no Mobile */
-    .dropdown-menu.show {
-        display: block;
-        position: static;
-        box-shadow: none;
-        background-color: var(--color-bg-secondary);
-        margin-top: 0.5rem;
+        border: 1px solid var(--color-border-bright);
         border-radius: var(--radius-sm);
+        padding: 0.5rem 0;
+        margin-top: 0.5rem;
+        box-shadow: none;
     }
 
-    /* Empurra o conteúdo para baixo no mobile para não cobrir sob o header */
-    main.portfolio {
-        margin-top: 60px;
+    /* Exibe quando o script adiciona a classe .show no clique */
+    .dropdown-menu.show {
+        display: block !important;
     }
+}
+
+/* Estilo geral dos links do submenu (para Desktop e Mobile) */
+.dropdown-menu li {
+    list-style: none;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 0.6rem 1.2rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-size: 0.88rem;
+    white-space: nowrap; /* Impede que o texto quebre em várias linhas */
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.dropdown-menu a:hover,
+.dropdown-menu a.active-link {
+    background-color: var(--color-bg-card);
+    color: var(--color-accent);
 }
