@@ -9,7 +9,7 @@
     --color-bg-card-hover: #374151;
     
     /* Acentos e Brand */
-    --color-accent: #FE4A22; /* Laranja vibrante do site */
+    --color-accent: #FE4A22; /* Laranja do tema */
     --color-accent-hover: #e03e1a;
     --color-accent-glow: rgba(254, 74, 34, 0.3);
     
@@ -26,7 +26,6 @@
     --transition-normal: 0.3s ease;
     --radius-sm: 6px;
     --radius-md: 12px;
-    --radius-lg: 16px;
 }
 
 * {
@@ -49,316 +48,69 @@ body {
 }
 
 /* ==========================================================================
-   2. CABEÇALHO E NAVEGAÇÃO
+   2. REGRAS EXCLUSIVAS PARA DESKTOP (Telas maiores que 768px)
    ========================================================================== */
-.main_header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background-color: rgba(11, 15, 25, 0.9);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--color-border);
-    padding: 1rem 2rem;
-}
-
-.main_header > div {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.main_header_logo a {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-    color: var(--color-text-main);
-}
-
-.main_header_logo h1 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-    gap: 1.5rem;
-}
-
-nav a.link {
-    color: var(--color-text-muted);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color var(--transition-fast);
-}
-
-nav a.link:hover,
-nav a.link.active {
-    color: var(--color-accent);
-}
-
-/* Submenu / Dropdown */
-li[data-dropdown] {
-    position: relative;
-}
-
-/* ==========================================================================
-   CORREÇÃO DO SUBMENU (FLUXO RELATIVO NA LATERAL)
-   ========================================================================== */
-
-/* Remove o posicionamento absoluto e faz o menu empurrar os itens de baixo */
-.dropdown-menu {
-    display: none;
-    position: static; /* Não flutua mais por cima do texto */
-    background-color: var(--color-bg-secondary);
-    border: 1px solid var(--color-border-bright);
-    border-radius: var(--radius-sm);
-    padding: 0.5rem 0;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    box-shadow: none;
-    width: 100%;
-}
-
-li[data-dropdown]:hover .dropdown-menu {
-    display: block;
-}
-
-.dropdown-menu a {
-    display: block;
-    padding: 0.5rem 1rem;
-    color: var(--color-text-muted);
-    text-decoration: none;
-    font-size: 0.9rem;
-}
-
-.dropdown-menu a:hover {
-    background-color: var(--color-bg-card);
-    color: var(--color-accent);
-}
-
-/* ==========================================================================
-   3. HERO / FEATURED SECTION
-   ========================================================================== */
-.home_featured {
-    padding: 5rem 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: center;
-}
-
-.home_featured_content h2 {
-    font-size: 2.5rem;
-    line-height: 1.2;
-    margin-bottom: 1rem;
-    color: var(--color-text-main);
-}
-
-.home_featured_content .headline {
-    font-size: 1.1rem;
-    color: var(--color-accent);
-    font-weight: 600;
-    margin-bottom: 2rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.home_featured_content button {
-    background-color: var(--color-accent);
-    color: #fff;
-    border: none;
-    padding: 0.8rem 1.8rem;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: all var(--transition-fast);
-    box-shadow: 0 4px 15px var(--color-accent-glow);
-}
-
-.home_featured_content button:hover {
-    background-color: var(--color-accent-hover);
-    transform: translateY(-2px);
-}
-
-.home_featured_app {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-}
-
-/* ==========================================================================
-   4. PORTFÓLIO / CARDS
-   ========================================================================== */
-.portfolio {
-    padding: 4rem 2rem;
-    background-color: var(--color-bg-secondary);
-}
-
-.portfolio_header {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.portfolio_header h2 {
-    font-size: 2rem;
-    color: var(--color-text-main);
-}
-
-.portfolio_header p {
-    color: var(--color-text-muted);
-}
-
-.portfolio_articles {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
-}
-
-.portfolio_article {
-    background-color: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    transition: transform var(--transition-normal), border-color var(--transition-normal);
-}
-
-.portfolio_article:hover {
-    transform: translateY(-5px);
-    border-color: var(--color-accent);
-}
-
-.portfolio_article img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.portfolio_article header {
-    padding: 1.5rem;
-}
-
-.portfolio_article .meta {
-    font-size: 0.8rem;
-    color: var(--color-text-dim);
-    margin-bottom: 0.5rem;
-}
-
-.portfolio_article .meta a {
-    color: var(--color-accent);
-    text-decoration: none;
-}
-
-.portfolio_article h2 a {
-    color: var(--color-text-main);
-    text-decoration: none;
-    font-size: 1.2rem;
-    transition: color var(--transition-fast);
-}
-
-.portfolio_article h2 a:hover {
-    color: var(--color-accent);
-}
-
-/* ==========================================================================
-   5. SEÇÃO DE HABILIDADES (CARDS COM FLIP EFFECT)
-   ========================================================================== */
-#technologies {
-    padding: 5rem 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-#technologies h2 {
-    font-size: 2rem;
-    margin-bottom: 3rem;
-}
-
-#technologies .fadeInScroll {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
-}
-
-.card {
-    width: 140px;
-    height: 140px;
-    perspective: 1000px;
-}
-
-.card .inner {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.6s ease;
-    border-radius: var(--radius-md);
-}
-
-.card:hover .inner {
-    transform: rotateY(180deg);
-}
-
-.card .face {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    border-radius: var(--radius-md);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--color-border-bright);
-}
-
-.card .front {
-    background-color: var(--color-bg-card);
-}
-
-.card .back {
-    background-color: var(--color-accent);
-    color: #fff;
-    transform: rotateY(180deg);
-    padding: 0.5rem;
-    text-align: center;
-}
-
-.card .back h3 {
-    font-size: 0.85rem;
-}
-/* ==========================================================================
-   AJUSTES DO MENU MOBILE E DESKTOP
-   ========================================================================== */
-
-/* ==========================================================================
-   SUBMENU RESPONSIVO (FLUTUANTE NO DESKTOP, EMPURRADO NO MOBILE)
-   ========================================================================== */
-
-/* Escondido por padrão */
-.dropdown-menu {
-    display: none;
-}
-
-/* 1. COMPORTAMENTO NO DESKTOP (Telas maiores que 768px) */
 @media (min-width: 769px) {
+    /* Oculta o header do celular e o botão ☰ */
+    .mobile-header {
+        display: none !important;
+    }
+
+    /* Cabeçalho Fixo Superior */
+    .main_header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background-color: rgba(11, 15, 25, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--color-border);
+        padding: 1rem 2rem;
+    }
+
+    .main_header > div {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .main_header_logo h1 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--color-text-main);
+    }
+
+    /* Navegação em linha */
+    #sidebar ul {
+        display: flex;
+        list-style: none;
+        gap: 1.5rem;
+        align-items: center;
+    }
+
+    nav a.link {
+        color: var(--color-text-muted);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: color var(--transition-fast);
+        padding: 0.5rem 0;
+    }
+
+    nav a.link:hover,
+    nav a.link.active {
+        color: var(--color-accent);
+    }
+
+    /* Submenu Flutuante no Desktop */
     li[data-dropdown] {
-        position: relative; /* Referência para o submenu flutuar */
+        position: relative;
     }
 
     .dropdown-menu {
-        position: absolute; /* Flutua sobre a página */
+        display: none;
+        position: absolute;
         top: 100%;
         left: 0;
         min-width: 200px;
@@ -370,32 +122,98 @@ li[data-dropdown]:hover .dropdown-menu {
         z-index: 1000;
     }
 
-    /* Exibe ao passar o mouse */
     li[data-dropdown]:hover .dropdown-menu {
         display: block;
     }
 }
 
-/* 2. COMPORTAMENTO NO MOBILE (Telas até 768px) */
+/* ==========================================================================
+   3. REGRAS EXCLUSIVAS PARA MOBILE (Telas até 768px)
+   ========================================================================== */
 @media (max-width: 768px) {
+    /* Topo Fixo com Botão ☰ */
+    .mobile-header {
+        display: flex !important;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        background-color: var(--color-bg-secondary);
+        border-bottom: 1px solid var(--color-border);
+        padding: 0 1.5rem;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1100;
+    }
+
+    .mobile-header h2 {
+        font-size: 1.1rem;
+        color: var(--color-text-main);
+    }
+
+    .toggle-btn {
+        background: var(--color-bg-card);
+        color: var(--color-text-main);
+        border: 1px solid var(--color-border-bright);
+        padding: 6px 12px;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    /* Gaveta Lateral Oculta por Padrão */
+    #sidebar {
+        position: fixed;
+        top: 60px;
+        left: -100%; /* Escondido à esquerda */
+        width: 280px;
+        height: calc(100vh - 60px);
+        background-color: var(--color-bg-primary);
+        border-right: 1px solid var(--color-border);
+        transition: left 0.3s ease;
+        z-index: 1050;
+        overflow-y: auto;
+        padding: 1.5rem;
+    }
+
+    /* Abre a gaveta ao clicar no botão */
+    #sidebar.open {
+        left: 0;
+    }
+
+    #sidebar ul {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        list-style: none;
+    }
+
+    /* Submenu Sanfona (Empurra os itens para baixo) */
     .dropdown-menu {
-        position: static; /* Empurra os itens de baixo */
+        display: none;
+        position: static;
         width: 100%;
         background-color: var(--color-bg-secondary);
         border: 1px solid var(--color-border-bright);
         border-radius: var(--radius-sm);
         padding: 0.5rem 0;
         margin-top: 0.5rem;
-        box-shadow: none;
     }
 
-    /* Exibe quando o script adiciona a classe .show no clique */
     .dropdown-menu.show {
         display: block !important;
     }
+
+    /* Espaçamento superior no conteúdo principal */
+    main.portfolio {
+        margin-top: 60px;
+    }
 }
 
-/* Estilo geral dos links do submenu (para Desktop e Mobile) */
+/* ==========================================================================
+   4. ESTILOS COMUNS DOS LINKS DO SUBMENU E CARDS DE CONTEÚDO
+   ========================================================================== */
 .dropdown-menu li {
     list-style: none;
 }
@@ -406,7 +224,7 @@ li[data-dropdown]:hover .dropdown-menu {
     color: var(--color-text-muted);
     text-decoration: none;
     font-size: 0.88rem;
-    white-space: nowrap; /* Impede que o texto quebre em várias linhas */
+    white-space: nowrap;
     transition: background var(--transition-fast), color var(--transition-fast);
 }
 
@@ -414,4 +232,30 @@ li[data-dropdown]:hover .dropdown-menu {
 .dropdown-menu a.active-link {
     background-color: var(--color-bg-card);
     color: var(--color-accent);
+}
+
+/* Estilização da área onde a página é carregada */
+.portfolio {
+    padding: 3rem 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.portfolio_article {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.system-badge {
+    display: inline-block;
+    background-color: rgba(254, 74, 34, 0.15);
+    color: var(--color-accent);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-bottom: 12px;
 }
