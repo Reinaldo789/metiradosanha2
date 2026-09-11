@@ -1,19 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
     const menuToggle = document.getElementById('menu-toggle');
     const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('menu-overlay');
     const parentLinks = document.querySelectorAll('.has-submenu > .menu-link');
     const subLinks = document.querySelectorAll('.submenu a');
     const pageCard = document.getElementById('page-card');
 
-    // 1. ABRIR E FECHAR A GAVETA LATERAL NO BOTÃO MENU
+    function toggleMenu() {
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('active');
+    }
+
+    // 1. ABRIR E FECHAR A GAVETA LATERAL
     if (menuToggle && sidebar) {
         menuToggle.addEventListener('click', (e) => {
             e.stopPropagation();
-            sidebar.classList.toggle('open');
+            toggleMenu();
         });
     }
 
-    // 2. EXIBIR SUBMENU NO CLIQUE DO ITEM PAI
+    if (overlay) {
+        overlay.addEventListener('click', toggleMenu);
+    }
+
+    // 2. EXIBIR SUBMENU DENTRO DA CAIXA COM TEXTO DESTACADO
     parentLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -25,18 +35,20 @@ document.addEventListener('DOMContentLoaded', () => {
             if (submenu) {
                 const jaAberto = submenu.classList.contains('open-submenu');
 
-                // Fecha outros submenus
+                // Reseta todos os submenus e cores
                 document.querySelectorAll('.submenu').forEach(sub => sub.classList.remove('open-submenu'));
+                document.querySelectorAll('.has-submenu').forEach(item => item.classList.remove('active'));
 
-                // Abre o submenu clicado
+                // Abre o submenu atual
                 if (!jaAberto) {
                     submenu.classList.add('open-submenu');
+                    parentLi.classList.add('active');
                 }
             }
         });
     });
 
-    // 3. CARREGAR PÁGINAS E FECHAR O SIDEBAR
+    // 3. CARREGAR PÁGINAS E FECHAR O MENU
     subLinks.forEach(link => {
         link.addEventListener('click', async (e) => {
             e.preventDefault();
@@ -61,18 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            if (sidebar) {
-                sidebar.classList.remove('open');
-            }
+            // Fecha a gaveta
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
         });
-    });
-
-    // 4. CLICAR FORA DA GAVETA FECHA O MENU
-    document.addEventListener('click', (e) => {
-        if (sidebar && sidebar.classList.contains('open')) {
-            if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
-                sidebar.classList.remove('open');
-            }
-        }
     });
 });
