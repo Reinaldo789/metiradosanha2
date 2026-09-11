@@ -1,73 +1,46 @@
 /* ==========================================================================
-   SUBMENU RESPONSIVO (FLUTUANTE NO DESKTOP, EMPURRADO NO MOBILE)
+   SUBMENU SANFONA PARA SIDEBAR (MOBILE E LATERAL)
    ========================================================================== */
 
-/* Escondido por padrão */
+/* Esconde todos os submenus por padrão */
 .dropdown-menu {
-    display: none;
+    display: none !important;
 }
 
-/* 1. COMPORTAMENTO NO DESKTOP (Telas maiores que 768px) */
-@media (min-width: 769px) {
-    li[data-dropdown] {
-        position: relative; /* Referência para o submenu flutuar */
-    }
-
-    .dropdown-menu {
-        position: absolute; /* Flutua sobre a página */
-        top: 100%;
-        left: 0;
-        min-width: 200px;
-        background-color: var(--color-bg-secondary);
-        border: 1px solid var(--color-border-bright);
-        border-radius: var(--radius-sm);
-        padding: 0.5rem 0;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-        z-index: 1000;
-    }
-
-    /* Exibe ao passar o mouse */
-    li[data-dropdown]:hover .dropdown-menu {
-        display: block;
-    }
+/* Quando o JS adiciona a classe .show, exibe o submenu empurrando os itens */
+.dropdown-menu.show {
+    display: block !important;
 }
 
-/* 2. COMPORTAMENTO NO MOBILE (Telas até 768px) */
-@media (max-width: 768px) {
-    .dropdown-menu {
-        position: static; /* Empurra os itens de baixo */
-        width: 100%;
-        background-color: var(--color-bg-secondary);
-        border: 1px solid var(--color-border-bright);
-        border-radius: var(--radius-sm);
-        padding: 0.5rem 0;
-        margin-top: 0.5rem;
-        box-shadow: none;
-    }
-
-    /* Exibe quando o script adiciona a classe .show no clique */
-    .dropdown-menu.show {
-        display: block !important;
-    }
+/* Estilização da caixa do Submenu dentro do Sidebar */
+#sidebar .dropdown-menu {
+    position: static !important; /* Faz o elemento ocupar espaço e empurrar o resto */
+    width: 100%;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-bright);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem 0;
+    box-shadow: none;
 }
 
-/* Estilo geral dos links do submenu (para Desktop e Mobile) */
-.dropdown-menu li {
+/* Links internos do Submenu */
+#sidebar .dropdown-menu li {
     list-style: none;
 }
 
-.dropdown-menu a {
+#sidebar .dropdown-menu a {
     display: block;
-    padding: 0.6rem 1.2rem;
+    padding: 0.6rem 1rem 0.6rem 1.25rem;
     color: var(--color-text-muted);
     text-decoration: none;
-    font-size: 0.88rem;
-    white-space: nowrap; /* Impede que o texto quebre em várias linhas */
-    transition: background var(--transition-fast), color var(--transition-fast);
+    font-size: 0.9rem;
+    transition: background 0.2s, color 0.2s;
 }
 
-.dropdown-menu a:hover,
-.dropdown-menu a.active-link {
+#sidebar .dropdown-menu a:hover,
+#sidebar .dropdown-menu a.active-link {
     background-color: var(--color-bg-card);
     color: var(--color-accent);
 }
