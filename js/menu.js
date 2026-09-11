@@ -1,48 +1,53 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const mobileToggle = document.getElementById('mobile-toggle');
+    const menuToggle = document.getElementById('menu-toggle');
     const sidebar = document.getElementById('sidebar');
     const dropdownItems = document.querySelectorAll('li[data-dropdown]');
     const pageCard = document.getElementById('page-card');
-    const links = document.querySelectorAll('.dropdown-menu a');
+    const subLinks = document.querySelectorAll('.dropdown-menu a');
 
-    // 1. ABRIR E FECHAR O MENU MOBILE NO BOTAO ☰
-    if (mobileToggle && sidebar) {
-        mobileToggle.addEventListener('click', (e) => {
+    // 1. ABRIR/FECHAR MENU
+    if (menuToggle && sidebar) {
+        menuToggle.addEventListener('click', (e) => {
             e.stopPropagation();
             sidebar.classList.toggle('open');
         });
     }
 
-    // 2. COMPORTAMENTO DOS SUBMENUS NO MOBILE (CLIQUE/TOQUE)
+    // 2. EXIBIR SUBMENU AO CLICAR NO ITEM PAI
     dropdownItems.forEach(item => {
         const linkPai = item.querySelector('.link');
         const submenu = item.querySelector('.dropdown-menu');
 
         if (linkPai && submenu) {
             linkPai.addEventListener('click', (e) => {
-                // Apenas se estiver em tela mobile
-                if (window.innerWidth <= 768) {
-                    e.preventDefault();
-                    
-                    // Fecha outros submenus que possam estar abertos
-                    document.querySelectorAll('.dropdown-menu').forEach(sub => {
-                        if (sub !== submenu) sub.classList.remove('show');
-                    });
+                e.preventDefault();
+                e.stopPropagation();
 
-                    // Alterna visibilidade do submenu atual
-                    submenu.classList.toggle('show');
-                }
+                const jaAberto = submenu.classList.contains('show');
+
+                // Fecha outros submenus
+                document.querySelectorAll('.dropdown-menu').forEach(sub => {
+                    if (sub !== submenu) sub.classList.remove('show');
+                });
+
+                // Alterna o atual
+                submenu.classList.toggle('show', !jaAberto);
             });
         }
     });
 
-    // 3. CARREGAMENTO DAS PÁGINAS E FECHAMENTO DO MENU AO SELECIONAR
-    links.forEach(link => {
+    // 3. CARREGAR PÁGINAS E FECHAR GAVETA
+    subLinks.forEach(link => {
         link.addEventListener('click', async (e) => {
             e.preventDefault();
+            e.stopPropagation();
 
             const pageUrl = link.getAttribute('data-page');
             if (!pageUrl) return;
+
+            // Marca o link ativo
+            subLinks.forEach(l => l.classList.remove('active-link'));
+            link.classList.add('active-link');
 
             if (pageCard) {
                 pageCard.innerHTML = '<p style="color: var(--color-text-muted);">Carregando...</p>';
@@ -57,17 +62,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // Fecha a barra lateral no mobile após selecionar um item
-            if (sidebar && window.innerWidth <= 768) {
+            if (sidebar) {
                 sidebar.classList.remove('open');
             }
         });
     });
 
-    // 4. FECHAR MENU AO CLICAR FORA DELE
+    // 4. CLICAR FORA FECHA O SIDEBAR
     document.addEventListener('click', (e) => {
-        if (sidebar && window.innerWidth <= 768) {
-            if (!sidebar.contains(e.target) && !mobileToggle.contains(e.target)) {
+        if (sidebar && sidebar.classList.contains('open')) {
+            if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
                 sidebar.classList.remove('open');
             }
         }
