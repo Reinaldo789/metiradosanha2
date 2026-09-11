@@ -31,7 +31,7 @@
         h1 { color: #0f172a; margin-bottom: 15px; }
         p { color: #475569; line-height: 1.6; }
 
-        /* Responsividade para Mobile */
+        /* Header Mobile */
         .mobile-header { display: none; background: #0f172a; color: #fff; padding: 15px 20px; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; right: 0; z-index: 1100; }
         .toggle-btn { background: #334155; color: #fff; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; }
 
@@ -45,13 +45,11 @@
 </head>
 <body>
 
-    <!-- Header para Celulares -->
     <div class="mobile-header">
         <h2>Manual Técnico</h2>
         <button class="toggle-btn" id="mobile-toggle">☰ Menu</button>
     </div>
 
-    <!-- Menu Lateral -->
     <nav id="sidebar">
         <div class="sidebar-header">
             <h2>Sistemas do Veículo</h2>
@@ -61,8 +59,8 @@
         <div class="menu-item">
             <button class="menu-btn">Sistema de Lubrificação <span class="arrow">▼</span></button>
             <ul class="submenu">
-                <li><a href="#" data-system="Sistema de Lubrificação" data-page="Tabela de Lubrificação">Tabela de Lubrificação</a></li>
-                <li><a href="#" data-system="Sistema de Lubrificação" data-page="Luz e Pressão">Luz e Pressão</a></li>
+                <li><a href="#" data-page="paginas/sistema-de-lubrificacao/tabela-de-lubrificacao.html">Tabela de Lubrificação</a></li>
+                <li><a href="#" data-page="paginas/sistema-de-lubrificacao/luz-e-pressao.html">Luz e Pressão</a></li>
             </ul>
         </div>
 
@@ -70,8 +68,8 @@
         <div class="menu-item">
             <button class="menu-btn">Sistema Elétrico <span class="arrow">▼</span></button>
             <ul class="submenu">
-                <li><a href="#" data-system="Sistema Elétrico" data-page="Fusíveis e Lampadas">Fusíveis e Lampadas</a></li>
-                <li><a href="#" data-system="Sistema Elétrico" data-page="Farol e seta">Farol e seta</a></li>
+                <li><a href="#" data-page="paginas/sistema-eletrico/fusiveis-e-lampadas.html">Fusíveis e Lampadas</a></li>
+                <li><a href="#" data-page="paginas/sistema-eletrico/farol-e-seta.html">Farol e seta</a></li>
             </ul>
         </div>
 
@@ -79,90 +77,42 @@
         <div class="menu-item">
             <button class="menu-btn">Linha Combustível <span class="arrow">▼</span></button>
             <ul class="submenu">
-                <li><a href="#" data-system="Linha Combustível" data-page="Tanque, Filtro, Mang.">Tanque, Filtro, Mang.</a></li>
-                <li><a href="#" data-system="Linha Combustível" data-page="Bomba Elétrica">Bomba Elétrica</a></li>
-                <li><a href="#" data-system="Linha Combustível" data-page="Bomba Engrenagem">Bomba Engrenagem</a></li>
-                <li><a href="#" data-system="Linha Combustível" data-page="Válvula KUV">Válvula KUV</a></li>
-                <li><a href="#" data-system="Linha Combustível" data-page="Bomba Alta Pressão">Bomba Alta Pressão</a></li>
-                <li><a href="#" data-system="Linha Combustível" data-page="Tubo Rail">Tubo Rail</a></li>
-            </ul>
-        </div>
-
-        <!-- 4. Sensores e Atuadores -->
-        <div class="menu-item">
-            <button class="menu-btn">Sensores e Atuadores <span class="arrow">▼</span></button>
-            <ul class="submenu">
-                <li><a href="#" data-system="Sensores e Atuadores" data-page="Válvula MProp">Válvula MProp</a></li>
-                <li><a href="#" data-system="Sensores e Atuadores" data-page="Sensor Rotação">Sensor Rotação</a></li>
-                <li><a href="#" data-system="Sensores e Atuadores" data-page="Sensor Fase">Sensor Fase</a></li>
-                <li><a href="#" data-system="Sensores e Atuadores" data-page="Sensor Pres. Adm">Sensor Pres. Adm</a></li>
-                <li><a href="#" data-system="Sensores e Atuadores" data-page="Pedal Acelerador">Pedal Acelerador</a></li>
-                <li><a href="#" data-system="Sensores e Atuadores" data-page="Sensor Temp. ECM">Sensor Temp. ECM</a></li>
-                <li><a href="#" data-system="Sensores e Atuadores" data-page="Modulador Turbina">Modulador Turbina</a></li>
-                <li><a href="#" data-system="Sensores e Atuadores" data-page="Sensor Pres. Rail">Sensor Pres. Rail</a></li>
-                <li><a href="#" data-system="Sensores e Atuadores" data-page="Bicos Injetores">Bicos Injetores</a></li>
-            </ul>
-        </div>
-
-        <!-- 5. Admissão e Escape -->
-        <div class="menu-item">
-            <button class="menu-btn">Admissão e Escape <span class="arrow">▼</span></button>
-            <ul class="submenu">
-                <li><a href="#" data-system="Admissão e Escape" data-page="Filtros e Mangueiras">Filtros e Mangueiras</a></li>
-                <li><a href="#" data-system="Admissão e Escape" data-page="Turbina">Turbina</a></li>
-            </ul>
-        </div>
-
-        <!-- 6. Sistema de Direção -->
-        <div class="menu-item">
-            <button class="menu-btn">Sistema de Direção <span class="arrow">▼</span></button>
-            <ul class="submenu">
-                <li><a href="#" data-system="Sistema de Direção" data-page="Bomba de Direção">Bomba de Direção</a></li>
-                <li><a href="#" data-system="Sistema de Direção" data-page="Caixa de direção">Caixa de direção</a></li>
-                <li><a href="#" data-system="Sistema de Direção" data-page="Oleo de direção">Oleo de direção</a></li>
-            </ul>
-        </div>
-
-        <!-- 7. Sistemas de Freios -->
-        <div class="menu-item">
-            <button class="menu-btn">Sistemas de Freios <span class="arrow">▼</span></button>
-            <ul class="submenu">
-                <li><a href="#" data-system="Sistemas de Freios" data-page="Bomba de Vácuo">Bomba de Vácuo</a></li>
-                <li><a href="#" data-system="Sistemas de Freios" data-page="Freios Traseiros / Mão">Freios Traseiros / Mão</a></li>
+                <li><a href="#" data-page="paginas/linha-combustivel/tanque-filtro-mang.html">Tanque, Filtro, Mang.</a></li>
+                <li><a href="#" data-page="paginas/linha-combustivel/bomba-eletrica.html">Bomba Elétrica</a></li>
+                <li><a href="#" data-page="paginas/linha-combustivel/bomba-engrenagem.html">Bomba Engrenagem</a></li>
+                <li><a href="#" data-page="paginas/linha-combustivel/valvula-kuv.html">Válvula KUV</a></li>
+                <li><a href="#" data-page="paginas/linha-combustivel/bomba-alta-pressao.html">Bomba Alta Pressão</a></li>
+                <li><a href="#" data-page="paginas/linha-combustivel/tubo-rail.html">Tubo Rail</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Área de Conteúdo -->
     <main id="content">
-        <div class="card">
-            <span class="system-badge" id="system-badge">Sistema</span>
-            <h1 id="page-title">Selecione uma opção</h1>
-            <p id="page-content">Escolha um item do menu lateral para visualizar os detalhes técnicos.</p>
+        <div class="card" id="page-card">
+            <h1>Selecione uma opção</h1>
+            <p>Escolha um item do menu lateral para carregar as informações técnicas.</p>
         </div>
     </main>
 
-    <!-- JavaScript Vanilla -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const menuBtns = document.querySelectorAll('.menu-btn');
             const links = document.querySelectorAll('.submenu a');
             const sidebar = document.getElementById('sidebar');
             const mobileToggle = document.getElementById('mobile-toggle');
+            const pageCard = document.getElementById('page-card');
 
-            // Toggle dos submenus (Accordion)
+            // Accordion Menu
             menuBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
                     const submenu = btn.nextElementSibling;
                     const isOpen = btn.classList.contains('active');
 
-                    // Fecha todos os outros submenus
                     document.querySelectorAll('.menu-btn').forEach(b => {
                         b.classList.remove('active');
                         b.nextElementSibling.style.maxHeight = null;
                     });
 
-                    // Abre o submenu clicado se não estava aberto
                     if (!isOpen) {
                         btn.classList.add('active');
                         submenu.style.maxHeight = submenu.scrollHeight + "px";
@@ -170,31 +120,40 @@
                 });
             });
 
-            // Clique nos links do Submenu
+            // Requisição dinâmicas com Fetch API
             links.forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
 
-                    // Destaca o link selecionado
                     links.forEach(l => l.classList.remove('active-link'));
                     link.classList.add('active-link');
 
-                    // Atualiza o conteúdo da tela dinamicamente
-                    const systemName = link.getAttribute('data-system');
-                    const pageName = link.getAttribute('data-page');
+                    const pageUrl = link.getAttribute('data-page');
 
-                    document.getElementById('system-badge').innerText = systemName;
-                    document.getElementById('page-title').innerText = pageName;
-                    document.getElementById('page-content').innerText = `Aqui vão as instruções, diagramas e dados técnicos referentes a: ${pageName} (${systemName}).`;
+                    // Indica carregamento
+                    pageCard.innerHTML = '<p>Carregando conteúdo...</p>';
 
-                    // Fecha o menu no celular ao clicar em um item
+                    fetch(pageUrl)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Não foi possível carregar a página.');
+                            }
+                            return response.text();
+                        })
+                        .then(html => {
+                            pageCard.innerHTML = html;
+                        })
+                        .catch(error => {
+                            pageCard.innerHTML = `<h1>Erro</h1><p>${error.message}</p>`;
+                        });
+
                     if (window.innerWidth <= 768) {
                         sidebar.classList.remove('open');
                     }
                 });
             });
 
-            // Toggle Menu Mobile
+            // Toggle Mobile
             mobileToggle.addEventListener('click', () => {
                 sidebar.classList.toggle('open');
             });
