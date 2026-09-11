@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     const menuToggle = document.getElementById('menu-toggle');
     const sidebar = document.getElementById('sidebar');
-    const dropdownItems = document.querySelectorAll('li[data-dropdown]');
+    const parentLinks = document.querySelectorAll('.has-submenu > .menu-link');
+    const subLinks = document.querySelectorAll('.submenu a');
     const pageCard = document.getElementById('page-card');
-    const subLinks = document.querySelectorAll('.dropdown-menu a');
 
-    // 1. ABRIR/FECHAR MENU
+    // 1. ABRIR E FECHAR A GAVETA LATERAL NO BOTÃO MENU
     if (menuToggle && sidebar) {
         menuToggle.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -13,30 +13,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. EXIBIR SUBMENU AO CLICAR NO ITEM PAI
-    dropdownItems.forEach(item => {
-        const linkPai = item.querySelector('.link');
-        const submenu = item.querySelector('.dropdown-menu');
+    // 2. EXIBIR SUBMENU NO CLIQUE DO ITEM PAI
+    parentLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
 
-        if (linkPai && submenu) {
-            linkPai.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
+            const parentLi = link.parentElement;
+            const submenu = parentLi.querySelector('.submenu');
 
-                const jaAberto = submenu.classList.contains('show');
+            if (submenu) {
+                const jaAberto = submenu.classList.contains('open-submenu');
 
                 // Fecha outros submenus
-                document.querySelectorAll('.dropdown-menu').forEach(sub => {
-                    if (sub !== submenu) sub.classList.remove('show');
-                });
+                document.querySelectorAll('.submenu').forEach(sub => sub.classList.remove('open-submenu'));
 
-                // Alterna o atual
-                submenu.classList.toggle('show', !jaAberto);
-            });
-        }
+                // Abre o submenu clicado
+                if (!jaAberto) {
+                    submenu.classList.add('open-submenu');
+                }
+            }
+        });
     });
 
-    // 3. CARREGAR PÁGINAS E FECHAR GAVETA
+    // 3. CARREGAR PÁGINAS E FECHAR O SIDEBAR
     subLinks.forEach(link => {
         link.addEventListener('click', async (e) => {
             e.preventDefault();
@@ -45,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const pageUrl = link.getAttribute('data-page');
             if (!pageUrl) return;
 
-            // Marca o link ativo
             subLinks.forEach(l => l.classList.remove('active-link'));
             link.classList.add('active-link');
 
@@ -68,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 4. CLICAR FORA FECHA O SIDEBAR
+    // 4. CLICAR FORA DA GAVETA FECHA O MENU
     document.addEventListener('click', (e) => {
         if (sidebar && sidebar.classList.contains('open')) {
             if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
