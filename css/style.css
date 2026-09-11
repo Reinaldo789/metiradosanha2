@@ -1,44 +1,68 @@
 /* ==========================================================================
-   CORREÇÃO DO SUBMENU (FLUXO RELATIVO NA LATERAL)
+   SUBMENU RESPONSIVO (FLUTUANTE NO DESKTOP, EMPURRADO NO MOBILE)
    ========================================================================== */
 
-/* Remove o posicionamento absoluto e faz o menu empurrar os itens de baixo */
+/* Escondido por padrão */
 .dropdown-menu {
     display: none;
-    position: static; /* Não flutua mais por cima do texto */
-    background-color: var(--color-bg-secondary);
-    border: 1px solid var(--color-border-bright);
-    border-radius: var(--radius-sm);
-    padding: 0.5rem 0;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    box-shadow: none;
-    width: 100%;
 }
 
-/* Exibe o submenu quando passar o mouse no Desktop */
+/* 1. COMPORTAMENTO NO DESKTOP (Telas maiores que 768px) */
 @media (min-width: 769px) {
+    li[data-dropdown] {
+        position: relative; /* Referência para o submenu flutuar */
+    }
+
+    .dropdown-menu {
+        position: absolute; /* Flutua sobre a página */
+        top: 100%;
+        left: 0;
+        min-width: 200px;
+        background-color: var(--color-bg-secondary);
+        border: 1px solid var(--color-border-bright);
+        border-radius: var(--radius-sm);
+        padding: 0.5rem 0;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    }
+
+    /* Exibe ao passar o mouse */
     li[data-dropdown]:hover .dropdown-menu {
         display: block;
     }
 }
 
-/* Exibe o submenu via classe .show no Mobile */
-.dropdown-menu.show {
-    display: block !important;
+/* 2. COMPORTAMENTO NO MOBILE (Telas até 768px) */
+@media (max-width: 768px) {
+    .dropdown-menu {
+        position: static; /* Empurra os itens de baixo */
+        width: 100%;
+        background-color: var(--color-bg-secondary);
+        border: 1px solid var(--color-border-bright);
+        border-radius: var(--radius-sm);
+        padding: 0.5rem 0;
+        margin-top: 0.5rem;
+        box-shadow: none;
+    }
+
+    /* Exibe quando o script adiciona a classe .show no clique */
+    .dropdown-menu.show {
+        display: block !important;
+    }
 }
 
-/* Ajuste dos links dentro do submenu */
+/* Estilo geral dos links do submenu (para Desktop e Mobile) */
 .dropdown-menu li {
     list-style: none;
 }
 
 .dropdown-menu a {
     display: block;
-    padding: 0.5rem 1rem 0.5rem 1.5rem;
+    padding: 0.6rem 1.2rem;
     color: var(--color-text-muted);
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: 0.88rem;
+    white-space: nowrap; /* Impede que o texto quebre em várias linhas */
     transition: background var(--transition-fast), color var(--transition-fast);
 }
 
