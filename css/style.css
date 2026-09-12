@@ -102,7 +102,9 @@ a {
 }
 
 #sidebar .link {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
     color: var(--color-text-muted);
     text-decoration: none;
     font-size: 1rem;
@@ -112,6 +114,17 @@ a {
 
 #sidebar .link:hover {
     color: var(--color-accent);
+}
+
+.link-arrow {
+    color: var(--color-accent);
+    font-size: 0.7rem;
+    transition: transform var(--transition-fast);
+}
+
+/* Botões rápidos "Home" e "Topo" — só aparecem no mobile */
+.mobile-quick-actions {
+    display: none;
 }
 
 /* ==========================================================================
@@ -219,28 +232,78 @@ a {
         display: block;
     }
 
-    #sidebar > ul {
-        flex-direction: column;
-        gap: 0;
+    /* Botões "Home" e "Topo" lado a lado no topo do menu */
+    .mobile-quick-actions {
+        display: flex;
+        gap: 0.75rem;
+        padding-top: 1rem;
+        margin-bottom: 1rem;
     }
 
+    .quick-btn {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        background-color: var(--color-bg-card);
+        border: 2px solid var(--color-accent);
+        border-radius: var(--radius-md);
+        color: var(--color-text);
+        font-weight: 700;
+        font-size: 0.95rem;
+        text-decoration: none;
+        padding: 0.9rem 0.5rem;
+        cursor: pointer;
+    }
+
+    .quick-icon {
+        font-size: 1.1rem;
+        line-height: 1;
+    }
+
+    #sidebar > ul {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    /* Cada item do menu vira um card arredondado independente */
     #sidebar li[data-dropdown] {
         position: static;
-        border-top: 1px solid var(--color-border-bright);
+        background-color: var(--color-bg-card);
+        border-radius: var(--radius-md);
+        overflow: hidden;
     }
 
     #sidebar .link {
-        display: block;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         width: 100%;
-        padding: 1rem 0;
-        font-size: 1.15rem;
+        padding: 1.1rem 1.25rem;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--color-text);
     }
 
-    /* No mobile o submenu não flutua: empurra os itens de baixo */
+    .link-arrow {
+        font-size: 0.9rem;
+    }
+
+    /* Gira a seta quando o submenu está aberto */
+    li[data-dropdown].is-open .link-arrow {
+        transform: rotate(180deg);
+    }
+
+    /* No mobile o submenu não flutua: empurra os itens de baixo, dentro do próprio card */
     .dropdown-menu {
         position: static;
         width: 100%;
         box-shadow: none;
         margin-top: 0;
+        border: none;
+        border-top: 1px solid var(--color-border-bright);
+        border-radius: 0;
+        background-color: var(--color-bg-secondary);
     }
 }
