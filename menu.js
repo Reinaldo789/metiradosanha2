@@ -92,8 +92,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 6. BOTÃO "TOPO" — apenas rola a página para o início
+    // 6. BOTÃO "TOPO" — aparece só quando a página é rolada, e volta ao início ao clicar
     if (topBtn) {
+        const SCROLL_THRESHOLD = 300;
+
+        const toggleTopBtn = () => {
+            topBtn.classList.toggle('visible', window.scrollY > SCROLL_THRESHOLD);
+        };
+
+        toggleTopBtn();
+        window.addEventListener('scroll', toggleTopBtn);
+
         topBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
