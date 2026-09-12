@@ -10,11 +10,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Guarda o conteúdo inicial da página para o botão "Home" poder restaurar
     const defaultContent = pageCard ? pageCard.innerHTML : '';
 
+    // Controla a visibilidade do botão flutuante "Topo"
+    const SCROLL_THRESHOLD = 300;
+    const toggleTopBtn = () => {
+        if (!topBtn) return;
+        const menuAberto = sidebar && sidebar.classList.contains('open') && window.innerWidth <= 768;
+        topBtn.classList.toggle('visible', window.scrollY > SCROLL_THRESHOLD && !menuAberto);
+    };
+
     // 1. ABRIR E FECHAR O MENU MOBILE NO BOTAO ☰
     if (mobileToggle && sidebar) {
         mobileToggle.addEventListener('click', (e) => {
             e.stopPropagation();
             sidebar.classList.toggle('open');
+            toggleTopBtn();
         });
     }
 
@@ -69,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Fecha a barra lateral no mobile após selecionar um item
             if (sidebar && window.innerWidth <= 768) {
                 sidebar.classList.remove('open');
+                toggleTopBtn();
             }
         });
     });
@@ -87,21 +97,17 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (sidebar) sidebar.classList.remove('open');
+            toggleTopBtn();
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
 
-    // 6. BOTÃO "TOPO" — aparece só quando a página é rolada, e volta ao início ao clicar
+    // 6. BOTÃO "TOPO" — aparece só quando a página é rolada (e some se o menu estiver aberto)
     if (topBtn) {
-        const SCROLL_THRESHOLD = 300;
-
-        const toggleTopBtn = () => {
-            topBtn.classList.toggle('visible', window.scrollY > SCROLL_THRESHOLD);
-        };
-
         toggleTopBtn();
         window.addEventListener('scroll', toggleTopBtn);
+        window.addEventListener('resize', toggleTopBtn);
 
         topBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -113,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (sidebar && window.innerWidth <= 768) {
             if (!sidebar.contains(e.target) && !mobileToggle.contains(e.target)) {
                 sidebar.classList.remove('open');
+                toggleTopBtn();
             }
         }
     });

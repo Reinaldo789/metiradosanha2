@@ -122,11 +122,6 @@ a {
     transition: transform var(--transition-fast);
 }
 
-/* Botões rápidos "Home" e "Topo" — só aparecem no mobile */
-.mobile-quick-actions {
-    display: none;
-}
-
 /* ==========================================================================
    SUBMENU (dropdown)
    ========================================================================== */
@@ -141,8 +136,9 @@ a {
     background-color: var(--color-bg-secondary);
     border: 1px solid var(--color-border-bright);
     border-radius: var(--radius-sm);
-    padding: 0.5rem 0;
-    margin-top: 0.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.5rem;
+    margin-top: 0;
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
     z-index: 20;
     list-style: none;
