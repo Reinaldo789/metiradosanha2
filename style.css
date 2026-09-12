@@ -246,7 +246,6 @@ a {
         width: 100%;
         background: transparent;
         border: none;
-        border-top: 1px solid var(--color-border-bright);
         color: var(--color-text-muted);
         font-size: 1.15rem;
         font-weight: 500;
@@ -254,10 +253,6 @@ a {
         padding: 1rem 0;
         cursor: pointer;
         text-align: left;
-    }
-
-    .quick-btn:last-child {
-        border-bottom: 1px solid var(--color-border-bright);
     }
 
     .quick-icon {
@@ -275,11 +270,6 @@ a {
         position: static;
         background-color: transparent;
         border-radius: 0;
-        border-top: 1px solid var(--color-border-bright);
-    }
-
-    #sidebar li[data-dropdown]:last-child {
-        border-bottom: 1px solid var(--color-border-bright);
     }
 
     #sidebar .link {
