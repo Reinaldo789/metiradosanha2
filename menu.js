@@ -4,9 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const dropdownItems = document.querySelectorAll('li[data-dropdown]');
     const pageCard = document.getElementById('page-card');
     const links = document.querySelectorAll('.dropdown-menu a');
-    const homeBtns = document.querySelectorAll('.home-trigger');
+    const homeBtn = document.getElementById('home-btn');
     const topBtn = document.getElementById('top-btn');
-    const topoMenuBtn = document.querySelector('.topo-menu-btn');
 
     // Guarda o conteúdo inicial da página para o botão "Home" poder restaurar
     const defaultContent = pageCard ? pageCard.innerHTML : '';
@@ -85,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 5. BOTÃO "HOME" — volta para o conteúdo inicial, fecha o menu e rola para o topo
-    homeBtns.forEach(homeBtn => {
+    if (homeBtn) {
         homeBtn.addEventListener('click', (e) => {
             e.preventDefault();
 
@@ -100,13 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (sidebar) sidebar.classList.remove('open');
             toggleTopBtn();
 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    });
-
-    // 5b. BOTÃO "TOPO" dentro do menu mobile — sempre visível ali, só rola a página
-    if (topoMenuBtn) {
-        topoMenuBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
