@@ -1,351 +1,246 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Segoe UI", Arial, sans-serif;
+/* ==========================================================================
+   VARIÁVEIS GLOBAIS
+   ========================================================================== */
+:root {
+    --color-bg-primary: #0b1220;
+    --color-bg-secondary: #131c30;
+    --color-bg-card: #1c2740;
+    --color-text: #e9edf5;
+    --color-text-muted: #a9b4c7;
+    --color-accent: #ff5a36;
+    --color-border-bright: #2a3752;
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --transition-fast: 0.2s ease;
 }
 
-html {
-    scroll-behavior: smooth;
+* {
+    box-sizing: border-box;
 }
 
 body {
-    min-height: 100vh;
-    display: flex;
-    background: #1a1a1a;
-    color: #f4f4f4;
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--color-bg-primary);
+    color: var(--color-text);
 }
 
-/* ==============================
-   TOPO MOBILE
-================================ */
-.barra-topo-mobile {
+a {
+    color: inherit;
+}
+
+/* ==========================================================================
+   HEADER MOBILE (barra fixa "☰ Menu" que só aparece em telas pequenas)
+   ========================================================================== */
+.mobile-header {
     display: none;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--color-border-bright);
 }
 
-.btn-menu-toggle {
-    width: 46px;
-    height: 42px;
-    background: #222;
-    border: 1px solid #ff4500;
-    border-radius: 6px;
-    color: #fff;
-    font-size: 23px;
-    line-height: 1;
+.mobile-header h2 {
+    margin: 0;
+    font-size: 1.6rem;
+}
+
+.toggle-btn {
+    background-color: var(--color-bg-card);
+    color: var(--color-text);
+    border: 1px solid var(--color-border-bright);
+    border-radius: 999px;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.95rem;
     cursor: pointer;
 }
 
-/* ==============================
-   MENU LATERAL DESKTOP
-================================ */
-#menu-lateral {
-    width: 390px;
-    flex: 0 0 390px;
-    height: 100vh;
-    overflow-y: auto;
-    position: sticky;
-    top: 0;
-    padding: 20px;
-    background: #111;
-    border-right: 3px solid #ff4500;
-    z-index: 1000;
+/* ==========================================================================
+   CABEÇALHO PRINCIPAL (logo + menu horizontal no desktop)
+   ========================================================================== */
+.main_header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--color-border-bright);
 }
 
-.menu-cabecalho h2 {
-    margin-bottom: 14px;
-    padding-bottom: 14px;
-    color: #ff4500;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 25px;
-    border-bottom: 2px solid #222;
-}
-
-/* HOME DENTRO DO MENU */
-.btn-home {
-    width: 100%;
-    min-height: 44px;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    background: #222;
-    color: #fff;
-    border: 1px solid #ff4500;
-    border-radius: 6px;
-    font-size: 15px;
-    font-weight: 600;
-    transition: background .2s, color .2s;
-}
-
-.btn-home:hover {
-    background: #ff4500;
-    color: #fff;
-}
-
-.item-menu {
-    margin-bottom: 8px;
-}
-
-.btn-principal {
-    width: 100%;
-    min-height: 48px;
-    padding: 12px 15px;
+.main_header > div {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
-    text-align: left;
-    background: #222;
-    border: 0;
-    border-radius: 5px;
-    color: #fff;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.btn-principal:hover,
-.btn-principal.ativo {
-    background: #ff4500;
+.main_header_logo a {
+    text-decoration: none;
+    color: var(--color-text);
 }
 
-.seta {
-    flex: 0 0 auto;
-    transition: transform .2s ease;
+.main_header_logo h1 {
+    margin: 0;
+    font-size: 1.8rem;
 }
 
-.btn-principal.aberto .seta {
-    transform: rotate(180deg);
+/* Menu principal: horizontal no desktop */
+#sidebar {
+    width: auto;
 }
 
-.submenu {
-    display: none;
+#sidebar > ul {
     list-style: none;
-    padding: 5px 0;
-    background: #161616;
-    border-radius: 0 0 5px 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.75rem;
+    margin: 0;
+    padding: 0;
 }
 
-.submenu.aberto {
-    display: block;
+#sidebar li[data-dropdown] {
+    position: relative;
 }
 
-.submenu li button {
-    width: 100%;
-    padding: 10px 15px 10px 24px;
-    display: block;
-    text-align: left;
-    background: transparent;
-    border: 0;
-    border-left: 2px solid transparent;
-    color: #bbb;
-    font-size: 14px;
-    cursor: pointer;
+#sidebar .link {
+    display: inline-block;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    transition: color var(--transition-fast);
 }
 
-.submenu li button:hover,
-.submenu li button.sub-ativo {
-    padding-left: 28px;
-    color: #ff4500;
-    border-left-color: #ff4500;
-    font-weight: 700;
+#sidebar .link:hover {
+    color: var(--color-accent);
 }
 
-/* ==============================
-   CONTEÚDO
-================================ */
-main {
-    flex: 1;
-    min-width: 0;
-    min-height: 100vh;
-    padding: 48px 52px;
-    background: #1e1e1e;
-}
+/* ==========================================================================
+   SUBMENU (dropdown)
+   ========================================================================== */
 
-.caixa-conteudo {
-    min-height: 450px;
-    padding: 40px;
-    background: #262626;
-    border-left: 5px solid #ff4500;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, .5);
-}
-
-h1 {
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    color: #fff;
-    font-size: 32px;
-    border-bottom: 1px solid #333;
-}
-
-#categoria-sistema {
-    margin-bottom: 28px;
-    color: #ff4500;
-    font-weight: 700;
-    text-transform: uppercase;
-}
-
-p {
-    color: #ccc;
-    font-size: 18px;
-    line-height: 1.6;
-}
-
-/* ==============================
-   OVERLAY
-================================ */
-.overlay {
+/* Desktop: flutua sobre o conteúdo, abre no hover */
+.dropdown-menu {
     display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-bright);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem 0;
+    margin-top: 0.5rem;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+    z-index: 20;
+    list-style: none;
 }
 
-/* ==============================
-   BOTÃO VOLTAR AO TOPO
-================================ */
-.btn-inicio {
-    position: fixed;
-    right: 22px;
-    bottom: 22px;
-    z-index: 5000;
-    width: 46px;
-    height: 46px;
-    display: none;
-    border: 1px solid #ff4500;
-    border-radius: 50%;
-    background: #222;
-    color: #fff;
-    font-size: 24px;
-    cursor: pointer;
+@media (min-width: 769px) {
+    li[data-dropdown]:hover .dropdown-menu {
+        display: block;
+    }
 }
 
-.btn-inicio:hover {
-    background: #ff4500;
+/* Mostra via classe .show (usada no toque do mobile) */
+.dropdown-menu.show {
+    display: block !important;
 }
 
-/* ==============================
-   CELULAR
-================================ */
+.dropdown-menu li {
+    list-style: none;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 0.5rem 1rem 0.5rem 1.5rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.dropdown-menu a:hover,
+.dropdown-menu a.active-link {
+    background-color: var(--color-bg-card);
+    color: var(--color-accent);
+}
+
+/* ==========================================================================
+   CONTEÚDO PRINCIPAL
+   ========================================================================== */
+.portfolio {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.portfolio_articles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.portfolio_article {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border-bright);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+}
+
+.portfolio_article h2 {
+    margin-top: 0;
+}
+
+/* ==========================================================================
+   MOBILE: menu vira um "acordeão" que empurra o conteúdo (não flutua)
+   ========================================================================== */
 @media (max-width: 768px) {
-
-    body {
-        display: block;
-        padding-top: 64px;
-    }
-
-    .barra-topo-mobile {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 5000;
-        width: 100%;
-        height: 64px;
-        padding: 8px 14px;
+    .mobile-header {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: #111;
-        border-bottom: 2px solid #ff4500;
     }
 
-    .barra-topo-mobile strong {
-        color: #ff4500;
-        font-size: 18px;
-        text-transform: uppercase;
-    }
-
-    #menu-lateral {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 4500;
-        width: min(310px, 86vw);
-        height: 100vh;
-        padding: 16px;
-        overflow-y: auto;
-        background: #111;
-        border-right: 3px solid #ff4500;
-        box-shadow: 5px 0 15px rgba(0, 0, 0, .65);
-        transform: translateX(-110%);
-        transition: transform .25s ease;
-    }
-
-    #menu-lateral.menu-visivel {
-        transform: translateX(0);
-    }
-
-    .menu-cabecalho h2 {
-        margin-bottom: 12px;
-        font-size: 19px;
-    }
-
-    .btn-home {
-        min-height: 42px;
-        margin-bottom: 12px;
-    }
-
-    .btn-principal {
-        min-height: 46px;
-        font-size: 14px;
-    }
-
-    .submenu li button {
-        padding-top: 10px;
-        padding-bottom: 10px;
-        font-size: 14px;
-    }
-
-    .overlay {
-        position: fixed;
-        inset: 0;
-        z-index: 4000;
+    .main_header_logo {
         display: none;
-        background: rgba(0, 0, 0, .70);
     }
 
-    .overlay.ativo {
+    .main_header {
+        padding: 0;
+        border-bottom: none;
+    }
+
+    #sidebar {
+        display: none;
+        width: 100%;
+        padding: 0 1.5rem 1rem;
+        border-bottom: 1px solid var(--color-border-bright);
+    }
+
+    #sidebar.open {
         display: block;
     }
 
-    main {
+    #sidebar > ul {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    #sidebar li[data-dropdown] {
+        position: static;
+        border-top: 1px solid var(--color-border-bright);
+    }
+
+    #sidebar .link {
+        display: block;
         width: 100%;
-        min-height: calc(100vh - 64px);
-        padding: 15px;
+        padding: 1rem 0;
+        font-size: 1.15rem;
     }
 
-    .caixa-conteudo {
-        min-height: 300px;
-        padding: 20px;
-    }
-
-    h1 {
-        font-size: 24px;
-    }
-
-    p {
-        font-size: 16px;
-    }
-
-    #categoria-sistema {
-        margin-bottom: 20px;
-        font-size: 14px;
-    }
-
-    .btn-inicio {
-        right: 15px;
-        bottom: 15px;
-    }
-}
-
-/* CELULARES MUITO PEQUENOS */
-@media (max-width: 380px) {
-    .barra-topo-mobile strong {
-        font-size: 16px;
-    }
-
-    .caixa-conteudo {
-        padding: 16px;
+    /* No mobile o submenu não flutua: empurra os itens de baixo */
+    .dropdown-menu {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        margin-top: 0;
     }
 }
