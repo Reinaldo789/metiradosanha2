@@ -1,49 +1,351 @@
-/* ==========================================================================
-   CORREÇÃO DO SUBMENU (FLUXO RELATIVO NA LATERAL)
-   ========================================================================== */
-
-/* Remove o posicionamento absoluto e faz o menu empurrar os itens de baixo */
-.dropdown-menu {
-    display: none;
-    position: static; /* Não flutua mais por cima do texto */
-    background-color: var(--color-bg-secondary);
-    border: 1px solid var(--color-border-bright);
-    border-radius: var(--radius-sm);
-    padding: 0.5rem 0;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    box-shadow: none;
-    width: 100%;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
 }
 
-/* Exibe o submenu quando passar o mouse no Desktop */
-@media (min-width: 769px) {
-    li[data-dropdown]:hover .dropdown-menu {
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    background: #1a1a1a;
+    color: #f4f4f4;
+}
+
+/* ==============================
+   TOPO MOBILE
+================================ */
+.barra-topo-mobile {
+    display: none;
+}
+
+.btn-menu-toggle {
+    width: 46px;
+    height: 42px;
+    background: #222;
+    border: 1px solid #ff4500;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 23px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+/* ==============================
+   MENU LATERAL DESKTOP
+================================ */
+#menu-lateral {
+    width: 390px;
+    flex: 0 0 390px;
+    height: 100vh;
+    overflow-y: auto;
+    position: sticky;
+    top: 0;
+    padding: 20px;
+    background: #111;
+    border-right: 3px solid #ff4500;
+    z-index: 1000;
+}
+
+.menu-cabecalho h2 {
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    color: #ff4500;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 25px;
+    border-bottom: 2px solid #222;
+}
+
+/* HOME DENTRO DO MENU */
+.btn-home {
+    width: 100%;
+    min-height: 44px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    background: #222;
+    color: #fff;
+    border: 1px solid #ff4500;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: background .2s, color .2s;
+}
+
+.btn-home:hover {
+    background: #ff4500;
+    color: #fff;
+}
+
+.item-menu {
+    margin-bottom: 8px;
+}
+
+.btn-principal {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    text-align: left;
+    background: #222;
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-principal:hover,
+.btn-principal.ativo {
+    background: #ff4500;
+}
+
+.seta {
+    flex: 0 0 auto;
+    transition: transform .2s ease;
+}
+
+.btn-principal.aberto .seta {
+    transform: rotate(180deg);
+}
+
+.submenu {
+    display: none;
+    list-style: none;
+    padding: 5px 0;
+    background: #161616;
+    border-radius: 0 0 5px 5px;
+}
+
+.submenu.aberto {
+    display: block;
+}
+
+.submenu li button {
+    width: 100%;
+    padding: 10px 15px 10px 24px;
+    display: block;
+    text-align: left;
+    background: transparent;
+    border: 0;
+    border-left: 2px solid transparent;
+    color: #bbb;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.submenu li button:hover,
+.submenu li button.sub-ativo {
+    padding-left: 28px;
+    color: #ff4500;
+    border-left-color: #ff4500;
+    font-weight: 700;
+}
+
+/* ==============================
+   CONTEÚDO
+================================ */
+main {
+    flex: 1;
+    min-width: 0;
+    min-height: 100vh;
+    padding: 48px 52px;
+    background: #1e1e1e;
+}
+
+.caixa-conteudo {
+    min-height: 450px;
+    padding: 40px;
+    background: #262626;
+    border-left: 5px solid #ff4500;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, .5);
+}
+
+h1 {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    color: #fff;
+    font-size: 32px;
+    border-bottom: 1px solid #333;
+}
+
+#categoria-sistema {
+    margin-bottom: 28px;
+    color: #ff4500;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+p {
+    color: #ccc;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* ==============================
+   OVERLAY
+================================ */
+.overlay {
+    display: none;
+}
+
+/* ==============================
+   BOTÃO VOLTAR AO TOPO
+================================ */
+.btn-inicio {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 5000;
+    width: 46px;
+    height: 46px;
+    display: none;
+    border: 1px solid #ff4500;
+    border-radius: 50%;
+    background: #222;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.btn-inicio:hover {
+    background: #ff4500;
+}
+
+/* ==============================
+   CELULAR
+================================ */
+@media (max-width: 768px) {
+
+    body {
         display: block;
+        padding-top: 64px;
+    }
+
+    .barra-topo-mobile {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 5000;
+        width: 100%;
+        height: 64px;
+        padding: 8px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #111;
+        border-bottom: 2px solid #ff4500;
+    }
+
+    .barra-topo-mobile strong {
+        color: #ff4500;
+        font-size: 18px;
+        text-transform: uppercase;
+    }
+
+    #menu-lateral {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 4500;
+        width: min(310px, 86vw);
+        height: 100vh;
+        padding: 16px;
+        overflow-y: auto;
+        background: #111;
+        border-right: 3px solid #ff4500;
+        box-shadow: 5px 0 15px rgba(0, 0, 0, .65);
+        transform: translateX(-110%);
+        transition: transform .25s ease;
+    }
+
+    #menu-lateral.menu-visivel {
+        transform: translateX(0);
+    }
+
+    .menu-cabecalho h2 {
+        margin-bottom: 12px;
+        font-size: 19px;
+    }
+
+    .btn-home {
+        min-height: 42px;
+        margin-bottom: 12px;
+    }
+
+    .btn-principal {
+        min-height: 46px;
+        font-size: 14px;
+    }
+
+    .submenu li button {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: 14px;
+    }
+
+    .overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 4000;
+        display: none;
+        background: rgba(0, 0, 0, .70);
+    }
+
+    .overlay.ativo {
+        display: block;
+    }
+
+    main {
+        width: 100%;
+        min-height: calc(100vh - 64px);
+        padding: 15px;
+    }
+
+    .caixa-conteudo {
+        min-height: 300px;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    #categoria-sistema {
+        margin-bottom: 20px;
+        font-size: 14px;
+    }
+
+    .btn-inicio {
+        right: 15px;
+        bottom: 15px;
     }
 }
 
-/* Exibe o submenu via classe .show no Mobile */
-.dropdown-menu.show {
-    display: block !important;
-}
+/* CELULARES MUITO PEQUENOS */
+@media (max-width: 380px) {
+    .barra-topo-mobile strong {
+        font-size: 16px;
+    }
 
-/* Ajuste dos links dentro do submenu */
-.dropdown-menu li {
-    list-style: none;
-}
-
-.dropdown-menu a {
-    display: block;
-    padding: 0.5rem 1rem 0.5rem 1.5rem;
-    color: var(--color-text-muted);
-    text-decoration: none;
-    font-size: 0.85rem;
-    transition: background var(--transition-fast), color var(--transition-fast);
-}
-
-.dropdown-menu a:hover,
-.dropdown-menu a.active-link {
-    background-color: var(--color-bg-card);
-    color: var(--color-accent);
+    .caixa-conteudo {
+        padding: 16px;
+    }
 }
