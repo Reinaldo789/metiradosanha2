@@ -368,27 +368,29 @@ main {
    6. ESTILOS MOBILE (COM ROLAGEM CORRIGIDA)
    ========================================== */
 @media (max-width: 960px) {
-  .mobile-toggle { display: block; }
+ /* Atualize a classe do botão mobile */
+.mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  align-items: center;
+  gap: 0.5rem; /* Espaçamento entre a palavra "Menu" e o ícone */
+}
 
-  .main-nav {
-    display: none;
-    position: fixed;
-    top: 60px; /* Altura do cabeçalho */
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: calc(100vh - 60px);
-    background: #f8fafc;
-    flex-direction: column;
-    padding: 1rem 1rem 3rem 1rem;
-    border-bottom: 1px solid var(--border-color);
-    box-shadow: var(--shadow-lg);
-    overflow-y: auto; /* Rolagem geral da lista mobile */
-    -webkit-overflow-scrolling: touch;
-    gap: 0.8rem;
-    z-index: 999;
+.mobile-toggle i {
+  font-size: 1.4rem; /* Mantém o ícone no tamanho original */
+}
+
+/* Garante a exibição correta no modo mobile */
+@media (max-width: 960px) {
+  .mobile-toggle { 
+    display: flex; /* Exibe o botão com alinhamento flex (texto + ícone lado a lado) */
   }
+}
 
   .main-nav.active { 
     display: flex; 
