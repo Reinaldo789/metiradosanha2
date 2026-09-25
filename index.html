@@ -376,7 +376,7 @@
     }
 
     /* ==========================================
-       6. ESTILOS MOBILE (COM ROLAGEM CORRIGIDA)
+       6. ESTILOS MOBILE
        ========================================== */
     @media (max-width: 960px) {
       .mobile-toggle { display: block; }
@@ -481,15 +481,239 @@
 
   <div class="site-wrapper">
 
-    <!-- CONTAINER ONDE O MENU SERÁ INJETADO VIA FETCH -->
-    <div id="menu-container"></div>
+    <!-- CABEÇALHO COM O MENU EMBUTIDO -->
+    <header>
+      <div class="nav-container">
+        <a href="#" class="logo">
+          <i class="fa-solid fa-gears"></i>
+          <span>Guia Técnico</span>
+        </a>
+
+        <button class="mobile-toggle" id="mobile-toggle-btn" aria-label="Abrir Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <ul class="main-nav" id="main-nav">
+          
+          <!-- 1. SISTEMA ELÉTRICO -->
+          <li class="nav-item">
+            <button class="nav-btn">
+              <span><i class="fa-solid fa-bolt" style="margin-right:6px; color:var(--primary);"></i> Sistema Elétrico</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+
+            <div class="mega-menu">
+              <div class="mega-categories-container">
+                
+                <!-- Luzes -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-lightbulb"></i> Luzes</div>
+                  <div class="mega-links-grid">
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Fusíveis e Lampadas</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Luz de Farol e Posição</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Luz de Seta e alerta</a>
+                  </div>
+                </div>
+
+                <!-- Painel de Instrumentos -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-gauge"></i> Painel de Instrumentos</div>
+                  <div class="mega-links-grid">
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Luz e Pressão de óleo</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Luzes de Injeção</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Agua no Combustível</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Agua de Arrefecimento</a>
+                  </div>
+                </div>
+
+                <!-- Acessórios -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-car-battery"></i> Acessórios</div>
+                  <div class="mega-links-grid">
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Bateria</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Alternador</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Motor de Partida</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Limpador de Parabriza</a>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Destaque Lateral -->
+              <div class="mega-explore-side">
+                <div class="explore-header-title">Esquema Elétrico</div>
+                <div class="explore-banner">
+                  <i class="fa-solid fa-bolt"></i>
+                  <h5>Painel & Fusíveis</h5>
+                  <p>Consulte a caixa de fusíveis e luzes de alerta do painel.</p>
+                </div>
+                <a href="#" class="explore-link">Ver Diagramas <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </li>
+
+          <!-- 2. ALIMENTAÇÃO DE COMBUSTÍVEL -->
+          <li class="nav-item">
+            <button class="nav-btn">
+              <span><i class="fa-solid fa-gas-pump" style="margin-right:6px; color:var(--primary);"></i> Alimentação de Combustível</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+
+            <div class="mega-menu">
+              <div class="mega-categories-container">
+                
+                <!-- Linha Combustível -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-filter"></i> Linha Combustível</div>
+                  <div class="mega-links-grid">
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Tanque, Filtro, Mang.</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Bomba Elétrica</a>
+                  </div>
+                </div>
+
+                <!-- Linha de Alta -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-gauge-high"></i> Linha de Alta</div>
+                  <div class="mega-links-grid">
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Bomba Engrenagem</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Válvula KUV</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Bomba Alta Pressão</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Tubo Rail</a>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Destaque Lateral -->
+              <div class="mega-explore-side">
+                <div class="explore-header-title">Linha de Combustível</div>
+                <div class="explore-banner" style="background-color: #0284c7;">
+                  <i class="fa-solid fa-gas-pump"></i>
+                  <h5>Baixa e Alta Pressão</h5>
+                  <p>Esquemas da linha de combustível e bomba elétrica.</p>
+                </div>
+                <a href="#" class="explore-link">Consultar Linha <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </li>
+
+          <!-- 3. SISTEMA DE INJEÇÃO -->
+          <li class="nav-item">
+            <button class="nav-btn">
+              <span><i class="fa-solid fa-microchip" style="margin-right:6px; color:var(--primary);"></i> Sistema de Injeção</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+
+            <div class="mega-menu">
+              <div class="mega-categories-container">
+                
+                <!-- Sensores -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-microchip"></i> Sensores</div>
+                  <div class="mega-links-grid">
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Sensor Rotação</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Sensor Fase</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Sensor Pres. Adm</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Sensor Temp. ECM</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Sensor Pres. Rail</a>
+                  </div>
+                </div>
+
+                <!-- Atuadores -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-sliders"></i> Atuadores</div>
+                  <div class="mega-links-grid">
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Válvula MProp</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Pedal Acelerador</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Modulador Turbina</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Bicos Injetores</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Lampada Painel</a>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Destaque Lateral -->
+              <div class="mega-explore-side">
+                <div class="explore-header-title">Diagnóstico de Injeção</div>
+                <div class="explore-banner" style="background-color: #065f46;">
+                  <i class="fa-solid fa-syringe"></i>
+                  <h5>Sensores & Atuadores</h5>
+                  <p>Tabela de testes da MProp, Tubo Rail e Bicos Injetores.</p>
+                </div>
+                <a href="#" class="explore-link">Consultar Testes <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </li>
+
+          <!-- 4. MOTOR E CHASSI -->
+          <li class="nav-item">
+            <button class="nav-btn">
+              <span><i class="fa-solid fa-wrench" style="margin-right:6px; color:var(--primary);"></i> Motor e Chassi</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+
+            <div class="mega-menu">
+              <div class="mega-categories-container">
+                
+                <!-- Sistema de Arrefecimento -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-snowflake"></i> Sistema de Arrefecimento</div>
+                  <div class="mega-links-grid">
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Correia e Ventoinha</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Bomba de Agua</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Trocador de calor</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Válvula termostática</a>
+                  </div>
+                </div>
+
+                <!-- Sistema de Direção -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-dharmachakra"></i> Sistema de Direção</div>
+                  <div class="mega-links-grid">
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Bomba de Direção</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Caixa de direção</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Oleo de direção</a>
+                  </div>
+                </div>
+
+                <!-- Sistemas de Freios -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-circle-stop"></i> Sistemas de Freios</div>
+                  <div class="mega-links-grid">
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Bomba de Vácuo</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Cilindro de Freio</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Óleo de Freio</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Pinças de Freio</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Regulagem Freio de mão</a>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Destaque Lateral -->
+              <div class="mega-explore-side">
+                <div class="explore-header-title">Manutenção Mecânica</div>
+                <div class="explore-banner" style="background-color: #1e1b4b;">
+                  <i class="fa-solid fa-wrench"></i>
+                  <h5>Torques e Fluídos</h5>
+                  <p>Especificações técnicas de fluidos de freio e direção.</p>
+                </div>
+                <a href="#" class="explore-link">Ver Especificações <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </header>
 
     <!-- CONTEÚDO PRINCIPAL -->
     <main>
       <div class="hero-box">
         <h1 class="hero-title-bg">Mega Menu</h1>
         <div class="hero-title-main">Portal de Especificações Técnicas</div>
-        <p class="hero-sub">Menu carregado via fetch assíncrono com suporte total a navegação mobile.</p>
+        <p class="hero-sub">Navegação completa integrada e totalmente funcional para desktop e dispositivos móveis.</p>
       </div>
     </main>
 
@@ -502,46 +726,28 @@
     </button>
   </div>
 
-  <!-- JAVASCRIPT -->
+  <!-- JAVASCRIPT INTEGRADO -->
   <script>
-    // Função para carregar o menu via fetch
-    async function loadMenu() {
-      try {
-        const response = await fetch('menu.html');
-        if (!response.ok) throw new Error('Erro ao carregar o menu');
-        const html = await response.text();
-        
-        // Injeta o HTML no container
-        document.getElementById('menu-container').innerHTML = html;
-        
-        // Inicializa os scripts do menu logo após o carregamento
-        initMenuEvents();
-      } catch (error) {
-        console.error('Erro na requisição do menu:', error);
-      }
-    }
-
-    // Inicialização dos eventos do menu
-    function initMenuEvents() {
+    document.addEventListener('DOMContentLoaded', () => {
       const navItems = document.querySelectorAll('.nav-item');
       const mobileToggleBtn = document.getElementById('mobile-toggle-btn');
       const mainNav = document.getElementById('main-nav');
-      if (!mobileToggleBtn || !mainNav) return;
-      
       const toggleIcon = mobileToggleBtn.querySelector('i');
 
       // Lógica Accordion no Mobile
       navItems.forEach(item => {
         const btn = item.querySelector('.nav-btn');
         if (!btn) return;
-        
+
         btn.addEventListener('click', (e) => {
           if (window.innerWidth <= 960) {
             e.preventDefault();
             const isActive = item.classList.contains('active');
-            
+
+            // Fecha todos os outros submenu
             navItems.forEach(otherItem => otherItem.classList.remove('active'));
 
+            // Alterna o atual
             if (!isActive) {
               item.classList.add('active');
               setTimeout(() => {
@@ -552,45 +758,39 @@
         });
       });
 
-      // Toggle Menu Hambúrguer
+      // Toggle Menu Hambúrguer (Mobile)
       mobileToggleBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         const isOpen = mainNav.classList.toggle('active');
-        
+
         if (isOpen) {
           document.body.style.overflow = 'hidden';
-        } else {
-          document.body.style.overflow = '';
-        }
-
-        navItems.forEach(item => item.classList.remove('active'));
-
-        if (isOpen) {
           toggleIcon.classList.remove('fa-bars');
           toggleIcon.classList.add('fa-xmark');
         } else {
+          document.body.style.overflow = '';
           toggleIcon.classList.remove('fa-xmark');
           toggleIcon.classList.add('fa-bars');
         }
+
+        // Reseta itens ativos ao fechar o menu principal
+        navItems.forEach(item => item.classList.remove('active'));
       });
-    }
 
-    // Botão Voltar ao Topo
-    const btnTop = document.getElementById('btn-top');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 150) {
-        btnTop.classList.add('visible');
-      } else {
-        btnTop.classList.remove('visible');
-      }
+      // Botão Voltar ao Topo
+      const btnTop = document.getElementById('btn-top');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 150) {
+          btnTop.classList.add('visible');
+        } else {
+          btnTop.classList.remove('visible');
+        }
+      });
+
+      btnTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
     });
-
-    btnTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    // Executa a carga do menu ao carregar a página
-    document.addEventListener('DOMContentLoaded', loadMenu);
   </script>
 
 </body>
