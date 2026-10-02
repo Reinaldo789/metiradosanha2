@@ -7,7 +7,7 @@ let MENUS = [];
 const card = (m, i) => `<a class="card" href="#/${m.slug}/${i.slug}"><span class="kick">${m.titulo}</span><h3>${i.titulo}</h3><p class="mut">Funcionamento, sintomas e diagnóstico.</p></a>`;
 
 function montarMenu() {
-  $('#menu').innerHTML = MENUS.map(m => `<li><a class="top" href="#/${m.slug}">${m.titulo}</a><div class="sub"><a class="all" href="#/${m.slug}">Ver todos →</a>${m.itens.map(i => `<a href="#/${m.slug}/${i.slug}">${i.titulo}</a>`).join('')}</div></li>`).join('');
+  $('#menu').innerHTML = MENUS.map(m => `<li><a class="top" href="#/${m.slug}">${m.titulo}</a><div class="sub"><div class="mega"><div class="intro"><span class="ico">${m.icone || ''}</span><h3>${m.titulo}</h3><p>${m.descricao || ''}</p><a class="all" href="#/${m.slug}">Ver todos →</a></div><div class="links">${m.itens.map(i => `<a href="#/${m.slug}/${i.slug}">${i.titulo}</a>`).join('')}</div></div></div></li>`).join('');
   const mob = () => matchMedia('(max-width:800px)').matches;
   document.querySelectorAll('#menu .top').forEach(t => t.addEventListener('click', e => {
     if (!mob()) return;

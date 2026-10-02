@@ -39,7 +39,9 @@
         "titulo": "Alternador",
         "slug": "alternador"
       }
-    ]
+    ],
+    "icone": "⚡",
+    "descricao": "Fusíveis, iluminação, partida e carga: diagnóstico de toda a parte elétrica do veículo."
   },
   {
     "titulo": "Alimentação de Combustível",
@@ -73,7 +75,9 @@
         "titulo": "Tubo Rail",
         "slug": "tubo-rail"
       }
-    ]
+    ],
+    "icone": "⛽",
+    "descricao": "Do tanque ao rail: bombas, válvulas e linhas que levam o combustível ao motor."
   },
   {
     "titulo": "Sensores e Atuadores",
@@ -119,7 +123,9 @@
         "titulo": "Lâmpada Painel",
         "slug": "lampada-painel"
       }
-    ]
+    ],
+    "icone": "📡",
+    "descricao": "Sensores, válvulas e bicos que a injeção eletrônica usa para controlar o motor."
   },
   {
     "titulo": "Motor e Chassi",
@@ -153,6 +159,8 @@
         "titulo": "Sistemas de Freios",
         "slug": "sistemas-de-freios"
       }
-    ]
+    ],
+    "icone": "🔧",
+    "descricao": "Arrefecimento, lubrificação, direção e freios: a parte mecânica do veículo."
   }
 ]
