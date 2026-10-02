@@ -3,11 +3,15 @@
 const $ = s => document.querySelector(s);
 const app = $('#app'), nav = $('#nav'), bg = $('#burger');
 let MENUS = [];
-
+const todos = m => m.grupos.flatMap(g => g.itens);
 const card = (m, i) => `<a class="card" href="#/${m.slug}/${i.slug}"><span class="kick">${m.titulo}</span><h3>${i.titulo}</h3><p class="mut">Funcionamento, sintomas e diagnóstico.</p></a>`;
 
 function montarMenu() {
-  $('#menu').innerHTML = MENUS.map(m => `<li><a class="top" href="#/${m.slug}">${m.titulo}</a><div class="sub"><div class="mega"><div class="intro"><span class="ico">${m.icone || ''}</span><h3>${m.titulo}</h3><p>${m.descricao || ''}</p><a class="all" href="#/${m.slug}">Ver todos →</a></div><div class="links">${m.itens.map(i => `<a href="#/${m.slug}/${i.slug}">${i.titulo}</a>`).join('')}</div></div></div></li>`).join('');
+  $('#menu').innerHTML = MENUS.map(m => {
+    const d = m.destaque || {};
+    const cols = m.grupos.map(g => `<div class="col"><h4>${g.titulo}</h4>${g.itens.map(i => `<a href="#/${m.slug}/${i.slug}">${i.titulo}</a>`).join('')}</div>`).join('');
+    return `<li><a class="top" href="#/${m.slug}">${m.titulo}</a><div class="sub"><div class="mega"><a class="all" href="#/${m.slug}">Ver todos →</a><div class="cols">${cols}</div><a class="promo" href="#/${m.slug}"><span class="ico">${m.icone || ''}</span><small>${d.rotulo || m.titulo}</small><strong>${d.titulo || ''}</strong><p>${d.texto || ''}</p><span class="btn">${d.botao || 'Ver'} →</span></a></div></div></li>`;
+  }).join('');
   const mob = () => matchMedia('(max-width:800px)').matches;
   document.querySelectorAll('#menu .top').forEach(t => t.addEventListener('click', e => {
     if (!mob()) return;
@@ -29,17 +33,17 @@ function rota() {
   const [a, b] = location.hash.replace('#/', '').split('/');
   const M = MENUS.find(x => x.slug === a);
   if (!M) {
-    const f = MENUS[0], fi = f.itens[0];
-    app.innerHTML = `<div class="hero"><a class="big" href="#/${f.slug}/${fi.slug}"><span class="kick">Destaque</span><h1>Guia técnico de sistemas do veículo</h1><p class="mut">Elétrica, alimentação de combustível, sensores e atuadores, motor e chassi — tudo organizado em um só lugar.</p></a><div class="side">${MENUS.slice(1).map(m => `<a class="mini" href="#/${m.slug}"><span class="kick">Seção</span><h2>${m.titulo}</h2><p class="mut">${m.itens.length} tópicos</p></a>`).join('')}</div></div>`
-      + MENUS.map(m => `<section class="sec"><h2>${m.titulo}</h2><div class="grid">${m.itens.slice(0, 4).map(i => card(m, i)).join('')}</div><p><a class="kick" href="#/${m.slug}">Ver todos →</a></p></section>`).join('');
+    const f = MENUS[0], fi = todos(f)[0];
+    app.innerHTML = `<div class="hero"><a class="big" href="#/${f.slug}/${fi.slug}"><span class="kick">Destaque</span><h1>Guia técnico de sistemas do veículo</h1><p class="mut">Elétrica, alimentação de combustível, injeção, motor e chassi — tudo organizado em um só lugar.</p></a><div class="side">${MENUS.slice(1).map(m => `<a class="mini" href="#/${m.slug}"><span class="kick">Seção</span><h2>${m.titulo}</h2><p class="mut">${todos(m).length} tópicos</p></a>`).join('')}</div></div>`
+      + MENUS.map(m => `<section class="sec"><h2>${m.titulo}</h2><div class="grid">${todos(m).slice(0, 4).map(i => card(m, i)).join('')}</div><p><a class="kick" href="#/${m.slug}">Ver todos →</a></p></section>`).join('');
     return;
   }
-  const I = M.itens.find(x => x.slug === b);
+  const I = todos(M).find(x => x.slug === b);
   if (!I) {
-    app.innerHTML = `<div class="crumb"><a href="#/">Início</a> › ${M.titulo}</div><h1>${M.titulo}</h1><div class="grid sec">${M.itens.map(i => card(M, i)).join('')}</div>`;
+    app.innerHTML = `<div class="crumb"><a href="#/">Início</a> › ${M.titulo}</div><h1>${M.titulo}</h1>` + M.grupos.map(g => `<section class="sec"><h2>${g.titulo}</h2><div class="grid">${g.itens.map(i => card(M, i)).join('')}</div></section>`).join('');
     return;
   }
-  const k = M.itens.indexOf(I), p = M.itens[k - 1], n = M.itens[k + 1];
+  const L = todos(M), k = L.indexOf(I), p = L[k - 1], n = L[k + 1];
   const nav2 = `<div class="grid">${p ? `<a class="card" href="#/${M.slug}/${p.slug}">← ${p.titulo}</a>` : ''}${n ? `<a class="card" href="#/${M.slug}/${n.slug}">${n.titulo} →</a>` : ''}</div>`;
   const topo = `<div class="crumb"><a href="#/">Início</a> › <a href="#/${M.slug}">${M.titulo}</a> › ${I.titulo}</div><span class="kick">${M.titulo}</span><h1>${I.titulo}</h1>`;
   app.innerHTML = topo + '<p class="mut">Carregando…</p>';

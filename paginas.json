@@ -2,165 +2,259 @@
   {
     "titulo": "Sistema Elétrico",
     "slug": "sistema-eletrico",
-    "itens": [
+    "icone": "⚡",
+    "grupos": [
       {
-        "titulo": "Fusíveis e Lâmpadas",
-        "slug": "fusiveis-e-lampadas"
-      },
-      {
-        "titulo": "Luz de Farol e Posição",
-        "slug": "luz-de-farol-e-posicao"
-      },
-      {
-        "titulo": "Luz de Stea e Alerta",
-        "slug": "luz-de-stea-e-alerta"
-      },
-      {
-        "titulo": "Limpador de Parabrisa",
-        "slug": "limpador-de-parabrisa"
+        "titulo": "Luzes",
+        "itens": [
+          {
+            "titulo": "Fusíveis e Lâmpadas",
+            "slug": "fusiveis-e-lampadas"
+          },
+          {
+            "titulo": "Luz de Farol e Posição",
+            "slug": "luz-de-farol-e-posicao"
+          },
+          {
+            "titulo": "Luz de Seta e Alerta",
+            "slug": "luz-de-seta-e-alerta"
+          }
+        ]
       },
       {
         "titulo": "Painel de Instrumentos",
-        "slug": "painel-de-instrumentos"
+        "itens": [
+          {
+            "titulo": "Luz e Pressão de Óleo",
+            "slug": "luz-e-pressao-de-oleo"
+          },
+          {
+            "titulo": "Luzes de Injeção",
+            "slug": "luzes-de-injecao"
+          },
+          {
+            "titulo": "Água no Combustível",
+            "slug": "agua-no-combustivel"
+          },
+          {
+            "titulo": "Água de Arrefecimento",
+            "slug": "agua-de-arrefecimento"
+          }
+        ]
       },
       {
-        "titulo": "Luz e Pressão de Óleo",
-        "slug": "luz-e-pressao-de-oleo"
-      },
-      {
-        "titulo": "Luzes de Diagnóstico",
-        "slug": "luzes-de-diagnostico"
-      },
-      {
-        "titulo": "Motor de Partida",
-        "slug": "motor-de-partida"
-      },
-      {
-        "titulo": "Alternador",
-        "slug": "alternador"
+        "titulo": "Acessórios",
+        "itens": [
+          {
+            "titulo": "Bateria",
+            "slug": "bateria"
+          },
+          {
+            "titulo": "Alternador",
+            "slug": "alternador"
+          },
+          {
+            "titulo": "Motor de Partida",
+            "slug": "motor-de-partida"
+          },
+          {
+            "titulo": "Limpador de Para-brisa",
+            "slug": "limpador-de-para-brisa"
+          }
+        ]
       }
     ],
-    "icone": "⚡",
-    "descricao": "Fusíveis, iluminação, partida e carga: diagnóstico de toda a parte elétrica do veículo."
+    "destaque": {
+      "rotulo": "Esquema Elétrico",
+      "titulo": "Painel & Fusíveis",
+      "texto": "Consulte a caixa de fusíveis e luzes de alerta do painel.",
+      "botao": "Ver Diagramas"
+    }
   },
   {
     "titulo": "Alimentação de Combustível",
     "slug": "alimentacao-de-combustivel",
-    "itens": [
+    "icone": "⛽",
+    "grupos": [
       {
         "titulo": "Linha Combustível",
-        "slug": "linha-combustivel"
+        "itens": [
+          {
+            "titulo": "Tanque, Filtro, Mang.",
+            "slug": "tanque-filtro-mang"
+          },
+          {
+            "titulo": "Bomba Elétrica",
+            "slug": "bomba-eletrica"
+          }
+        ]
       },
       {
-        "titulo": "Tanque, Filtro, Mang.",
-        "slug": "tanque-filtro-mang"
-      },
-      {
-        "titulo": "Bomba Elétrica",
-        "slug": "bomba-eletrica"
-      },
-      {
-        "titulo": "Bomba Engrenagem",
-        "slug": "bomba-engrenagem"
-      },
-      {
-        "titulo": "Válvula KUV",
-        "slug": "valvula-kuv"
-      },
-      {
-        "titulo": "Bomba Alta Pressão",
-        "slug": "bomba-alta-pressao"
-      },
-      {
-        "titulo": "Tubo Rail",
-        "slug": "tubo-rail"
+        "titulo": "Linha de Alta",
+        "itens": [
+          {
+            "titulo": "Bomba Engrenagem",
+            "slug": "bomba-engrenagem"
+          },
+          {
+            "titulo": "Válvula KUV",
+            "slug": "valvula-kuv"
+          },
+          {
+            "titulo": "Bomba Alta Pressão",
+            "slug": "bomba-alta-pressao"
+          },
+          {
+            "titulo": "Tubo Rail",
+            "slug": "tubo-rail"
+          }
+        ]
       }
     ],
-    "icone": "⛽",
-    "descricao": "Do tanque ao rail: bombas, válvulas e linhas que levam o combustível ao motor."
+    "destaque": {
+      "rotulo": "Linha de Combustível",
+      "titulo": "Baixa e Alta Pressão",
+      "texto": "Esquemas da linha de combustível e bomba elétrica.",
+      "botao": "Consultar Linha"
+    }
   },
   {
-    "titulo": "Sensores e Atuadores",
-    "slug": "sensores-e-atuadores",
-    "itens": [
+    "titulo": "Sistema de Injeção",
+    "slug": "sistema-de-injecao",
+    "icone": "📡",
+    "grupos": [
       {
-        "titulo": "Sensor Rotação",
-        "slug": "sensor-rotacao"
+        "titulo": "Sensores",
+        "itens": [
+          {
+            "titulo": "Sensor Rotação",
+            "slug": "sensor-rotacao"
+          },
+          {
+            "titulo": "Sensor Fase",
+            "slug": "sensor-fase"
+          },
+          {
+            "titulo": "Sensor Pres. Adm",
+            "slug": "sensor-pres-adm"
+          },
+          {
+            "titulo": "Sensor Temp. ECM",
+            "slug": "sensor-temp-ecm"
+          },
+          {
+            "titulo": "Sensor Pres. Rail",
+            "slug": "sensor-pres-rail"
+          }
+        ]
       },
       {
-        "titulo": "Sensor Fase",
-        "slug": "sensor-fase"
-      },
-      {
-        "titulo": "Sensor Pres. Adm",
-        "slug": "sensor-pres-adm"
-      },
-      {
-        "titulo": "Sensor Temp. ECM",
-        "slug": "sensor-temp-ecm"
-      },
-      {
-        "titulo": "Sensor Pres. Rail",
-        "slug": "sensor-pres-rail"
-      },
-      {
-        "titulo": "Válvula MProp",
-        "slug": "valvula-mprop"
-      },
-      {
-        "titulo": "Pedal Acelerador",
-        "slug": "pedal-acelerador"
-      },
-      {
-        "titulo": "Modulador Turbina",
-        "slug": "modulador-turbina"
-      },
-      {
-        "titulo": "Bicos Injetores",
-        "slug": "bicos-injetores"
-      },
-      {
-        "titulo": "Lâmpada Painel",
-        "slug": "lampada-painel"
+        "titulo": "Atuadores",
+        "itens": [
+          {
+            "titulo": "Válvula MProp",
+            "slug": "valvula-mprop"
+          },
+          {
+            "titulo": "Pedal Acelerador",
+            "slug": "pedal-acelerador"
+          },
+          {
+            "titulo": "Modulador Turbina",
+            "slug": "modulador-turbina"
+          },
+          {
+            "titulo": "Bicos Injetores",
+            "slug": "bicos-injetores"
+          },
+          {
+            "titulo": "Lâmpada Painel",
+            "slug": "lampada-painel"
+          }
+        ]
       }
     ],
-    "icone": "📡",
-    "descricao": "Sensores, válvulas e bicos que a injeção eletrônica usa para controlar o motor."
+    "destaque": {
+      "rotulo": "Diagnóstico de Injeção",
+      "titulo": "Sensores & Atuadores",
+      "texto": "Tabela de testes da MProp, Tubo Rail e Bicos Injetores.",
+      "botao": "Consultar Testes"
+    }
   },
   {
     "titulo": "Motor e Chassi",
     "slug": "motor-e-chassi",
-    "itens": [
+    "icone": "🔧",
+    "grupos": [
       {
-        "titulo": "Arrefecimento",
-        "slug": "arrefecimento"
-      },
-      {
-        "titulo": "Lubrificação",
-        "slug": "lubrificacao"
-      },
-      {
-        "titulo": "Bomba de Água",
-        "slug": "bomba-de-agua"
-      },
-      {
-        "titulo": "Trocador de Calor",
-        "slug": "trocador-de-calor"
-      },
-      {
-        "titulo": "Válvula Termostática",
-        "slug": "valvula-termostatica"
+        "titulo": "Sistema de Arrefecimento",
+        "itens": [
+          {
+            "titulo": "Correia e Ventoinha",
+            "slug": "correia-e-ventoinha"
+          },
+          {
+            "titulo": "Bomba de Água",
+            "slug": "bomba-de-agua"
+          },
+          {
+            "titulo": "Trocador de Calor",
+            "slug": "trocador-de-calor"
+          },
+          {
+            "titulo": "Válvula Termostática",
+            "slug": "valvula-termostatica"
+          }
+        ]
       },
       {
         "titulo": "Sistema de Direção",
-        "slug": "sistema-de-direcao"
+        "itens": [
+          {
+            "titulo": "Bomba de Direção",
+            "slug": "bomba-de-direcao"
+          },
+          {
+            "titulo": "Caixa de Direção",
+            "slug": "caixa-de-direcao"
+          },
+          {
+            "titulo": "Óleo de Direção",
+            "slug": "oleo-de-direcao"
+          }
+        ]
       },
       {
         "titulo": "Sistemas de Freios",
-        "slug": "sistemas-de-freios"
+        "itens": [
+          {
+            "titulo": "Bomba de Vácuo",
+            "slug": "bomba-de-vacuo"
+          },
+          {
+            "titulo": "Cilindro de Freio",
+            "slug": "cilindro-de-freio"
+          },
+          {
+            "titulo": "Óleo de Freio",
+            "slug": "oleo-de-freio"
+          },
+          {
+            "titulo": "Pinças de Freio",
+            "slug": "pincas-de-freio"
+          },
+          {
+            "titulo": "Regulagem Freio de Mão",
+            "slug": "regulagem-freio-de-mao"
+          }
+        ]
       }
     ],
-    "icone": "🔧",
-    "descricao": "Arrefecimento, lubrificação, direção e freios: a parte mecânica do veículo."
+    "destaque": {
+      "rotulo": "Manutenção Mecânica",
+      "titulo": "Torques e Fluidos",
+      "texto": "Especificações técnicas de fluidos de freio e direção.",
+      "botao": "Ver Especificações"
+    }
   }
 ]
