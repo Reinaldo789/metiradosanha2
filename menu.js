@@ -4,7 +4,7 @@ const mainNav = document.getElementById('main-nav');
 const toggleIcon = mobileToggleBtn.querySelector('i');
 
 // ==========================================
-// LÓGICA DO MENU MOBILE (dropdown normal)
+// LÓGICA DO MENU MOBILE (SEM SANFONA)
 // Cada item abre/fecha independentemente
 // ==========================================
 navItems.forEach(item => {
@@ -13,6 +13,8 @@ navItems.forEach(item => {
   btn.addEventListener('click', (e) => {
     if (window.innerWidth <= 960) {
       e.preventDefault();
+      
+      // Apenas alterna o item clicado (não fecha os outros)
       item.classList.toggle('active');
     }
   });
@@ -23,6 +25,7 @@ mobileToggleBtn.addEventListener('click', (e) => {
   e.stopPropagation();
   const isOpen = mainNav.classList.toggle('active');
   
+  // Bloqueia a rolagem do fundo do site quando o menu está aberto no celular
   if (isOpen) {
     document.body.style.overflow = 'hidden';
   } else {
@@ -35,6 +38,7 @@ mobileToggleBtn.addEventListener('click', (e) => {
   } else {
     toggleIcon.classList.remove('fa-xmark');
     toggleIcon.classList.add('fa-bars');
+    // Fecha todos os itens ao fechar o menu hambúrguer
     navItems.forEach(item => item.classList.remove('active'));
   }
 });
@@ -63,17 +67,21 @@ const card = document.getElementById('page-card');
 
 async function abrirPagina() {
   const path = decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '');
-  document.querySelectorAll('.dropdown-item.active').forEach(a => a.classList.remove('active'));
+  document.querySelectorAll('.mega-link-item.active').forEach(a => a.classList.remove('active'));
 
+  // sem rota válida = Home
   if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
     card.hidden = true; home.hidden = false;
     return;
   }
 
   const link = document.querySelector(`a[href="#${path}"]`);
-  if (link && link.classList.contains('dropdown-item')) link.classList.add('active');
+  if (link && link.classList.contains('mega-link-item')) link.classList.add('active');
   const menu = link ? link.closest('.nav-item').querySelector('.nav-btn span').textContent.trim() : '';
-  const titulo = !link ? '' : link.textContent.trim();
+  const titulo = !link ? '' :
+    link.classList.contains('explore-link')
+      ? link.closest('.mega-explore-side').querySelector('h5').textContent.trim()
+      : link.textContent.trim();
 
   home.hidden = true; card.hidden = false;
   card.innerHTML = '<p class="page-loading">Carregando...</p>';
@@ -91,7 +99,7 @@ async function abrirPagina() {
 }
 
 // clicou num item: fecha o menu (celular) ou o painel (desktop)
-document.querySelectorAll('.dropdown a').forEach(a => {
+document.querySelectorAll('.mega-menu a').forEach(a => {
   a.addEventListener('click', () => {
     if (window.innerWidth <= 960) {
       if (mainNav.classList.contains('active')) mobileToggleBtn.click();
@@ -106,7 +114,7 @@ document.querySelectorAll('.dropdown a').forEach(a => {
 window.addEventListener('hashchange', abrirPagina);
 abrirPagina();
 
-// índice interno dos artigos
+// índice interno dos artigos: <a data-goto="id"> rola até o título
 card.addEventListener('click', (e) => {
   const alvo = e.target.closest('[data-goto]');
   if (!alvo) return;
