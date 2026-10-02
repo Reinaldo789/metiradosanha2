@@ -1,0 +1,270 @@
+<!-- Válvula MProp — conteúdo migrado do Google Sites.
+     Imagens: salve em img/valvula-mprop/ com os nomes usados abaixo. -->
+<p>A Mprop atua no circuito de baixa pressão, antes do estágio de pressurização, para garantir que a bomba de alta pressão gere apenas a pressão necessária para a demanda do motor em um dado momento.<br>Na Agrale Marrua é um componente vital para o funcionamento.</p>
+<p>A válvula reguladora de pressão de combustível tem a função de ajustar a pressão do combustível em função da rotação e carga do motor, dentro da faixa previamente definida no mapeamento de funções do ECM.</p>
+
+<nav class="toc" aria-label="Neste tópico">
+  <strong>Neste tópico</strong>
+  <ul>
+    <li><a href="#" data-goto="localizacao">Localização</a></li>
+    <li><a href="#" data-goto="funcionamento">Funcionamento</a></li>
+    <li><a href="#" data-goto="parte-eletrica">Parte elétrica</a>
+      <ul>
+        <li><a href="#" data-goto="teste-tensao-multimetro">Teste de tensão com Multímetro</a></li>
+        <li><a href="#" data-goto="teste-tensao-caneta">Teste de tensão com caneta de Polaridade</a></li>
+        <li><a href="#" data-goto="teste-resistencia">Teste de resistência com Multímetro</a></li>
+      </ul></li>
+    <li><a href="#" data-goto="estrutura-mecanica">Estrutura Mecânica</a>
+      <ul><li><a href="#" data-goto="teste-mecanico">Teste mecânico</a></li></ul></li>
+    <li><a href="#" data-goto="problemas-combustivel">Problemas com combustível</a></li>
+    <li><a href="#" data-goto="problemas-comuns">Problemas comuns</a>
+      <ul>
+        <li><a href="#" data-goto="problemas-eletricos">Problemas elétricos</a></li>
+        <li><a href="#" data-goto="sem-pressao-rail">Sem pressão de combustível no tubo Rail</a></li>
+        <li><a href="#" data-goto="alta-pressao-rail">Alta pressão de combustível no tubo Rail</a></li>
+      </ul></li>
+    <li><a href="#" data-goto="codigos-de-falha">Códigos de Falha</a></li>
+  </ul>
+</nav>
+
+<h2 id="localizacao">Localização</h2>
+<img src="img/valvula-mprop/01-localizacao.jpg" alt="Localização da válvula MProp" loading="lazy">
+
+<h2 id="funcionamento">Funcionamento</h2>
+<ul>
+  <li>Recebe o combustível da bomba de engrenagem;</li>
+  <li>Controla o fluxo da alimentação de combustível na linha de baixa pressão.</li>
+  <li>Trabalha na mesma linha da Válvula KUV.</li>
+  <li>É alimentada pela ECM com sinal PWM de 12V, trabalha com duty Cycle.</li>
+  <li>A MPROP controla o fluxo que alimenta os elementos bombeadores de alta;</li>
+</ul>
+<img src="img/valvula-mprop/02-funcionamento.jpg" alt="Funcionamento da válvula MProp" loading="lazy">
+<p>A figura abaixo mostra a bomba aberta, e na seta azul o percurso do combustível dentro da bomba de alta pressão controlado pela válvula MPROP.</p>
+<img src="img/valvula-mprop/03-bomba-aberta.jpg" alt="Bomba de alta pressão aberta com o percurso do combustível" loading="lazy">
+<p>Possui número que indica sua capacidade de vazão, mas esse número para motores pequenos não influencia no funcionamento.</p>
+<img src="img/valvula-mprop/04-numero-vazao.jpg" alt="Número de vazão gravado na válvula" loading="lazy">
+
+<h2 id="parte-eletrica">Parte elétrica</h2>
+<p>O ajuste da pressão necessária de combustível é feito pela válvula reguladora de combustível, que é comandada e processada pelo ECM. O ECM gerencia o regulador com um sinal modulado de pulsos;</p>
+<ul>
+  <li>Pulsos largos é igual a alta pressão;</li>
+  <li>Pulsos curtos é igual a baixa pressão;</li>
+  <li>O sensor de pressão do Rail fornece feedback à ECU para esse ajuste em tempo real.</li>
+  <li>É alimentada pela ECM com sinal PWM de 12V, trabalha com duty Cycle <!-- Vídeo: cole aqui o link --></li>
+  <li>Se durante os testes verificar que não tem tensão, então verifique os Fusíveis nº F25, F26, F27 e F28 e Relé principal.</li>
+</ul>
+<img src="img/valvula-mprop/05-parte-eletrica.jpg" alt="Circuito elétrico da válvula MProp" loading="lazy">
+<p>No duty cycle 50% quer dizer que a tensão fica 50% do tempo ligada e 50% do tempo desligada, más é sempre 12V independente da rotação do motor, o que muda é o tempo em que permanece ligada ou desligada e com isso o multímetro normal faz a leitura da média da tensão entre determinado tempo.</p>
+<img src="img/valvula-mprop/06-duty-cycle.jpg" alt="Sinal PWM e duty cycle" loading="lazy">
+
+<h3 id="teste-tensao-multimetro">Teste de tensão com Multímetro</h3>
+<ul>
+  <li>Teste de tensão testa da caixa de fusíveis ate o conector da válvula,</li>
+  <li>Teste de resistência testa somente a válvula.</li>
+</ul>
+<p>Resistência: 2,6 a 3,5 homs<br>Alimentação: 12V<br>PWM: 100 Hz a 1,5 kHz<br>Duty cycle lenta: 20 a 40%<br>Duty alta carga: 60 a 80%</p>
+<p>Usando um multímetro encontrará valores que depende do Duty cycle de trabalha da válvula no momento da medição. Além disso o multímetro mede a tensão média, neste caso se fosse se o Duty cycle estivesse em 50% encontraria valor aproximado de 6V.</p>
+<p>Não se preocupe se encontrar um valores discrepantes conforme imagens abaixo, pois isso já é o suficiente pra saber que temos 12V em um terminal e pulso negativo no outro.</p>
+<img src="img/valvula-mprop/07-multimetro-1.jpg" alt="Medição de tensão com multímetro" loading="lazy">
+<p>Se medir um dos terminais que é o positivo e o negativo da bateria então encontrará 12V.</p>
+<img src="img/valvula-mprop/08-multimetro-2.jpg" alt="Medição entre o terminal e o negativo da bateria" loading="lazy">
+
+<h3 id="teste-tensao-caneta">Teste de tensão com caneta de Polaridade</h3>
+<img src="img/valvula-mprop/09-caneta-polaridade.jpg" alt="Teste com caneta de polaridade" loading="lazy">
+<p>Valores encontrados de 12V positivo e negativo controlado pela ECM.</p>
+
+<h3 id="teste-resistencia">Teste de resistência com Multímetro</h3>
+<p>Os testes deve ser entre os dois terminais da válvula com o plug elétrico desconectado da válvula.</p>
+<p>Deve encontrar valores entre 2,6 a 3,5 ohm(Ω).</p>
+<p>Extremamente raro encontrar problemas elétricos nesta válvula.</p>
+<p>Não é preciso retirá-la para realizar a medição, mas é preciso desconectar o terminal elétrico.</p>
+<img src="img/valvula-mprop/10-resistencia.jpg" alt="Medição de resistência nos terminais da válvula" loading="lazy">
+
+<h2 id="estrutura-mecanica">Estrutura Mecânica</h2>
+<p>Essa válvula possui 01 cilindro com dois furos calibrados e 01 êmbolo que é magnetizado pela bobina da válvula.</p>
+<p>Em repouso a válvula é normalmente aberta, mas o motor não liga com ela desconectada devido aos check list da ECM.</p>
+<p>Quando a válvula recebe a tensão PWM de 12V da ECM, a bobina magnetiza e o embolo trabalha pulsando o cilindro para frente pressionando a mola e ajustando a quantidade de combustível necessitada pelo ECM de acordo com o regime de carga exigido no momento.</p>
+<p>Não abra a válvula sem ferramentas específicas para isso.</p>
+<img src="img/valvula-mprop/11-mecanica-1.jpg" alt="Estrutura interna da válvula" loading="lazy">
+<img src="img/valvula-mprop/12-mecanica-2.jpg" alt="Cilindro e êmbolo da válvula" loading="lazy">
+
+<h3 id="teste-mecanico">Teste mecânico</h3>
+<ul>
+  <li>Se bater a válvula em uma superfície macia, (pneu ou palma da mão) nas primeiras batidas (3 a 5) não ouvirá o barulho do embolo pois a válvula pode esta cheia de combustível,</li>
+  <li>Se continuar a bater e não ouvir o barulho do embolo, o embolo pode estar travado ou o cilindro está travado na posição aberta impedindo que o embolo se movimente.</li>
+  <li>Se balançar a válvula sem bater e escutar o barulho do embolo movimentando livremente quer dizer que o cilindro esta travado na posição fechada.</li>
+</ul>
+<img src="img/valvula-mprop/13-teste-mecanico.jpg" alt="Teste mecânico batendo a válvula" loading="lazy">
+<p>Se quiser fazer um teste para um diagnóstico mais preciso basta medir a profundidade do cilindro dentro da válvula, antes de batê-la ou abri-la.</p>
+<p><strong>Travada aberta:</strong></p>
+<ul>
+  <li>Não há barulho do embolo batendo na mão;</li>
+  <li>Medindo a profundidade encontrara 15mm;</li>
+  <li>Vtr liga e desliga durante a aceleração.</li>
+</ul>
+<p><strong>Travada fechada:</strong></p>
+<ul>
+  <li>Induzido livre dentro da bobina;</li>
+  <li>Cilindro travado a frente do alojamento;</li>
+  <li>Medindo a profundidade encontrara 10mm;</li>
+  <li>Vtr não liga.</li>
+</ul>
+<img src="img/valvula-mprop/14-travada-1.jpg" alt="Medição da profundidade do cilindro" loading="lazy">
+<img src="img/valvula-mprop/15-travada-2.jpg" alt="Válvula travada aberta e fechada" loading="lazy">
+
+<h2 id="problemas-combustivel">Problemas com combustível</h2>
+<p>A sujeira trava o cilindro dentro do corpo da válvula.</p>
+<p>Se o motor não ligar por falta de combustível no tubo Rail, provavelmente a válvula travou fechada, não passa combustível para bomba de alta pressão.</p>
+<p>Se o motor liga mas durante aceleração ele desligar, ela provavelmente pode esta travada aberta, o sensor do tubo Rail acusa pressão elevada e o motor entra em modo de segurança e desliga.</p>
+<p>Se apresentar excesso de fumaça preta no escapamento, é bem provável que a válvula esteja com problemas.</p>
+<p>Se for excesso de pressão de combustível a central acusar na luz de diagnóstico e desligará o motor. Nesse caso pode dar partida novamente e o motor ligará novamente, outros erros parecidos o motor não ligaria.</p>
+<img src="img/valvula-mprop/16-problemas-combustivel.jpg" alt="Válvula com sujeira" loading="lazy">
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Não abra a válvula, ela é regulada na máquina que faz teste de vazão. Se estiver travada aberta aplique descarbonizante e moderadamente bata ela em uma superfície macia até ouvir o barulho do embolo destravado dentro da válvula. Se estiver travada fechada (induzido "solto"), empurre o cilindro pra dentro com objeto pontiagudo e aplique produto e bata ela em uma superfície macia.</p>
+</div>
+
+<h2 id="problemas-comuns">Problemas comuns</h2>
+
+<h3 id="problemas-eletricos">Problemas elétricos</h3>
+<p><strong>Sintomas</strong></p>
+<ul>
+  <li>Motor da partida mas não liga;</li>
+  <li>Bomba elétrica não ligou.</li>
+</ul>
+<p><strong>Possíveis causas</strong></p>
+<ul>
+  <li>Verificar Fusíveis nº F25, F26, F27 e F28 se estão queimados;</li>
+  <li>Verificar se o Relé principal esta queimado;</li>
+  <li>Válvula MPROP desconectada ou queimada.</li>
+</ul>
+<p><strong>Possíveis soluções</strong></p>
+<ul>
+  <li>Verificar a tensão da bateria;</li>
+  <li>Verificar se tem tensão no relé principal;</li>
+  <li>Verificar se tem tensão de 5V em qualquer um dos sensores;</li>
+  <li>Realizar os testes de voltagem e resistência.</li>
+</ul>
+<p>Extremamente raro encontrar uma com problemas elétricos. Ma é bom conferir se os terminais não estão folgados.</p>
+
+<h3 id="sem-pressao-rail">Sem pressão de combustível no tubo Rail</h3>
+<p><strong>Sintomas</strong></p>
+<ul>
+  <li>Bomba elétrica ligou;</li>
+  <li>Sem pressão de combustível no tubo Rail</li>
+</ul>
+<p><strong>Possíveis causas</strong></p>
+<ul>
+  <li>Falta de combustível;</li>
+  <li>Bomba elétrica não esta funcionado;</li>
+  <li>Válvula de proteção do Rail com vazamento. <!-- Vídeo: cole aqui o link --></li>
+  <li>Válvula KUV travada no fundo do alojamento;</li>
+  <li>Válvula MProp travada fechada;</li>
+  <li>Sujeira na bomba de alta.</li>
+</ul>
+<p><strong>Possíveis soluções</strong></p>
+<p>Sabemos que o jeito mais fácil para verificar se esta chegando combustível é afrouxando o tubo do bico injetor, se for realizar este teste afrouxe o tubo no lado do bico injetor, pois no tubo Rail a rosca é extremamente frágil.</p>
+<ul>
+  <li>Verificar se esta chegando combustível da <a href="#alimentacao-de-combustivel/bomba-eletrica">bomba elétrica</a> até a entrada da bomba de alta pressão;</li>
+  <li>Verificar excesso de retorno nos <a href="#sistema-de-injecao/bicos-injetores">bicos injetores</a>;</li>
+  <li>Medir a <a href="#sistema-de-injecao/sensor-pres-rail">tensão no sensor do Rail</a> durante as partidas;</li>
+  <li>Verificar <a href="#alimentacao-de-combustivel/tubo-rail">válvula de proteção do Rail</a>;</li>
+  <li>Retirar a válvula <a href="#alimentacao-de-combustivel/valvula-kuv">KUV</a> e verifique se esta travada;</li>
+  <li>Retira a válvula MProp e verificar se esta travada. <!-- Vídeo: cole aqui o link --></li>
+  <li>Se nada resolver é preciso retira a <a href="#alimentacao-de-combustivel/bomba-alta-pressao">bomba de alta</a> para limpeza.</li>
+</ul>
+
+<h3 id="alta-pressao-rail">Alta pressão de combustível no tubo Rail</h3>
+<p><strong>Sintomas</strong></p>
+<ul>
+  <li>Alta pressão no Tubo Rail;</li>
+  <li>Acende luz de injeção e desliga o motor.</li>
+</ul>
+<p><strong>Possíveis causas</strong></p>
+<ul>
+  <li>Válvula MProp travada aberta;</li>
+  <li><a href="#sistema-de-injecao/sensor-pres-rail">Sensor Rail</a> avariado;</li>
+</ul>
+<p><strong>Possíveis soluções</strong></p>
+<ul>
+  <li>Limpar a Válvula MProp;</li>
+  <li>Trocar o Sensor Rail avariado.</li>
+</ul>
+<p><strong>Dica:</strong> Problemas no sensor do Rail e MPROP confunde muito pois são dependentes um do outro. a dica é reparar se há excesso de fumaça preta no escapamento pois isso indica excesso de combustível nos injetores devido a falha da válvula MPROP.</p>
+<p><strong>Testes com Multímetro</strong></p>
+<p>Verifique se a tensão no pino 02 do sensor do tubo com multímetro:</p>
+<ul>
+  <li>chave ligada, antes da partida: 0,5V;</li>
+  <li>na lenta: aproximadamente 1,2V;</li>
+  <li>rotação alta: aproximadamente até 4,5V;</li>
+</ul>
+<p><strong>Testes com Scanner</strong></p>
+<p>Se a pressão real estiver sempre acima a válvula MProp pode esta travada ou sensor de pressão com defeito.</p>
+<img src="img/valvula-mprop/17-scanner-1.jpg" alt="Pressão do Rail no scanner" loading="lazy">
+<p>Em 750 rpm, marcha lenta, a pressão deveria estar entre 200 a 500 bar.</p>
+<img src="img/valvula-mprop/18-scanner-2.jpg" alt="Pressão do Rail no scanner em rotação alta" loading="lazy">
+<p>Em 2.000 rpm a pressão já está no limite máximo aceitável para máxima rotação.</p>
+
+<p><strong>Procedimento "metiradosanha"</strong></p>
+<p>O ideal é tentar destravar com produtos químico que não seja agressivos ao material da válvula em uma cuba ultrassônica.</p>
+<p>Antes de retirar a válvula MProp verifique:</p>
+<ul>
+  <li>Se tem combustível no tanque;</li>
+  <li>Filtros e pescador de combustível desobstruídos;</li>
+  <li>Mangueiras com vazamentos;</li>
+  <li>Vazão da bomba elétrica;</li>
+  <li>Verificar se o combustível chega até a bomba de alta.</li>
+</ul>
+
+<h2 id="codigos-de-falha">Códigos de Falha</h2>
+
+<h3>Código 1211 – Falha no sinal da válvula reguladora de pressão (M-PROP)</h3>
+<p>Significa que não há comunicação elétrica adequada entre o ECM e a válvula. Pode indicar:</p>
+<ul>
+  <li>Chicote rompido ou com mau contato;</li>
+  <li>Conector mal encaixado ou oxidado;</li>
+  <li>M-PROP aberta (sem continuidade) ou em curto.</li>
+</ul>
+
+<h3>Código 1221 – Curto-circuito à massa no circuito da válvula M-PROP</h3>
+<p>Ocorre quando a linha de comando está encostando na carcaça (terra), forçando o módulo a cortar o sinal.<br>Causas comuns:</p>
+<ul>
+  <li>Fio prensado ou isolação rompida;</li>
+  <li>Bobina da M-PROP em curto;</li>
+  <li>Sujeira ou umidade no chicote.</li>
+</ul>
+
+<h3>Código 1222 – Curto-circuito à positivo no circuito da válvula M-PROP</h3>
+<p>Indica que o comando da ECU está recebendo tensão direta de 12V por falha no chicote ou inversão elétrica.<br>Cuidado: pode queimar o driver interno do módulo se persistir.</p>
+
+<h3>Código 1231 – Sinal fora da faixa esperada da válvula M-PROP</h3>
+<p>A ECU está enviando o sinal PWM corretamente, mas o comportamento da válvula não está dentro do esperado.<br>Causas prováveis:</p>
+<ul>
+  <li>Travamento interno (mola ou êmbolo sujo);</li>
+  <li>Combustível contaminado (borra ou sujeira fina);</li>
+  <li>Retorno do rail obstruído.</li>
+</ul>
+
+<h3>Código 1617 – Pressão do Rail abaixo do mínimo esperado em marcha lenta</h3>
+<p>Mesmo com comando PWM alto, a pressão medida no tubo Rail é baixa.<br>Pode indicar:</p>
+<ul>
+  <li>Válvula M-PROP travada fechada;</li>
+  <li>Bomba de alta desgastada;</li>
+  <li>Entrada de ar na linha de baixa pressão.</li>
+</ul>
+
+<h3>Código 1618 – Pressão do Rail acima do máximo permitido</h3>
+<p>A ECU tenta reduzir a pressão, mas a M-PROP não responde.<br>Causas:</p>
+<ul>
+  <li>Válvula travada aberta;</li>
+  <li>Obstrução na linha de retorno;</li>
+  <li>Sensor de pressão do rail com leitura incorreta.</li>
+</ul>
+
+<h3>Código 1625 – Válvula M-PROP com atuação lenta ou instável</h3>
+<p>A oscilação da pressão no tubo Rail não acompanha corretamente o comando PWM.<br>Essa falha geralmente é intermitente e aparece com o motor quente, ou sob carga variável.<br>Pode indicar:</p>
+<ul>
+  <li>Desgaste interno da válvula;</li>
+  <li>Combustível de má qualidade;</li>
+  <li>Borra ou corrosão no corpo da válvula</li>
+</ul>

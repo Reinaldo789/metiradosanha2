@@ -1,0 +1,533 @@
+    /* ==========================================
+       1. ESTILOS BASE E CORES
+       ========================================== */
+    :root {
+      --bg-page: #eef2ff;
+      --card-bg: #ffffff;
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --primary-light: #f5f3ff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --transition: all 0.2s ease-in-out;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    *, *:before, *:after { box-sizing: inherit; }
+
+    .site-wrapper {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ==========================================
+       2. CABEÇALHO SUPERIOR (NAVBAR)
+       ========================================== */
+    header {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.5rem;
+      position: relative;
+    }
+
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .main-nav {
+      display: flex;
+      list-style: none;
+      gap: 0.5rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-item {
+      position: static;
+      padding-bottom: 10px;
+      margin-bottom: -10px;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.6rem 0.8rem;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .nav-btn i.fa-chevron-down {
+      font-size: 0.75rem;
+      transition: var(--transition);
+    }
+
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      color: var(--text-main);
+      cursor: pointer;
+    }
+
+    /* ==========================================
+       3. MEGA MENU DROPDOWN (DESKTOP)
+       ========================================== */
+    .mega-menu {
+      position: absolute;
+      top: 100%;
+      left: 1.5rem;
+      right: 1.5rem;
+      width: auto;
+      max-width: 1150px;
+      margin: 0 auto;
+      max-height: calc(85vh - 70px);
+      overflow-y: auto;
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border-color);
+      padding: 1.5rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: var(--transition);
+      z-index: 1001;
+      display: grid;
+      grid-template-columns: 3fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .mega-menu::-webkit-scrollbar {
+      width: 6px;
+    }
+    .mega-menu::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    /* HOVER DESKTOP */
+    @media (min-width: 961px) {
+      .nav-item:hover > .nav-btn {
+        background-color: var(--primary-light);
+        color: var(--primary);
+      }
+
+      .nav-item:hover > .nav-btn i.fa-chevron-down {
+        transform: rotate(180deg);
+      }
+
+      .nav-item:hover .mega-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+    }
+
+    .mega-categories-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .category-group {
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 1rem;
+    }
+
+    .category-group:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .category-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .mega-links-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+
+    .mega-link-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.6rem;
+      border-radius: 6px;
+      text-decoration: none;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      transition: var(--transition);
+    }
+
+    .mega-link-item:hover {
+      background-color: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .mega-link-item i {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .mega-link-item:hover i {
+      color: var(--primary);
+    }
+
+    /* Painel Lateral Explore */
+    .mega-explore-side {
+      background-color: #fafafa;
+      border-radius: 12px;
+      padding: 1rem;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .explore-header-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+
+    .explore-banner {
+      background-color: #312e81;
+      color: white;
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+      margin-bottom: 0.8rem;
+    }
+
+    .explore-banner i {
+      font-size: 1.8rem;
+      margin-bottom: 0.4rem;
+      color: #818cf8;
+    }
+
+    .explore-banner h5 {
+      margin: 0 0 0.2rem 0;
+      font-size: 0.9rem;
+    }
+
+    .explore-banner p {
+      margin: 0;
+      font-size: 0.75rem;
+      opacity: 0.8;
+    }
+
+    .explore-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* ==========================================
+       4. CONTEÚDO DA PÁGINA
+       ========================================== */
+    main {
+      flex-grow: 1;
+      padding: 3rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-box {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: white;
+      border-radius: 20px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+    }
+
+    .hero-title-bg {
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: 900;
+      color: rgba(79, 70, 229, 0.15);
+      margin: 0;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .hero-title-main {
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      color: var(--text-main);
+      margin-top: -1rem;
+      font-weight: 800;
+    }
+
+    .hero-sub {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 600px;
+      margin: 0.8rem auto 0 auto;
+    }
+
+    /* ==========================================
+       5. BOTÃO FLUTUANTE (VOLTAR AO TOPO)
+       ========================================== */
+    .floating-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 999;
+    }
+
+    .float-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 1.2rem;
+      background-color: var(--primary);
+      box-shadow: var(--shadow-lg);
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .float-btn:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-3px);
+    }
+
+    .float-btn.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ==========================================
+       6. ESTILOS MOBILE (COM ROLAGEM CORRIGIDA)
+       ========================================== */
+    @media (max-width: 960px) {
+      .mobile-toggle { display: block; }
+
+      .main-nav {
+        display: none;
+        position: fixed;
+        top: 60px; /* Altura do cabeçalho */
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: calc(100vh - 60px);
+        background: #f8fafc;
+        flex-direction: column;
+        padding: 1rem 1rem 3rem 1rem;
+        border-bottom: 1px solid var(--border-color);
+        box-shadow: var(--shadow-lg);
+        overflow-y: auto; /* Rolagem geral da lista mobile */
+        -webkit-overflow-scrolling: touch;
+        gap: 0.8rem;
+        z-index: 999;
+      }
+
+      .main-nav.active { 
+        display: flex; 
+      }
+
+      .nav-item {
+        padding-bottom: 0;
+        margin-bottom: 0;
+        position: relative;
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        flex-shrink: 0;
+      }
+
+      .nav-btn {
+        width: 100%;
+        justify-content: space-between;
+        padding: 1rem 1.2rem;
+        font-size: 0.95rem;
+        background: white;
+        border-radius: 0;
+      }
+
+      .nav-item.active .nav-btn {
+        background-color: var(--primary-light);
+        color: var(--primary);
+        font-weight: 700;
+      }
+
+      .mega-menu {
+        position: static;
+        left: auto;
+        right: auto;
+        transform: none !important;
+        width: 100%;
+        box-shadow: none;
+        border: none;
+        border-top: 1px solid var(--border-color);
+        padding: 1rem;
+        display: none;
+        grid-template-columns: 1fr;
+        opacity: 1;
+        visibility: visible;
+        max-height: 55vh; /* Limite de altura para acionar a rolagem interna no submenu */
+        overflow-y: auto; /* Permite rolar o conteúdo interno do submenu */
+        -webkit-overflow-scrolling: touch;
+        background: #ffffff;
+      }
+
+      .nav-item.active .mega-menu {
+        display: block;
+      }
+
+      .nav-item.active > .nav-btn i.fa-chevron-down {
+        transform: rotate(180deg);
+      }
+
+      .mega-links-grid {
+        grid-template-columns: 1fr;
+        gap: 0.4rem;
+      }
+
+      .mega-link-item {
+        padding: 0.65rem 0.8rem;
+        background: #f8fafc;
+        border-radius: 6px;
+      }
+
+      .mega-explore-side {
+        margin-top: 1.2rem;
+      }
+    }
+  
+    /* ==========================================
+       7. PÁGINAS CARREGADAS DE conteudo/
+       ========================================== */
+    .page-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      box-shadow: var(--shadow-sm);
+      padding: 2rem;
+      max-width: 860px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    .page-card[hidden], .hero-box[hidden] { display: none; }
+    .page-crumb { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.4rem; }
+    .page-crumb a { color: var(--primary); text-decoration: none; }
+    .page-card h1 { margin: 0 0 1rem; font-size: clamp(1.5rem, 4vw, 2rem); }
+    .page-card h2 { margin: 1.8rem 0 0.4rem; font-size: 1.2rem; color: var(--primary); }
+    .page-card img { max-width: 100%; height: auto; border-radius: 10px; }
+    .page-card table { border-collapse: collapse; width: 100%; display: block; overflow-x: auto; }
+    .page-card td, .page-card th { border: 1px solid var(--border-color); padding: 0.4rem 0.7rem; }
+    .page-loading { color: var(--text-muted); }
+    .mega-link-item.active { background-color: var(--primary-light); color: var(--primary); font-weight: 700; }
+    /* depois de clicar num item, o painel fecha até o mouse sair e voltar */
+    .nav-item.closed .mega-menu { opacity: 0 !important; visibility: hidden !important; }
+    @media (max-width: 960px) { .page-card { padding: 1.2rem; border-radius: 14px; } }
+
+    /* Índice interno, avisos e listas dos artigos */
+    .page-card [id] { scroll-margin-top: 80px; }
+    .page-card h3 { margin: 1.4rem 0 0.3rem; font-size: 1.05rem; }
+    .page-card ul { padding-left: 1.3rem; }
+    .page-card li { margin: 0.2rem 0; }
+    .page-card p { margin: 0.6rem 0; }
+    .page-card img { display: block; margin: 1rem 0; }
+    .page-card a { color: var(--primary); }
+    .toc { background: var(--primary-light); border-radius: 12px; padding: 1rem 1.2rem; margin: 1.2rem 0; font-size: 0.92rem; }
+    .toc ul { margin: 0.3rem 0 0; padding-left: 1.1rem; }
+    .toc a { text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+    .aviso { background: #fff7ed; border-left: 4px solid #f59e0b; border-radius: 8px; padding: 0.8rem 1rem; margin: 1.2rem 0; }
+    .aviso p { margin: 0.3rem 0 0; }
+
+    /* ==========================================
+       8. MEGA MENU COMPACTO (somente desktop)
+       Ajuste os valores abaixo para deixar mais apertado ou mais folgado.
+       ========================================== */
+    @media (min-width: 961px) {
+      .mega-menu {
+        max-width: 1000px;                 /* largura do painel */
+        padding: 1rem 1.2rem;              /* espaço interno do painel */
+        grid-template-columns: 1fr 230px;  /* itens | cartão de destaque */
+        gap: 1rem;
+      }
+      .mega-categories-container { gap: 0.5rem; }
+      .category-group { padding-bottom: 0.5rem; }
+      .category-title { margin-bottom: 0.25rem; font-size: 0.75rem; }
+      .mega-links-grid {
+        grid-template-columns: repeat(4, 1fr);  /* 4 itens por linha */
+        gap: 0 0.4rem;
+      }
+      .mega-link-item { padding: 0.25rem 0.5rem; font-size: 0.82rem; }
+      .mega-explore-side { padding: 0.8rem; justify-content: flex-start; gap: 0.6rem; }
+      .explore-header-title { margin-bottom: 0; }
+      .explore-banner { padding: 0.8rem; margin-bottom: 0; }
+      .explore-banner i { font-size: 1.4rem; margin-bottom: 0.2rem; }
+    }
