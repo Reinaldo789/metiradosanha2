@@ -1,4 +1,4 @@
-    /* ==========================================
+/* ==========================================
        1. ESTILOS BASE E CORES
        ========================================== */
     :root {
@@ -173,14 +173,33 @@
       gap: 1.2rem;
     }
 
+    /* --- AJUSTE DA LINHA DE DIVISÃO AQUI --- */
     .category-group {
-      border-bottom: 1px solid #f1f5f9;
+      /* border-bottom: 1px solid #f1f5f9;  <-- REMOVIDO */
       padding-bottom: 1rem;
+      position: relative; /* <-- ADICIONADO para referenciar o ::after */
+    }
+
+    /* Cria a linha personalizada */
+    .category-group::after {
+      content: "";
+      display: block;
+      width: 60%; /* <-- LARGURA DA LINHA (ajuste como quiser) */
+      height: 1px; /* <-- ESPESSURA DA LINHA */
+      background-color: #f1f5f9; /* <-- COR DA LINHA */
+      position: absolute;
+      bottom: 0;
+      left: 0; /* Se quiser centralizar, use: left: 50%; transform: translateX(-50%); */
     }
 
     .category-group:last-child {
-      border-bottom: none;
+      border-bottom: none; /* Mantido por segurança, mas o ::after ainda aparece */
       padding-bottom: 0;
+    }
+
+    /* Remove a linha do último item para não ficar solta no final */
+    .category-group:last-child::after {
+      display: none;
     }
 
     .category-title {
@@ -519,7 +538,15 @@
         gap: 1rem;
       }
       .mega-categories-container { gap: 0.5rem; }
+      
+      /* Ajuste do padding do grupo no modo compacto */
       .category-group { padding-bottom: 0.5rem; }
+      
+      /* Ajuste da largura da linha no modo compacto */
+      .category-group::after {
+        width: 80%; /* <-- Ajuste aqui a largura da linha no modo compacto */
+      }
+
       .category-title { margin-bottom: 0.25rem; font-size: 0.75rem; }
       .mega-links-grid {
         grid-template-columns: repeat(4, 1fr);  /* 4 itens por linha */
