@@ -50,3 +50,4 @@ nav li.open .sub{display:block}
 .sub .all{display:block;color:var(--ac);font-weight:700;border-left-color:var(--ac)}
 .hero{grid-template-columns:1fr}h1{font-size:27px}.big{padding:22px}
 }
+.artigo{max-width:720px;margin:16px 0 32px;font-size:18px}.artigo h2{margin:28px 0 8px;font-family:system-ui,sans-serif}.artigo img{max-width:100%;height:auto;border-radius:8px}.artigo li{margin:4px 0}
