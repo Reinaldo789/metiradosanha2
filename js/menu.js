@@ -40,7 +40,14 @@ function rota() {
     return;
   }
   const k = M.itens.indexOf(I), p = M.itens[k - 1], n = M.itens[k + 1];
-  app.innerHTML = `<div class="crumb"><a href="#/">Início</a> › <a href="#/${M.slug}">${M.titulo}</a> › ${I.titulo}</div><span class="kick">${M.titulo}</span><h1>${I.titulo}</h1><p class="mut">Conteúdo em preparação. Substitua este texto pelo artigo sobre ${I.titulo}.</p><div class="sec"><h2>Neste tópico</h2><p>Descrição, sintomas de falha, testes e procedimentos de troca.</p></div><div class="grid">${p ? `<a class="card" href="#/${M.slug}/${p.slug}">← ${p.titulo}</a>` : ''}${n ? `<a class="card" href="#/${M.slug}/${n.slug}">${n.titulo} →</a>` : ''}</div>`;
+  const nav2 = `<div class="grid">${p ? `<a class="card" href="#/${M.slug}/${p.slug}">← ${p.titulo}</a>` : ''}${n ? `<a class="card" href="#/${M.slug}/${n.slug}">${n.titulo} →</a>` : ''}</div>`;
+  const topo = `<div class="crumb"><a href="#/">Início</a> › <a href="#/${M.slug}">${M.titulo}</a> › ${I.titulo}</div><span class="kick">${M.titulo}</span><h1>${I.titulo}</h1>`;
+  app.innerHTML = topo + '<p class="mut">Carregando…</p>';
+  // O texto de cada página fica em conteudo/<menu>/<item>.html
+  fetch(`conteudo/${M.slug}/${I.slug}.html`)
+    .then(r => { if (!r.ok) throw 0; return r.text(); })
+    .then(h => { if (location.hash.endsWith(`${M.slug}/${I.slug}`)) app.innerHTML = topo + `<article class="artigo">${h}</article>` + nav2; })
+    .catch(() => { app.innerHTML = topo + '<p class="mut">Conteúdo em preparação.</p>' + nav2; });
 }
 
 fetch('paginas.json')
