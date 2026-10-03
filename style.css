@@ -1,214 +1,633 @@
-/* ==========================================================================
-   ESTILOS DO GUIA TÉCNICO (VÁLVULA MPROP)
-   ========================================================================== */
-
-.technical-guide {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  color: #1e293b;
-  line-height: 1.6;
-  max-width: 900px;
-  margin: 0 auto;
+/* ==========================================
+   1. ESTILOS BASE E CORES (MELHORADO)
+   ========================================== */
+:root {
+  --bg-page: #f8fafc;
+  --card-bg: #ffffff;
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-light: #eef2ff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.04);
+  --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.08), 0 10px 10px -5px rgba(0,0,0,0.03);
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --radius: 12px;
 }
 
-.technical-guide h1 {
-  font-size: 2.25rem;
-  font-weight: 800;
-  color: #0f172a;
-  margin-bottom: 1.25rem;
-}
-
-.technical-guide h2 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #2563eb;
-  margin-top: 2.5rem;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid #e2e8f0;
-}
-
-.technical-guide h3 {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #1e293b;
-  margin-top: 1.75rem;
-  margin-bottom: 0.75rem;
-}
-
-.technical-guide p {
-  margin-bottom: 1rem;
-  color: #334155;
-}
-
-.technical-guide p.lead {
-  font-size: 1.05rem;
-  color: #1e293b;
-  font-weight: 500;
-}
-
-.technical-guide ul, 
-.technical-guide ol {
-  margin-bottom: 1.25rem;
-  padding-left: 1.5rem;
-}
-
-.technical-guide li {
-  margin-bottom: 0.4rem;
-  color: #334155;
-}
-
-/* --------------------------------------------------------------------------
-   SUMÁRIO (Neste tópico)
-   -------------------------------------------------------------------------- */
-.toc {
-  background-color: #f0f5ff;
-  border: 1px solid #dbebe;
-  border-radius: 12px;
-  padding: 1.25rem 1.5rem;
-  margin: 1.5rem 0 2rem 0;
-}
-
-.toc strong {
-  display: block;
-  font-size: 1rem;
-  font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 0.75rem;
-}
-
-.toc ul {
-  list-style: none;
-  padding-left: 0;
-  margin-bottom: 0;
-}
-
-.toc ul ul {
-  padding-left: 1.25rem;
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
-}
-
-.toc li {
-  margin-bottom: 0.35rem;
-}
-
-.toc a {
-  color: #4f46e5;
-  text-decoration: none;
-  font-size: 0.95rem;
-  transition: color 0.2s ease;
-}
-
-.toc a:hover {
-  color: #1d4ed8;
-  text-decoration: underline;
-}
-
-/* --------------------------------------------------------------------------
-   CAIXAS DE ALERTA E INFORMAÇÃO (CALLOUTS)
-   -------------------------------------------------------------------------- */
-.callout, .info-box {
-  border-radius: 8px;
-  padding: 1.25rem;
-  margin: 1.5rem 0;
-}
-
-.callout.alert {
-  background-color: #fff7ed;
-  border-left: 4px solid #f97316;
-  color: #9a3412;
-}
-
-.callout.alert strong {
-  display: block;
-  font-size: 1.05rem;
-  color: #c2410c;
-  margin-bottom: 0.5rem;
-}
-
-.callout.warning {
-  background-color: #fefce8;
-  border-left: 4px solid #eab308;
-  color: #854d0e;
-}
-
-.info-box {
-  background-color: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-left: 4px solid #2563eb;
-}
-
-/* --------------------------------------------------------------------------
-   IMAGENS E MÍDIAS
-   -------------------------------------------------------------------------- */
-.media-container {
-  margin: 1.5rem 0;
-  text-align: center;
-}
-
-.media-container img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.media-container figcaption {
-  font-size: 0.85rem;
-  color: #64748b;
-  margin-top: 0.5rem;
-  font-style: italic;
-}
-
-/* --------------------------------------------------------------------------
-   TABELAS
-   -------------------------------------------------------------------------- */
-.table-container {
-  overflow-x: auto;
-  margin: 1.5rem 0;
-}
-
-.technical-guide table {
+html, body {
   width: 100%;
-  border-collapse: collapse;
-  background-color: #ffffff;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+*, *:before, *:after { box-sizing: inherit; }
+
+.site-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================
+   2. CABEÇALHO SUPERIOR (NAVBAR) - MELHORADO
+   ========================================== */
+header {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  position: relative;
+}
+
+.logo {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--primary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.logo i {
+  font-size: 1.3rem;
+}
+
+.main-nav {
+  display: flex;
+  list-style: none;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  position: static;
+  padding-bottom: 10px;
+  margin-bottom: -10px;
+}
+
+.nav-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.6rem 0.9rem;
   border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: var(--transition);
+  text-decoration: none;
+  font-family: inherit;
 }
 
-.technical-guide th, 
-.technical-guide td {
-  padding: 0.75rem 1rem;
-  text-align: left;
-  border-bottom: 1px solid #e2e8f0;
+.nav-btn:hover {
+  background-color: var(--primary-light);
+  color: var(--primary);
 }
 
-.technical-guide th {
+.nav-btn i.fa-chevron-down {
+  font-size: 0.7rem;
+  transition: transform 0.3s ease;
+}
+
+.nav-item.active .nav-btn i.fa-chevron-down {
+  transform: rotate(180deg);
+}
+
+.mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: var(--text-main);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: var(--transition);
+}
+
+.mobile-toggle:hover {
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+/* ==========================================
+   3. MEGA MENU DROPDOWN (DESKTOP) - MELHORADO
+   ========================================== */
+.mega-menu {
+  position: absolute;
+  top: 100%;
+  left: 1.5rem;
+  right: 1.5rem;
+  width: auto;
+  max-width: 1150px;
+  margin: 0 auto;
+  max-height: calc(85vh - 70px);
+  overflow-y: auto;
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  z-index: 1001;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 1.5rem;
+}
+
+.mega-menu::-webkit-scrollbar {
+  width: 6px;
+}
+.mega-menu::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+/* HOVER DESKTOP */
+@media (min-width: 961px) {
+  .nav-item:hover > .nav-btn {
+    background-color: var(--primary-light);
+    color: var(--primary);
+  }
+
+  .nav-item:hover > .nav-btn i.fa-chevron-down {
+    transform: rotate(180deg);
+  }
+
+  .nav-item:hover .mega-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
+.mega-categories-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* --- LINHA DE DIVISÃO PERSONALIZADA --- */
+.category-group {
+  padding-bottom: 1rem;
+  position: relative;
+}
+
+.category-group::after {
+  content: "";
+  display: block;
+  width: 60%;
+  height: 1px;
   background-color: #f1f5f9;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.category-group:last-child {
+  padding-bottom: 0;
+}
+
+.category-group:last-child::after {
+  display: none;
+}
+
+.category-title {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--primary);
   font-weight: 700;
-  color: #0f172a;
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
-.technical-guide tr:last-child td {
-  border-bottom: none;
+.mega-links-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
 }
 
-/* --------------------------------------------------------------------------
-   BLOCOS DE CÓDIGOS DE FALHA (DTC)
-   -------------------------------------------------------------------------- */
-.dtc-block {
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
+.mega-link-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.6rem;
   border-radius: 8px;
-  padding: 1.25rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  text-decoration: none;
+  color: var(--text-main);
+  font-size: 0.85rem;
+  transition: var(--transition);
+  border: 1px solid transparent;
 }
 
-.dtc-block h3 {
-  margin-top: 0;
-  color: #dc2626;
-  font-size: 1.05rem;
+.mega-link-item:hover {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  border-color: #e0e7ff;
+  transform: translateX(3px);
+}
+
+.mega-link-item i {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
+.mega-link-item:hover i {
+  color: var(--primary);
+  transform: translateX(2px);
+}
+
+.mega-link-item.active {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  font-weight: 700;
+  border-color: #c7d2fe;
+}
+
+/* Painel Lateral Explore - MELHORADO */
+.mega-explore-side {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: 14px;
+  padding: 1.2rem;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: var(--transition);
+}
+
+.mega-explore-side:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.explore-header-title {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+
+.explore-banner {
+  background-color: #312e81;
+  color: white;
+  border-radius: 12px;
+  padding: 1.2rem 1rem;
+  text-align: center;
+  margin-bottom: 0.8rem;
+  transition: var(--transition);
+  box-shadow: 0 4px 12px rgba(49, 46, 129, 0.25);
+}
+
+.explore-banner:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(49, 46, 129, 0.35);
+}
+
+.explore-banner i {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #a5b4fc;
+}
+
+.explore-banner h5 {
+  margin: 0 0 0.3rem 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.explore-banner p {
+  margin: 0;
+  font-size: 0.75rem;
+  opacity: 0.85;
+  line-height: 1.4;
+}
+
+.explore-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: var(--transition);
+  padding: 0.4rem 0;
+}
+
+.explore-link:hover {
+  gap: 0.7rem;
+  color: var(--primary-hover);
+}
+
+/* ==========================================
+   4. CONTEÚDO DA PÁGINA
+   ========================================== */
+main {
+  flex-grow: 1;
+  padding: 3rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-box {
+  text-align: center;
+  padding: 3.5rem 1.5rem;
+  background: white;
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+}
+
+.hero-title-bg {
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  font-weight: 900;
+  color: rgba(79, 70, 229, 0.12);
+  margin: 0;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+}
+
+.hero-title-main {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  color: var(--text-main);
+  margin-top: -1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.hero-sub {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  max-width: 600px;
+  margin: 0.8rem auto 0 auto;
+  line-height: 1.6;
+}
+
+/* ==========================================
+   5. BOTÃO FLUTUANTE (VOLTAR AO TOPO)
+   ========================================== */
+.floating-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+}
+
+.float-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.2rem;
+  background-color: var(--primary);
+  box-shadow: var(--shadow-lg);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.float-btn:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-4px) scale(1.05);
+}
+
+.float-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ==========================================
+   6. ESTILOS MOBILE - MELHORADO
+   ========================================== */
+@media (max-width: 960px) {
+  .mobile-toggle { display: block; }
+
+  .main-nav {
+    display: none;
+    position: fixed;
+    top: 61px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: calc(100vh - 61px);
+    background: var(--bg-page);
+    flex-direction: column;
+    padding: 1rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.6rem;
+    z-index: 999;
+    animation: fadeInDown 0.2s ease;
+  }
+
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .main-nav.active { 
+    display: flex; 
+  }
+
+  .nav-item {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    position: relative;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    flex-shrink: 0;
+    transition: var(--transition);
+  }
+
+  .nav-item.active {
+    box-shadow: var(--shadow-md);
+    border-color: #c7d2fe;
+  }
+
+  .nav-btn {
+    width: 100%;
+    justify-content: space-between;
+    padding: 1rem 1.2rem;
+    font-size: 0.95rem;
+    background: white;
+    border-radius: 0;
+  }
+
+  .nav-item.active .nav-btn {
+    background-color: var(--primary-light);
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  .mega-menu {
+    position: static;
+    left: auto;
+    right: auto;
+    transform: none !important;
+    width: 100%;
+    box-shadow: none;
+    border: none;
+    border-top: 1px solid var(--border-color);
+    padding: 1rem;
+    display: none;
+    grid-template-columns: 1fr;
+    opacity: 1;
+    visibility: visible;
+    max-height: none;
+    overflow-y: visible;
+    background: #ffffff;
+  }
+
+  .nav-item.active .mega-menu {
+    display: block;
+    animation: slideDown 0.25s ease;
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .nav-item.active > .nav-btn i.fa-chevron-down {
+    transform: rotate(180deg);
+  }
+
+  .mega-links-grid {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
+  .mega-link-item {
+    padding: 0.7rem 0.9rem;
+    background: #f8fafc;
+    border-radius: 8px;
+  }
+
+  .mega-link-item:hover {
+    transform: none;
+  }
+
+  .mega-explore-side {
+    margin-top: 1rem;
+  }
+
+  .category-group::after {
+    width: 100%;
+  }
+}
+
+/* ==========================================
+   7. PÁGINAS CARREGADAS DE conteudo/
+   ========================================== */
+.page-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
+  padding: 2rem;
+  max-width: 860px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+.page-card[hidden], .hero-box[hidden] { display: none; }
+.page-crumb { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.4rem; }
+.page-crumb a { color: var(--primary); text-decoration: none; }
+.page-card h1 { margin: 0 0 1rem; font-size: clamp(1.5rem, 4vw, 2rem); }
+.page-card h2 { margin: 1.8rem 0 0.4rem; font-size: 1.2rem; color: var(--primary); }
+.page-card img { max-width: 100%; height: auto; border-radius: 10px; }
+.page-card table { border-collapse: collapse; width: 100%; display: block; overflow-x: auto; }
+.page-card td, .page-card th { border: 1px solid var(--border-color); padding: 0.4rem 0.7rem; }
+.page-loading { color: var(--text-muted); }
+/* depois de clicar num item, o painel fecha até o mouse sair e voltar */
+.nav-item.closed .mega-menu { opacity: 0 !important; visibility: hidden !important; }
+@media (max-width: 960px) { .page-card { padding: 1.2rem; border-radius: 14px; } }
+
+/* Índice interno, avisos e listas dos artigos */
+.page-card [id] { scroll-margin-top: 80px; }
+.page-card h3 { margin: 1.4rem 0 0.3rem; font-size: 1.05rem; }
+.page-card ul { padding-left: 1.3rem; }
+.page-card li { margin: 0.2rem 0; }
+.page-card p { margin: 0.6rem 0; }
+.page-card img { display: block; margin: 1rem 0; }
+.page-card a { color: var(--primary); }
+.toc { background: var(--primary-light); border-radius: 12px; padding: 1rem 1.2rem; margin: 1.2rem 0; font-size: 0.92rem; }
+.toc ul { margin: 0.3rem 0 0; padding-left: 1.1rem; }
+.toc a { text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
+.aviso { background: #fff7ed; border-left: 4px solid #f59e0b; border-radius: 8px; padding: 0.8rem 1rem; margin: 1.2rem 0; }
+.aviso p { margin: 0.3rem 0 0; }
+
+/* ==========================================
+   8. MEGA MENU COMPACTO (somente desktop)
+   ========================================== */
+@media (min-width: 961px) {
+  .mega-menu {
+    max-width: 1000px;
+    padding: 1rem 1.2rem;
+    grid-template-columns: 1fr 230px;
+    gap: 1rem;
+  }
+  .mega-categories-container { gap: 0.5rem; }
+  .category-group { padding-bottom: 0.5rem; }
+  .category-group::after { width: 80%; }
+  .category-title { margin-bottom: 0.25rem; font-size: 0.75rem; }
+  .mega-links-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0 0.4rem;
+  }
+  .mega-link-item { padding: 0.3rem 0.5rem; font-size: 0.82rem; }
+  .mega-explore-side { padding: 0.8rem; justify-content: flex-start; gap: 0.6rem; }
+  .explore-header-title { margin-bottom: 0; }
+  .explore-banner { padding: 0.8rem; margin-bottom: 0; }
+  .explore-banner i { font-size: 1.4rem; margin-bottom: 0.2rem; }
 }
