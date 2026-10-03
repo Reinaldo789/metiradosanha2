@@ -3,76 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guia Técnico - Portal de Especificações</title>
-  
-  <link rel="stylesheet" href="style.css">
+  <title>Guia Técnico - Painel Lateral Dinâmico</title>
+
+  <!-- Fonte Google Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Ícones Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+  <!-- BARRA SUPERIOR MOBILE -->
+  <header class="mobile-header">
+    <button class="mobile-toggle" id="mobile-toggle-btn" aria-label="Abrir Menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <a href="#" class="logo">
+      <i class="fa-solid fa-gears"></i>
+      <span>Guia Técnico</span>
+    </a>
+  </header>
+
+  <!-- OVERLAY PARA FECHAR O MENU NO MOBILE -->
   <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
   <div class="site-wrapper">
 
-    <!-- 1. CABEÇALHO PRINCIPAL -->
-    <header>
-      <div class="nav-container">
-        <button class="mobile-toggle" id="mobile-toggle" aria-label="Abrir Menu">
-          <i class="fa-solid fa-bars"></i>
-        </button>
-
+    <!-- MENU LATERAL (SIDEBAR) -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
         <a href="#" class="logo">
           <i class="fa-solid fa-gears"></i>
           <span>Guia Técnico</span>
         </a>
-
-        <!-- Menu Desktop (Sera oculto no mobile) -->
-        <nav class="main-nav-wrapper">
-          <ul class="main-nav">
-            <!-- Itens do menu desktop -->
-          </ul>
-        </nav>
       </div>
-    </header>
 
-    <!-- 2. MENU LATERAL (SIDEBAR MOBILE / NAVEGAÇÃO INTERNA) -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <span class="sidebar-title">
-          <i class="fa-solid fa-gears"></i>
-          Navegação
-        </span>
-      </div>
+      <!-- O menu será injetado dinamicamente via JS aqui -->
       <nav class="sidebar-nav">
         <ul class="nav-list" id="nav-list"></ul>
       </nav>
     </aside>
 
-    <!-- 3. CONTEÚDO PRINCIPAL -->
-    <main id="main-content">
-      <!-- HERO BOX (Página Inicial) -->
-      <div class="hero-box" id="hero-box">
-        <p class="hero-title-bg">Guia Técnico</p>
-        <h1 class="hero-title-main">Portal de Especificações</h1>
-        <p class="hero-sub">
-          Selecione uma categoria no menu lateral para visualizar componentes, manuais e testes de diagnóstico.
-        </p>
+    <!-- ÁREA DE CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+      <div class="hero-box" id="home-box">
+        <h1 class="hero-title-bg">Guia Técnico</h1>
+        <div class="hero-title-main">Portal de Especificações</div>
+        <p class="hero-sub">Selecione uma categoria no menu lateral para visualizar componentes, manuais e testes de diagnóstico.</p>
       </div>
-
-      <!-- CARD ONDE SERÁ CARREGADO O CONTEÚDO DINÂMICO VIA JS -->
-      <div class="page-card" id="page-card" hidden>
-        <!-- O conteúdo dos artigos (como a Válvula MProp) entra aqui -->
-      </div>
+      <article class="page-card" id="page-card" hidden></article>
     </main>
-
-    <!-- 4. BOTÃO FLUTUANTE (VOLTAR AO TOPO) -->
-    <div class="floating-container">
-      <button class="float-btn" id="backToTop" aria-label="Voltar ao topo">
-        <i class="fa-solid fa-arrow-up"></i>
-      </button>
-    </div>
 
   </div>
 
+  <!-- BOTÃO FLUTUANTE VOLTAR AO TOPO -->
+  <div class="floating-container">
+    <button class="float-btn" id="btn-top" title="Voltar ao Topo" aria-label="Voltar ao topo">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+  </div>
+
+  <script src="menu.js"></script>
 </body>
 </html>
