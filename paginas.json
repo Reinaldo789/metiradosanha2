@@ -72,12 +72,12 @@
     }
   },
   {
-    "titulo": "Alimentação Combustível",
-    "slug": "alimentacao-combustivel",
+    "titulo": "Linha de Combustível",
+    "slug": "linha-de-combustivel",
     "icone": "⛽",
     "grupos": [
       {
-        "titulo": "Linha Combustível",
+        "titulo": "Linha de Baixa",
         "itens": [
           {
             "titulo": "Tanque, Filtro, Mang.",
