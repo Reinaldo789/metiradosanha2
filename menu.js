@@ -37,12 +37,12 @@ const menuData = [
     ]
   },
   {
-    "titulo": "Alimentação Combustível",
-    "slug": "alimentacao-combustivel",
+    "titulo": "Linha de Combustível",
+    "slug": "linha-de-combustivel",
     "icone": "fa-gas-pump",
     "grupos": [
       {
-        "titulo": "Linha Combustível",
+        "titulo": "Linha de Baixa",
         "icone": "fa-filter",
         "itens": [
           { "titulo": "Tanque, Filtro, Mang.", "slug": "tanque-filtro-mang" },
