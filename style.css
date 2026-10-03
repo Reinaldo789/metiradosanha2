@@ -1,152 +1,43 @@
 /* ==========================================
-   9. CORREÇÕES DE LAYOUT E GUIA TÉCNICO
+   9. CORREÇÃO DA SIDEBAR E LAYOUT PRINCIPAL
    ========================================== */
 
-/* Fix para evitar cabeçalhos/logos duplicados e sobrepostos */
-header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  width: 100%;
+/* Isolamento do logótipo da Sidebar */
+.sidebar-logo {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--primary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-/* Força a limpeza de fluxo na área principal */
+.sidebar-header {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Esconder elementos visuais duplicados ou fora de fluxo */
 main {
   position: relative;
   z-index: 1;
-  clear: both;
+  width: 100%;
 }
 
-/* --- ESTILOS ESPECÍFICOS DO ARTIGO (DENTRO DE .page-card) --- */
-.page-card .lead {
-  font-size: 1.05rem;
-  font-weight: 500;
-  color: var(--text-main);
-  line-height: 1.6;
-}
-
-.page-card section.guide-section {
-  margin-bottom: 2rem;
-}
-
-/* Sumário Interno (Neste Tópico) */
-.page-card .toc {
-  background-color: var(--primary-light);
-  border: 1px solid #c7d2fe;
-  border-radius: var(--radius);
-  padding: 1.25rem 1.5rem;
-  margin: 1.5rem 0 2rem 0;
-}
-
-.page-card .toc strong {
-  display: block;
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--text-main);
-  margin-bottom: 0.5rem;
-}
-
-.page-card .toc ul {
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
-}
-
-.page-card .toc ul ul {
-  padding-left: 1.25rem;
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
-}
-
-.page-card .toc li {
-  margin-bottom: 0.35rem;
-}
-
-.page-card .toc a {
-  color: var(--primary);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.92rem;
-  transition: var(--transition);
-}
-
-.page-card .toc a:hover {
-  color: var(--primary-hover);
-  text-decoration: underline;
-}
-
-/* Imagens com Legenda */
-.page-card .media-container {
-  margin: 1.5rem 0;
-  text-align: center;
-}
-
-.page-card .media-container img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-  border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-sm);
-  display: block;
-  margin: 0 auto;
-}
-
-.page-card .media-container figcaption {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-top: 0.5rem;
-  font-style: italic;
-}
-
-/* Caixas de Alerta e Callouts */
-.page-card .info-box {
-  background-color: #f8fafc;
-  border: 1px solid var(--border-color);
-  border-left: 4px solid var(--primary);
-  border-radius: 8px;
-  padding: 1rem 1.25rem;
-  margin: 1.5rem 0;
-}
-
-.page-card .callout {
-  border-radius: 8px;
-  padding: 1rem 1.25rem;
-  margin: 1.5rem 0;
-}
-
-.page-card .callout.warning {
-  background-color: #fefce8;
-  border-left: 4px solid #eab308;
-  color: #854d0e;
-}
-
-.page-card .callout.alert {
-  background-color: #fff7ed;
-  border-left: 4px solid #f97316;
-  color: #9a3412;
-}
-
-.page-card .callout.alert strong,
-.page-card .callout.warning strong {
-  display: block;
-  font-weight: 700;
-  margin-bottom: 0.3rem;
-}
-
-/* Correção de Tabelas dentro de .page-card */
+/* Garantir que as tabelas do guia técnico mantêm a estrutura correta dentro de .page-card */
 .page-card .table-container {
   width: 100%;
   overflow-x: auto;
   margin: 1.5rem 0;
-  border-radius: 10px;
+  border-radius: var(--radius);
   border: 1px solid var(--border-color);
 }
 
 .page-card .table-container table {
   width: 100% !important;
-  display: table !important; /* Anula o display:block genérico */
+  display: table !important;
   border-collapse: collapse;
-  background-color: #ffffff;
 }
 
 .page-card .table-container th,
@@ -158,23 +49,5 @@ main {
 
 .page-card .table-container th {
   background-color: #f1f5f9;
-  font-weight: 700;
-  color: var(--text-main);
-}
-
-/* Blocos DTC */
-.page-card .dtc-block {
-  background-color: #ffffff;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  padding: 1.25rem;
-  margin-bottom: 1.25rem;
-  box-shadow: var(--shadow-sm);
-}
-
-.page-card .dtc-block h3 {
-  margin-top: 0;
-  color: #dc2626;
-  font-size: 1.05rem;
   font-weight: 700;
 }
