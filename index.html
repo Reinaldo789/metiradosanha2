@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guia Técnico - Painel Lateral</title>
+  <title>Guia Técnico - Painel Lateral Dinâmico</title>
 
   <!-- Fonte Google Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,144 +42,9 @@
         </a>
       </div>
 
+      <!-- O menu será injetado dinamicamente via JS aqui -->
       <nav class="sidebar-nav">
-        <ul class="nav-list">
-
-          <!-- 1. SISTEMA ELÉTRICO -->
-          <li class="nav-item">
-            <button class="nav-btn">
-              <span class="nav-btn-title">
-                <i class="fa-solid fa-bolt nav-icon"></i>
-                <span>Sistema Elétrico</span>
-              </span>
-              <i class="fa-solid fa-chevron-down arrow-icon"></i>
-            </button>
-
-            <div class="submenu">
-              <!-- Luzes -->
-              <div class="submenu-group">
-                <div class="group-title"><i class="fa-solid fa-lightbulb"></i> Luzes</div>
-                <a href="#sistema-eletrico/fusiveis-e-lampadas" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Fusíveis e Lâmpadas</a>
-                <a href="#sistema-eletrico/luz-de-farol-e-posicao" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Farol e Posição</a>
-                <a href="#sistema-eletrico/luz-de-seta-e-alerta" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Seta e Alerta</a>
-              </div>
-
-              <!-- Painel de Instrumentos -->
-              <div class="submenu-group">
-                <div class="group-title"><i class="fa-solid fa-gauge"></i> Painel de Instrumentos</div>
-                <a href="#sistema-eletrico/luz-e-pressao-de-oleo" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Luz e Pressão de Óleo</a>
-                <a href="#sistema-eletrico/luzes-de-injecao" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Luzes de Injeção</a>
-                <a href="#sistema-eletrico/agua-no-combustivel" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Água no Combustível</a>
-                <a href="#sistema-eletrico/agua-de-arrefecimento" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Água de Arrefecimento</a>
-              </div>
-
-              <!-- Acessórios -->
-              <div class="submenu-group">
-                <div class="group-title"><i class="fa-solid fa-car-battery"></i> Acessórios</div>
-                <a href="#sistema-eletrico/bateria" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Bateria</a>
-                <a href="#sistema-eletrico/alternador" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Alternador</a>
-                <a href="#sistema-eletrico/motor-de-partida" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Motor de Partida</a>
-                <a href="#sistema-eletrico/limpador-de-para-brisa" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Limpador de Para-brisa</a>
-              </div>
-            </div>
-          </li>
-
-          <!-- 2. ALIMENTAÇÃO DE COMBUSTÍVEL -->
-          <li class="nav-item">
-            <button class="nav-btn">
-              <span class="nav-btn-title">
-                <i class="fa-solid fa-gas-pump nav-icon"></i>
-                <span>Alimentação Combustível</span>
-              </span>
-              <i class="fa-solid fa-chevron-down arrow-icon"></i>
-            </button>
-
-            <div class="submenu">
-              <div class="submenu-group">
-                <div class="group-title"><i class="fa-solid fa-filter"></i> Linha Combustível</div>
-                <a href="#alimentacao-de-combustivel/tanque-filtro-mang" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Tanque, Filtro, Mang.</a>
-                <a href="#alimentacao-de-combustivel/bomba-eletrica" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Bomba Elétrica</a>
-              </div>
-
-              <div class="submenu-group">
-                <div class="group-title"><i class="fa-solid fa-gauge-high"></i> Linha de Alta</div>
-                <a href="#alimentacao-de-combustivel/bomba-engrenagem" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Bomba Engrenagem</a>
-                <a href="#alimentacao-de-combustivel/valvula-kuv" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Válvula KUV</a>
-                <a href="#alimentacao-de-combustivel/bomba-alta-pressao" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Bomba Alta Pressão</a>
-                <a href="#alimentacao-de-combustivel/tubo-rail" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Tubo Rail</a>
-              </div>
-            </div>
-          </li>
-
-          <!-- 3. SISTEMA DE INJEÇÃO -->
-          <li class="nav-item">
-            <button class="nav-btn">
-              <span class="nav-btn-title">
-                <i class="fa-solid fa-microchip nav-icon"></i>
-                <span>Sistema de Injeção</span>
-              </span>
-              <i class="fa-solid fa-chevron-down arrow-icon"></i>
-            </button>
-
-            <div class="submenu">
-              <div class="submenu-group">
-                <div class="group-title"><i class="fa-solid fa-microchip"></i> Sensores</div>
-                <a href="#sistema-de-injecao/sensor-rotacao" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Sensor Rotação</a>
-                <a href="#sistema-de-injecao/sensor-fase" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Sensor Fase</a>
-                <a href="#sistema-de-injecao/sensor-pres-adm" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Sensor Pres. Adm</a>
-                <a href="#sistema-de-injecao/sensor-temp-ecm" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Sensor Temp. ECM</a>
-                <a href="#sistema-de-injecao/sensor-pres-rail" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Sensor Pres. Rail</a>
-              </div>
-
-              <div class="submenu-group">
-                <div class="group-title"><i class="fa-solid fa-sliders"></i> Atuadores</div>
-                <a href="#sistema-de-injecao/valvula-mprop" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Válvula MProp</a>
-                <a href="#sistema-de-injecao/pedal-acelerador" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Pedal Acelerador</a>
-                <a href="#sistema-de-injecao/modulador-turbina" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Modulador Turbina</a>
-                <a href="#sistema-de-injecao/bicos-injetores" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Bicos Injetores</a>
-                <a href="#sistema-de-injecao/lampada-painel" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Lâmpada Painel</a>
-              </div>
-            </div>
-          </li>
-
-          <!-- 4. MOTOR E CHASSI -->
-          <li class="nav-item">
-            <button class="nav-btn">
-              <span class="nav-btn-title">
-                <i class="fa-solid fa-wrench nav-icon"></i>
-                <span>Motor e Chassi</span>
-              </span>
-              <i class="fa-solid fa-chevron-down arrow-icon"></i>
-            </button>
-
-            <div class="submenu">
-              <div class="submenu-group">
-                <div class="group-title"><i class="fa-solid fa-snowflake"></i> Arrefecimento</div>
-                <a href="#motor-e-chassi/correia-e-ventoinha" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Correia e Ventoinha</a>
-                <a href="#motor-e-chassi/bomba-de-agua" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Bomba de Água</a>
-                <a href="#motor-e-chassi/trocador-de-calor" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Trocador de Calor</a>
-                <a href="#motor-e-chassi/valvula-termostatica" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Válvula Termostática</a>
-              </div>
-
-              <div class="submenu-group">
-                <div class="group-title"><i class="fa-solid fa-dharmachakra"></i> Direção</div>
-                <a href="#motor-e-chassi/bomba-de-direcao" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Bomba de Direção</a>
-                <a href="#motor-e-chassi/caixa-de-direcao" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Caixa de Direção</a>
-                <a href="#motor-e-chassi/oleo-de-direcao" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Óleo de Direção</a>
-              </div>
-
-              <div class="submenu-group">
-                <div class="group-title"><i class="fa-solid fa-circle-stop"></i> Freios</div>
-                <a href="#motor-e-chassi/bomba-de-vacuo" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Bomba de Vácuo</a>
-                <a href="#motor-e-chassi/cilindro-de-freio" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Cilindro de Freio</a>
-                <a href="#motor-e-chassi/oleo-de-freio" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Óleo de Freio</a>
-                <a href="#motor-e-chassi/pincas-de-freio" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Pinças de Freio</a>
-                <a href="#motor-e-chassi/regulagem-freio-de-mao" class="sidebar-link"><i class="fa-solid fa-chevron-right"></i> Regulagem Freio de Mão</a>
-              </div>
-            </div>
-          </li>
-
-        </ul>
+        <ul class="nav-list" id="nav-list"></ul>
       </nav>
     </aside>
 
