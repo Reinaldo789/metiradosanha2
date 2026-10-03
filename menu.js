@@ -37,8 +37,8 @@ const menuData = [
     ]
   },
   {
-    "titulo": "Alimentação de Combustível",
-    "slug": "alimentacao-de-combustivel",
+    "titulo": "Alimentação Combustível",
+    "slug": "alimentacao-combustivel",
     "icone": "fa-gas-pump",
     "grupos": [
       {
