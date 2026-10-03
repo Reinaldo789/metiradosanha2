@@ -86,6 +86,14 @@
           {
             "titulo": "Bomba Elétrica",
             "slug": "bomba-eletrica"
+          },
+          {
+            "titulo": "Bomba Engrenagem",
+            "slug": "bomba-engrenagem"
+          },
+          {
+            "titulo": "Válvula KUV",
+            "slug": "valvula-kuv"
           }
         ]
       },
