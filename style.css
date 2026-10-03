@@ -1,177 +1,214 @@
-/* ==========================================
-   9. GUIA TÉCNICO E VÁLVULA MPROP
-   ========================================== */
+/* ==========================================================================
+   ESTILOS DO GUIA TÉCNICO (VÁLVULA MPROP)
+   ========================================================================== */
 
-/* Ajustes de tipografia do artigo dentro do .page-card */
-.page-card .lead {
-  font-size: 1.05rem;
-  font-weight: 500;
-  color: var(--text-main);
+.technical-guide {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  color: #1e293b;
   line-height: 1.6;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
-.page-card section.guide-section {
-  margin-bottom: 2rem;
+.technical-guide h1 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 1.25rem;
 }
 
-/* --- SUMÁRIO INTERNO (TOC) --- */
-.page-card .toc {
-  background-color: var(--primary-light);
-  border: 1px solid #c7d2fe;
-  border-radius: var(--radius);
+.technical-guide h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2563eb;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.technical-guide h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.technical-guide p {
+  margin-bottom: 1rem;
+  color: #334155;
+}
+
+.technical-guide p.lead {
+  font-size: 1.05rem;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.technical-guide ul, 
+.technical-guide ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+.technical-guide li {
+  margin-bottom: 0.4rem;
+  color: #334155;
+}
+
+/* --------------------------------------------------------------------------
+   SUMÁRIO (Neste tópico)
+   -------------------------------------------------------------------------- */
+.toc {
+  background-color: #f0f5ff;
+  border: 1px solid #dbebe;
+  border-radius: 12px;
   padding: 1.25rem 1.5rem;
   margin: 1.5rem 0 2rem 0;
 }
 
-.page-card .toc strong {
+.toc strong {
   display: block;
   font-size: 1rem;
   font-weight: 700;
-  color: var(--text-main);
-  margin-bottom: 0.5rem;
+  color: #0f172a;
+  margin-bottom: 0.75rem;
 }
 
-.page-card .toc ul {
+.toc ul {
   list-style: none;
   padding-left: 0;
-  margin: 0;
+  margin-bottom: 0;
 }
 
-.page-card .toc ul ul {
+.toc ul ul {
   padding-left: 1.25rem;
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
 }
 
-.page-card .toc li {
+.toc li {
   margin-bottom: 0.35rem;
 }
 
-.page-card .toc a {
-  color: var(--primary);
+.toc a {
+  color: #4f46e5;
   text-decoration: none;
-  font-weight: 600;
-  font-size: 0.92rem;
-  transition: var(--transition);
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
 }
 
-.page-card .toc a:hover {
-  color: var(--primary-hover);
+.toc a:hover {
+  color: #1d4ed8;
   text-decoration: underline;
 }
 
-/* --- MÍDIAS E IMAGENS COM LEGENDA --- */
-.page-card .media-container {
-  margin: 1.5rem 0;
-  text-align: center;
-}
-
-.page-card .media-container img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-  border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-sm);
-  display: block;
-  margin: 0 auto;
-}
-
-.page-card .media-container figcaption {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-top: 0.5rem;
-  font-style: italic;
-}
-
-/* --- CAIXAS DE INFORMAÇÃO E ALERTAS (CALLOUTS) --- */
-.page-card .info-box {
-  background-color: #f8fafc;
-  border: 1px solid var(--border-color);
-  border-left: 4px solid var(--primary);
+/* --------------------------------------------------------------------------
+   CAIXAS DE ALERTA E INFORMAÇÃO (CALLOUTS)
+   -------------------------------------------------------------------------- */
+.callout, .info-box {
   border-radius: 8px;
-  padding: 1rem 1.25rem;
+  padding: 1.25rem;
   margin: 1.5rem 0;
 }
 
-.page-card .callout {
-  border-radius: 8px;
-  padding: 1rem 1.25rem;
-  margin: 1.5rem 0;
-}
-
-.page-card .callout.warning {
-  background-color: #fefce8;
-  border-left: 4px solid #eab308;
-  color: #854d0e;
-}
-
-.page-card .callout.alert {
+.callout.alert {
   background-color: #fff7ed;
   border-left: 4px solid #f97316;
   color: #9a3412;
 }
 
-.page-card .callout.alert strong,
-.page-card .callout.warning strong {
+.callout.alert strong {
   display: block;
-  font-weight: 700;
-  margin-bottom: 0.3rem;
+  font-size: 1.05rem;
+  color: #c2410c;
+  margin-bottom: 0.5rem;
 }
 
-/* --- TABELAS TÉCNICAS RESPONSIVAS --- */
-.page-card .table-container {
+.callout.warning {
+  background-color: #fefce8;
+  border-left: 4px solid #eab308;
+  color: #854d0e;
+}
+
+.info-box {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #2563eb;
+}
+
+/* --------------------------------------------------------------------------
+   IMAGENS E MÍDIAS
+   -------------------------------------------------------------------------- */
+.media-container {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.media-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.media-container figcaption {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* --------------------------------------------------------------------------
+   TABELAS
+   -------------------------------------------------------------------------- */
+.table-container {
   overflow-x: auto;
   margin: 1.5rem 0;
-  border-radius: 10px;
-  border: 1px solid var(--border-color);
 }
 
-.page-card .table-container table {
+.technical-guide table {
   width: 100%;
   border-collapse: collapse;
   background-color: #ffffff;
-  display: table; /* Sobrepõe o display:block genérico */
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
 }
 
-.page-card .table-container th,
-.page-card .table-container td {
+.technical-guide th, 
+.technical-guide td {
   padding: 0.75rem 1rem;
   text-align: left;
-  border-bottom: 1px solid var(--border-color);
-  border-right: none;
-  border-left: none;
-  border-top: none;
+  border-bottom: 1px solid #e2e8f0;
 }
 
-.page-card .table-container th {
+.technical-guide th {
   background-color: #f1f5f9;
   font-weight: 700;
-  color: var(--text-main);
+  color: #0f172a;
 }
 
-.page-card .table-container tr:last-child td {
+.technical-guide tr:last-child td {
   border-bottom: none;
 }
 
-/* --- CÓDIGOS DE FALHA (DTC) --- */
-.page-card .dtc-block {
+/* --------------------------------------------------------------------------
+   BLOCOS DE CÓDIGOS DE FALHA (DTC)
+   -------------------------------------------------------------------------- */
+.dtc-block {
   background-color: #ffffff;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
   padding: 1.25rem;
-  margin-bottom: 1.25rem;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition);
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
-.page-card .dtc-block:hover {
-  box-shadow: var(--shadow-md);
-  border-color: #cbd5e1;
-}
-
-.page-card .dtc-block h3 {
+.dtc-block h3 {
   margin-top: 0;
   color: #dc2626;
   font-size: 1.05rem;
-  font-weight: 700;
 }
