@@ -46,7 +46,9 @@ const menuData = [
         "icone": "fa-filter",
         "itens": [
           { "titulo": "Tanque, Filtro, Mang.", "slug": "tanque-filtro-mang" },
-          { "titulo": "Bomba Elétrica", "slug": "bomba-eletrica" }
+          { "titulo": "Bomba Elétrica", "slug": "bomba-eletrica" },
+          { "titulo": "Bomba Engrenagem", "slug": "bomba-engrenagem" },
+          { "titulo": "Válvula KUV", "slug": "valvula-kuv" }
         ]
       },
       {
