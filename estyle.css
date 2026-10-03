@@ -61,7 +61,7 @@ html, body {
 }
 
 /* ==========================================
-   3. MENU LATERAL (SIDEBAR DESKTOP & MOBILE)
+   3. MENU LATERAL (SIDEBAR)
    ========================================== */
 .sidebar {
   width: var(--sidebar-width);
@@ -104,13 +104,8 @@ html, body {
   padding: 0.8rem;
 }
 
-.sidebar-nav::-webkit-scrollbar {
-  width: 5px;
-}
-.sidebar-nav::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
-}
+.sidebar-nav::-webkit-scrollbar { width: 5px; }
+.sidebar-nav::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
 
 .nav-list {
   list-style: none;
@@ -176,7 +171,6 @@ html, body {
   color: var(--primary);
 }
 
-/* SUBMENU DO MENU LATERAL */
 .submenu {
   display: none;
   padding: 0.4rem 0.4rem 0.6rem 0.8rem;
@@ -187,9 +181,7 @@ html, body {
   margin-top: 0.2rem;
 }
 
-.nav-item.active .submenu {
-  display: flex;
-}
+.nav-item.active .submenu { display: flex; }
 
 .submenu-group {
   display: flex;
@@ -235,9 +227,7 @@ html, body {
   box-shadow: var(--shadow-sm);
 }
 
-.sidebar-link:hover i {
-  color: var(--primary);
-}
+.sidebar-link:hover i { color: var(--primary); }
 
 .sidebar-link.active {
   background-color: var(--primary);
@@ -245,11 +235,8 @@ html, body {
   font-weight: 600;
 }
 
-.sidebar-link.active i {
-  color: white;
-}
+.sidebar-link.active i { color: white; }
 
-/* OVERLAY PARA CELULAR */
 .sidebar-overlay {
   display: none;
   position: fixed;
@@ -260,7 +247,7 @@ html, body {
 }
 
 /* ==========================================
-   4. ÁREA PRINCIPAL (CONTEÚDO)
+   4. ÁREA PRINCIPAL
    ========================================== */
 .main-content {
   flex: 1;
@@ -303,9 +290,6 @@ html, body {
   margin: 0.8rem auto 0 auto;
 }
 
-/* ==========================================
-   5. BOTÃO FLUTUANTE (VOLTAR AO TOPO)
-   ========================================== */
 .floating-container {
   position: fixed;
   bottom: 24px;
@@ -336,14 +320,8 @@ html, body {
   transform: translateY(-3px);
 }
 
-.float-btn.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
+.float-btn.visible { opacity: 1; pointer-events: auto; }
 
-/* ==========================================
-   6. PÁGINAS CARREGADAS DINAMICAMENTE
-   ========================================== */
 .page-card {
   background: var(--card-bg);
   border: 1px solid var(--border-color);
@@ -359,65 +337,13 @@ html, body {
 .page-crumb { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 500; }
 .page-crumb a { color: var(--primary); text-decoration: none; }
 .page-card h1 { margin: 0 0 1rem; font-size: clamp(1.4rem, 3.5vw, 1.8rem); font-weight: 800; }
-.page-card h2 { margin: 1.8rem 0 0.4rem; font-size: 1.15rem; color: var(--primary); }
-.page-card img { max-width: 100%; height: auto; border-radius: 10px; }
-.page-card table { border-collapse: collapse; width: 100%; display: block; overflow-x: auto; margin: 1rem 0; }
-.page-card td, .page-card th { border: 1px solid var(--border-color); padding: 0.5rem 0.8rem; font-size: 0.9rem; }
-.page-card th { background-color: var(--primary-light); color: var(--primary); text-align: left; }
 .page-loading { color: var(--text-muted); font-size: 0.9rem; }
 
-.page-card [id] { scroll-margin-top: 20px; }
-.page-card h3 { margin: 1.4rem 0 0.3rem; font-size: 1rem; }
-.page-card ul { padding-left: 1.2rem; }
-.page-card li { margin: 0.25rem 0; }
-.page-card p { margin: 0.6rem 0; }
-.page-card a { color: var(--primary); }
-
-.toc { 
-  background: var(--primary-light); 
-  border-radius: 10px; 
-  padding: 0.9rem 1.1rem; 
-  margin: 1.2rem 0; 
-  font-size: 0.88rem; 
-}
-.toc ul { margin: 0.3rem 0 0; padding-left: 1.1rem; }
-.toc a { text-decoration: none; font-weight: 500; }
-.toc a:hover { text-decoration: underline; }
-
-.aviso { 
-  background: #fff7ed; 
-  border-left: 4px solid #f59e0b; 
-  border-radius: 8px; 
-  padding: 0.8rem 1rem; 
-  margin: 1.2rem 0; 
-  font-size: 0.9rem;
-}
-.aviso p { margin: 0.2rem 0 0; }
-
-/* ==========================================
-   7. RESPONSIVIDADE (MOBILE E TABLETS)
-   ========================================== */
 @media (max-width: 960px) {
   .mobile-header { display: flex; }
-
-  .sidebar {
-    transform: translateX(-100%);
-    box-shadow: var(--shadow-md);
-  }
-
-  .sidebar.open {
-    transform: translateX(0);
-  }
-
-  .sidebar-overlay.active {
-    display: block;
-  }
-
-  .main-content {
-    margin-left: 0;
-    max-width: 100%;
-    padding: 1.5rem 1rem;
-  }
-
+  .sidebar { transform: translateX(-100%); box-shadow: var(--shadow-md); }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-overlay.active { display: block; }
+  .main-content { margin-left: 0; max-width: 100%; padding: 1.5rem 1rem; }
   .page-card { padding: 1.25rem; border-radius: 12px; }
 }
