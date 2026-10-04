@@ -1,468 +1,223 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
-/* ==========================================================================
-   VARIÁVEIS GLOBAIS
-   ========================================================================== */
 :root {
-    --color-bg-primary: #0b1220;
-    --color-bg-secondary: #131c30;
-    --color-bg-card: #1c2740;
-    --color-text: #e9edf5;
-    --color-text-muted: #a9b4c7;
-    --color-accent: #ff5a36;
-    --color-border-bright: #2a3752;
-    --radius-sm: 8px;
-    --radius-md: 14px;
-    --transition-fast: 0.2s ease;
+  --primary: #2563eb;
+  --bg-sidebar: #0f172a;
+  --text-sidebar: #94a3b8;
+  --text-hover: #ffffff;
+  --bg-hover: #1e293b;
+  --sidebar-width: 260px;
 }
 
 * {
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-body {
-    margin: 0;
-    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
-    background-color: var(--color-bg-primary);
-    color: var(--color-text);
+/* Layout Geral */
+.site-wrapper {
+  display: flex;
+  min-height: 100vh;
 }
 
-a {
-    color: inherit;
+/* Sidebar Fixa */
+.sidebar {
+  width: var(--sidebar-width);
+  background-color: var(--bg-sidebar);
+  color: var(--text-sidebar);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  overflow-y: auto;
 }
 
-/* ==========================================================================
-   HEADER MOBILE (barra fixa "☰ Menu" que só aparece em telas pequenas)
-   ========================================================================== */
-.mobile-header {
-    display: none;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid var(--color-border-bright);
+.sidebar-header {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #1e293b;
 }
 
-.mobile-header h2 {
-    margin: 0;
-    font-size: 1.6rem;
+.logo {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.toggle-btn {
-    background-color: var(--color-bg-card);
-    color: var(--color-text);
-    border: 1px solid var(--color-border-bright);
-    border-radius: 999px;
-    padding: 0.5rem 1.1rem;
-    font-size: 0.95rem;
-    cursor: pointer;
+.mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
-/* ==========================================================================
-   CABEÇALHO PRINCIPAL (logo + menu horizontal no desktop)
-   ========================================================================== */
-.main_header {
-    padding: 1.5rem 2rem;
-    border-bottom: 1px solid var(--color-border-bright);
+/* Navegação Principal */
+.sidebar-nav {
+  padding: 10px 0;
 }
 
-.main_header > div {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    max-width: 1200px;
-    margin: 0 auto;
+.main-nav {
+  list-style: none;
 }
 
-.main_header_logo a {
-    text-decoration: none;
-    color: var(--color-text);
+.nav-item {
+  width: 100%;
 }
 
-.main_header_logo h1 {
-    margin: 0;
-    font-size: 1.8rem;
+.nav-btn {
+  width: 100%;
+  padding: 14px 20px;
+  background: none;
+  border: none;
+  color: var(--text-sidebar);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-/* Menu principal: horizontal no desktop */
-#sidebar {
-    width: auto;
+.nav-btn:hover, .nav-item.active .nav-btn {
+  background-color: var(--bg-hover);
+  color: var(--text-hover);
 }
 
-#sidebar > ul {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.75rem;
-    margin: 0;
-    padding: 0;
+.icon-nav {
+  margin-right: 8px;
+  color: var(--primary);
 }
 
-#sidebar li[data-dropdown] {
-    position: relative;
+/* Submenu Acordeão na Lateral */
+.mega-menu {
+  display: none;
+  background-color: #0b1120;
+  padding: 10px 20px;
 }
 
-#sidebar .link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    color: var(--color-text-muted);
-    text-decoration: none;
-    font-size: 1rem;
-    padding: 0.5rem 0;
-    transition: color var(--transition-fast);
+.nav-item.active .mega-menu {
+  display: block;
 }
 
-#sidebar .link:hover {
-    color: var(--color-accent);
+.nav-item.active .arrow-icon {
+  transform: rotate(180deg);
 }
 
-.link-arrow {
-    color: var(--color-accent);
-    font-size: 0.7rem;
-    transition: transform var(--transition-fast);
+.category-group {
+  margin-bottom: 15px;
 }
 
-/* Botões "Home"/"Topo" e o item de home da lista — cada um aparece só onde faz sentido */
-.mobile-quick-actions {
-    display: none;
+.category-title {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #64748b;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* ==========================================================================
-   SUBMENU (dropdown)
-   ========================================================================== */
-
-/* Desktop: flutua sobre o conteúdo, abre no hover */
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: max-content;
-    max-width: 260px;
-    background-color: var(--color-bg-secondary);
-    border: 1px solid var(--color-border-bright);
-    border-radius: var(--radius-sm);
-    padding: 0.5rem 0;
-    margin: 0;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
-    z-index: 20;
-    list-style: none;
+.mega-links-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-@media (min-width: 769px) {
-    li[data-dropdown]:hover .dropdown-menu {
-        display: block;
-    }
+.mega-link-item {
+  color: var(--text-sidebar);
+  text-decoration: none;
+  font-size: 0.85rem;
+  padding: 4px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s;
 }
 
-/* Mostra via classe .show (usada no toque do mobile) */
-.dropdown-menu.show {
-    display: block !important;
+.mega-link-item:hover {
+  color: var(--primary);
 }
 
-.dropdown-menu li {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+.mega-explore-side {
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px solid #1e293b;
 }
 
-.dropdown-menu a {
-    display: block;
-    padding: 0.4rem 0.9rem;
-    color: var(--color-text-muted);
-    text-decoration: none;
-    font-size: 0.78rem;
-    white-space: nowrap;
-    transition: background var(--transition-fast), color var(--transition-fast);
+.explore-header-title {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-bottom: 6px;
 }
 
-.dropdown-menu a:hover,
-.dropdown-menu a.active-link {
-    background-color: var(--color-bg-card);
-    color: var(--color-accent);
+.explore-banner {
+  background-color: #1e293b;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 8px;
 }
 
-/* ==========================================================================
-   CONTEÚDO PRINCIPAL
-   ========================================================================== */
-.portfolio {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
+.explore-banner h5 {
+  color: #fff;
+  font-size: 0.85rem;
+  margin-top: 4px;
 }
 
-.portfolio_articles {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+.explore-banner p {
+  font-size: 0.75rem;
+  color: var(--text-sidebar);
 }
 
-.portfolio_article {
-    background-color: var(--color-bg-card);
-    border: 1px solid var(--color-border-bright);
-    border-radius: var(--radius-md);
-    padding: 1.5rem;
+.explore-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: bold;
 }
 
-.portfolio_article h2 {
-    margin-top: 0;
+/* Conteúdo Principal */
+.main-content {
+  margin-left: var(--sidebar-width);
+  flex: 1;
+  padding: 40px;
+  background-color: #f8fafc;
+  min-height: 100vh;
 }
 
-/* ==========================================================================
-   BOTÃO FLUTUANTE "VOLTAR AO TOPO" — aparece só depois de rolar a página
-   ========================================================================== */
-.scroll-top-btn {
-    position: fixed;
-    right: 1.25rem;
-    bottom: 1.25rem;
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    background-color: var(--color-bg-card);
-    border: 2px solid var(--color-accent);
-    color: var(--color-text);
-    font-size: 1.2rem;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 40;
-    opacity: 0;
-    transform: translateY(10px);
-    pointer-events: none;
-    transition: opacity var(--transition-fast), transform var(--transition-fast);
-}
-
-.scroll-top-btn.visible {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-}
-
-/* ==========================================================================
-   MOBILE: menu vira um "acordeão" que empurra o conteúdo (não flutua)
-   ========================================================================== */
+/* Responsividade (Telas menores) */
 @media (max-width: 768px) {
-    .mobile-header {
-        display: flex;
-    }
-
-    .main_header_logo {
-        display: none;
-    }
-
-    .main_header {
-        padding: 0;
-        border-bottom: none;
-    }
-
-    #sidebar {
-        display: none;
-        width: 100%;
-        padding: 0 1.5rem 1rem;
-        border-bottom: 1px solid var(--color-border-bright);
-    }
-
-    #sidebar.open {
-        display: block;
-    }
-
-    /* Botões "Home" e "Topo" lado a lado, em caixa arredondada */
-    .mobile-quick-actions {
-        display: flex;
-        gap: 0.75rem;
-        padding-top: 1rem;
-        margin-bottom: 1rem;
-    }
-
-    .quick-btn {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        background-color: var(--color-bg-card);
-        border: 2px solid var(--color-accent);
-        border-radius: var(--radius-md);
-        color: var(--color-text);
-        font-weight: 700;
-        font-size: 0.95rem;
-        text-decoration: none;
-        padding: 0.9rem 0.5rem;
-        cursor: pointer;
-    }
-
-    .quick-icon {
-        font-size: 1.1rem;
-        line-height: 1;
-    }
-
-    /* O Home que aparece na lista (usado no desktop) some no mobile: já tem o botão acima */
-    #sidebar li.home-item {
-        display: none;
-    }
-
-    #sidebar > ul {
-        flex-direction: column;
-        gap: 0.9rem;
-    }
-
-    /* Cada item do menu vira um cartão arredondado independente */
-    #sidebar li[data-dropdown] {
-        position: static;
-        background-color: var(--color-bg-card);
-        border-radius: var(--radius-md);
-        overflow: hidden;
-    }
-
-    #sidebar .link {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        padding: 1.1rem 1.25rem;
-        font-size: 1.05rem;
-        font-weight: 700;
-        color: var(--color-text);
-    }
-
-    .link-arrow {
-        font-size: 0.9rem;
-    }
-
-    li[data-dropdown].is-open .link-arrow {
-        transform: rotate(180deg);
-    }
-
-    /* Submenu dentro do próprio cartão, empurrando o conteúdo de baixo */
-    .dropdown-menu {
-        position: static;
-        width: 100%;
-        max-width: none;
-        box-shadow: none;
-        margin-top: 0;
-        border: none;
-        border-top: 1px solid var(--color-border-bright);
-        border-radius: 0;
-        background-color: var(--color-bg-secondary);
-        padding: 0.5rem 0;
-    }
-
-    .dropdown-menu a {
-        white-space: normal;
-    }
-}
-
-/* ==========================================================================
-   LEITURA DOS ARTIGOS (conteúdo carregado dentro de #page-card)
-   Estilo moderno, escuro, com cartões, destaques e índice.
-   ========================================================================== */
-:root {
-    --color-info: #5aa9ff;
-    --color-warn: #ffb020;
-    --color-accent-soft: rgba(255, 90, 54, 0.14);
-}
-
-#page-card.modo-artigo {
-    grid-column: 1 / -1;
-    justify-self: center;
+  .sidebar {
     width: 100%;
-    max-width: 880px;
-    margin-inline: auto;
-    padding: clamp(1.25rem, 4vw, 2.75rem);
-    border-radius: 22px;
-    background: linear-gradient(180deg, var(--color-bg-card), var(--color-bg-secondary));
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
-}
+    height: auto;
+    bottom: auto;
+  }
 
-.carregando { color: var(--color-text-muted); }
+  .mobile-toggle {
+    display: block;
+  }
 
-.artigo {
-    font-family: 'Inter', -apple-system, 'Segoe UI', Roboto, sans-serif;
-    font-size: 1.02rem;
-    line-height: 1.75;
-    color: #d6deec;
-    overflow-wrap: break-word;
-}
-.artigo strong { color: #fff; font-weight: 600; }
-.artigo p { margin: 0.7rem 0; }
-.artigo a { color: #ff8a6b; text-underline-offset: 3px; }
-.artigo a:hover { color: #ffb199; }
-.artigo [id] { scroll-margin-top: 1rem; }
+  .sidebar-nav {
+    display: none;
+  }
 
-/* cabeçalho do artigo */
-.art-head { padding-bottom: 1.4rem; margin-bottom: 1.6rem; border-bottom: 1px solid var(--color-border-bright); }
-.art-kicker { display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent); }
-.art-head h1 { margin: 0.35rem 0 0.6rem; font-size: clamp(1.9rem, 5vw, 2.7rem); line-height: 1.1; letter-spacing: -0.02em; font-weight: 800; color: #fff; }
-.art-lead { margin: 0; font-size: 1.1rem; color: var(--color-text-muted); }
-.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
-.chips span { font-size: 0.78rem; font-weight: 600; padding: 0.3rem 0.75rem; border-radius: 999px; background: var(--color-accent-soft); color: #ff9c82; border: 1px solid rgba(255, 90, 54, 0.3); }
+  .sidebar-nav.open {
+    display: block;
+  }
 
-/* índice */
-.toc { background: var(--color-bg-primary); border: 1px solid var(--color-border-bright); border-radius: 16px; padding: 1rem 1.25rem; margin: 1.5rem 0 2rem; }
-.toc strong { display: block; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 0.5rem; }
-.toc ul { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.15rem 1rem; }
-.toc li { padding: 0; }
-.toc li::before { display: none; }
-.toc a { display: block; padding: 0.3rem 0; color: var(--color-text); text-decoration: none; font-size: 0.95rem; }
-.toc a::before { content: "›"; color: var(--color-accent); margin-right: 0.5rem; font-weight: 700; }
-.toc a:hover { color: var(--color-accent); }
-
-/* títulos */
-.artigo h2 { position: relative; margin: 2.8rem 0 0.8rem; padding-left: 1rem; font-size: 1.5rem; line-height: 1.25; letter-spacing: -0.01em; color: #fff; }
-.artigo h2::before { content: ""; position: absolute; left: 0; top: 0.15em; bottom: 0.15em; width: 4px; border-radius: 4px; background: var(--color-accent); }
-.artigo h3 { margin: 1.9rem 0 0.4rem; font-size: 1.12rem; color: #fff; }
-
-/* listas */
-.artigo ul { list-style: none; padding: 0; margin: 0.6rem 0; }
-.artigo li { position: relative; padding-left: 1.4rem; margin: 0.35rem 0; }
-.artigo li::before { content: ""; position: absolute; left: 0.2rem; top: 0.7em; width: 0.42rem; height: 0.42rem; border-radius: 50%; background: var(--color-accent); }
-
-/* imagens */
-.artigo figure { margin: 1.4rem 0; }
-.artigo img { display: block; max-width: 100%; height: auto; margin: 1.2rem auto; border-radius: 14px; border: 1px solid var(--color-border-bright); background: var(--color-bg-primary); }
-.artigo figure img { margin: 0 auto; }
-.artigo figcaption { margin-top: 0.5rem; text-align: center; font-size: 0.82rem; color: var(--color-text-muted); }
-
-/* cartões de especificação */
-.specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.75rem; margin: 1.2rem 0; }
-.spec { background: var(--color-bg-primary); border: 1px solid var(--color-border-bright); border-radius: 14px; padding: 0.9rem 1rem; }
-.spec b { display: block; font-size: 1.3rem; line-height: 1.2; color: var(--color-accent); }
-.spec span { font-size: 0.78rem; color: var(--color-text-muted); }
-
-/* destaques */
-.aviso, .dica { border-radius: 14px; padding: 0.9rem 1.1rem; margin: 1.3rem 0; border: 1px solid; }
-.aviso { background: rgba(255, 176, 32, 0.1); border-color: rgba(255, 176, 32, 0.4); }
-.dica { background: rgba(90, 169, 255, 0.1); border-color: rgba(90, 169, 255, 0.4); }
-.aviso > strong:first-child, .dica > strong:first-child { display: block; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
-.aviso > strong:first-child { color: var(--color-warn); }
-.dica > strong:first-child { color: var(--color-info); }
-.aviso p, .dica p { margin: 0.3rem 0 0; }
-
-/* sintomas / causas / soluções em cartões */
-.trio { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0.9rem; margin: 1rem 0; }
-.trio > div { background: var(--color-bg-primary); border: 1px solid var(--color-border-bright); border-radius: 14px; padding: 1rem 1.1rem; }
-.trio h4 { margin: 0 0 0.4rem; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); }
-.trio ul { margin: 0; font-size: 0.95rem; }
-.trio p { font-size: 0.95rem; margin: 0; }
-
-/* códigos de falha */
-.codigos { display: grid; gap: 0.9rem; margin: 1rem 0; }
-.codigo { display: grid; grid-template-columns: auto 1fr; gap: 1rem; background: var(--color-bg-primary); border: 1px solid var(--color-border-bright); border-radius: 14px; padding: 1rem 1.1rem; }
-.codigo .num { align-self: start; font-weight: 800; font-size: 1.05rem; color: #fff; background: var(--color-accent); border-radius: 10px; padding: 0.45rem 0.7rem; letter-spacing: 0.02em; }
-.codigo h4 { margin: 0 0 0.2rem; font-size: 1rem; color: #fff; }
-.codigo p { margin: 0.2rem 0; font-size: 0.95rem; }
-.codigo ul { font-size: 0.93rem; margin: 0.4rem 0 0; }
-
-/* tabelas largas rolam dentro do próprio quadro */
-.artigo table { display: block; overflow-x: auto; border-collapse: collapse; width: 100%; }
-.artigo th, .artigo td { border: 1px solid var(--color-border-bright); padding: 0.45rem 0.75rem; text-align: left; }
-
-@media (max-width: 600px) {
-    .artigo { font-size: 1rem; }
-    .codigo { grid-template-columns: 1fr; gap: 0.6rem; }
-    .codigo .num { justify-self: start; }
+  .main-content {
+    margin-left: 0;
+    margin-top: 70px;
+    padding: 20px;
+  }
 }
