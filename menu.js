@@ -1,310 +1,208 @@
-// Dados em formato JSON fornecidos
-const menuData = [
-  {
-    "titulo": "Sistema Elétrico",
-    "slug": "sistema-eletrico",
-    "icone": "fa-bolt",
-    "grupos": [
-      {
-        "titulo": "Luzes",
-        "icone": "fa-lightbulb",
-        "itens": [
-          { "titulo": "Fusíveis e Lâmpadas", "slug": "fusiveis-e-lampadas" },
-          { "titulo": "Luz de Farol e Posição", "slug": "luz-de-farol-e-posicao" },
-          { "titulo": "Luz de Seta e Alerta", "slug": "luz-de-seta-e-alerta" }
-        ]
-      },
-      {
-        "titulo": "Painel de Instrumentos",
-        "icone": "fa-gauge",
-        "itens": [
-          { "titulo": "Luz e Pressão de Óleo", "slug": "luz-e-pressao-de-oleo" },
-          { "titulo": "Luzes de Injeção", "slug": "luzes-de-injecao" },
-          { "titulo": "Água no Combustível", "slug": "agua-no-combustivel" },
-          { "titulo": "Água de Arrefecimento", "slug": "agua-de-arrefecimento" }
-        ]
-      },
-      {
-        "titulo": "Acessórios",
-        "icone": "fa-car-battery",
-        "itens": [
-          { "titulo": "Bateria", "slug": "bateria" },
-          { "titulo": "Alternador", "slug": "alternador" },
-          { "titulo": "Motor de Partida", "slug": "motor-de-partida" },
-          { "titulo": "Limpador de Para-brisa", "slug": "limpador-de-para-brisa" }
-        ]
-      }
-    ]
-  },
-  {
-    "titulo": "Linha de Combustível",
-    "slug": "linha-de-combustivel",
-    "icone": "fa-gas-pump",
-    "grupos": [
-      {
-        "titulo": "Linha de Baixa",
-        "icone": "fa-filter",
-        "itens": [
-          { "titulo": "Tanque, Filtro, Mang.", "slug": "tanque-filtro-mang" },
-          { "titulo": "Bomba Elétrica", "slug": "bomba-eletrica" },
-          { "titulo": "Bomba Engrenagem", "slug": "bomba-engrenagem" },
-          { "titulo": "Válvula KUV", "slug": "valvula-kuv" }
-        ]
-      },
-      {
-        "titulo": "Linha de Alta",
-        "icone": "fa-gauge-high",
-        "itens": [
-          { "titulo": "Bomba Engrenagem", "slug": "bomba-engrenagem" },
-          { "titulo": "Válvula KUV", "slug": "valvula-kuv" },
-          { "titulo": "Bomba Alta Pressão", "slug": "bomba-alta-pressao" },
-          { "titulo": "Tubo Rail", "slug": "tubo-rail" }
-        ]
-      }
-    ]
-  },
-  {
-    "titulo": "Sistema de Injeção",
-    "slug": "sistema-de-injecao",
-    "icone": "fa-microchip",
-    "grupos": [
-      {
-        "titulo": "Sensores",
-        "icone": "fa-microchip",
-        "itens": [
-          { "titulo": "Sensor Rotação", "slug": "sensor-rotacao" },
-          { "titulo": "Sensor Fase", "slug": "sensor-fase" },
-          { "titulo": "Sensor Pres. Adm", "slug": "sensor-pres-adm" },
-          { "titulo": "Sensor Temp. ECM", "slug": "sensor-temp-ecm" },
-          { "titulo": "Sensor Pres. Rail", "slug": "sensor-pres-rail" }
-        ]
-      },
-      {
-        "titulo": "Atuadores",
-        "icone": "fa-sliders",
-        "itens": [
-          { "titulo": "Válvula MProp", "slug": "valvula-mprop" },
-          { "titulo": "Pedal Acelerador", "slug": "pedal-acelerador" },
-          { "titulo": "Modulador Turbina", "slug": "modulador-turbina" },
-          { "titulo": "Bicos Injetores", "slug": "bicos-injetores" },
-          { "titulo": "Lâmpada Painel", "slug": "lampada-painel" }
-        ]
-      }
-    ]
-  },
-  {
-    "titulo": "Motor e Chassi",
-    "slug": "motor-e-chassi",
-    "icone": "fa-wrench",
-    "grupos": [
-      {
-        "titulo": "Sistema de Arrefecimento",
-        "icone": "fa-snowflake",
-        "itens": [
-          { "titulo": "Correia e Ventoinha", "slug": "correia-e-ventoinha" },
-          { "titulo": "Bomba de Água", "slug": "bomba-de-agua" },
-          { "titulo": "Trocador de Calor", "slug": "trocador-de-calor" },
-          { "titulo": "Válvula Termostática", "slug": "valvula-termostatica" }
-        ]
-      },
-      {
-        "titulo": "Sistema de Direção",
-        "icone": "fa-dharmachakra",
-        "itens": [
-          { "titulo": "Bomba de Direção", "slug": "bomba-de-direcao" },
-          { "titulo": "Caixa de Direção", "slug": "caixa-de-direcao" },
-          { "titulo": "Óleo de Direção", "slug": "oleo-de-direcao" }
-        ]
-      },
-      {
-        "titulo": "Sistemas de Freios",
-        "icone": "fa-circle-stop",
-        "itens": [
-          { "titulo": "Bomba de Vácuo", "slug": "bomba-de-vacuo" },
-          { "titulo": "Cilindro de Freio", "slug": "cilindro-de-freio" },
-          { "titulo": "Óleo de Freio", "slug": "oleo-de-freio" },
-          { "titulo": "Pinças de Freio", "slug": "pincas-de-freio" },
-          { "titulo": "Regulagem Freio de Mão", "slug": "regulagem-freio-de-mao" }
-        ]
-      }
-    ]
-  }
-];
-
 document.addEventListener('DOMContentLoaded', () => {
-  const navList = document.getElementById('nav-list');
-  const mobileToggleBtn = document.getElementById('mobile-toggle-btn');
-  const sidebar = document.getElementById('sidebar');
-  const overlay = document.getElementById('sidebar-overlay');
-  const toggleIcon = mobileToggleBtn.querySelector('i');
+    const mobileToggle = document.getElementById('mobile-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const dropdownItems = document.querySelectorAll('li[data-dropdown]');
+    const pageCard = document.getElementById('page-card');
+    const links = document.querySelectorAll('.dropdown-menu a');
+    const homeBtns = document.querySelectorAll('.home-trigger');
+    const topBtn = document.getElementById('top-btn');
+    const topoMenuBtn = document.querySelector('.topo-menu-btn');
 
-  // ==========================================
-  // RENDERIZAR O MENU DINAMICAMENTE A PARTIR DO JSON
-  // ==========================================
-  function renderMenu() {
-    let html = '';
+    // Guarda o conteúdo inicial da página para o botão "Home" poder restaurar
+    const defaultContent = pageCard ? pageCard.innerHTML : '';
 
-    menuData.forEach(cat => {
-      html += `
-        <li class="nav-item">
-          <button class="nav-btn">
-            <span class="nav-btn-title">
-              <i class="fa-solid ${cat.icone || 'fa-folder'} nav-icon"></i>
-              <span>${cat.titulo}</span>
-            </span>
-            <i class="fa-solid fa-chevron-down arrow-icon"></i>
-          </button>
-          <div class="submenu">
-      `;
+    const ehMobile = () => window.innerWidth <= 768;
 
-      cat.grupos.forEach(grupo => {
-        html += `
-          <div class="submenu-group">
-            <div class="group-title">
-              <i class="fa-solid ${grupo.icone || 'fa-layer-group'}"></i> ${grupo.titulo}
-            </div>
-        `;
+    // Controla a visibilidade do botão flutuante "Topo"
+    const SCROLL_THRESHOLD = 300;
+    const toggleTopBtn = () => {
+        if (!topBtn) return;
+        const menuAberto = sidebar && sidebar.classList.contains('open') && ehMobile();
+        topBtn.classList.toggle('visible', window.scrollY > SCROLL_THRESHOLD && !menuAberto);
+    };
 
-        grupo.itens.forEach(item => {
-          const href = `#${cat.slug}/${item.slug}`;
-          html += `
-            <a href="${href}" class="sidebar-link">
-              <i class="fa-solid fa-chevron-right"></i> ${item.titulo}
-            </a>
-          `;
-        });
-
-        html += `</div>`;
-      });
-
-      html += `
-          </div>
-        </li>
-      `;
-    });
-
-    navList.innerHTML = html;
-  }
-
-  // Executa a construção do HTML do menu
-  renderMenu();
-
-  // ==========================================
-  // COMPORTAMENTO SANFONA (ACCORDION)
-  // ==========================================
-  const navItems = document.querySelectorAll('.nav-item');
-
-  navItems.forEach(item => {
-    const btn = item.querySelector('.nav-btn');
-    
-    btn.addEventListener('click', () => {
-      const isActive = item.classList.contains('active');
-
-      // Fecha outros menus abertos
-      navItems.forEach(otherItem => {
-        if (otherItem !== item) {
-          otherItem.classList.remove('active');
+    const fecharMenuMobile = () => {
+        if (sidebar && ehMobile()) {
+            sidebar.classList.remove('open');
+            toggleTopBtn();
         }
-      });
+    };
 
-      // Alterna a categoria clicada
-      item.classList.toggle('active', !isActive);
+    // ==========================================================
+    // ROTAS: cada link do submenu vira um endereço, ex.:
+    //   #sistema-de-injecao/valvula-mprop
+    // Funciona ao clicar, ao abrir o link direto e com o botão voltar.
+    // ==========================================================
+    const norm = (t) => (t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+    const ultimo = (link) => {
+        const partes = (link.getAttribute('data-page') || '').replace(/\.html?$/i, '').split('/').filter(Boolean);
+        return norm(partes[partes.length - 1] || link.textContent);
+    };
+
+    const menuDe = (link) => {
+        const pai = link.closest('li[data-dropdown]');
+        const rotulo = pai && pai.querySelector('.link');
+        if (!rotulo) return '';
+        const texto = Array.from(rotulo.childNodes).filter(n => n.nodeType === 3).map(n => n.textContent).join('');
+        return norm(texto);
+    };
+
+    const rotaDe = (link) => `${menuDe(link)}/${ultimo(link)}`.replace(/^\//, '');
+
+    const acharLink = (hash) => {
+        const h = norm(hash.split('/').pop());
+        const lista = Array.from(links).filter(l => l.getAttribute('data-page'));
+        return lista.find(l => rotaDe(l) === hash.split('/').map(norm).join('/'))
+            || lista.find(l => ultimo(l) === h)
+            || lista.find(l => norm(l.textContent) === h);
+    };
+
+    const mostrarHome = () => {
+        if (!pageCard) return;
+        pageCard.innerHTML = defaultContent;
+        pageCard.classList.remove('modo-artigo');
+        links.forEach(l => l.classList.remove('active-link'));
+        document.title = 'Guia Técnico';
+    };
+
+    async function abrirLink(link) {
+        const pageUrl = link.getAttribute('data-page');
+        if (!pageUrl || !pageCard) return;
+
+        links.forEach(l => l.classList.toggle('active-link', l === link));
+        pageCard.classList.add('modo-artigo');
+        pageCard.innerHTML = '<p class="carregando">Carregando...</p>';
+
+        try {
+            const response = await fetch(pageUrl);
+            if (!response.ok) throw new Error(`Página não encontrada (${response.status})`);
+            const html = await response.text();
+            // se o usuário já mudou de página enquanto carregava, ignora
+            if (!link.classList.contains('active-link')) return;
+            pageCard.innerHTML = `<div class="artigo">${html}</div>`;
+            document.title = `${link.textContent.trim()} · Guia Técnico`;
+        } catch (err) {
+            pageCard.innerHTML = `<h3 style="color: var(--color-accent);">Erro</h3><p>${err.message}. Se estiver abrindo o arquivo direto no computador, use um servidor (GitHub Pages ou <code>python -m http.server</code>).</p>`;
+        }
+        pageCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    const abrirDoHash = () => {
+        const hash = decodeURIComponent(location.hash.slice(1));
+        if (!hash) { mostrarHome(); return; }
+        const link = acharLink(hash);
+        if (link) abrirLink(link);
+    };
+
+    // 1. ABRIR E FECHAR O MENU MOBILE NO BOTAO ☰
+    if (mobileToggle && sidebar) {
+        mobileToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebar.classList.toggle('open');
+            toggleTopBtn();
+        });
+    }
+
+    // 2. COMPORTAMENTO DOS SUBMENUS NO MOBILE (CLIQUE/TOQUE)
+    dropdownItems.forEach(item => {
+        const linkPai = item.querySelector('.link');
+        const submenu = item.querySelector('.dropdown-menu');
+
+        if (linkPai && submenu) {
+            linkPai.addEventListener('click', (e) => {
+                if (ehMobile()) {
+                    e.preventDefault();
+
+                    dropdownItems.forEach(outroItem => {
+                        if (outroItem !== item) {
+                            outroItem.classList.remove('is-open');
+                            outroItem.querySelector('.dropdown-menu')?.classList.remove('show');
+                        }
+                    });
+
+                    submenu.classList.toggle('show');
+                    item.classList.toggle('is-open', submenu.classList.contains('show'));
+                }
+            });
+        }
     });
-  });
 
-  // ==========================================
-  // COMPORTAMENTO MOBILE / GAVETA
-  // ==========================================
-  function toggleMobileSidebar() {
-    const isOpen = sidebar.classList.toggle('open');
-    overlay.classList.toggle('active', isOpen);
+    // 3. CLIQUE NUM ITEM DO SUBMENU: muda o endereço (#menu/item) e abre a página
+    links.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (!link.getAttribute('data-page')) return;
 
-    if (isOpen) {
-      toggleIcon.classList.remove('fa-bars');
-      toggleIcon.classList.add('fa-xmark');
-      document.body.style.overflow = 'hidden';
-    } else {
-      toggleIcon.classList.remove('fa-xmark');
-      toggleIcon.classList.add('fa-bars');
-      document.body.style.overflow = '';
-    }
-  }
+            const rota = rotaDe(link);
+            if (decodeURIComponent(location.hash.slice(1)) === rota) abrirLink(link);
+            else location.hash = rota;   // dispara 'hashchange', que abre a página
 
-  mobileToggleBtn.addEventListener('click', toggleMobileSidebar);
-  overlay.addEventListener('click', toggleMobileSidebar);
-
-  // ==========================================
-  // BOTÃO FLUTUANTE VOLTAR AO TOPO
-  // ==========================================
-  const btnTop = document.getElementById('btn-top');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 150) {
-      btnTop.classList.add('visible');
-    } else {
-      btnTop.classList.remove('visible');
-    }
-  });
-
-  btnTop.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
-  // ==========================================
-  // CARREGAR CONTEÚDO DINÂMICO
-  // ==========================================
-  const home = document.getElementById('home-box');
-  const card = document.getElementById('page-card');
-
-  async function abrirPagina() {
-    const path = decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '');
-    
-    // Desmarca todos os links ativos
-    document.querySelectorAll('.sidebar-link.active').forEach(a => a.classList.remove('active'));
-
-    // Caso não haja rota válida na URL -> Mostra a Home
-    if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
-      card.hidden = true; 
-      home.hidden = false;
-      return;
-    }
-
-    const link = document.querySelector(`a[href="#${path}"]`);
-    if (link) {
-      link.classList.add('active');
-      const parentNav = link.closest('.nav-item');
-      if (parentNav) parentNav.classList.add('active');
-    }
-
-    const menu = link ? link.closest('.nav-item').querySelector('.nav-btn span span').textContent.trim() : '';
-    const titulo = link ? link.textContent.trim() : '';
-
-    home.hidden = true; 
-    card.hidden = false;
-    card.innerHTML = '<p class="page-loading">Carregando...</p>';
-    window.scrollTo({ top: 0 });
-
-    try {
-      const resp = await fetch(`conteudo/${path}.html`);
-      if (!resp.ok) throw new Error(`Página não encontrada (${resp.status})`);
-      const corpo = await resp.text();
-
-      if (decodeURIComponent(location.hash.slice(1)) !== path) return;
-
-      card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div><h1>${titulo}</h1>${corpo}`;
-    } catch (err) {
-      card.innerHTML = `<h1>Erro</h1><p>${err.message}. Se estiver a testar localmente, abra o projeto via servidor web (ex: Live Server do VS Code ou GitHub Pages).</p>`;
-    }
-  }
-
-  // Fecha o menu lateral no telemóvel ao clicar num link
-  document.querySelectorAll('.sidebar-link').forEach(a => {
-    a.addEventListener('click', () => {
-      if (window.innerWidth <= 960 && sidebar.classList.contains('open')) {
-        toggleMobileSidebar();
-      }
+            fecharMenuMobile();
+        });
     });
-  });
 
-  window.addEventListener('hashchange', abrirPagina);
-  abrirPagina();
+    window.addEventListener('hashchange', abrirDoHash);
+
+    // 3b. ÍNDICE INTERNO DOS ARTIGOS: <a data-goto="id"> rola até o título
+    if (pageCard) {
+        pageCard.addEventListener('click', (e) => {
+            const alvo = e.target.closest('[data-goto]');
+            if (!alvo) return;
+            e.preventDefault();
+            document.getElementById(alvo.dataset.goto)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    }
+
+    // 5. BOTÃO "HOME" — volta para o conteúdo inicial, fecha o menu e rola para o topo
+    homeBtns.forEach(homeBtn => {
+        homeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            if (location.hash) history.pushState(null, '', location.pathname + location.search);
+            mostrarHome();
+
+            dropdownItems.forEach(item => {
+                item.classList.remove('is-open');
+                item.querySelector('.dropdown-menu')?.classList.remove('show');
+            });
+
+            if (sidebar) sidebar.classList.remove('open');
+            toggleTopBtn();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+
+    // 5b. BOTÃO "TOPO" dentro do menu mobile
+    if (topoMenuBtn) {
+        topoMenuBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // 6. BOTÃO "TOPO" — aparece só quando a página é rolada
+    if (topBtn) {
+        toggleTopBtn();
+        window.addEventListener('scroll', toggleTopBtn);
+        window.addEventListener('resize', toggleTopBtn);
+
+        topBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // 4. FECHAR MENU AO CLICAR FORA DELE
+    document.addEventListener('click', (e) => {
+        if (sidebar && ehMobile()) {
+            if (!sidebar.contains(e.target) && !mobileToggle.contains(e.target)) {
+                sidebar.classList.remove('open');
+                toggleTopBtn();
+            }
+        }
+    });
+
+    // abriu um link direto (ex.: ...index.html#sistema-de-injecao/valvula-mprop)
+    if (location.hash) abrirDoHash();
 });
