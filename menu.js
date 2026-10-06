@@ -4,10 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const navMenu = document.getElementById('nav-menu');
   const toggleIcon = mobileToggleBtn ? mobileToggleBtn.querySelector('i') : null;
 
-  // ==========================================
-  // LÓGICA DO MENU MOBILE & DROPDOWNS TOUCH
-  // ==========================================
-  
+  // 1. Menu Mobile Toggle
   if (mobileToggleBtn) {
     mobileToggleBtn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -26,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Alternar Dropdowns ao clicar no mobile
+  // 2. Caixas do Menu Mobile (Accordion / Cards)
   navItems.forEach(item => {
     const link = item.querySelector('.nav-link');
     
@@ -47,9 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // ==========================================
-  // BOTÃO VOLTAR AO TOPO
-  // ==========================================
+  // 3. Botão Voltar ao Topo
   const btnTop = document.getElementById('btn-top');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 150) {
@@ -65,9 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ==========================================
-  // CARREGAR PÁGINAS DINÂMICAS: conteudo/<menu>/<item>.html
-  // ==========================================
+  // 4. Carregamento de Conteúdo Dinâmico
   const home = document.getElementById('home-box');
   const card = document.getElementById('page-card');
 
@@ -75,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const path = decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '');
     document.querySelectorAll('.dropdown-item.active').forEach(a => a.classList.remove('active'));
 
-    // Sem rota válida = Mostra a Home
     if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
       if (card) card.hidden = true;
       if (home) home.hidden = false;
@@ -91,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (home) home.hidden = true;
     if (card) {
       card.hidden = false;
-      card.innerHTML = '<p class="page-loading">Carregando...</p>';
+      card.innerHTML = '<p style="color: var(--text-muted); font-weight: 500;">Carregando conteúdo...</p>';
     }
 
     window.scrollTo({ top: 0 });
@@ -104,16 +96,22 @@ document.addEventListener('DOMContentLoaded', () => {
       if (decodeURIComponent(location.hash.slice(1)) !== path) return;
       
       if (card) {
-        card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div><h1>${titulo}</h1>${corpo}`;
+        card.innerHTML = `
+          <div class="page-crumb">
+            <a href="#">Início</a> <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem;"></i> <span>${menu}</span>
+          </div>
+          <h1>${titulo}</h1>
+          ${corpo}
+        `;
       }
     } catch (err) {
       if (card) {
-        card.innerHTML = `<h1>Erro</h1><p>${err.message}. Se estiver a abrir o ficheiro diretamente no computador, utilize um servidor local (GitHub Pages ou <code>python -m http.server</code>).</p>`;
+        card.innerHTML = `<h1>Página Não Encontrada</h1><p>${err.message}. Verifique se o ficheiro existe na pasta <code>conteudo/${path}.html</code>.</p>`;
       }
     }
   }
 
-  // Fechar o menu mobile ao clicar num link
+  // Fechar o menu ao clicar num link
   document.querySelectorAll('.dropdown-menu a').forEach(a => {
     a.addEventListener('click', () => {
       if (window.innerWidth <= 900 && navMenu.classList.contains('active')) {
@@ -125,6 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('hashchange', abrirPagina);
   abrirPagina();
 
+  // Scroll suave para links com data-goto
   if (card) {
     card.addEventListener('click', (e) => {
       const alvo = e.target.closest('[data-goto]');
