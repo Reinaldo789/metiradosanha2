@@ -1,25 +1,22 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // Toggle do menu mobile
-  const mobileToggleBtn = document.getElementById('mobile-toggle-btn');
-  const sidebarNav = document.querySelector('.sidebar-nav');
+/**
+ * menu.js - Gestão de navegação por separadores (Tabs)
+ */
 
-  if (mobileToggleBtn) {
-    mobileToggleBtn.addEventListener('click', () => {
-      sidebarNav.classList.toggle('open');
-    });
+function switchTab(event, tabId) {
+  // 1. Remover a classe 'active' de todos os botões de separadores
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  tabButtons.forEach(btn => btn.classList.remove('active'));
+
+  // 2. Ocultar todos os painéis de conteúdo
+  const tabPanes = document.querySelectorAll('.tab-pane');
+  tabPanes.forEach(pane => pane.classList.remove('active'));
+
+  // 3. Ativar o botão que foi clicado
+  event.currentTarget.classList.add('active');
+
+  // 4. Exibir o painel correspondente ao ID passado
+  const targetPane = document.getElementById(tabId);
+  if (targetPane) {
+    targetPane.classList.add('active');
   }
-
-  // Expandir e recolher os itens da barra lateral (efeito acordeão)
-  const navBtns = document.querySelectorAll('.nav-btn');
-
-  navBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const parentItem = btn.parentElement;
-      
-      // Se desejar fechar os outros ao abrir um novo, descomente a linha abaixo:
-      // document.querySelectorAll('.nav-item').forEach(item => item !== parentItem && item.classList.remove('active'));
-
-      parentItem.classList.toggle('active');
-    });
-  });
-});
+}
