@@ -1,15 +1,15 @@
 :root {
   --primary: #2563eb;
-  --primary-hover: #1d4ed8;
+  --primary-dark: #1d4ed8;
   --primary-light: #eff6ff;
   --primary-border: #bfdbfe;
   --bg-body: #f8fafc;
-  --navbar-bg: #ffffff;
-  --text-dark: #0f172a;
+  --card-bg: #ffffff;
+  --text-main: #0f172a;
   --text-muted: #64748b;
   --border-color: #e2e8f0;
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
   --radius: 12px;
 }
 
@@ -21,29 +21,34 @@
 
 body {
   background-color: var(--bg-body);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
-  color: var(--text-dark);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text-main);
   line-height: 1.6;
-  padding-top: 75px;
+}
+
+.site-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ==========================================
-   1. NAVBAR
+   1. NAVBAR & MEGA MENU (DESKTOP)
    ========================================== */
-.navbar {
+header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 70px;
-  background-color: var(--navbar-bg);
+  background-color: var(--card-bg);
   border-bottom: 1px solid var(--border-color);
   box-shadow: var(--shadow-sm);
   z-index: 1000;
 }
 
 .nav-container {
-  max-width: 1200px;
+  max-width: 1280px;
   height: 100%;
   margin: 0 auto;
   padding: 0 1.5rem;
@@ -52,121 +57,209 @@ body {
   justify-content: space-between;
 }
 
-.nav-logo {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--text-dark);
+.logo {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-main);
   display: flex;
   align-items: center;
   gap: 0.6rem;
   text-decoration: none;
 }
 
-.nav-logo i { 
-  color: var(--primary); 
-}
+.logo i { color: var(--primary); }
 
-/* BOTÃO HAMBÚRGUER (OCULTO POR PADRÃO NO DESKTOP) */
-.menu-toggle {
-  display: none !important;
+.mobile-toggle {
+  display: none;
   background: none;
   border: none;
   font-size: 1.4rem;
-  color: var(--text-dark);
+  color: var(--text-main);
   cursor: pointer;
 }
 
-/* ==========================================
-   2. MENU DESKTOP & SUBMENUS (HOVER)
-   ========================================== */
-.nav-menu {
+.main-nav {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   list-style: none;
+  height: 100%;
 }
 
-.nav-item { 
-  position: relative; 
-}
-
-.nav-link {
+.nav-item {
+  height: 100%;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 0.9rem;
-  color: var(--text-dark);
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.85rem;
+  color: var(--text-main);
   font-size: 0.92rem;
   font-weight: 600;
   border-radius: 8px;
   cursor: pointer;
-  user-select: none;
   transition: all 0.2s ease;
 }
 
-.nav-link i:not(.arrow) { color: var(--primary); }
-.nav-link .arrow { font-size: 0.75rem; color: var(--text-muted); transition: transform 0.2s ease; }
+.nav-btn .fa-chevron-down {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  transition: transform 0.2s ease;
+}
 
-.nav-item:hover .nav-link {
+.nav-item:hover .nav-btn {
   background-color: var(--primary-light);
   color: var(--primary);
 }
 
-.nav-item:hover .arrow {
+.nav-item:hover .nav-btn .fa-chevron-down {
   transform: rotate(180deg);
   color: var(--primary);
 }
 
-/* SUBMENU DROPDOWN */
-.dropdown-menu {
+/* CAIXA DO MEGA MENU DROPDOWN */
+.mega-menu {
   position: absolute;
   top: 100%;
-  left: 0;
-  min-width: 220px;
-  background-color: var(--navbar-bg);
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 3rem);
+  max-width: 1200px;
+  background-color: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
   box-shadow: var(--shadow-md);
-  padding: 0.5rem;
-  display: none; /* Oculto por padrão */
-  flex-direction: column;
-  gap: 0.2rem;
+  padding: 1.5rem;
+  display: none;
+  gap: 1.5rem;
   z-index: 1010;
 }
 
-/* MOSTRAR AO PASSAR O RATO NO DESKTOP */
-.nav-item:hover .dropdown-menu {
-  display: flex !important;
+.nav-item:hover .mega-menu {
+  display: flex;
+  animation: fadeIn 0.2s ease;
 }
 
-.dropdown-item {
+.mega-categories-container {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.category-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.category-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--primary);
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.65rem 0.8rem;
-  color: var(--text-dark);
+  gap: 0.5rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--primary-light);
+}
+
+.mega-links-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.mega-link-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.6rem;
+  color: var(--text-main);
   text-decoration: none;
   font-size: 0.88rem;
   font-weight: 500;
   border-radius: 6px;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
 }
 
-.dropdown-item:hover {
+.mega-link-item .fa-chevron-right {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  transition: transform 0.15s ease;
+}
+
+.mega-link-item:hover {
   background-color: var(--primary-light);
   color: var(--primary);
 }
 
-/* ==========================================
-   3. MENU MOBILE (ECRÃS ATÉ 900PX)
-   ========================================== */
-@media (max-width: 900px) {
-  /* MOSTRA O BOTÃO HAMBÚRGUER APENAS EM DISPOSITIVOS MÓVEIS */
-  .menu-toggle { 
-    display: block !important; 
-  }
+.mega-link-item:hover .fa-chevron-right {
+  transform: translateX(3px);
+  color: var(--primary);
+}
 
-  .nav-menu {
+/* PAINEL DE DESTAQUE LATERAL NO MEGA MENU */
+.mega-explore-side {
+  width: 260px;
+  background: var(--bg-body);
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid var(--border-color);
+}
+
+.explore-header-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.explore-banner {
+  background-color: var(--primary);
+  color: #ffffff;
+  padding: 1.25rem 1rem;
+  border-radius: 8px;
+  margin: 0.75rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.explore-banner i { font-size: 1.5rem; }
+.explore-banner h5 { font-size: 1rem; font-weight: 700; }
+.explore-banner p { font-size: 0.8rem; opacity: 0.9; line-height: 1.3; }
+
+.explore-link {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.explore-link:hover { text-decoration: underline; }
+
+/* ==========================================
+   2. MENU MOBILE COM ROLAGEM E EXPANSÃO
+   ========================================== */
+@media (max-width: 992px) {
+  .mobile-toggle { display: block; }
+
+  .main-nav {
     position: fixed;
     top: 70px;
     left: -100%;
@@ -175,61 +268,72 @@ body {
     background-color: var(--bg-body);
     flex-direction: column;
     align-items: stretch;
-    padding: 1.25rem;
-    gap: 0.85rem;
+    padding: 1rem;
+    gap: 0.75rem;
     overflow-y: auto;
-    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: left 0.3s ease;
   }
 
-  .nav-menu.active { 
-    left: 0; 
-  }
+  .main-nav.active { left: 0; }
 
   .nav-item {
+    height: auto;
+    flex-direction: column;
+    align-items: stretch;
     background: #ffffff;
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
-    box-shadow: var(--shadow-sm);
     overflow: hidden;
   }
 
-  .nav-link {
+  .nav-btn {
+    width: 100%;
     justify-content: space-between;
-    padding: 1rem 1.1rem;
+    padding: 1rem;
     font-size: 1rem;
   }
 
-  /* NO MOBILE, O DROPDOWN MOSTRA-SE AO CLICAR */
-  .dropdown-menu {
+  .mega-menu {
     position: static;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
     box-shadow: none;
     border: none;
     border-top: 1px solid var(--border-color);
     border-radius: 0;
-    padding: 0.5rem;
+    padding: 1rem;
     background-color: #fafafa;
     display: none !important;
+    flex-direction: column;
   }
 
-  .nav-item.mobile-open .dropdown-menu { 
-    display: flex !important; 
+  .nav-item.mobile-open .mega-menu {
+    display: flex !important;
   }
-  
-  .nav-item.mobile-open .arrow { 
-    transform: rotate(180deg); 
+
+  .nav-item.mobile-open .nav-btn .fa-chevron-down {
+    transform: rotate(180deg);
+  }
+
+  .mega-explore-side {
+    width: 100%;
+    margin-top: 1rem;
   }
 }
 
 /* ==========================================
-   4. LAYOUT GERAL DO CONTEÚDO
+   3. CONTEÚDO PRINCIPAL E HEROS
    ========================================== */
-.content-container {
-  max-width: 960px;
-  margin: 2rem auto;
-  padding: 0 1.25rem 3rem 1.25rem;
+main {
+  margin-top: 70px;
+  padding: 2rem 1.5rem;
+  flex: 1;
 }
 
 .hero-box {
+  max-width: 960px;
+  margin: 1.5rem auto;
   background: #ffffff;
   padding: 3rem 2rem;
   border-radius: 16px;
@@ -238,19 +342,32 @@ body {
   text-align: center;
 }
 
-.hero-title-main {
-  font-size: 2rem;
+.hero-title-bg {
+  font-size: 0.85rem;
   font-weight: 800;
-  color: var(--text-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--primary);
   margin-bottom: 0.5rem;
+}
+
+.hero-title-main {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 0.75rem;
 }
 
 .hero-sub {
   color: var(--text-muted);
-  font-size: 1rem;
+  font-size: 1.05rem;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .page-card {
+  max-width: 960px;
+  margin: 0 auto;
   background: #ffffff;
   padding: 2.5rem;
   border-radius: 16px;
@@ -258,39 +375,36 @@ body {
   box-shadow: var(--shadow-sm);
 }
 
-/* ESTILOS DE TABS E QUADROS */
-.tabs-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 0.75rem;
-  margin: 1.5rem 0;
+/* ==========================================
+   4. BOTÃO FLUTUANTE
+   ========================================== */
+.floating-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
 }
 
-.tab-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.8rem 1rem;
-  background: #f8fafc;
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.tab-btn.active {
+.float-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   background: var(--primary);
   color: #ffffff;
-  border-color: var(--primary);
+  border: none;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
 }
 
-.tab-content { display: none; }
-.tab-content.active { display: block; }
+.float-btn.visible { display: flex; }
+.float-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
 
-.highlight-card {
-  background: var(--primary-light);
-  border-left: 4px solid var(--primary);
-  padding: 1rem 1.25rem;
-  border-radius: 0 8px 8px 0;
-  margin: 1rem 0;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -8px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
 }
