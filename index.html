@@ -3,24 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guia Técnico - Navegação por Separadores</title>
+  <title>Guia Técnico - Manual de Manutenção</title>
   
-  <!-- Font Awesome para ícones (se necessário) -->
+  <!-- Ícones Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
     /* ==========================================
-       1. ESTILOS BASE E CORES
+       1. ESTILOS BASE E VARIÁVEIS
        ========================================== */
     :root {
-      --tabs-bg: #eef2ff;          /* Cor de fundo exterior da página */
-      --tab-active-bg: #ffffff;    /* Cor do separador ativo e do painel */
-      --primary: #4f46e5;
+      --tabs-bg: #eef2ff;          /* Fundo exterior da página */
+      --tab-active-bg: #ffffff;    /* Fundo do painel e aba ativa */
+      --primary: #4f46e5;          /* Cor primária (roxo/azul) */
+      --primary-hover: #4338ca;
+      --primary-light: #f5f3ff;
       --text-main: #1e293b;
       --text-muted: #64748b;
       --border-color: #e2e8f0;
-      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
     }
 
     *, *:before, *:after {
@@ -43,84 +44,29 @@
     }
 
     /* ==========================================
-       2. CABEÇALHO DOS SEPARADORES (TAB HEADER)
+       2. CABEÇALHO DAS ABAS (TABS HEADER)
        ========================================== */
     .tabs-header {
       display: flex;
       gap: 0.3rem;
       padding-left: 1.5rem;
       overflow-x: auto;
-      scrollbar-width: none; /* Esconde scrollbar em Firefox */
+      scrollbar-width: none; /* Firefox */
     }
 
     .tabs-header::-webkit-scrollbar {
-      display: none; /* Esconde scrollbar em Chrome/Safari */
+      display: none; /* Chrome/Safari */
     }
 
     .tab-btn {
       position: relative;
       background: transparent;
       border: none;
-      padding: 0.85rem 1.6rem;
+      padding: 0.85rem 1.5rem;
       font-size: 0.95rem;
       font-weight: 600;
       color: var(--text-muted);
       cursor: pointer;
       border-top-left-radius: 14px;
       border-top-right-radius: 14px;
-      transition: color 0.2s ease, background-color 0.2s ease;
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .tab-btn:hover {
-      color: var(--primary);
-    }
-
-    /* Estado Ativo do Separador */
-    .tab-btn.active {
-      background-color: var(--tab-active-bg);
-      color: var(--primary);
-      font-weight: 700;
-    }
-
-    /* Curvas Côncavas nos Cantos do Separador Ativo (Efeito Ficha) */
-    .tab-btn.active::before,
-    .tab-btn.active::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      width: 14px;
-      height: 14px;
-      background-color: transparent;
-      pointer-events: none;
-    }
-
-    .tab-btn.active::before {
-      left: -14px;
-      border-bottom-right-radius: 14px;
-      box-shadow: 5px 5px 0 5px var(--tab-active-bg);
-    }
-
-    .tab-btn.active::after {
-      right: -14px;
-      border-bottom-left-radius: 14px;
-      box-shadow: -5px 5px 0 5px var(--tab-active-bg);
-    }
-
-    /* ==========================================
-       3. PAINEL DE CONTEÚDO CONECTADO
-       ========================================== */
-    .tab-content-panel {
-      background-color: var(--tab-active-bg);
-      border-radius: 20px;
-      border-top-left-radius: 0; /* Alinha com o primeiro separador se estiver ativo */
-      padding: 2.5rem;
-      min-height: 450px;
-      box-shadow: var(--shadow-lg);
-      border: 1px solid var(--border-color);
-    }
-
-    /* Alternância dos
+      transition: color 0.2s ease, background-color 0.2s ease
