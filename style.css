@@ -1,12 +1,15 @@
 :root {
   --primary: #2563eb;
-  --primary-hover: #1d4ed8;
-  --bg-light: #f8fafc;
+  --primary-light: #eff6ff;
+  --primary-border: #bfdbfe;
+  --bg-body: #f1f5f9;
   --navbar-bg: #ffffff;
-  --text-main: #0f172a;
+  --text-dark: #0f172a;
   --text-muted: #64748b;
   --border-color: #e2e8f0;
-  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --radius: 12px;
 }
 
 * {
@@ -16,12 +19,16 @@
 }
 
 body {
-  background-color: var(--bg-light);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  padding-top: 80px;
+  background-color: var(--bg-body);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  color: var(--text-dark);
+  line-height: 1.6;
+  padding-top: 75px;
 }
 
-/* NAVBAR */
+/* ==========================================
+   1. NAVBAR & MENUS (DESKTOP)
+   ========================================== */
 .navbar {
   position: fixed;
   top: 0;
@@ -30,7 +37,7 @@ body {
   height: 70px;
   background-color: var(--navbar-bg);
   border-bottom: 1px solid var(--border-color);
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-sm);
   z-index: 1000;
 }
 
@@ -45,13 +52,17 @@ body {
 }
 
 .nav-logo {
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   font-weight: 700;
-  color: var(--text-main);
+  color: var(--text-dark);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
   text-decoration: none;
+}
+
+.nav-logo i {
+  color: var(--primary);
 }
 
 .nav-menu {
@@ -69,16 +80,16 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.6rem 1rem;
-  color: var(--text-main);
-  font-size: 0.95rem;
+  padding: 0.6rem 0.9rem;
+  color: var(--text-dark);
+  font-size: 0.92rem;
   font-weight: 600;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.nav-link i {
+.nav-link i:not(.arrow) {
   color: var(--primary);
 }
 
@@ -89,28 +100,29 @@ body {
 }
 
 .nav-item:hover .nav-link {
-  background-color: #eff6ff;
+  background-color: var(--primary-light);
   color: var(--primary);
 }
 
 .nav-item:hover .arrow {
   transform: rotate(180deg);
+  color: var(--primary);
 }
 
-/* DROPDOWN */
+/* DROPDOWN DESKTOP */
 .dropdown-menu {
   position: absolute;
   top: 100%;
   left: 0;
-  min-width: 240px;
+  min-width: 230px;
   background-color: var(--navbar-bg);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
-  box-shadow: var(--shadow);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
   padding: 0.5rem;
   display: none;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.2rem;
   z-index: 1010;
 }
 
@@ -123,10 +135,10 @@ body {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.65rem 0.85rem;
-  color: var(--text-main);
+  padding: 0.6rem 0.8rem;
+  color: var(--text-dark);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 500;
   border-radius: 6px;
   transition: all 0.2s ease;
@@ -138,7 +150,11 @@ body {
 }
 
 .dropdown-item:hover, .dropdown-item.active {
-  background-color: #eff6ff;
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+.dropdown-item:hover i, .dropdown-item.active i {
   color: var(--primary);
 }
 
@@ -146,91 +162,14 @@ body {
   display: none;
   background: none;
   border: none;
-  font-size: 1.5rem;
-  color: var(--text-main);
+  font-size: 1.4rem;
+  color: var(--text-dark);
   cursor: pointer;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* CONTEÚDO PRINCIPAL E PÁGINAS */
-.content-container {
-  max-width: 1000px;
-  margin: 2rem auto;
-  padding: 0 1.5rem;
-}
-
-.hero-box {
-  background: #ffffff;
-  padding: 3rem 2rem;
-  border-radius: 16px;
-  box-shadow: var(--shadow);
-  text-align: center;
-}
-
-.hero-title-main {
-  font-size: 1.8rem;
-  color: var(--text-main);
-  margin-bottom: 0.5rem;
-}
-
-.hero-sub {
-  color: var(--text-muted);
-}
-
-.page-card {
-  background: #ffffff;
-  padding: 2.5rem;
-  border-radius: 16px;
-  box-shadow: var(--shadow);
-}
-
-.page-crumb {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-bottom: 1rem;
-}
-
-.page-crumb a {
-  color: var(--primary);
-  text-decoration: none;
-}
-
-/* BOTÃO FLUTUANTE TOPO */
-.floating-container {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 999;
-}
-
-.float-btn {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  background-color: var(--primary);
-  color: white;
-  border: none;
-  cursor: pointer;
-  box-shadow: var(--shadow);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s ease;
-}
-
-.float-btn.visible {
-  display: flex;
-}
-
-.float-btn:hover {
-  transform: translateY(-3px);
-}
-
-/* RESPONSIVO */
+/* ==========================================
+   2. MENU MOBILE EM CAIXAS (CARDS)
+   ========================================== */
 @media (max-width: 900px) {
   .menu-toggle { display: block; }
 
@@ -240,25 +179,264 @@ body {
     left: -100%;
     width: 100%;
     height: calc(100vh - 70px);
-    background-color: var(--navbar-bg);
+    background-color: var(--bg-body);
     flex-direction: column;
     align-items: stretch;
-    padding: 1rem;
-    gap: 0.5rem;
+    padding: 1.25rem;
+    gap: 0.85rem;
     overflow-y: auto;
-    transition: left 0.3s ease;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .nav-menu.active { left: 0; }
 
+  /* CAIXA / CARD PRINCIPAL DO MENU MOBILE */
+  .nav-item {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+  }
+
+  .nav-item.mobile-open {
+    border-color: var(--primary-border);
+  }
+
+  .nav-link {
+    justify-content: space-between;
+    padding: 1rem 1.1rem;
+    font-size: 1rem;
+    background: transparent;
+  }
+
+  /* DROPDOWN NO MOBILE */
   .dropdown-menu {
     position: static;
     box-shadow: none;
     border: none;
-    padding-left: 1rem;
+    border-top: 1px solid var(--border-color);
+    border-radius: 0;
+    padding: 0.5rem;
+    background-color: #fafafa;
     display: none;
   }
 
-  .nav-item.mobile-open .dropdown-menu { display: flex; }
-  .nav-item.mobile-open .arrow { transform: rotate(180deg); }
+  .nav-item.mobile-open .dropdown-menu {
+    display: flex;
+  }
+
+  .nav-item.mobile-open .arrow {
+    transform: rotate(180deg);
+  }
+
+  .dropdown-item {
+    padding: 0.75rem 1rem;
+    font-size: 0.92rem;
+  }
+}
+
+/* ==========================================
+   3. DESIGN DAS PÁGINAS DE CONTEÚDO (MELHORADO)
+   ========================================== */
+.content-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1.25rem 3rem 1.25rem;
+}
+
+/* CARD PRINCIPAL DA PÁGINA */
+.page-card {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 600px) {
+  .page-card { padding: 1.5rem; }
+}
+
+/* BREADCRUMB / TRILHA DE NAVEGAÇÃO */
+.page-crumb {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.page-crumb a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.page-crumb a:hover {
+  text-decoration: underline;
+}
+
+/* TÍTULOS E CABEÇALHOS DA PÁGINA */
+.page-card h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+}
+
+.page-card h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-top: 2rem;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--primary-light);
+}
+
+.page-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.page-card p {
+  color: #334155;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+
+/* CAIXA "NESTE ARTIGO" (ÍNDICE) */
+.article-index {
+  background-color: var(--primary-light);
+  border: 1px solid var(--primary-border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin: 1.5rem 0 2rem 0;
+}
+
+.article-index-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--primary);
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.article-index ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.article-index a {
+  color: #1d4ed8;
+  font-size: 0.93rem;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: transform 0.2s ease;
+}
+
+.article-index a:hover {
+  text-decoration: underline;
+  transform: translateX(3px);
+}
+
+/* LISTAS E ITENS DA PÁGINA */
+.page-card ul, .page-card ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.25rem;
+  color: #334155;
+}
+
+.page-card li {
+  margin-bottom: 0.4rem;
+  font-size: 0.96rem;
+}
+
+/* CAIXAS DE AVISO / DESTAQUE TÉCNICO */
+.info-box {
+  background-color: #f8fafc;
+  border-left: 4px solid var(--primary);
+  padding: 1rem 1.25rem;
+  border-radius: 0 8px 8px 0;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+  color: #1e293b;
+}
+
+.info-box.warning {
+  background-color: #fffbebf8;
+  border-left-color: #f59e0b;
+}
+
+/* HERO / HOME BOX */
+.hero-box {
+  background: #ffffff;
+  padding: 3.5rem 2rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+.hero-title-main {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 0.75rem;
+}
+
+.hero-sub {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* BOTÃO VOLTAR AO TOPO */
+.floating-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+}
+
+.float-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.float-btn.visible { display: flex; }
+.float-btn:hover { transform: translateY(-3px); background-color: #1d4ed8; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
