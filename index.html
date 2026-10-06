@@ -1,38 +1,126 @@
-<div class="tabs-wrapper">
-  <!-- Barra de Separadores -->
-  <nav class="tabs-header">
-    <button class="tab-btn active" onclick="switchTab(event, 'tab-home')">Home</button>
-    <button class="tab-btn" onclick="switchTab(event, 'tab-services')">Services</button>
-    <button class="tab-btn" onclick="switchTab(event, 'tab-contacts')">Contacts</button>
-    <button class="tab-btn" onclick="switchTab(event, 'tab-location')">Location</button>
-    <button class="tab-btn" onclick="switchTab(event, 'tab-about')">About</button>
-  </nav>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guia Técnico - Navegação por Separadores</title>
+  
+  <!-- Font Awesome para ícones (se necessário) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* ==========================================
+       1. ESTILOS BASE E CORES
+       ========================================== */
+    :root {
+      --tabs-bg: #eef2ff;          /* Cor de fundo exterior da página */
+      --tab-active-bg: #ffffff;    /* Cor do separador ativo e do painel */
+      --primary: #4f46e5;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+    }
 
-  <!-- Painel de Conteúdo Conectado -->
-  <main class="tab-content-panel">
-    <section id="tab-home" class="tab-pane active">
-      <h1>Home</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-    </section>
+    *, *:before, *:after {
+      box-sizing: border-box;
+    }
 
-    <section id="tab-services" class="tab-pane">
-      <h1>Services</h1>
-      <p>Conteúdo da secção de Serviços...</p>
-    </section>
+    body {
+      width: 100%;
+      min-height: 100vh;
+      margin: 0;
+      padding: 2rem 1.5rem;
+      background-color: var(--tabs-bg);
+      color: var(--text-main);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
 
-    <section id="tab-contacts" class="tab-pane">
-      <h1>Contacts</h1>
-      <p>Conteúdo da secção de Contactos...</p>
-    </section>
+    .tabs-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
 
-    <section id="tab-location" class="tab-pane">
-      <h1>Location</h1>
-      <p>Conteúdo da secção de Localização...</p>
-    </section>
+    /* ==========================================
+       2. CABEÇALHO DOS SEPARADORES (TAB HEADER)
+       ========================================== */
+    .tabs-header {
+      display: flex;
+      gap: 0.3rem;
+      padding-left: 1.5rem;
+      overflow-x: auto;
+      scrollbar-width: none; /* Esconde scrollbar em Firefox */
+    }
 
-    <section id="tab-about" class="tab-pane">
-      <h1>About</h1>
-      <p>Conteúdo da secção Sobre Nós...</p>
-    </section>
-  </main>
-</div>
+    .tabs-header::-webkit-scrollbar {
+      display: none; /* Esconde scrollbar em Chrome/Safari */
+    }
+
+    .tab-btn {
+      position: relative;
+      background: transparent;
+      border: none;
+      padding: 0.85rem 1.6rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-top-left-radius: 14px;
+      border-top-right-radius: 14px;
+      transition: color 0.2s ease, background-color 0.2s ease;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tab-btn:hover {
+      color: var(--primary);
+    }
+
+    /* Estado Ativo do Separador */
+    .tab-btn.active {
+      background-color: var(--tab-active-bg);
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* Curvas Côncavas nos Cantos do Separador Ativo (Efeito Ficha) */
+    .tab-btn.active::before,
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      width: 14px;
+      height: 14px;
+      background-color: transparent;
+      pointer-events: none;
+    }
+
+    .tab-btn.active::before {
+      left: -14px;
+      border-bottom-right-radius: 14px;
+      box-shadow: 5px 5px 0 5px var(--tab-active-bg);
+    }
+
+    .tab-btn.active::after {
+      right: -14px;
+      border-bottom-left-radius: 14px;
+      box-shadow: -5px 5px 0 5px var(--tab-active-bg);
+    }
+
+    /* ==========================================
+       3. PAINEL DE CONTEÚDO CONECTADO
+       ========================================== */
+    .tab-content-panel {
+      background-color: var(--tab-active-bg);
+      border-radius: 20px;
+      border-top-left-radius: 0; /* Alinha com o primeiro separador se estiver ativo */
+      padding: 2.5rem;
+      min-height: 450px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border-color);
+    }
+
+    /* Alternância dos
