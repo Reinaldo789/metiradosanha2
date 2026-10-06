@@ -3,32 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guia Técnico</title>
-
-  <!-- Biblioteca de Ícones Font Awesome (OBRIGATÓRIA) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <title>Guia Técnico - Manual de Manutenção</title>
   
+  <!-- Ícones Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- NAVBAR -->
+  <!-- NAVBAR / BARRA SUPERIOR -->
   <header class="navbar">
     <div class="nav-container">
       
       <!-- LOGO -->
       <a href="#" class="nav-logo">
-        <i class="fa-solid fa-wrench"></i> Guia Técnico
+        <i class="fa-solid fa-wrench"></i>
+        <span>Guia Técnico</span>
       </a>
 
-      <!-- BOTÃO HAMBÚRGUER (APENAS PARA MOBILE) -->
+      <!-- BOTÃO HAMBÚRGUER (APENAS MOBILE) -->
       <button class="menu-toggle" id="mobile-toggle-btn" aria-label="Abrir Menu">
         <i class="fa-solid fa-bars"></i>
       </button>
 
-      <!-- MENU DE NAVEGAÇÃO -->
+      <!-- MENU DE NAVEGAÇÃO COMPLETO -->
       <ul class="nav-menu" id="nav-menu">
         
+        <!-- 1. SISTEMA ELÉTRICO -->
         <li class="nav-item">
           <div class="nav-link">
             <i class="fa-solid fa-bolt"></i>
@@ -36,11 +37,14 @@
             <i class="fa-solid fa-chevron-down arrow"></i>
           </div>
           <div class="dropdown-menu">
-            <a href="#sistema-eletrico/bateria" class="dropdown-item">Bateria</a>
-            <a href="#sistema-eletrico/alternador" class="dropdown-item">Alternador</a>
+            <a href="#sistema-eletrico/bateria" class="dropdown-item"><i class="fa-solid fa-car-battery"></i> Bateria & Carga</a>
+            <a href="#sistema-eletrico/alternador" class="dropdown-item"><i class="fa-solid fa-rotate"></i> Alternador</a>
+            <a href="#sistema-eletrico/motor-partida" class="dropdown-item"><i class="fa-solid fa-power-off"></i> Motor de Partida</a>
+            <a href="#sistema-eletrico/fusiveis-reles" class="dropdown-item"><i class="fa-solid fa-plug"></i> Fusíveis e Relés</a>
           </div>
         </li>
 
+        <!-- 2. ALIMENTAÇÃO -->
         <li class="nav-item">
           <div class="nav-link">
             <i class="fa-solid fa-gas-pump"></i>
@@ -48,11 +52,14 @@
             <i class="fa-solid fa-chevron-down arrow"></i>
           </div>
           <div class="dropdown-menu">
-            <a href="#alimentacao/bomba-combustivel" class="dropdown-item">Bomba de Combustível</a>
-            <a href="#sistema-de-injecao/valvula-mprop" class="dropdown-item">Válvula MProp</a>
+            <a href="#sistema-de-injecao/valvula-mprop" class="dropdown-item"><i class="fa-solid fa-sliders"></i> Válvula MProp</a>
+            <a href="#alimentacao/bomba-alta-pressao" class="dropdown-item"><i class="fa-solid fa-gauge-high"></i> Bomba de Alta Pressão</a>
+            <a href="#alimentacao/bicos-injetores" class="dropdown-item"><i class="fa-solid fa-spray-can"></i> Injetores (Common Rail)</a>
+            <a href="#alimentacao/filtro-combustivel" class="dropdown-item"><i class="fa-solid fa-filter"></i> Filtro de Combustível</a>
           </div>
         </li>
 
+        <!-- 3. SENSORES / ATUADORES -->
         <li class="nav-item">
           <div class="nav-link">
             <i class="fa-solid fa-microchip"></i>
@@ -60,11 +67,14 @@
             <i class="fa-solid fa-chevron-down arrow"></i>
           </div>
           <div class="dropdown-menu">
-            <a href="#sensores-atuadores/sensor-rotacao" class="dropdown-item">Sensor de Rotação</a>
-            <a href="#sensores-atuadores/sensor-fase" class="dropdown-item">Sensor de Fase</a>
+            <a href="#sensores-atuadores/sensor-rotacao" class="dropdown-item"><i class="fa-solid fa-dharmachakra"></i> Sensor de Rotação (CKP)</a>
+            <a href="#sensores-atuadores/sensor-fase" class="dropdown-item"><i class="fa-solid fa-arrows-spin"></i> Sensor de Fase (CMP)</a>
+            <a href="#sensores-atuadores/sensor-map" class="dropdown-item"><i class="fa-solid fa-wind"></i> Sensor MAP / Pressão</a>
+            <a href="#sensores-atuadores/sensor-temperatura" class="dropdown-item"><i class="fa-solid fa-temperature-half"></i> Sensor de Temperatura (ECT)</a>
           </div>
         </li>
 
+        <!-- 4. MOTOR / ACESSÓRIOS -->
         <li class="nav-item">
           <div class="nav-link">
             <i class="fa-solid fa-gears"></i>
@@ -72,10 +82,13 @@
             <i class="fa-solid fa-chevron-down arrow"></i>
           </div>
           <div class="dropdown-menu">
-            <a href="#motor-acessorios/correia-dentada" class="dropdown-item">Correia Dentada</a>
+            <a href="#motor-acessorios/sincronismo" class="dropdown-item"><i class="fa-solid fa-clock"></i> Sincronismo da Correia/Corrente</a>
+            <a href="#motor-acessorios/turbocompressor" class="dropdown-item"><i class="fa-solid fa-fan"></i> Turbocompressor</a>
+            <a href="#motor-acessorios/sistema-arrefecimento" class="dropdown-item"><i class="fa-solid fa-snowflake"></i> Arrefecimento</a>
           </div>
         </li>
 
+        <!-- 5. SUSPENSÃO / FREIO -->
         <li class="nav-item">
           <div class="nav-link">
             <i class="fa-solid fa-truck-monster"></i>
@@ -83,7 +96,9 @@
             <i class="fa-solid fa-chevron-down arrow"></i>
           </div>
           <div class="dropdown-menu">
-            <a href="#suspensao-freio/abs" class="dropdown-item">Sistema ABS</a>
+            <a href="#suspensao-freio/abs" class="dropdown-item"><i class="fa-solid fa-shield-halved"></i> Sistema ABS / EBD</a>
+            <a href="#suspensao-freio/freio-disco" class="dropdown-item"><i class="fa-solid fa-compact-disc"></i> Freios a Disco / Pastilhas</a>
+            <a href="#suspensao-freio/geometria" class="dropdown-item"><i class="fa-solid fa-compass"></i> Geometria e Suspensão</a>
           </div>
         </li>
 
@@ -92,22 +107,50 @@
     </div>
   </header>
 
-  <!-- ÁREA DE CONTEÚDO PRINCIPAL -->
+  <!-- CONTEÚDO PRINCIPAL DA PÁGINA -->
   <main class="content-container">
-    <div id="home-box" class="hero-box">
-      <h1 class="hero-title-main">Portal de Especificações Técnicas</h1>
-      <p class="hero-sub">Selecione uma opção no menu superior para navegar entre os módulos do manual.</p>
+    
+    <!-- PÁGINA INICIAL / DASHBOARD DE MÓDULOS -->
+    <div id="home-box" class="hero-wrapper">
+      <div class="hero-header">
+        <h1>Manual Técnico de Manutenção</h1>
+        <p>Selecione um módulo abaixo ou utilize o menu superior para acessar os diagnósticos, esquemas elétricos e parâmetros de teste.</p>
+      </div>
+
+      <!-- CARDS DE ATALHO RÁPIDO NA HOME -->
+      <div class="modules-grid">
+        <a href="#sistema-de-injecao/valvula-mprop" class="module-card">
+          <div class="card-icon-wrapper blue"><i class="fa-solid fa-sliders"></i></div>
+          <h3>Válvula MProp</h3>
+          <p>Testes de tensão, resistência da bobina e diagnóstico do sinal PWM.</p>
+          <span class="card-link">Acessar Guia <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+        <a href="#sensores-atuadores/sensor-rotacao" class="module-card">
+          <div class="card-icon-wrapper green"><i class="fa-solid fa-dharmachakra"></i></div>
+          <h3>Sensor de Rotação</h3>
+          <p>Medição de sinal CKP, gap do sensor e teste com osciloscópio/multímetro.</p>
+          <span class="card-link">Acessar Guia <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+        <a href="#sensores-atuadores/sensor-fase" class="module-card">
+          <div class="card-icon-wrapper orange"><i class="fa-solid fa-arrows-spin"></i></div>
+          <h3>Sensor de Fase</h3>
+          <p>Sincronismo de fase CMP, alinhamento elétrico e códigos de falha comuns.</p>
+          <span class="card-link">Acessar Guia <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+      </div>
     </div>
 
+    <!-- RECIPIENTE ONDE OS ARTIGOS/CONTEÚDOS SÃO CARREGADOS DINAMICAMENTE -->
     <div id="page-card" class="page-card" hidden></div>
+
   </main>
 
-  <!-- BOTÃO VOLTAR AO TOPO -->
-  <div class="floating-container">
-    <button id="btn-top" class="float-btn" title="Voltar ao Topo">
-      <i class="fa-solid fa-arrow-up"></i>
-    </button>
-  </div>
+  <!-- BOTÃO FLUTUANTE PARA VOLTAR AO TOPO -->
+  <button id="btn-top" class="float-btn" title="Voltar ao Topo">
+    <i class="fa-solid fa-chevron-up"></i>
+  </button>
 
   <script src="menu.js"></script>
 </body>
