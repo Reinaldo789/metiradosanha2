@@ -673,3 +673,10 @@ main {
   .mega-explore-side { margin-top: 0.6rem; }
   .category-title { padding: 0; }
 }
+
+/* Cabeçalho do artigo nunca herda o comportamento do cabeçalho do site */
+.page-card header {
+  position: static; z-index: auto; top: auto; width: auto;
+  background: none; border: 0;
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+}
