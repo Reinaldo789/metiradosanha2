@@ -69,4 +69,221 @@
       cursor: pointer;
       border-top-left-radius: 14px;
       border-top-right-radius: 14px;
-      transition: color 0.2s ease, background-color 0.2s ease
+      transition: color 0.2s ease, background-color 0.2s ease;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tab-btn:hover {
+      color: var(--primary);
+    }
+
+    /* Aba Ativa */
+    .tab-btn.active {
+      background-color: var(--tab-active-bg);
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* Curvas Côncavas nos Cantos da Aba Ativa */
+    .tab-btn.active::before,
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      width: 14px;
+      height: 14px;
+      background-color: transparent;
+      pointer-events: none;
+    }
+
+    .tab-btn.active::before {
+      left: -14px;
+      border-bottom-right-radius: 14px;
+      box-shadow: 5px 5px 0 5px var(--tab-active-bg);
+    }
+
+    .tab-btn.active::after {
+      right: -14px;
+      border-bottom-left-radius: 14px;
+      box-shadow: -5px 5px 0 5px var(--tab-active-bg);
+    }
+
+    /* ==========================================
+       3. PAINEL PRINCIPAL DE CONTEÚDO
+       ========================================== */
+    .tab-content-panel {
+      background-color: var(--tab-active-bg);
+      border-radius: 20px;
+      border-top-left-radius: 0;
+      padding: 2.5rem;
+      min-height: 400px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border-color);
+    }
+
+    .tab-pane {
+      display: none;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .tab-pane h2 {
+      margin-top: 0;
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    /* Grelha de Itens Internos das Abas */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .menu-card {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.85rem 1.2rem;
+      background-color: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 500;
+      font-size: 0.92rem;
+      transition: all 0.2s ease;
+    }
+
+    .menu-card:hover {
+      background-color: var(--primary-light);
+      color: var(--primary);
+      border-color: #c7d2fe;
+      transform: translateY(-2px);
+    }
+
+    .menu-card i {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      transition: color 0.2s ease;
+    }
+
+    .menu-card:hover i {
+      color: var(--primary);
+    }
+
+    /* Responsividade */
+    @media (max-width: 640px) {
+      body { padding: 1rem 0.5rem; }
+      .tabs-header { padding-left: 0.5rem; }
+      .tab-btn { padding: 0.7rem 1rem; font-size: 0.85rem; }
+      .tab-content-panel { padding: 1.25rem; border-radius: 14px; }
+      .menu-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="tabs-wrapper">
+    <!-- Barra de Separadores (Tabs) -->
+    <nav class="tabs-header">
+      <button class="tab-btn active" onclick="switchTab(event, 'tab-eletrico')">
+        <i class="fa-solid fa-bolt"></i> Sistema Elétrico
+      </button>
+      <button class="tab-btn" onclick="switchTab(event, 'tab-combustivel')">
+        <i class="fa-solid fa-gas-pump"></i> Alimentação de Combustível
+      </button>
+      <button class="tab-btn" onclick="switchTab(event, 'tab-sensores')">
+        <i class="fa-solid fa-microchip"></i> Sensores e Atuadores
+      </button>
+      <button class="tab-btn" onclick="switchTab(event, 'tab-motor')">
+        <i class="fa-solid fa-wrench"></i> Motor e Chassi
+      </button>
+    </nav>
+
+    <!-- Painel com Conteúdo das Categorias -->
+    <main class="tab-content-panel">
+      
+      <!-- 1. Sistema Elétrico -->
+      <section id="tab-eletrico" class="tab-pane active">
+        <h2><i class="fa-solid fa-bolt"></i> Sistema Elétrico</h2>
+        <div class="menu-grid">
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Fusíveis e Lâmpadas</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Luz de Farol e Posição</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Luz de Seta e Alerta</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Limpador de Para-brisa</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Painel de Instrumentos</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Luz e Pressão de Óleo</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Luzes de Diagnóstico</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Motor de Partida</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Alternador</a>
+        </div>
+      </section>
+
+      <!-- 2. Alimentação de Combustível -->
+      <section id="tab-combustivel" class="tab-pane">
+        <h2><i class="fa-solid fa-gas-pump"></i> Alimentação de Combustível</h2>
+        <div class="menu-grid">
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Linha Combustível</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Tanque, Filtro, Mang.</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Bomba Elétrica</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Bomba Engrenagem</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Válvula KUV</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Bomba Alta Pressão</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Tubo Rail</a>
+        </div>
+      </section>
+
+      <!-- 3. Sensores e Atuadores -->
+      <section id="tab-sensores" class="tab-pane">
+        <h2><i class="fa-solid fa-microchip"></i> Sensores e Atuadores</h2>
+        <div class="menu-grid">
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Sensor Rotação</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Sensor Fase</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Sensor Pres. Adm</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Sensor Temp. ECM</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Sensor Pres. Rail</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Válvula MProp</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Pedal Acelerador</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Modulador Turbina</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Bicos Injetores</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Lâmpada Painel</a>
+        </div>
+      </section>
+
+      <!-- 4. Motor e Chassi -->
+      <section id="tab-motor" class="tab-pane">
+        <h2><i class="fa-solid fa-wrench"></i> Motor e Chassi</h2>
+        <div class="menu-grid">
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Arrefecimento</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Lubrificação</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Bomba de Água</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Trocador de Calor</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Válvula Termostática</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Sistema de Direção</a>
+          <a href="#" class="menu-card"><i class="fa-solid fa-chevron-right"></i> Sistemas de Freios</a>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Ficheiro JavaScript externo -->
+  <script src="menu.js"></script>
+</body>
+</html>
