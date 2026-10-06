@@ -2,19 +2,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const navItems = document.querySelectorAll('.nav-item');
   const mobileToggleBtn = document.getElementById('mobile-toggle-btn');
   const navMenu = document.getElementById('nav-menu');
-  const toggleIcon = mobileToggleBtn.querySelector('i');
+  const toggleIcon = mobileToggleBtn ? mobileToggleBtn.querySelector('i') : null;
 
   // ==========================================
   // LÓGICA DO MENU MOBILE & DROPDOWNS TOUCH
   // ==========================================
   
-  // Abrir / Fechar menu hambúrguer no mobile
   if (mobileToggleBtn) {
     mobileToggleBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       const isOpen = navMenu.classList.toggle('active');
       
-      // Controla a rolagem da página ao abrir o menu mobile
       document.body.style.overflow = isOpen ? 'hidden' : '';
 
       if (isOpen) {
@@ -32,20 +30,21 @@ document.addEventListener('DOMContentLoaded', () => {
   navItems.forEach(item => {
     const link = item.querySelector('.nav-link');
     
-    link.addEventListener('click', (e) => {
-      if (window.innerWidth <= 900) {
-        e.preventDefault();
-        
-        // Fecha outros submenus no mobile
-        navItems.forEach(otherItem => {
-          if (otherItem !== item) {
-            otherItem.classList.remove('mobile-open');
-          }
-        });
+    if (link) {
+      link.addEventListener('click', (e) => {
+        if (window.innerWidth <= 900) {
+          e.preventDefault();
+          
+          navItems.forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('mobile-open');
+            }
+          });
 
-        item.classList.toggle('mobile-open');
-      }
-    });
+          item.classList.toggle('mobile-open');
+        }
+      });
+    }
   });
 
   // ==========================================
@@ -54,9 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnTop = document.getElementById('btn-top');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 150) {
-      btnTop.classList.add('visible');
+      btnTop?.classList.add('visible');
     } else {
-      btnTop.classList.remove('visible');
+      btnTop?.classList.remove('visible');
     }
   });
 
@@ -126,7 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('hashchange', abrirPagina);
   abrirPagina();
 
-  // Rolar suavemente ao clicar em índices dentro do artigo (<a data-goto="id">)
   if (card) {
     card.addEventListener('click', (e) => {
       const alvo = e.target.closest('[data-goto]');
