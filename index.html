@@ -1,47 +1,145 @@
-<!-- Subtítulo / Módulo -->
-<p style="color: var(--text-muted); font-size: 0.9rem; font-weight: 600; text-transform: uppercase; margin-top: -0.25rem;">
-  Sistema de Injeção
-</p>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guia Técnico - Manual de Manutenção</title>
 
-<p>
-  A <strong>válvula reguladora de pressão de combustível (MProp)</strong> ajusta a pressão de combustível em função da rotação e da carga do motor, operando dentro da faixa definida no mapeamento do ECM.
-</p>
+  <!-- Ícones Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<!-- Caixa de Destaque -->
-<div class="info-box">
-  <strong>Circuito de baixa pressão:</strong> Comando PWM 12V (Agrale Marruá / MWM 2.8). A MProp atua no circuito de baixa pressão antes do estágio de pressurização.
-</div>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-<!-- Índice da Página -->
-<div class="article-index">
-  <div class="article-index-title">
-    <i class="fa-solid fa-list-ul"></i> Neste artigo
+  <div class="site-wrapper">
+
+    <!-- BARRA DE NAVEGAÇÃO FIXA -->
+    <header class="navbar">
+      <div class="nav-container">
+        <a href="#" class="nav-logo">
+          <i class="fa-solid fa-wrench"></i>
+          <span>Guia Técnico</span>
+        </a>
+
+        <!-- Botão Hambúrguer Mobile -->
+        <button class="menu-toggle" id="mobile-toggle-btn" aria-label="Abrir Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <!-- Menu Principal -->
+        <ul class="nav-menu" id="nav-menu">
+          
+          <!-- 1. Sistema Elétrico -->
+          <li class="nav-item">
+            <div class="nav-link">
+              <span><i class="fa-solid fa-bolt"></i> Sistema Elétrico</span>
+              <i class="fa-solid fa-chevron-down arrow"></i>
+            </div>
+            <div class="dropdown-menu">
+              <a href="#sistema-eletrico/fusiveis-e-lampadas" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Fusíveis e Lâmpadas</a>
+              <a href="#sistema-eletrico/luz-de-farol-e-posicao" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Luz de Farol e Posição</a>
+              <a href="#sistema-eletrico/luz-de-seta-e-alerta" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Luz de Seta e Alerta</a>
+              <a href="#sistema-eletrico/limpador-de-para-brisa" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Limpador de Para-brisa</a>
+              <a href="#sistema-eletrico/painel-de-instrumentos" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Painel de Instrumentos</a>
+              <a href="#sistema-eletrico/luz-e-pressao-de-oleo" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Luz e Pressão de Óleo</a>
+              <a href="#sistema-eletrico/luzes-de-injecao" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Luzes de Diagnóstico</a>
+              <a href="#sistema-eletrico/motor-de-partida" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Motor de Partida</a>
+              <a href="#sistema-eletrico/alternador" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Alternador</a>
+            </div>
+          </li>
+
+          <!-- 2. Alimentação de Combustível -->
+          <li class="nav-item">
+            <div class="nav-link">
+              <span><i class="fa-solid fa-gas-pump"></i> Alimentação</span>
+              <i class="fa-solid fa-chevron-down arrow"></i>
+            </div>
+            <div class="dropdown-menu">
+              <a href="#alimentacao-de-combustivel/linha-combustivel" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Linha Combustível</a>
+              <a href="#alimentacao-de-combustivel/tanque-filtro-mang" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Tanque, Filtro, Mang.</a>
+              <a href="#alimentacao-de-combustivel/bomba-eletrica" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Bomba Elétrica</a>
+              <a href="#alimentacao-de-combustivel/bomba-engrenagem" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Bomba Engrenagem</a>
+              <a href="#alimentacao-de-combustivel/valvula-kuv" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Válvula KUV</a>
+              <a href="#alimentacao-de-combustivel/bomba-alta-pressao" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Bomba Alta Pressão</a>
+              <a href="#alimentacao-de-combustivel/tubo-rail" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Tubo Rail</a>
+            </div>
+          </li>
+
+          <!-- 3. Sensores e Atuadores -->
+          <li class="nav-item">
+            <div class="nav-link">
+              <span><i class="fa-solid fa-microchip"></i> Sensores/Atuadores</span>
+              <i class="fa-solid fa-chevron-down arrow"></i>
+            </div>
+            <div class="dropdown-menu">
+              <a href="#sistema-de-injecao/sensor-rotacao" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Sensor Rotação</a>
+              <a href="#sistema-de-injecao/sensor-fase" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Sensor Fase</a>
+              <a href="#sistema-de-injecao/sensor-pres-adm" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Sensor Pres. Adm</a>
+              <a href="#sistema-de-injecao/sensor-temp-ecm" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Sensor Temp. ECM</a>
+              <a href="#sistema-de-injecao/sensor-pres-rail" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Sensor Pres. Rail</a>
+              <a href="#sistema-de-injecao/valvula-mprop" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Válvula MProp</a>
+              <a href="#sistema-de-injecao/pedal-acelerador" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Pedal Acelerador</a>
+              <a href="#sistema-de-injecao/modulador-turbina" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Modulador Turbina</a>
+              <a href="#sistema-de-injecao/bicos-injetores" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Bicos Injetores</a>
+              <a href="#sistema-de-injecao/lampada-painel" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Lâmpada Painel</a>
+            </div>
+          </li>
+
+          <!-- 4. Motor/Acessórios -->
+          <li class="nav-item">
+            <div class="nav-link">
+              <span><i class="fa-solid fa-gears"></i> Motor/Acessórios</span>
+              <i class="fa-solid fa-chevron-down arrow"></i>
+            </div>
+            <div class="dropdown-menu">
+              <a href="#motor-acessorios/arrefecimento" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Arrefecimento</a>
+              <a href="#motor-acessorios/lubrificacao" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Lubrificação</a>
+              <a href="#motor-acessorios/bomba-de-agua" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Bomba de Água</a>
+              <a href="#motor-acessorios/trocador-de-calor" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Trocador de Calor</a>
+              <a href="#motor-acessorios/valvula-termostatica" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Válvula Termostática</a>
+              <a href="#motor-acessorios/sistema-de-direcao" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Sistema de Direção</a>
+            </div>
+          </li>
+
+          <!-- 5. Suspensão/Freio (NOVO) -->
+          <li class="nav-item">
+            <div class="nav-link">
+              <span><i class="fa-solid fa-truck-monster"></i> Suspensão/Freio</span>
+              <i class="fa-solid fa-chevron-down arrow"></i>
+            </div>
+            <div class="dropdown-menu">
+              <a href="#suspensao-freio/eixo-dianteiro" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Eixo Dianteiro</a>
+              <a href="#suspensao-freio/eixo-traseiro" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Eixo Traseiro</a>
+              <a href="#suspensao-freio/freio-pedal" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Freio Pedal</a>
+              <a href="#suspensao-freio/freio-de-mao" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Freio de Mão</a>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="content-container">
+      <div class="hero-box" id="home-box">
+        <h1 class="hero-title-main">Portal de Especificações Técnicas</h1>
+        <p class="hero-sub">Selecione uma opção no menu superior para navegar entre os módulos do manual.</p>
+      </div>
+      <article class="page-card" id="page-card" hidden></article>
+    </main>
+
   </div>
-  <ul>
-    <li><a href="#" data-goto="localizacao"><i class="fa-solid fa-angle-right"></i> Localização</a></li>
-    <li><a href="#" data-goto="funcionamento"><i class="fa-solid fa-angle-right"></i> Funcionamento</a></li>
-    <li><a href="#" data-goto="testes"><i class="fa-solid fa-angle-right"></i> Parte elétrica e testes</a></li>
-  </ul>
-</div>
 
-<!-- Seção 1 -->
-<h2 id="localizacao">Localização</h2>
-<p>
-  A válvula MProp está montada na traseira da bomba de alta pressão de combustível.
-</p>
+  <!-- BOTÃO VOLTAR AO TOPO -->
+  <div class="floating-container">
+    <button class="float-btn" id="btn-top" title="Voltar ao Topo" aria-label="Voltar ao topo">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+  </div>
 
-<!-- Seção 2 -->
-<h2 id="funcionamento">Funcionamento</h2>
-<ul>
-  <li>Recebe o combustível vindo da bomba de engrenagem;</li>
-  <li>Dosifica a quantidade exata para o elemento de alta pressão;</li>
-  <li>Mantém a estabilidade da pressão no tubo Rail.</li>
-</ul>
+  <!-- JAVASCRIPT -->
+  <script src="menu.js"></script>
 
-<!-- Seção 3 -->
-<h2 id="testes">Parte Elétrica e Testes</h2>
-<p>Para diagnosticar falhas no componente, meça os seguintes parâmetros:</p>
-<ul>
-  <li><strong>Resistência do solenoide:</strong> ~2.5 Ω a 3.5 Ω a 20°C.</li>
-  <li><strong>Sinal de controle:</strong> Sinal modulado por largura de pulso (PWM).</li>
-</ul>
+</body>
+</html>
