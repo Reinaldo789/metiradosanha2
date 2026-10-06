@@ -1,80 +1,84 @@
 document.addEventListener('DOMContentLoaded', () => {
   const mobileToggleBtn = document.getElementById('mobile-toggle-btn');
-  const navMenu = document.getElementById('nav-menu');
+  const mainNav = document.getElementById('main-nav');
   const navItems = document.querySelectorAll('.nav-item');
-  const home = document.getElementById('home-box');
-  const card = document.getElementById('page-card');
+  const homeBox = document.getElementById('home-box');
+  const pageCard = document.getElementById('page-card');
+  const btnTop = document.getElementById('btn-top');
 
-  // 1. ABRIR E FECHAR MENU MOBILE
-  if (mobileToggleBtn && navMenu) {
+  // 1. ALTERNAR MENU MOBILE (HAMBÚRGUER)
+  if (mobileToggleBtn && mainNav) {
     mobileToggleBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      const isOpen = navMenu.classList.toggle('active');
+      const isOpen = mainNav.classList.toggle('active');
       const icon = mobileToggleBtn.querySelector('i');
-      
       if (icon) {
         icon.className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
       }
     });
   }
 
-  // 2. COMPORTAMENTO EM DISPOSITIVOS MÓVEIS (CLICK PARA ABRIR DROPDOWN)
+  // 2. ABRIR E FECHAR SUBMENUS ACORDÃO NO MOBILE
   navItems.forEach(item => {
-    const link = item.querySelector('.nav-link');
-    if (link) {
-      link.addEventListener('click', (e) => {
-        if (window.innerWidth <= 900) {
+    const btn = item.querySelector('.nav-btn');
+    if (btn) {
+      btn.addEventListener('click', (e) => {
+        if (window.innerWidth <= 992) {
           e.preventDefault();
-          e.stopPropagation();
-
-          // Fecha os outros submenus abertos
+          // Fecha os outros menus abertos no mobile
           navItems.forEach(other => {
             if (other !== item) other.classList.remove('mobile-open');
           });
-
           item.classList.toggle('mobile-open');
         }
       });
     }
   });
 
-  // 3. CARREGAMENTO DINÂMICO DE PÁGINAS (HASH #)
+  // 3. CARREGAR PÁGINAS DINAMICAMENTE VIA HASH (#)
   async function carregarPagina() {
     const rawHash = location.hash.slice(1);
     const path = decodeURIComponent(rawHash).replace(/^\/+/, '');
 
-    // Desativa submenus abertos no mobile
-    if (navMenu) navMenu.classList.remove('active');
+    // Fecha o menu mobile se estiver aberto ao clicar em um link
+    if (mainNav) mainNav.classList.remove('active');
+    if (mobileToggleBtn) {
+      const icon = mobileToggleBtn.querySelector('i');
+      if (icon) icon.className = 'fa-solid fa-bars';
+    }
     navItems.forEach(item => item.classList.remove('mobile-open'));
 
+    // Se a hash estiver vazia, exibe a Home
     if (!path) {
-      if (card) card.hidden = true;
-      if (home) home.hidden = false;
+      if (pageCard) pageCard.hidden = true;
+      if (homeBox) homeBox.hidden = false;
       return;
     }
 
-    if (home) home.hidden = true;
-    if (card) {
-      card.hidden = false;
-      card.innerHTML = '<p style="color: var(--text-muted); padding: 1rem;">A carregar dados...</p>';
+    // Exibe o contêiner de artigo e oculta a Home
+    if (homeBox) homeBox.hidden = true;
+    if (pageCard) {
+      pageCard.hidden = false;
+      pageCard.innerHTML = '<p style="color: var(--text-muted); font-weight: 500;">A carregar artigo...</p>';
     }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 
     try {
       const response = await fetch(`conteudo/${path}.html`);
-      if (!response.ok) throw new Error(`Ficheiro não encontrado em: conteudo/${path}.html`);
-      
+      if (!response.ok) throw new Error(`Ficheiro não encontrado: conteudo/${path}.html`);
+
       const htmlContent = await response.text();
-      if (card) card.innerHTML = htmlContent;
-      
+      if (pageCard) pageCard.innerHTML = htmlContent;
+
     } catch (err) {
-      if (card) {
-        card.innerHTML = `
-          <div class="highlight-card warning" style="margin-top: 1rem;">
-            <i class="fa-solid fa-triangle-exclamation card-icon"></i>
-            <div class="card-body">
-              <h4>Erro ao carregar o conteúdo</h4>
-              <p>${err.message}</p>
-            </div>
+      if (pageCard) {
+        pageCard.innerHTML = `
+          <div style="padding: 1.5rem; background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px; color: #92400e;">
+            <h3 style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+              <i class="fa-solid fa-triangle-exclamation"></i> Conteúdo em Elaboração
+            </h3>
+            <p>${err.message}</p>
           </div>`;
       }
     }
@@ -82,17 +86,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('hashchange', carregarPagina);
   carregarPagina();
+
+  // 4. BOTÃO VOLTAR AO TOPO
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 200) {
+      btnTop?.classList.add('visible');
+    } else {
+      btnTop?.classList.remove('visible');
+    }
+  });
+
+  btnTop?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 });
-
-// 4. FUNÇÃO GLOBAL DAS ABAS (TABS INTERNAS)
-window.switchTab = function(event, tabId) {
-  const btn = event.currentTarget;
-  const container = btn.closest('.page-card') || document;
-
-  container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  container.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-
-  btn.classList.add('active');
-  const target = container.querySelector(`#${tabId}`);
-  if (target) target.classList.add('active');
-};
