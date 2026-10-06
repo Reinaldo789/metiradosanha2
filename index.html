@@ -3,341 +3,130 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manual Técnico de Manutenção</title>
-  
+  <title>Guia Técnico - Manual de Manutenção</title>
+
   <!-- Ícones Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <style>
-    :root {
-      --primary: #2563eb;
-      --primary-hover: #1d4ed8;
-      --bg-light: #f8fafc;
-      --navbar-bg: #ffffff;
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --border-color: #e2e8f0;
-      --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background-color: var(--bg-light);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      padding-top: 80px; /* Espaço para o menu fixo não tapar o conteúdo */
-    }
-
-    /* ==========================================
-       BARRA DE NAVEGAÇÃO (NAVBAR)
-       ========================================== */
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 70px;
-      background-color: var(--navbar-bg);
-      border-bottom: 1px solid var(--border-color);
-      box-shadow: var(--shadow);
-      z-index: 1000;
-    }
-
-    .nav-container {
-      max-width: 1200px;
-      height: 100%;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .nav-logo {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      text-decoration: none;
-    }
-
-    /* Menu Principal (Desktop) */
-    .nav-menu {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      list-style: none;
-    }
-
-    .nav-item {
-      position: relative;
-    }
-
-    .nav-link {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.6rem 1rem;
-      color: var(--text-main);
-      font-size: 0.95rem;
-      font-weight: 600;
-      text-decoration: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .nav-link i {
-      color: var(--primary);
-    }
-
-    .nav-link .arrow {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      transition: transform 0.2s ease;
-    }
-
-    .nav-item:hover .nav-link {
-      background-color: #eff6ff;
-      color: var(--primary);
-    }
-
-    .nav-item:hover .arrow {
-      transform: rotate(180deg);
-      color: var(--primary);
-    }
-
-    /* Submenu (Dropdown) */
-    .dropdown-menu {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      min-width: 240px;
-      background-color: var(--navbar-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      box-shadow: var(--shadow);
-      padding: 0.5rem;
-      display: none;
-      flex-direction: column;
-      gap: 0.25rem;
-      z-index: 1010;
-    }
-
-    /* Exibe o dropdown ao passar o rato */
-    .nav-item:hover .dropdown-menu {
-      display: flex;
-      animation: fadeIn 0.2s ease;
-    }
-
-    .dropdown-item {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 0.65rem 0.85rem;
-      color: var(--text-main);
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      border-radius: 6px;
-      transition: background-color 0.2s ease, color 0.2s ease;
-    }
-
-    .dropdown-item i {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    .dropdown-item:hover {
-      background-color: #eff6ff;
-      color: var(--primary);
-    }
-
-    .dropdown-item:hover i {
-      color: var(--primary);
-    }
-
-    /* Botão Mobile (Hambúrguer) */
-    .menu-toggle {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: var(--text-main);
-      cursor: pointer;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ==========================================
-       RESPONSIVIDADE (Ecrãs Pequenos / Mobile)
-       ========================================== */
-    @media (max-width: 900px) {
-      .menu-toggle {
-        display: block;
-      }
-
-      .nav-menu {
-        position: fixed;
-        top: 70px;
-        left: -100%;
-        width: 100%;
-        height: calc(100vh - 70px);
-        background-color: var(--navbar-bg);
-        flex-direction: column;
-        align-items: stretch;
-        padding: 1rem;
-        gap: 0.5rem;
-        overflow-y: auto;
-        transition: left 0.3s ease;
-      }
-
-      .nav-menu.active {
-        left: 0;
-      }
-
-      .nav-link {
-        justify-content: space-between;
-        padding: 0.85rem 1rem;
-        background-color: var(--bg-light);
-      }
-
-      .dropdown-menu {
-        position: static;
-        box-shadow: none;
-        border: none;
-        padding-left: 1rem;
-        display: none; /* Controlado via JS em Mobile */
-      }
-
-      .nav-item.mobile-open .dropdown-menu {
-        display: flex;
-      }
-
-      .nav-item.mobile-open .arrow {
-        transform: rotate(180deg);
-      }
-    }
-
-    /* Conteúdo Principal */
-    .content-container {
-      max-width: 1000px;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- BARRA DE NAVEGAÇÃO -->
-  <header class="navbar">
-    <div class="nav-container">
-      <a href="#" class="nav-logo">
-        <i class="fa-solid fa-wrench"></i> Manual Técnico
-      </a>
+  <div class="site-wrapper">
 
-      <!-- Botão Hambúrguer para Telemóveis -->
-      <button class="menu-toggle" id="mobile-menu-btn" aria-label="Abrir Menu">
-        <i class="fa-solid fa-bars"></i>
-      </button>
+    <!-- BARRA DE NAVEGAÇÃO FIXA -->
+    <header class="navbar">
+      <div class="nav-container">
+        <a href="#" class="nav-logo">
+          <i class="fa-solid fa-wrench"></i>
+          <span>Guia Técnico</span>
+        </a>
 
-      <!-- Menu Principal -->
-      <ul class="nav-menu" id="nav-menu">
-        
-        <!-- Categoria 1 -->
-        <li class="nav-item">
-          <div class="nav-link">
-            <span><i class="fa-solid fa-bolt"></i> Sistema Elétrico</span>
-            <i class="fa-solid fa-chevron-down arrow"></i>
-          </div>
-          <div class="dropdown-menu">
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Fusíveis e Lâmpadas</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Luz de Farol e Posição</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Luz de Seta e Alerta</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Limpador de Para-brisa</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Painel de Instrumentos</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Luz e Pressão de Óleo</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Luzes de Diagnóstico</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Motor de Partida</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Alternador</a>
-          </div>
-        </li>
+        <!-- Botão Hambúrguer Mobile -->
+        <button class="menu-toggle" id="mobile-toggle-btn" aria-label="Abrir Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
 
-        <!-- Categoria 2 -->
-        <li class="nav-item">
-          <div class="nav-link">
-            <span><i class="fa-solid fa-gas-pump"></i> Alimentação</span>
-            <i class="fa-solid fa-chevron-down arrow"></i>
-          </div>
-          <div class="dropdown-menu">
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Linha Combustível</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Tanque, Filtro, Mang.</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Bomba Elétrica</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Bomba Engrenagem</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Válvula KUV</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Bomba Alta Pressão</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Tubo Rail</a>
-          </div>
-        </li>
+        <!-- Menu Principal -->
+        <ul class="nav-menu" id="nav-menu">
+          
+          <!-- 1. Sistema Elétrico -->
+          <li class="nav-item">
+            <div class="nav-link">
+              <span><i class="fa-solid fa-bolt"></i> Sistema Elétrico</span>
+              <i class="fa-solid fa-chevron-down arrow"></i>
+            </div>
+            <div class="dropdown-menu">
+              <a href="#sistema-eletrico/fusiveis-e-lampadas" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Fusíveis e Lâmpadas</a>
+              <a href="#sistema-eletrico/luz-de-farol-e-posicao" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Luz de Farol e Posição</a>
+              <a href="#sistema-eletrico/luz-de-seta-e-alerta" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Luz de Seta e Alerta</a>
+              <a href="#sistema-eletrico/limpador-de-para-brisa" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Limpador de Para-brisa</a>
+              <a href="#sistema-eletrico/painel-de-instrumentos" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Painel de Instrumentos</a>
+              <a href="#sistema-eletrico/luz-e-pressao-de-oleo" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Luz e Pressão de Óleo</a>
+              <a href="#sistema-eletrico/luzes-de-injecao" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Luzes de Diagnóstico</a>
+              <a href="#sistema-eletrico/motor-de-partida" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Motor de Partida</a>
+              <a href="#sistema-eletrico/alternador" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Alternador</a>
+            </div>
+          </li>
 
-        <!-- Categoria 3 -->
-        <li class="nav-item">
-          <div class="nav-link">
-            <span><i class="fa-solid fa-microchip"></i> Sensores/Atuadores</span>
-            <i class="fa-solid fa-chevron-down arrow"></i>
-          </div>
-          <div class="dropdown-menu">
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Sensor Rotação</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Sensor Fase</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Sensor Pres. Adm</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Sensor Temp. ECM</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Sensor Pres. Rail</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Válvula MProp</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Pedal Acelerador</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Modulador Turbina</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Bicos Injetores</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Lâmpada Painel</a>
-          </div>
-        </li>
+          <!-- 2. Alimentação de Combustível -->
+          <li class="nav-item">
+            <div class="nav-link">
+              <span><i class="fa-solid fa-gas-pump"></i> Alimentação</span>
+              <i class="fa-solid fa-chevron-down arrow"></i>
+            </div>
+            <div class="dropdown-menu">
+              <a href="#alimentacao-de-combustivel/linha-combustivel" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Linha Combustível</a>
+              <a href="#alimentacao-de-combustivel/tanque-filtro-mang" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Tanque, Filtro, Mang.</a>
+              <a href="#alimentacao-de-combustivel/bomba-eletrica" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Bomba Elétrica</a>
+              <a href="#alimentacao-de-combustivel/bomba-engrenagem" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Bomba Engrenagem</a>
+              <a href="#alimentacao-de-combustivel/valvula-kuv" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Válvula KUV</a>
+              <a href="#alimentacao-de-combustivel/bomba-alta-pressao" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Bomba Alta Pressão</a>
+              <a href="#alimentacao-de-combustivel/tubo-rail" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Tubo Rail</a>
+            </div>
+          </li>
 
-        <!-- Categoria 4 -->
-        <li class="nav-item">
-          <div class="nav-link">
-            <span><i class="fa-solid fa-car"></i> Motor e Chassi</span>
-            <i class="fa-solid fa-chevron-down arrow"></i>
-          </div>
-          <div class="dropdown-menu">
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Arrefecimento</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Lubrificação</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Bomba de Água</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Trocador de Calor</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Válvula Termostática</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Sistema de Direção</a>
-            <a href="#" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Sistemas de Freios</a>
-          </div>
-        </li>
+          <!-- 3. Sensores e Atuadores -->
+          <li class="nav-item">
+            <div class="nav-link">
+              <span><i class="fa-solid fa-microchip"></i> Sensores/Atuadores</span>
+              <i class="fa-solid fa-chevron-down arrow"></i>
+            </div>
+            <div class="dropdown-menu">
+              <a href="#sistema-de-injecao/sensor-rotacao" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Sensor Rotação</a>
+              <a href="#sistema-de-injecao/sensor-fase" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Sensor Fase</a>
+              <a href="#sistema-de-injecao/sensor-pres-adm" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Sensor Pres. Adm</a>
+              <a href="#sistema-de-injecao/sensor-temp-ecm" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Sensor Temp. ECM</a>
+              <a href="#sistema-de-injecao/sensor-pres-rail" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Sensor Pres. Rail</a>
+              <a href="#sistema-de-injecao/valvula-mprop" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Válvula MProp</a>
+              <a href="#sistema-de-injecao/pedal-acelerador" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Pedal Acelerador</a>
+              <a href="#sistema-de-injecao/modulador-turbina" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Modulador Turbina</a>
+              <a href="#sistema-de-injecao/bicos-injetores" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Bicos Injetores</a>
+              <a href="#sistema-de-injecao/lampada-painel" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Lâmpada Painel</a>
+            </div>
+          </li>
 
-      </ul>
-    </div>
-  </header>
+          <!-- 4. Motor e Chassi -->
+          <li class="nav-item">
+            <div class="nav-link">
+              <span><i class="fa-solid fa-car"></i> Motor e Chassi</span>
+              <i class="fa-solid fa-chevron-down arrow"></i>
+            </div>
+            <div class="dropdown-menu">
+              <a href="#motor-e-chassi/arrefecimento" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Arrefecimento</a>
+              <a href="#motor-e-chassi/lubrificacao" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Lubrificação</a>
+              <a href="#motor-e-chassi/bomba-de-agua" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Bomba de Água</a>
+              <a href="#motor-e-chassi/trocador-de-calor" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Trocador de Calor</a>
+              <a href="#motor-e-chassi/valvula-termostatica" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Válvula Termostática</a>
+              <a href="#motor-e-chassi/bomba-de-direcao" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Sistema de Direção</a>
+              <a href="#motor-e-chassi/cilindro-de-freio" class="dropdown-item"><i class="fa-solid fa-chevron-right"></i> Sistemas de Freios</a>
+            </div>
+          </li>
 
-  <!-- ÁREA DE CONTEÚDO PRINCIPAL -->
-  <main class="content-container">
-    <h1>Bem-vindo ao Manual Técnico</h1>
-    <p style="margin-top: 1rem; color: #64748b;">
-      Selecione uma das opções no menu superior para navegar entre os sistemas elétricos, de combustível, sensores e componentes do motor.
-    </p>
-  </main>
+        </ul>
+      </div>
+    </header>
 
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="content-container">
+      <div class="hero-box" id="home-box">
+        <h1 class="hero-title-main">Portal de Especificações Técnicas</h1>
+        <p class="hero-sub">Selecione uma opção no menu superior para navegar entre os módulos do manual.</p>
+      </div>
+      <article class="page-card" id="page-card" hidden></article>
+    </main>
+
+  </div>
+
+  <!-- BOTÃO VOLTAR AO TOPO -->
+  <div class="floating-container">
+    <button class="float-btn" id="btn-top" title="Voltar ao Topo" aria-label="Voltar ao topo">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+  </div>
+
+  <!-- JAVASCRIPT -->
   <script src="menu.js"></script>
+
 </body>
 </html>
