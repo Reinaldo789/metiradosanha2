@@ -446,6 +446,13 @@ main {
    6. ESTILOS MOBILE - MELHORADO
    ========================================== */
 @media (max-width: 960px) {
+  /* REMOVE AS MARGENS E PADDINGS ROXOS/LILÁS NO MOBILE */
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+
   .mobile-toggle { display: block; }
 
   .main-nav {
@@ -590,7 +597,14 @@ main {
 .page-loading { color: var(--text-muted); }
 /* depois de clicar num item, o painel fecha até o mouse sair e voltar */
 .nav-item.closed .mega-menu { opacity: 0 !important; visibility: hidden !important; }
-@media (max-width: 960px) { .page-card { padding: 1.2rem; border-radius: 14px; } }
+@media (max-width: 960px) { 
+  .page-card { 
+    padding: 1.2rem; 
+    border-radius: 0; 
+    border-left: none; 
+    border-right: none; 
+  } 
+}
 
 /* Índice interno, avisos e listas dos artigos */
 .page-card [id] { scroll-margin-top: 80px; }
@@ -863,9 +877,3 @@ a.img-link::after { content: "\f03e"; font-family: "Font Awesome 6 Free"; font-w
 
 /* Índice sem barra de rolagem: as abas quebram em várias linhas */
 .art-tabs { flex-wrap: wrap; overflow: visible; gap: 0.5rem; padding-bottom: 1rem; }
-
-/* Tabelas e listas numeradas dos artigos */
-.page-card th { background: var(--primary-light); color: var(--primary); text-align: left; font-size: 0.85rem; }
-.page-card tr:nth-child(even) td { background: #f8fafc; }
-.page-card ol { padding-left: 1.4rem; }
-.page-card li { margin: 0.35rem 0; }
