@@ -1,13 +1,187 @@
-<!-- Escreva aqui o artigo: Bomba de Água -->
-<p>Texto de introdução sobre Bomba de Água.</p>
+<!-- Caixa de mudanças FS-5406A (Eaton). Imagens: salve em img/caixa-fs5406a/ com os nomes usados abaixo. -->
+<header class="art-head">
+  <span class="art-kicker">Motor e Chassi · Transmissão</span>
+  <h1>Caixa de Mudanças FS-5406A</h1>
+  <p class="art-lead">Manual de serviço da caixa Eaton Fuller de 6 marchas sincronizadas: dados técnicos, diagnóstico de ocorrências, remoção, instalação e regulagem da alavanca.</p>
+  <div class="chips"><span>Eaton Fuller</span><span>6 à frente + ré</span><span>Caminhões e ônibus</span><span>Edição 01/06</span></div>
+</header>
 
-<h2>Como funciona</h2>
-<p>...</p>
+<p>A FS-5406A é uma caixa sincronizada de seis marchas à frente e uma à ré, com torque líquido de 706 N.m. Use as abas abaixo para consultar os dados, os torques e os procedimentos.</p>
 
-<h2>Sintomas de falha</h2>
+<h2 id="dados">Dados técnicos</h2>
+<div class="specs">
+  <div class="spec"><b>Eaton</b><span>Fabricante</span></div>
+  <div class="spec"><b>706 N.m</b><span>Torque líquido</span></div>
+  <div class="spec"><b>6 + Ré</b><span>Velocidades</span></div>
+  <div class="spec"><b>157 kg</b><span>Peso aproximado</span></div>
+  <div class="spec"><b>8,5 litros</b><span>Volume de óleo</span></div>
+</div>
+
+<h3>Identificação</h3>
+<p>A plaqueta de identificação fica no lado direito, na parte superior, próxima à tampa superior da carcaça.</p>
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Não remova nem destrua a chapa de identificação da caixa de mudanças.</p>
+</div>
+<figure>
+  <img src="img/caixa-fs5406a/00-identificacao.jpg" alt="Plaqueta de identificação da caixa" loading="lazy">
+  <figcaption>Plaqueta de identificação (relação de redução, velocidades e capacidade de torque)</figcaption>
+</figure>
+
+<h3>Lubrificação</h3>
 <ul>
-  <li>...</li>
+  <li><strong>Tipo de óleo:</strong> API-CD;</li>
+  <li><strong>Viscosidade:</strong> SAE 40 ou 50;</li>
+  <li><strong>Volume:</strong> 8,5 litros;</li>
+  <li><strong>Bujões de drenagem e de enchimento:</strong> 70 N.m (7 kgf.m).</li>
 </ul>
+<div class="dica">
+  <strong>Nível de óleo</strong>
+  <p>Abasteça sempre a caixa até o nível do orifício de abastecimento. <a class="img-link" href="img/caixa-fs5406a/00-nivel-oleo.jpg">Veja o nível correto e o incorreto</a>.</p>
+</div>
 
-<h2>Como testar</h2>
-<p>...</p>
+<h2 id="engrenagens">Engrenagens</h2>
+<h3>Relações de redução</h3>
+<table>
+  <tr><th>Marcha</th><th>1ª</th><th>2ª</th><th>3ª</th><th>4ª</th><th>5ª</th><th>6ª</th><th>Ré</th></tr>
+  <tr><td>Relação</td><td>9,01:1</td><td>5,27:1</td><td>3,22:1</td><td>2,04:1</td><td>1,36:1</td><td>1,00:1</td><td>8,63:1</td></tr>
+</table>
+<h3>Número de dentes</h3>
+<table>
+  <tr><th>Velocidade</th><th>Motriz</th><th>5ª</th><th>4ª</th><th>3ª</th><th>2ª</th><th>1ª</th><th>Ré</th></tr>
+  <tr><td>Engrenagens</td><td>A / B</td><td>C / D</td><td>E / F</td><td>G / H</td><td>I / J</td><td>K / L</td><td>M / N</td></tr>
+  <tr><td>Nº de dentes</td><td>24 / 46</td><td>27 / 38</td><td>33 / 31</td><td>42 / 25</td><td>44 / 16</td><td>47 / 10</td><td>45 / 21</td></tr>
+</table>
+
+<h2 id="diagnostico">Diagnóstico de ocorrências</h2>
+<p>Toque em cada ocorrência para ver as causas prováveis.</p>
+<div class="codigos">
+  <div class="codigo"><span class="num">01</span><div>
+    <h4>Ruído em ponto neutro</h4>
+    <ul><li>Ajuste incorreto da rotação da marcha lenta;</li><li>Desalinhamento por parafusos de montagem soltos;</li><li>Falta de lubrificante ou nível baixo;</li><li>Engrenagens com desgaste excessivo ou danificadas;</li><li>Rolamentos com desgaste excessivo ou danificados;</li><li>Impurezas metálicas no lubrificante (contaminado).</li></ul>
+  </div></div>
+  <div class="codigo"><span class="num">02</span><div>
+    <h4>Ruído com as marchas engatadas</h4>
+    <ul><li>Desalinhamento da transmissão x caixa de embreagem x motor;</li><li>Engrenagem com contato irregular, folga excessiva ou danificada;</li><li>Rolamentos com desgaste excessivo ou danificados;</li><li>Falta de lubrificante ou nível baixo, ou lubrificante inadequado;</li><li>Árvore secundária ou intermediária empenada;</li><li>Impurezas metálicas no lubrificante.</li></ul>
+  </div></div>
+  <div class="codigo"><span class="num">03</span><div>
+    <h4>Ruído externo (em relação à transmissão)</h4>
+    <ul><li>Ventilador, volante ou embreagem desbalanceados;</li><li>Amortecedor de vibrações defeituoso;</li><li>Coxins do motor soltos ou inoperantes;</li><li>Junta universal (cruzeta) gasta, danificada ou fora de fase;</li><li>Cardan desbalanceado ou empenado.</li></ul>
+  </div></div>
+  <div class="codigo"><span class="num">04</span><div>
+    <h4>Dificuldade no engate das marchas</h4>
+    <ul><li>Embreagem que não libera completamente;</li><li>Lubrificante não especificado ou nível baixo;</li><li>Torre de controle emperrada ou danificada;</li><li>Ajuste seletivo da capa e do cubo de engate irregular (duro);</li><li>Varões, seletores ou garfos da tampa de controle gastos ou emperrados;</li><li>Ajuste incorreto do curso do pedal da embreagem.</li></ul>
+  </div></div>
+  <div class="codigo"><span class="num">05</span><div>
+    <h4>Raspa ao engatar</h4>
+    <ul><li>Ajuste incorreto do curso do pedal da embreagem;</li><li>Rotação elevada da marcha lenta;</li><li>Engrenagem ou sincronizadores com dentes de engate danificados;</li><li>Anéis sincronizadores desgastados na crista da rosca;</li><li>Carga baixa (fraca) das molas do conjunto sincronizador;</li><li>Patim do garfo desgastado ou danificado.</li></ul>
+  </div></div>
+  <div class="codigo"><span class="num">06</span><div>
+    <h4>Dificuldade para o desengate das marchas</h4>
+    <ul><li>Ajuste incorreto do curso do pedal da embreagem;</li><li>Ajuste seletivo da capa e do cubo de engate irregular (duro);</li><li>Árvore secundária desalinhada ou empenada;</li><li>Torre de controle emperrada ou danificada.</li></ul>
+  </div></div>
+  <div class="codigo"><span class="num">07</span><div>
+    <h4>Escape de marchas</h4>
+    <ul><li>Desalinhamento da transmissão x caixa de embreagem x motor (escape da 4ª);</li><li>Dentes de engate desgastados ou danificados;</li><li>Engate incompleto;</li><li>Vibração excessiva na alavanca, por coxins inoperantes;</li><li>Folga axial excessiva das engrenagens da árvore secundária;</li><li>Excentricidade nos dentes de engate (capa e engrenagem);</li><li>Protetor de pó interferindo na alavanca e forçando o desengate.</li></ul>
+  </div></div>
+  <div class="codigo"><span class="num">08</span><div>
+    <h4>Vazamento de óleo</h4>
+    <ul><li>Nível de óleo acima do especificado;</li><li>Vedadores danificados ou gastos;</li><li>Carcaça, tampas ou retentores trincados ou com porosidade;</li><li>Faces de junção empenadas;</li><li>Respiro entupido;</li><li>Parafuso com torque baixo ou sem adesivo vedador.</li></ul>
+  </div></div>
+  <div class="codigo"><span class="num">09</span><div>
+    <h4>Falhas dos rolamentos de agulhas</h4>
+    <ul><li>Falta de lubrificação inicial na montagem;</li><li>Impurezas metálicas no lubrificante;</li><li>Falta de lubrificante, nível baixo ou lubrificante inadequado;</li><li>Montagem inadequada (impacto, sem dispositivo).</li></ul>
+  </div></div>
+  <div class="codigo"><span class="num">10</span><div>
+    <h4>Engate de duas marchas simultaneamente</h4>
+    <ul><li>Falta do pino trava das buchas seletoras.</li></ul>
+  </div></div>
+</div>
+
+<h2 id="remocao">Remoção e instalação</h2>
+<h3>Remoção</h3>
+<ol>
+  <li>Drene o óleo da caixa de mudanças;</li>
+  <li>Desconecte o cabo do velocímetro e o chicote do interruptor da luz de ré;</li>
+  <li>Desconecte as articulações da alavanca: articulação da haste de comando e haste de comando;</li>
+  <li>Desconecte a árvore de transmissão da caixa;</li>
+  <li>Solte o mancal central, em conjunto com a árvore de transmissão, do suporte;</li>
+  <li>Apoie a caixa sobre um macaco jacaré, usando a ferramenta <a class="img-link" href="img/caixa-fs5406a/35-br710.jpg">BR-710</a> como suporte;</li>
+  <li>Remova as porcas de fixação da caixa à carcaça de embreagem e retire a caixa;</li>
+  <li>Limpe a caixa por fora e instale-a no cavalete BR-334 com o suporte BR-693.</li>
+</ol>
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Mantenha a caixa alinhada com o motor ao removê-la.</p>
+</div>
+<h3>Instalação</h3>
+<ol>
+  <li>Posicione a alavanca externa de mudanças na posição de engate em qualquer marcha;</li>
+  <li>Apoie a caixa no macaco jacaré com a BR-710;</li>
+  <li>Posicione as estrias do eixo piloto no disco de embreagem, confirme o alinhamento com o motor e empurre lentamente até encaixar na carcaça;</li>
+  <li>Fixe a caixa de mudanças: <strong>200 N.m (20 kgf.m)</strong>;</li>
+  <li>Monte o mancal central da árvore de transmissão no suporte: <strong>120 N.m (12 kgf.m)</strong>;</li>
+  <li>Fixe a árvore de transmissão na caixa: <strong>50 N.m (5 kgf.m)</strong>;</li>
+  <li>Fixe as articulações: articulação da haste de comando <strong>35 N.m (3,5 kgf.m)</strong> e haste de comando <strong>20 N.m (2 kgf.m)</strong>;</li>
+  <li>Conecte o cabo do velocímetro e o chicote do interruptor da luz de ré;</li>
+  <li>Abasteça a caixa com óleo lubrificante.</li>
+</ol>
+
+<h2 id="alavanca">Regulagem da alavanca</h2>
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Faça toda a regulagem com a caixa instalada no veículo.</p>
+</div>
+<div class="specs">
+  <div class="spec"><b>250 mm</b><span>Comprimento do pino</span></div>
+  <div class="spec"><b>Ø 6,0 ± 0,1 mm</b><span>Diâmetro do pino</span></div>
+  <div class="spec"><b>SAE 1090</b><span>Aço do pino</span></div>
+  <div class="spec"><b>275 ± 1 mm</b><span>Articulação da haste</span></div>
+</div>
+<figure>
+  <img src="img/caixa-fs5406a/35-pino-regulagem.jpg" alt="Pino de regulagem da alavanca" loading="lazy">
+  <figcaption>Pino de regulagem: confeccione-o conforme o detalhe</figcaption>
+</figure>
+<ol>
+  <li>Posicione a alavanca de mudanças em neutro, entre a 2ª e a 3ª marchas;</li>
+  <li>Trave o garfo introduzindo o pino de regulagem pelos furos do suporte e do próprio garfo;</li>
+  <li>Solte a porca de fixação para dar livre movimento entre a haste de comando e o garfo;</li>
+  <li>Coloque a caixa em neutro pela alavanca externa;</li>
+  <li>Verifique a medida da articulação da haste de comando (275 ± 1 mm). Se preciso, solte as porcas-trava e gire os terminais;</li>
+  <li>Fixe a articulação da haste na torre de controle com os dois parafusos: <strong>40 N.m (4 kgf.m)</strong>;</li>
+  <li>Fixe a haste de comando na alavanca externa com a porca: <strong>45 N.m (4,5 kgf.m)</strong>. Se preciso, altere o comprimento soltando a porca-trava e girando o terminal;</li>
+  <li>Gire a haste de comando no sentido anti-horário (vista de trás) até o batente, mantenha-a ali e aperte a porca de fixação: <strong>70 N.m (7 kgf.m)</strong>;</li>
+  <li>Remova o pino de regulagem.</li>
+</ol>
+
+<h2 id="torques">Torques e ferramentas</h2>
+<h3>Torques</h3>
+<table>
+  <tr><th>Item</th><th>Torque</th></tr>
+  <tr><td>Bujões de drenagem e enchimento</td><td>70 N.m (7 kgf.m)</td></tr>
+  <tr><td>Fixação da caixa à carcaça de embreagem</td><td>200 N.m (20 kgf.m)</td></tr>
+  <tr><td>Mancal central da árvore de transmissão</td><td>120 N.m (12 kgf.m)</td></tr>
+  <tr><td>Árvore de transmissão na caixa</td><td>50 N.m (5 kgf.m)</td></tr>
+  <tr><td>Torre de controle (Loctite 262 na rosca)</td><td>30 N.m (3 kgf.m)</td></tr>
+  <tr><td>Tampa comando de mudanças (Loctite 262)</td><td>50 N.m (5 kgf.m)</td></tr>
+  <tr><td>Flange da árvore primária (Loctite 262)</td><td>25 N.m (2,5 kgf.m)</td></tr>
+  <tr><td>Porcas do flange da árvore secundária</td><td>90 N.m (9 kgf.m)</td></tr>
+  <tr><td>Porca do garfo da junta universal</td><td>450 N.m (45 kgf.m)</td></tr>
+  <tr><td>Tampa traseira da árvore intermediária (Loctite 262)</td><td>50 N.m (5 kgf.m)</td></tr>
+  <tr><td>Porca de fixação da manopla</td><td>3,2 N.m (0,3 kgf.m)</td></tr>
+</table>
+<div class="dica">
+  <strong>Folga axial</strong>
+  <p>Árvores intermediária e secundária: <strong>0,15 a 0,25 mm</strong>, ajustada com calços e medida com relógio comparador na BR-566.</p>
+</div>
+<h3>Ferramentas especiais</h3>
+<table>
+  <tr><th>Código</th><th>Uso</th></tr>
+  <tr><td>BR-710 – Suporte</td><td>Remover e instalar a caixa de mudanças</td></tr>
+  <tr><td>BR-334 – Cavalete / BR-693 – Adaptador</td><td>Fixar a caixa para trabalhar nela</td></tr>
+  <tr><td>BR-236 – Chave / BR-628 – Soquete</td><td>Imobilizar a árvore secundária e soltar a porca do garfo da junta universal</td></tr>
+  <tr><td>BR-566 – Suporte magnético</td><td>Verificar a folga axial das árvores</td></tr>
+  <tr><td>BR-617/00 – Alicate</td><td>Soltar os anéis de retenção das árvores</td></tr>
+  <tr><td>BR-183/01 – Ponte e fuso</td><td>Extrair cones de rolamento (com BR-183/02, BR-183/03, BR-691, BR-692 ou BR-746)</td></tr>
+  <tr><td>BR-027 – Extrator / BR-698 e BR-359/12</td><td>Colocar e extrair o eixo da marcha à ré</td></tr>
+</table>
