@@ -40,7 +40,7 @@ html, body {
 }
 
 /* ==========================================
-   2. CABEÇALHO SUPERIOR (NAVBAR) - MELHORADO
+   2. CABEÇALHO SUPERIOR (NAVBAR)
    ========================================== */
 .site-wrapper > header {
   background: rgba(255, 255, 255, 0.85);
@@ -141,7 +141,7 @@ html, body {
 }
 
 /* ==========================================
-   3. MEGA MENU DROPDOWN (DESKTOP) - MELHORADO
+   3. MEGA MENU DROPDOWN (DESKTOP)
    ========================================== */
 .mega-menu {
   position: absolute;
@@ -176,7 +176,6 @@ html, body {
   border-radius: 4px;
 }
 
-/* HOVER DESKTOP */
 @media (min-width: 961px) {
   .nav-item:hover > .nav-btn {
     background-color: var(--primary-light);
@@ -441,10 +440,9 @@ main {
 }
 
 /* ==========================================
-   6. ESTILOS MOBILE - MELHORADO
+   6. ESTILOS MOBILE
    ========================================== */
 @media (max-width: 960px) {
-  /* Ajustes gerais de layout e navegação */
   main {
     padding: 1rem 0.5rem;
   }
@@ -568,7 +566,6 @@ main {
     width: 100%;
   }
 
-  /* Ajustes do Artigo e do Cartão no Mobile */
   .page-card { 
     padding: 0.8rem; 
     border-radius: 12px; 
@@ -607,6 +604,10 @@ main {
 .page-card p { margin: 0.6rem 0; }
 .page-card img { display: block; margin: 1rem 0; }
 .page-card a { color: var(--primary); }
+.toc { background: var(--primary-light); border-radius: 12px; padding: 1rem 1.2rem; margin: 1.2rem 0; font-size: 0.92rem; }
+.toc ul { margin: 0.3rem 0 0; padding-left: 1.1rem; }
+.toc a { text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
 .aviso { background: #fff7ed; border-left: 4px solid #f59e0b; border-radius: 8px; padding: 0.8rem 1rem; margin: 1.2rem 0; }
 .aviso p { margin: 0.3rem 0 0; }
 
@@ -636,7 +637,7 @@ main {
 }
 
 /* ==========================================
-   9. MENUS ELEGANTES (sem mega menu)
+   9. MENUS ELEGANTES
    ========================================== */
 .explore-header-title, .explore-banner { display: none; }
 .mega-link-item i { display: none; }
@@ -760,7 +761,7 @@ main {
 }
 
 /* ==========================================
-   11. COMPONENTES DE ARTIGO (caixas, quadros e tabelas)
+   11. ARTIGOS (componentes)
    ========================================== */
 .page-card .art-head {
   background: linear-gradient(135deg, #312e81 0%, #4f46e5 100%); color: #fff;
@@ -772,7 +773,15 @@ main {
 .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .chips span { font-size: 0.78rem; padding: 0.25rem 0.7rem; border-radius: 99px; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.25); }
 
-/* painéis de conteúdo */
+/* abas / menu de artigos */
+.art-tabs { display: flex; gap: 0.4rem; overflow-x: auto; padding: 0.3rem 0 0.6rem; margin: 1rem 0; border-bottom: 1px solid var(--border-color); scroll-margin-top: 70px; scrollbar-width: thin; flex-wrap: wrap; }
+.art-tabs button, .mini-tabs button {
+  flex: none; font: inherit; font-size: 0.86rem; font-weight: 600; cursor: pointer;
+  padding: 0.5rem 0.95rem; border-radius: 99px; border: 1px solid var(--border-color);
+  background: #fff; color: var(--text-muted); transition: var(--transition);
+}
+.art-tabs button:hover, .mini-tabs button:hover { color: var(--primary); border-color: #c7d2fe; }
+.art-tabs button.on, .mini-tabs button.on { background: var(--primary); border-color: var(--primary); color: #fff; box-shadow: 0 4px 10px rgba(79,70,229,0.25); }
 .art-panel { display: none; }
 .art-panel.on { display: block; animation: slideDown 0.25s ease; }
 .art-panel > h2:first-child { margin-top: 0.5rem; }
@@ -780,7 +789,7 @@ main {
 .aba-nav button { font: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; padding: 0.5rem 0.9rem; border-radius: 10px; border: 1px solid var(--border-color); background: #fff; color: var(--primary); transition: var(--transition); }
 .aba-nav button:hover { background: var(--primary-light); }
 
-/* mini abas (sintomas / causas / soluções) */
+/* mini abas */
 .trio { border: 1px solid var(--border-color); border-radius: 14px; padding: 1rem; margin: 1rem 0; background: #fafbff; }
 .trio.enh .mini-panel { display: none; }
 .trio.enh .mini-panel.on { display: block; animation: slideDown 0.2s ease; }
@@ -801,7 +810,7 @@ main {
 .aviso strong::before { content: "\f071"; color: #f59e0b; }
 .dica strong::before { content: "\f0eb"; color: #3b82f6; }
 
-/* figuras e imagens */
+/* figuras e links de imagem */
 .page-card figure { margin: 1.2rem 0; }
 .page-card figure img { margin: 0; cursor: zoom-in; border: 1px solid var(--border-color); transition: var(--transition); }
 .page-card figure img:hover { box-shadow: var(--shadow-md); }
@@ -826,7 +835,7 @@ a.img-link::after { content: "\f03e"; font-family: "Font Awesome 6 Free"; font-w
 .codigos.enh .codigo.open h4::after { transform: rotate(180deg); }
 .codigo.open { border-color: #c7d2fe; background: #fafbff; }
 
-/* caixa de diálogo para imagens (lightbox) */
+/* caixa de diálogo para imagens */
 .lightbox { border: 0; padding: 0; background: #0f172a; color: #e2e8f0; border-radius: 16px; max-width: min(94vw, 1000px); box-shadow: var(--shadow-lg); overflow: hidden; }
 .lightbox::backdrop { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(3px); }
 .lightbox img { display: block; max-width: 100%; max-height: 78vh; margin: 0 auto; }
@@ -834,163 +843,28 @@ a.img-link::after { content: "\f03e"; font-family: "Font Awesome 6 Free"; font-w
 .lb-close { position: absolute; top: 0.6rem; right: 0.6rem; width: 36px; height: 36px; border-radius: 50%; border: 0; cursor: pointer; background: rgba(255,255,255,0.9); color: #0f172a; font-size: 1rem; z-index: 2; }
 @media (max-width: 960px) { .page-card .art-head { padding: 1.1rem; } .codigo { padding: 0.8rem; } }
 
+/* ==========================================
+   12. ÍNDICE DO ARTIGO (FORMATO NORMAL)
+   ========================================== */
+.art-index-title { margin: 1.2rem 0 0.4rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); scroll-margin-top: 72px; }
+.art-tabs { margin-top: 0; }
+.art-panel { scroll-margin-top: 72px; }
+.art-tabs button { display: inline-flex; align-items: center; gap: 0.5rem; }
+.art-tabs button em { font-style: normal; font-size: 0.72rem; font-weight: 800; width: 1.4rem; height: 1.4rem; flex: none; border-radius: 50%; display: grid; place-items: center; background: var(--primary-light); color: var(--primary); }
+.art-tabs button.on em { background: rgba(255,255,255,0.25); color: #fff; }
+
+@media (max-width: 960px) {
+  .art-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; overflow: visible; padding-bottom: 1rem; }
+  .art-tabs button { border-radius: 12px; text-align: left; justify-content: flex-start; padding: 0.55rem 0.6rem; font-size: 0.82rem; line-height: 1.25; white-space: normal; }
+  .art-tabs button:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .aba-nav { flex-direction: column; }
+  .aba-nav button { width: 100%; text-align: left; }
+  .aba-nav span { display: none; }
+  .mini-tabs button { flex: 1 1 auto; }
+}
+
 /* Tabelas e listas numeradas dos artigos */
 .page-card th { background: var(--primary-light); color: var(--primary); text-align: left; font-size: 0.85rem; }
 .page-card tr:nth-child(even) td { background: #f8fafc; }
 .page-card ol { padding-left: 1.4rem; }
 .page-card li { margin: 0.35rem 0; }
-
-/* ==========================================
-   12. ÍNDICE DO ARTIGO (TOC / INDEX VERTICAL LIMPO)
-   ========================================== */
-
-/* Container Principal do Índice */
-.toc {
-  background-color: #f8fafc;
-  border: 1px solid var(--border-color);
-  border-left: 4px solid var(--primary);
-  border-radius: var(--radius);
-  padding: 1.25rem 1.5rem;
-  margin: 1.5rem 0 2rem 0;
-  box-shadow: var(--shadow-sm);
-}
-
-/* Título do Índice */
-.toc .art-index-title,
-.toc-title {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--text-main);
-  margin: 0 0 0.85rem 0;
-  text-transform: none;
-  letter-spacing: normal;
-}
-
-.toc .art-index-title::before,
-.toc-title::before {
-  content: "\f0ca";
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  color: var(--primary);
-  font-size: 0.9rem;
-}
-
-/* Estrutura de Lista do Índice */
-.toc ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.toc li {
-  margin: 0;
-  line-height: 1.4;
-}
-
-/* Links do Índice */
-.toc a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--text-muted);
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 500;
-  padding: 0.3rem 0.5rem;
-  border-radius: 6px;
-  transition: var(--transition);
-}
-
-.toc a::before {
-  content: "\f105";
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  font-size: 0.75rem;
-  color: var(--primary);
-  opacity: 0.6;
-  transition: var(--transition);
-}
-
-.toc a:hover {
-  color: var(--primary);
-  background-color: var(--primary-light);
-  padding-left: 0.75rem;
-}
-
-.toc a:hover::before {
-  opacity: 1;
-  transform: translateX(2px);
-}
-
-/* Suporte caso o índice seja montado utilizando botões (.art-tabs) */
-.art-tabs {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  border-bottom: none;
-  margin: 1rem 0;
-  padding: 0;
-}
-
-.art-tabs button {
-  width: 100%;
-  justify-content: flex-start;
-  text-align: left;
-  border-radius: 8px;
-  padding: 0.65rem 0.9rem;
-  border: 1px solid var(--border-color);
-  background: #ffffff;
-  color: var(--text-main);
-  font-weight: 500;
-  transition: var(--transition);
-}
-
-.art-tabs button em {
-  font-style: normal;
-  font-size: 0.75rem;
-  font-weight: 800;
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 50%;
-  display: inline-grid;
-  place-items: center;
-  background: var(--primary-light);
-  color: var(--primary);
-  margin-right: 0.4rem;
-}
-
-.art-tabs button.on {
-  background: var(--primary-light);
-  color: var(--primary);
-  border-color: #c7d2fe;
-  box-shadow: none;
-  font-weight: 700;
-}
-
-.art-tabs button.on em {
-  background: var(--primary);
-  color: #ffffff;
-}
-
-/* Ajustes de Índice para Mobile */
-@media (max-width: 960px) {
-  .toc {
-    padding: 1rem;
-    margin: 1rem 0;
-  }
-
-  .art-tabs {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .art-tabs button {
-    width: 100%;
-  }
-}
