@@ -221,6 +221,14 @@
                     <a href="#motor-e-chassi/regulagem-freio-de-mao" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Regulagem Freio de mão</a>
                   </div>
                 </div>
+                <!-- Transmissão -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-gears"></i> Transmissão</div>
+                  <div class="mega-links-grid">
+                    <a href="#motor-e-chassi/caixa-de-mudancas" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Caixa de Mudanças</a>
+                  </div>
+                </div>
+
 
               </div>
 
@@ -243,13 +251,89 @@
 
     <!-- CONTEÚDO PRINCIPAL -->
     <main>
-      <div class="hero-box" id="home-box">
-        <h1 class="hero-title-bg">Guia Técnico</h1>
-        <div class="hero-title-main">Portal de Especificações Técnicas</div>
-        <p class="hero-sub">Escolha um assunto no menu para consultar esquemas, testes e especificações.</p>
+      <div class="home" id="home-box">
+        <section class="home-hero">
+          <span class="home-kicker"><i class="fa-solid fa-screwdriver-wrench"></i> Manual de oficina digital</span>
+          <h1>Guia Técnico</h1>
+          <p>Esquemas, testes e especificações para diagnosticar e manter o veículo — do painel de instrumentos ao tubo rail.</p>
+          <div class="home-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search" id="home-search" placeholder="Buscar: bateria, sensor, freio, bico injetor..." autocomplete="off" aria-label="Buscar assunto">
+            <div class="home-results" id="home-results" hidden></div>
+          </div>
+        </section>
+
+        <section class="home-stats">
+          <div><strong>4</strong><span>Sistemas</span></div>
+          <div><strong>11</strong><span>Grupos</span></div>
+          <div><strong>40</strong><span>Assuntos</span></div>
+        </section>
+
+        <h2 class="home-title">Escolha um sistema</h2>
+        <div class="home-grid">
+        <div class="home-card" style="--c:#4f46e5">
+          <div class="home-card-icon"><i class="fa-solid fa-bolt"></i></div>
+          <h3>Sistema Elétrico</h3>
+          <p>Fusíveis, luzes, painel de instrumentos, bateria, alternador e partida.</p>
+          <div class="home-chips"><a href="#sistema-eletrico/fusiveis-e-lampadas">Fusíveis e Lâmpadas</a><a href="#sistema-eletrico/luz-e-pressao-de-oleo">Luz e Pressão de óleo</a><a href="#sistema-eletrico/bateria">Bateria</a><a href="#sistema-eletrico/alternador">Alternador</a><a href="#sistema-eletrico/motor-de-partida">Motor de Partida</a></div>
+          <a class="home-card-more" href="#sistema-eletrico/destaque">Ver tudo de Sistema Elétrico <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="home-card" style="--c:#0284c7">
+          <div class="home-card-icon"><i class="fa-solid fa-gas-pump"></i></div>
+          <h3>Alimentação de Combustível</h3>
+          <p>Da linha de baixa pressão até o tubo rail, com esquemas e testes.</p>
+          <div class="home-chips"><a href="#alimentacao-de-combustivel/tanque-filtro-mang">Tanque, Filtro, Mang.</a><a href="#alimentacao-de-combustivel/bomba-eletrica">Bomba Elétrica</a><a href="#alimentacao-de-combustivel/bomba-engrenagem">Bomba Engrenagem</a><a href="#alimentacao-de-combustivel/bomba-alta-pressao">Bomba Alta Pressão</a><a href="#alimentacao-de-combustivel/tubo-rail">Tubo Rail</a></div>
+          <a class="home-card-more" href="#alimentacao-de-combustivel/destaque">Ver tudo de Alimentação de Combustível <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="home-card" style="--c:#065f46">
+          <div class="home-card-icon"><i class="fa-solid fa-microchip"></i></div>
+          <h3>Sistema de Injeção</h3>
+          <p>Sensores e atuadores do ECM: como funcionam e como testar.</p>
+          <div class="home-chips"><a href="#sistema-de-injecao/sensor-rotacao">Sensor Rotação</a><a href="#sistema-de-injecao/sensor-pres-rail">Sensor Pres. Rail</a><a href="#sistema-de-injecao/valvula-mprop">Válvula MProp</a><a href="#sistema-de-injecao/bicos-injetores">Bicos Injetores</a><a href="#sistema-de-injecao/modulador-turbina">Modulador Turbina</a></div>
+          <a class="home-card-more" href="#sistema-de-injecao/destaque">Ver tudo de Sistema de Injeção <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="home-card" style="--c:#1e1b4b">
+          <div class="home-card-icon"><i class="fa-solid fa-wrench"></i></div>
+          <h3>Motor e Chassi</h3>
+          <p>Arrefecimento, direção e freios: fluidos, regulagens e problemas comuns.</p>
+          <div class="home-chips"><a href="#motor-e-chassi/bomba-de-agua">Bomba de Água</a><a href="#motor-e-chassi/valvula-termostatica">Válvula termostática</a><a href="#motor-e-chassi/caixa-de-direcao">Caixa de direção</a><a href="#motor-e-chassi/bomba-de-vacuo">Bomba de Vácuo</a><a href="#motor-e-chassi/pincas-de-freio">Pinças de Freio</a></div>
+          <a class="home-card-more" href="#motor-e-chassi/destaque">Ver tudo de Motor e Chassi <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        </div>
+
+        <h2 class="home-title">Mais consultados</h2>
+        <div class="home-quick">
+          <a href="#sistema-de-injecao/valvula-mprop"><i class="fa-solid fa-sliders"></i> Válvula MProp</a>
+          <a href="#sistema-eletrico/luzes-de-injecao"><i class="fa-solid fa-triangle-exclamation"></i> Luzes de Injeção</a>
+          <a href="#alimentacao-de-combustivel/tubo-rail"><i class="fa-solid fa-gauge-high"></i> Tubo Rail</a>
+          <a href="#motor-e-chassi/oleo-de-freio"><i class="fa-solid fa-circle-stop"></i> Óleo de Freio</a>
+          <a href="#sistema-eletrico/agua-no-combustivel"><i class="fa-solid fa-droplet"></i> Água no Combustível</a>
+        </div>
       </div>
       <article class="page-card" id="page-card" hidden></article>
     </main>
+
+    <!-- RODAPÉ -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="#" class="logo"><i class="fa-solid fa-gears"></i><span>Guia Técnico</span></a>
+          <p>Consulta rápida de esquemas, testes e especificações para oficina.</p>
+        </div>
+        <div class="footer-col"><h4>Elétrico</h4>
+          <a href="#sistema-eletrico/bateria">Bateria</a><a href="#sistema-eletrico/alternador">Alternador</a><a href="#sistema-eletrico/destaque">Diagramas</a></div>
+        <div class="footer-col"><h4>Combustível</h4>
+          <a href="#alimentacao-de-combustivel/bomba-eletrica">Bomba Elétrica</a><a href="#alimentacao-de-combustivel/tubo-rail">Tubo Rail</a><a href="#alimentacao-de-combustivel/destaque">Linha</a></div>
+        <div class="footer-col"><h4>Injeção</h4>
+          <a href="#sistema-de-injecao/valvula-mprop">Válvula MProp</a><a href="#sistema-de-injecao/bicos-injetores">Bicos</a><a href="#sistema-de-injecao/destaque">Testes</a></div>
+        <div class="footer-col"><h4>Motor e Chassi</h4>
+          <a href="#motor-e-chassi/bomba-de-agua">Bomba de Água</a><a href="#motor-e-chassi/pincas-de-freio">Freios</a><a href="#motor-e-chassi/destaque">Especificações</a></div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Guia Técnico. Conteúdo de caráter orientativo: confirme valores no manual do fabricante.</span>
+        <a href="#">Voltar ao início</a>
+      </div>
+    </footer>
 
   </div>
 
