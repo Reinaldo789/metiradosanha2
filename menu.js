@@ -168,6 +168,7 @@ const lbTxt = lb.querySelector('p');
 
 function abrirImagem(src, legenda) {
   lbImg.hidden = false;
+  lbImg.classList.remove('zoom');
   lbImg.src = src;
   lbImg.alt = legenda;
   lbTxt.textContent = legenda;
@@ -316,3 +317,5 @@ card.addEventListener('click', e => {
 });
 
 cabecalho.classList.toggle('scrolled', window.scrollY > 20);
+
+lbImg.addEventListener('click', () => lbImg.classList.toggle('zoom'));
