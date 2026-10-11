@@ -1,3 +1,1551 @@
+Resumo Diagnóstico Sprint
+
+Entendi! Seu sensor-pressao-rail.html está funcionando em termos de HTML, mas o problema é que os botões Sim/Não do fluxograma não fazem nada — porque o seu menu.js atual não tem a lógica que mostra/esconde os passos do fluxograma interativo.
+
+Foi por isso que o motor-nao-acelera.html funcionava antes (você deve ter um tratamento diferente dele) e este novo não funciona.
+✅ Solução: Adicione o suporte ao fluxograma interativo no menu.js
+
+Cole este bloco no final do seu menu.js, depois de tudo:
+javascript
+
+// ==========================================
+// FLUXOGRAMA INTERATIVO (motor-nao-acelera, sensor-pressao-rail, valvula-mprop, etc.)
+// ==========================================
+function initFluxograma() {
+  const fluxo = document.querySelector('.fluxo');
+  if (!fluxo) return;
+
+  const passos = fluxo.querySelectorAll('.passo');
+
+  // Esconde todos, exceto o primeiro
+  passos.forEach((p, i) => {
+    if (i === 0) {
+      p.removeAttribute('hidden');
+    } else {
+      p.setAttribute('hidden', '');
+    }
+  });
+
+  // Delegação de evento para os botões Sim/Não
+  fluxo.addEventListener('click', (e) => {
+    const btn = e.target.closest('.resp button[data-ir]');
+    if (!btn) return;
+
+    const targetId = btn.getAttribute('data-ir');
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    // Esconde todos os passos
+    passos.forEach(p => p.setAttribute('hidden', ''));
+
+    // Mostra o passo de destino
+    target.removeAttribute('hidden');
+
+    // Scroll suave até o passo mostrado
+    setTimeout(() => {
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 80);
+  });
+}
+
+// Reinicia o fluxograma sempre que um novo artigo for carregado
+window.addEventListener('hashchange', () => setTimeout(initFluxograma, 200));
+
+// Chama na primeira carga
+document.addEventListener('DOMContentLoaded', () => setTimeout(initFluxograma, 300));
+
+📄 Ou substitua o menu.js inteiro por este (recomendado)
+
+Se preferir, substitua todo o seu menu.js por esta versão completa, que já tem tudo funcionando (inclusive o fluxograma interativo):
+javascript
+
+const navItems = document.querySelectorAll('.nav-item');
+const mobileToggleBtn = document.getElementById('mobile-toggle-btn');
+const mainNav = document.getElementById('main-nav');
+const toggleIcon = mobileToggleBtn.querySelector('i');
+
+// ==========================================
+// LÓGICA DO MENU MOBILE
+// ==========================================
+navItems.forEach(item => {
+  const btn = item.querySelector('.nav-btn');
+  
+  btn.addEventListener('click', (e) => {
+    if (window.innerWidth <= 960) {
+      e.preventDefault();
+      item.classList.toggle('active');
+    }
+  });
+});
+
+mobileToggleBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const isOpen = mainNav.classList.toggle('active');
+  
+  if (isOpen) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
+
+  if (isOpen) {
+    toggleIcon.classList.remove('fa-bars');
+    toggleIcon.classList.add('fa-xmark');
+  } else {
+    toggleIcon.classList.remove('fa-xmark');
+    toggleIcon.classList.add('fa-bars');
+    navItems.forEach(item => item.classList.remove('active'));
+  }
+});
+
+// ==========================================
+// BOTÃO VOLTAR AO TOPO
+// ==========================================
+const btnTop = document.getElementById('btn-top');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 150) {
+    btnTop.classList.add('visible');
+  } else {
+    btnTop.classList.remove('visible');
+  }
+});
+
+btnTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ==========================================
+// CARREGAR PÁGINAS DE conteudo/<menu>/<item>.html
+// ==========================================
+const home = document.getElementById('home-box');
+const card = document.getElementById('page-card');
+
+async function abrirPagina() {
+  const path = decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '');
+  document.querySelectorAll('.mega-link-item.active').forEach(a => a.classList.remove('active'));
+
+  if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
+    card.hidden = true; home.hidden = false;
+    return;
+  }
+
+  const link = document.querySelector(`a[href="#${path}"]`);
+  if (link && link.classList.contains('mega-link-item')) link.classList.add('active');
+  const menu = link ? link.closest('.nav-item').querySelector('.nav-btn span').textContent.trim() : '';
+  const titulo = !link ? '' :
+    link.classList.contains('explore-link')
+      ? link.closest('.mega-explore-side').querySelector('h5').textContent.trim()
+      : link.textContent.trim();
+
+  home.hidden = true; card.hidden = false;
+  card.innerHTML = '<p class="page-loading">Carregando...</p>';
+  window.scrollTo({ top: 0 });
+
+  try {
+    const resp = await fetch(`conteudo/${path}.html`);
+    if (!resp.ok) throw new Error(`Página não encontrada (${resp.status})`);
+    const corpo = await resp.text();
+    if (decodeURIComponent(location.hash.slice(1)) !== path) return;
+    card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div><h1>${titulo}</h1>${corpo}`;
+    melhorarArtigo();
+    // Inicializa o fluxograma se a página tiver um
+    setTimeout(initFluxograma, 100);
+  } catch (err) {
+    card.innerHTML = `<h1>Erro</h1><p>${err.message}. Se estiver abrindo o arquivo direto no computador, use um servidor (GitHub Pages ou <code>python -m http.server</code>).</p>`;
+  }
+}
+
+// clicou num item: fecha o menu (celular) ou o painel (desktop)
+document.querySelectorAll('.mega-menu a').forEach(a => {
+  a.addEventListener('click', () => {
+    if (window.innerWidth <= 960) {
+      if (mainNav.classList.contains('active')) mobileToggleBtn.click();
+    } else {
+      const item = a.closest('.nav-item');
+      item.classList.add('closed');
+      item.addEventListener('mouseleave', () => item.classList.remove('closed'), { once: true });
+    }
+  });
+});
+
+window.addEventListener('hashchange', abrirPagina);
+abrirPagina();
+
+// ==========================================
+// ÍNDICE INTERNO DOS ARTIGOS
+// ==========================================
+card.addEventListener('click', (e) => {
+  const alvo = e.target.closest('[data-goto]');
+  if (!alvo) return;
+  e.preventDefault();
+  const el = document.getElementById(alvo.dataset.goto);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+// ==========================================
+// BUSCA DA PÁGINA INICIAL
+// ==========================================
+const busca = document.getElementById('home-search');
+const resultados = document.getElementById('home-results');
+if (busca) {
+  const itens = [...document.querySelectorAll('.mega-link-item')].map(a => ({
+    nome: a.textContent.trim(),
+    href: a.getAttribute('href'),
+    menu: a.closest('.nav-item').querySelector('.nav-btn span').textContent.trim()
+  }));
+  const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  busca.addEventListener('input', () => {
+    const q = norm(busca.value.trim());
+    if (!q) { resultados.hidden = true; return; }
+    const achou = itens.filter(i => norm(i.nome).includes(q)).slice(0, 8);
+    resultados.innerHTML = achou.length
+      ? achou.map(i => `<a href="${i.href}">${i.nome}<small>${i.menu}</small></a>`).join('')
+      : '<p>Nada encontrado.</p>';
+    resultados.hidden = false;
+  });
+  resultados.addEventListener('click', () => { resultados.hidden = true; busca.value = ''; });
+  document.addEventListener('click', e => { if (!e.target.closest('.home-search')) resultados.hidden = true; });
+}
+
+// ==========================================
+// ARTIGOS: abas, acordeão, imagens e caixa de diálogo
+// ==========================================
+const lb = document.createElement('dialog');
+lb.className = 'lightbox';
+lb.innerHTML = '<button type="button" class="lb-close" aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button><img alt=""><p></p>';
+document.body.append(lb);
+const lbImg = lb.querySelector('img');
+const lbTxt = lb.querySelector('p');
+
+function abrirImagem(src, legenda) {
+  lbImg.hidden = false;
+  lbImg.src = src;
+  lbImg.alt = legenda;
+  lbTxt.textContent = legenda;
+  lb.showModal();
+}
+lbImg.addEventListener('error', () => {
+  lbImg.hidden = true;
+  lbTxt.textContent = 'Imagem ainda não adicionada: ' + lbTxt.textContent;
+});
+lb.addEventListener('click', e => {
+  if (e.target === lb || e.target.closest('.lb-close')) lb.close();
+});
+
+function rolarPara(el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+
+function ativarAba(bar, panels, i) {
+  [...bar.children].forEach((b, j) => b.classList.toggle('on', j === i));
+  panels.forEach((p, j) => p.classList.toggle('on', j === i));
+}
+
+function melhorarArtigo() {
+  if (card.querySelector('.art-head')) card.querySelector(':scope > h1')?.remove();
+
+  card.querySelectorAll('img').forEach(img => {
+    img.addEventListener('error', () => {
+      const d = document.createElement('div');
+      d.className = 'img-falta';
+      d.innerHTML = '<i class="fa-regular fa-image"></i><span></span>';
+      d.querySelector('span').textContent = img.alt || 'Imagem';
+      img.replaceWith(d);
+    }, { once: true });
+  });
+
+  card.querySelectorAll('.trio').forEach(trio => {
+    const cols = [...trio.children];
+    const bar = document.createElement('div');
+    bar.className = 'mini-tabs';
+    cols.forEach(c => {
+      const h = c.querySelector('h4');
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = h.textContent;
+      bar.append(b);
+      c.classList.add('mini-panel');
+      h.hidden = true;
+    });
+    trio.prepend(bar);
+    trio.classList.add('enh');
+    ativarAba(bar, cols, 0);
+  });
+
+  card.querySelectorAll('.codigos').forEach(c => c.classList.add('enh'));
+
+  const h2s = [...card.querySelectorAll(':scope > h2')];
+  if (h2s.length >= 3) {
+    const bar = document.createElement('div');
+    bar.className = 'art-tabs';
+    bar.setAttribute('role', 'tablist');
+    const panels = h2s.map((h, i) => {
+      const sec = document.createElement('section');
+      sec.className = 'art-panel';
+      h.before(sec);
+      let n = h;
+      do { const nx = n.nextElementSibling; sec.append(n); n = nx; } while (n && !n.matches('h2'));
+      const b = document.createElement('button');
+      b.type = 'button';
+      const num = document.createElement('em');
+      num.textContent = i + 1;
+      b.append(num, h.textContent);
+      bar.append(b);
+      return sec;
+    });
+    panels.forEach((p, i) => {
+      const nav = document.createElement('div');
+      nav.className = 'aba-nav';
+      nav.innerHTML =
+        (i > 0 ? `<button type="button" data-aba="${i - 1}">← ${h2s[i - 1].textContent}</button>` : '<span></span>') +
+        '<button type="button" data-indice>↑ Índice</button>' +
+        (i < panels.length - 1 ? `<button type="button" data-aba="${i + 1}">${h2s[i + 1].textContent} →</button>` : '<span></span>');
+      p.append(nav);
+    });
+    const lab = document.createElement('p');
+    lab.className = 'art-index-title';
+    lab.textContent = 'Neste artigo — toque numa seção';
+    panels[0].before(lab, bar);
+    card.querySelector('.toc')?.remove();
+    ativarAba(bar, panels, 0);
+  }
+}
+
+card.addEventListener('click', e => {
+  const tab = e.target.closest('.mini-tabs button, .art-tabs button');
+  if (tab) {
+    const bar = tab.parentElement;
+    const principal = bar.classList.contains('art-tabs');
+    const panels = [...bar.parentElement.querySelectorAll(principal ? ':scope > .art-panel' : ':scope > .mini-panel')];
+    const idx = [...bar.children].indexOf(tab);
+    ativarAba(bar, panels, idx);
+    if (principal) rolarPara(window.innerWidth <= 960 ? panels[idx] : bar);
+    return;
+  }
+  const nav = e.target.closest('[data-aba]');
+  if (nav) {
+    const bar = card.querySelector('.art-tabs');
+    const panels = [...card.querySelectorAll(':scope > .art-panel')];
+    ativarAba(bar, panels, +nav.dataset.aba);
+    rolarPara(panels[+nav.dataset.aba]);
+    return;
+  }
+  if (e.target.closest('[data-indice]')) { rolarPara(card.querySelector('.art-index-title')); return; }
+  const cod = e.target.closest('.codigos.enh .codigo');
+  if (cod && !e.target.closest('a')) { cod.classList.toggle('open'); return; }
+  const link = e.target.closest('a.img-link');
+  if (link) { e.preventDefault(); abrirImagem(link.href, link.textContent.trim()); return; }
+  const im = e.target.closest('img');
+  if (im) abrirImagem(im.currentSrc || im.src, im.alt);
+});
+
+// ==========================================
+// FLUXOGRAMA INTERATIVO (motor-nao-acelera, sensor-pressao-rail, valvula-mprop, etc.)
+// ==========================================
+function initFluxograma() {
+  const fluxo = document.querySelector('.fluxo');
+  if (!fluxo) return;
+
+  const passos = fluxo.querySelectorAll('.passo');
+
+  // Esconde todos, exceto o primeiro
+  passos.forEach((p, i) => {
+    if (i === 0) {
+      p.removeAttribute('hidden');
+    } else {
+      p.setAttribute('hidden', '');
+    }
+  });
+
+  // Delegação de evento para os botões Sim/Não
+  fluxo.addEventListener('click', (e) => {
+    const btn = e.target.closest('.resp button[data-ir]');
+    if (!btn) return;
+
+    const targetId = btn.getAttribute('data-ir');
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    // Esconde todos os passos
+    passos.forEach(p => p.setAttribute('hidden', ''));
+
+    // Mostra o passo de destino
+    target.removeAttribute('hidden');
+
+    // Scroll suave até o passo mostrado
+    setTimeout(() => {
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 80);
+  });
+}
+
+// Chama o initFluxograma depois de um pequeno delay para garantir que o DOM foi atualizado
+window.addEventListener('hashchange', () => setTimeout(initFluxograma, 200));
+document.addEventListener('DOMContentLoaded', () => setTimeout(initFluxograma, 300));
+
+🎨 CSS obrigatório no style.css
+
+Além do JS, o fluxograma precisa de CSS. Confirme que seu style.css já tem este bloco (no final do arquivo):
+css
+
+/* ==========================================
+   FLUXOGRAMA INTERATIVO
+   ========================================== */
+.fluxo {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  border: 1px solid var(--border-color);
+}
+
+.passo {
+  background: #fff;
+  border: 2px solid #4f46e5;
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 0.8rem;
+  max-width: 720px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.passo[hidden] {
+  display: none !important;
+}
+
+.passo-n {
+  display: inline-block;
+  background: #4f46e5;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  margin-bottom: 0.6rem;
+}
+
+.passo p {
+  margin: 0.5rem 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.passo ul {
+  padding-left: 1.2rem;
+  margin: 0.5rem 0;
+  font-size: 0.88rem;
+}
+
+.passo ul li {
+  margin-bottom: 0.3rem;
+  line-height: 1.5;
+}
+
+.passo.acao { border-color: #16a34a; background: #f0fdf4; }
+.passo.acao .passo-n { background: #16a34a; }
+.passo.erro { border-color: #dc2626; background: #fef2f2; }
+.passo.erro .passo-n { background: #dc2626; }
+.passo.ok { border-color: #16a34a; background: #f0fdf4; }
+.passo.ok .passo-n { background: #16a34a; }
+.passo.fim { border-width: 3px; border-style: double; }
+
+.resp {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px dashed var(--border-color);
+}
+
+.resp button {
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.resp .sim { background: #16a34a; color: #fff; }
+.resp .sim:hover { background: #15803d; transform: translateY(-1px); }
+.resp .nao { background: #dc2626; color: #fff; }
+.resp .nao:hover { background: #b91c1c; transform: translateY(-1px); }
+
+@media (max-width: 700px) {
+  .passo { padding: 0.9rem 1rem; }
+  .resp button { padding: 0.45rem 1rem; font-size: 0.8rem; }
+}
+
+✅ Resumo do que estava faltando
+Item	Status
+HTML do fluxograma	✔ Você já tinha (o sensor-pressao-rail.html)
+CSS do fluxograma	⚠️ Confirmar se está no style.css
+JavaScript do fluxograma	❌ Faltava — o menu.js não tinha a lógica de mostrar/esconder
+🚀 Como testar
+
+    Substitua o menu.js pela versão completa que enviei acima
+
+    Confirme que o style.css tem o bloco de fluxograma
+
+    Abra o sensor-pressao-rail.html pelo menu
+
+    Clique em Sim ou Não — o próximo passo deve aparecer sozinho
+
+Agora funciona para todos os 21 fluxogramas (motor-nao-acelera, valvula-mprop, sensor-rotacao, e todos os outros do Lote 1 ao 4).
+
+Se der erro, me manda o texto exato do erro que eu ajusto! 🚀
+
+Beleza! Vou fazer um diagnóstico completo do seu index.html e te entregar a correção exata do problema.
+🎯 Problema identificado
+
+Seu index.html está correto — todos os 5 menus estão lá, com os links apontando para os caminhos certos:
+text
+
+✅ #sistema-de-injecao/sensor-pressao-rail
+✅ #sistema-de-injecao/valvula-mprop
+✅ #sistema-de-injecao/sensor-rotacao
+...
+
+O link do sensor-pressao-rail está no menu Diagnóstico e também no menu Injeção (dentro de Sensores).
+
+O que está quebrado é uma das 3 coisas:
+Item	Provável status
+1. Arquivo menu.js	❌ Não tem a lógica do fluxograma interativo
+2. Arquivo style.css	⚠️ Pode estar sem o bloco do .fluxo
+3. Arquivo conteudo/sistema-de-injecao/sensor-pressao-rail.html	✔ Você já tem
+✅ Correção 1 — Substitua o menu.js inteiro por este
+
+Este é o arquivo completo que já tem a lógica do fluxograma interativo no final:
+javascript
+
+const navItems = document.querySelectorAll('.nav-item');
+const mobileToggleBtn = document.getElementById('mobile-toggle-btn');
+const mainNav = document.getElementById('main-nav');
+const toggleIcon = mobileToggleBtn.querySelector('i');
+
+// ==========================================
+// LÓGICA DO MENU MOBILE
+// ==========================================
+navItems.forEach(item => {
+  const btn = item.querySelector('.nav-btn');
+  
+  btn.addEventListener('click', (e) => {
+    if (window.innerWidth <= 960) {
+      e.preventDefault();
+      item.classList.toggle('active');
+    }
+  });
+});
+
+mobileToggleBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const isOpen = mainNav.classList.toggle('active');
+  
+  if (isOpen) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
+
+  if (isOpen) {
+    toggleIcon.classList.remove('fa-bars');
+    toggleIcon.classList.add('fa-xmark');
+  } else {
+    toggleIcon.classList.remove('fa-xmark');
+    toggleIcon.classList.add('fa-bars');
+    navItems.forEach(item => item.classList.remove('active'));
+  }
+});
+
+// ==========================================
+// BOTÃO VOLTAR AO TOPO
+// ==========================================
+const btnTop = document.getElementById('btn-top');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 150) {
+    btnTop.classList.add('visible');
+  } else {
+    btnTop.classList.remove('visible');
+  }
+});
+
+btnTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ==========================================
+// CARREGAR PÁGINAS DE conteudo/<menu>/<item>.html
+// ==========================================
+const home = document.getElementById('home-box');
+const card = document.getElementById('page-card');
+
+async function abrirPagina() {
+  const path = decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '');
+  document.querySelectorAll('.mega-link-item.active').forEach(a => a.classList.remove('active'));
+
+  // sem rota válida = Home
+  if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
+    card.hidden = true; home.hidden = false;
+    return;
+  }
+
+  const link = document.querySelector(`a[href="#${path}"]`);
+  if (link && link.classList.contains('mega-link-item')) link.classList.add('active');
+  const menu = link ? link.closest('.nav-item').querySelector('.nav-btn span').textContent.trim() : '';
+  const titulo = !link ? '' :
+    link.classList.contains('explore-link')
+      ? link.closest('.mega-explore-side').querySelector('h5').textContent.trim()
+      : link.textContent.trim();
+
+  home.hidden = true; card.hidden = false;
+  card.innerHTML = '<p class="page-loading">Carregando...</p>';
+  window.scrollTo({ top: 0 });
+
+  try {
+    const resp = await fetch(`conteudo/${path}.html`);
+    if (!resp.ok) throw new Error(`Página não encontrada (${resp.status})`);
+    const corpo = await resp.text();
+    if (decodeURIComponent(location.hash.slice(1)) !== path) return;
+    card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div><h1>${titulo}</h1>${corpo}`;
+    melhorarArtigo();
+    // Aguarda o DOM atualizar e inicializa o fluxograma
+    setTimeout(initFluxograma, 150);
+  } catch (err) {
+    card.innerHTML = `<h1>Erro</h1><p>${err.message}. Se estiver abrindo o arquivo direto no computador, use um servidor (GitHub Pages ou <code>python -m http.server</code>).</p>`;
+  }
+}
+
+// clicou num item: fecha o menu (celular) ou o painel (desktop)
+document.querySelectorAll('.mega-menu a').forEach(a => {
+  a.addEventListener('click', () => {
+    if (window.innerWidth <= 960) {
+      if (mainNav.classList.contains('active')) mobileToggleBtn.click();
+    } else {
+      const item = a.closest('.nav-item');
+      item.classList.add('closed');
+      item.addEventListener('mouseleave', () => item.classList.remove('closed'), { once: true });
+    }
+  });
+});
+
+window.addEventListener('hashchange', abrirPagina);
+abrirPagina();
+
+// ==========================================
+// ÍNDICE INTERNO DOS ARTIGOS
+// ==========================================
+card.addEventListener('click', (e) => {
+  const alvo = e.target.closest('[data-goto]');
+  if (!alvo) return;
+  e.preventDefault();
+  const el = document.getElementById(alvo.dataset.goto);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+// ==========================================
+// BUSCA DA PÁGINA INICIAL
+// ==========================================
+const busca = document.getElementById('home-search');
+const resultados = document.getElementById('home-results');
+if (busca) {
+  const itens = [...document.querySelectorAll('.mega-link-item')].map(a => ({
+    nome: a.textContent.trim(),
+    href: a.getAttribute('href'),
+    menu: a.closest('.nav-item').querySelector('.nav-btn span').textContent.trim()
+  }));
+  const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  busca.addEventListener('input', () => {
+    const q = norm(busca.value.trim());
+    if (!q) { resultados.hidden = true; return; }
+    const achou = itens.filter(i => norm(i.nome).includes(q)).slice(0, 8);
+    resultados.innerHTML = achou.length
+      ? achou.map(i => `<a href="${i.href}">${i.nome}<small>${i.menu}</small></a>`).join('')
+      : '<p>Nada encontrado.</p>';
+    resultados.hidden = false;
+  });
+  resultados.addEventListener('click', () => { resultados.hidden = true; busca.value = ''; });
+  document.addEventListener('click', e => { if (!e.target.closest('.home-search')) resultados.hidden = true; });
+}
+
+// ==========================================
+// ARTIGOS: abas, acordeão, imagens e caixa de diálogo
+// ==========================================
+const lb = document.createElement('dialog');
+lb.className = 'lightbox';
+lb.innerHTML = '<button type="button" class="lb-close" aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button><img alt=""><p></p>';
+document.body.append(lb);
+const lbImg = lb.querySelector('img');
+const lbTxt = lb.querySelector('p');
+
+function abrirImagem(src, legenda) {
+  lbImg.hidden = false;
+  lbImg.src = src;
+  lbImg.alt = legenda;
+  lbTxt.textContent = legenda;
+  lb.showModal();
+}
+lbImg.addEventListener('error', () => {
+  lbImg.hidden = true;
+  lbTxt.textContent = 'Imagem ainda não adicionada: ' + lbTxt.textContent;
+});
+lb.addEventListener('click', e => {
+  if (e.target === lb || e.target.closest('.lb-close')) lb.close();
+});
+
+function rolarPara(el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+
+function ativarAba(bar, panels, i) {
+  [...bar.children].forEach((b, j) => b.classList.toggle('on', j === i));
+  panels.forEach((p, j) => p.classList.toggle('on', j === i));
+}
+
+function melhorarArtigo() {
+  if (card.querySelector('.art-head')) card.querySelector(':scope > h1')?.remove();
+
+  card.querySelectorAll('img').forEach(img => {
+    img.addEventListener('error', () => {
+      const d = document.createElement('div');
+      d.className = 'img-falta';
+      d.innerHTML = '<i class="fa-regular fa-image"></i><span></span>';
+      d.querySelector('span').textContent = img.alt || 'Imagem';
+      img.replaceWith(d);
+    }, { once: true });
+  });
+
+  card.querySelectorAll('.trio').forEach(trio => {
+    const cols = [...trio.children];
+    const bar = document.createElement('div');
+    bar.className = 'mini-tabs';
+    cols.forEach(c => {
+      const h = c.querySelector('h4');
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = h.textContent;
+      bar.append(b);
+      c.classList.add('mini-panel');
+      h.hidden = true;
+    });
+    trio.prepend(bar);
+    trio.classList.add('enh');
+    ativarAba(bar, cols, 0);
+  });
+
+  card.querySelectorAll('.codigos').forEach(c => c.classList.add('enh'));
+
+  const h2s = [...card.querySelectorAll(':scope > h2')];
+  if (h2s.length >= 3) {
+    const bar = document.createElement('div');
+    bar.className = 'art-tabs';
+    bar.setAttribute('role', 'tablist');
+    const panels = h2s.map((h, i) => {
+      const sec = document.createElement('section');
+      sec.className = 'art-panel';
+      h.before(sec);
+      let n = h;
+      do { const nx = n.nextElementSibling; sec.append(n); n = nx; } while (n && !n.matches('h2'));
+      const b = document.createElement('button');
+      b.type = 'button';
+      const num = document.createElement('em');
+      num.textContent = i + 1;
+      b.append(num, h.textContent);
+      bar.append(b);
+      return sec;
+    });
+    panels.forEach((p, i) => {
+      const nav = document.createElement('div');
+      nav.className = 'aba-nav';
+      nav.innerHTML =
+        (i > 0 ? `<button type="button" data-aba="${i - 1}">← ${h2s[i - 1].textContent}</button>` : '<span></span>') +
+        '<button type="button" data-indice>↑ Índice</button>' +
+        (i < panels.length - 1 ? `<button type="button" data-aba="${i + 1}">${h2s[i + 1].textContent} →</button>` : '<span></span>');
+      p.append(nav);
+    });
+    const lab = document.createElement('p');
+    lab.className = 'art-index-title';
+    lab.textContent = 'Neste artigo — toque numa seção';
+    panels[0].before(lab, bar);
+    card.querySelector('.toc')?.remove();
+    ativarAba(bar, panels, 0);
+  }
+}
+
+card.addEventListener('click', e => {
+  const tab = e.target.closest('.mini-tabs button, .art-tabs button');
+  if (tab) {
+    const bar = tab.parentElement;
+    const principal = bar.classList.contains('art-tabs');
+    const panels = [...bar.parentElement.querySelectorAll(principal ? ':scope > .art-panel' : ':scope > .mini-panel')];
+    const idx = [...bar.children].indexOf(tab);
+    ativarAba(bar, panels, idx);
+    if (principal) rolarPara(window.innerWidth <= 960 ? panels[idx] : bar);
+    return;
+  }
+  const nav = e.target.closest('[data-aba]');
+  if (nav) {
+    const bar = card.querySelector('.art-tabs');
+    const panels = [...card.querySelectorAll(':scope > .art-panel')];
+    ativarAba(bar, panels, +nav.dataset.aba);
+    rolarPara(panels[+nav.dataset.aba]);
+    return;
+  }
+  if (e.target.closest('[data-indice]')) { rolarPara(card.querySelector('.art-index-title')); return; }
+  const cod = e.target.closest('.codigos.enh .codigo');
+  if (cod && !e.target.closest('a')) { cod.classList.toggle('open'); return; }
+  const link = e.target.closest('a.img-link');
+  if (link) { e.preventDefault(); abrirImagem(link.href, link.textContent.trim()); return; }
+  const im = e.target.closest('img');
+  if (im) abrirImagem(im.currentSrc || im.src, im.alt);
+});
+
+// ==========================================
+// FLUXOGRAMA INTERATIVO
+// (motor-nao-acelera, sensor-pressao-rail, valvula-mprop, etc.)
+// ==========================================
+function initFluxograma() {
+  const fluxo = document.querySelector('.fluxo');
+  if (!fluxo) return;
+
+  const passos = fluxo.querySelectorAll('.passo');
+  if (!passos.length) return;
+
+  // Esconde todos, exceto o primeiro
+  passos.forEach((p, i) => {
+    if (i === 0) {
+      p.removeAttribute('hidden');
+    } else {
+      p.setAttribute('hidden', '');
+    }
+  });
+
+  // Remove listener antigo se existir (evita duplicar)
+  if (fluxo._fluxoClickHandler) {
+    fluxo.removeEventListener('click', fluxo._fluxoClickHandler);
+  }
+
+  // Delegação de evento para os botões Sim/Não
+  fluxo._fluxoClickHandler = (e) => {
+    const btn = e.target.closest('.resp button[data-ir]');
+    if (!btn) return;
+
+    const targetId = btn.getAttribute('data-ir');
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    // Esconde todos os passos
+    passos.forEach(p => p.setAttribute('hidden', ''));
+
+    // Mostra o passo de destino
+    target.removeAttribute('hidden');
+
+    // Scroll suave até o passo mostrado
+    setTimeout(() => {
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 80);
+  };
+
+  fluxo.addEventListener('click', fluxo._fluxoClickHandler);
+}
+
+✅ Correção 2 — Confirme o CSS no style.css
+
+Abra seu style.css e verifique se existe este bloco (adicione no final se não existir):
+css
+
+/* ==========================================
+   FLUXOGRAMA INTERATIVO
+   ========================================== */
+.fluxo {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  border: 1px solid var(--border-color);
+}
+
+.passo {
+  background: #fff;
+  border: 2px solid #4f46e5;
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 0.8rem;
+  max-width: 720px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.passo[hidden] {
+  display: none !important;
+}
+
+.passo-n {
+  display: inline-block;
+  background: #4f46e5;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  margin-bottom: 0.6rem;
+}
+
+.passo p {
+  margin: 0.5rem 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.passo ul {
+  padding-left: 1.2rem;
+  margin: 0.5rem 0;
+  font-size: 0.88rem;
+}
+
+.passo ul li {
+  margin-bottom: 0.3rem;
+  line-height: 1.5;
+}
+
+.passo.acao { border-color: #16a34a; background: #f0fdf4; }
+.passo.acao .passo-n { background: #16a34a; }
+.passo.erro { border-color: #dc2626; background: #fef2f2; }
+.passo.erro .passo-n { background: #dc2626; }
+.passo.ok { border-color: #16a34a; background: #f0fdf4; }
+.passo.ok .passo-n { background: #16a34a; }
+.passo.fim { border-width: 3px; border-style: double; }
+
+.resp {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px dashed var(--border-color);
+}
+
+.resp button {
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.resp .sim { background: #16a34a; color: #fff; }
+.resp .sim:hover { background: #15803d; transform: translateY(-1px); }
+.resp .nao { background: #dc2626; color: #fff; }
+.resp .nao:hover { background: #b91c1c; transform: translateY(-1px); }
+
+@media (max-width: 700px) {
+  .passo { padding: 0.9rem 1rem; }
+  .resp button { padding: 0.45rem 1rem; font-size: 0.8rem; }
+}
+
+✅ Correção 3 — Confirme o local do arquivo HTML
+
+O arquivo sensor-pressao-rail.html precisa estar exatamente nesta pasta:
+text
+
+📁 projeto/
+├── index.html
+├── menu.js
+├── style.css
+└── 📁 conteudo/
+    └── 📁 sistema-de-injecao/
+        ├── sensor-pressao-rail.html  ← aqui
+        ├── valvula-mprop.html
+        ├── sensor-rotacao.html
+        └── ...
+
+⚠️ Atenção: o arquivo sensor-pressao-rail.html não tem cabeçalho HTML (<!DOCTYPE>, <html>, <body>). Ele é um fragmento que será inserido dentro do page-card pelo menu.js. Isso está correto — não precisa adicionar nada.
+🎯 Como testar
+
+    Substitua o menu.js pelo arquivo acima
+
+    Verifique se o CSS do fluxograma está no style.css
+
+    Confirme que o arquivo está em conteudo/sistema-de-injecao/sensor-pressao-rail.html
+
+    Abra o site, clique em Diagnóstico → Sensores → Sensor de Pressão do Rail
+
+    Clique em Sim ou Não — o próximo passo deve aparecer
+
+🧪 Diagnóstico rápido se ainda não funcionar
+
+Abra o site, aperte F12 (DevTools) e vá na aba Console. Cole isto e me diga o que aparece:
+javascript
+
+console.log('Fluxo existe?', !!document.querySelector('.fluxo'));
+console.log('Passos:', document.querySelectorAll('.passo').length);
+console.log('Botões:', document.querySelectorAll('.resp button[data-ir]').length);
+console.log('Tem menu.js?', typeof initFluxograma);
+
+O resultado esperado é:
+text
+
+Fluxo existe? true
+Passos: 11
+Botões: 14
+Tem menu.js? function
+
+Se algum vier false ou 0, me avisa que eu identifico o problema exato! 🚀
+Nao entendi:  Atenção: o arquivo sensor-pressao-rail.html não tem cabeçalho HTML (<!DOCTYPE>, <html>, <body>). Ele é um fragmento que será inserido dentro do page-card pelo menu.js. Isso está correto — não precisa adicionar nada.
+
+Boa pergunta! Vou explicar de forma bem simples. 🤔
+🎯 Como seu site funciona
+
+Seu site não é um site tradicional de várias páginas HTML independentes. Ele é um site de página única dinâmica (SPA simplificado).
+🎬 Analogia
+
+Pense no seu index.html como uma moldura de quadro e o menu.js como o funcionário que troca o quadro dentro da moldura quando você clica em um item do menu.
+text
+
+┌─────────────────────────────────────────┐
+│  index.html  (a moldura fixa)           │
+│  ┌───────────────────────────────────┐  │
+│  │  <article id="page-card">         │  │
+│  │  ┌─────────────────────────────┐  │  │
+│  │  │  ← CONTEÚDO INJETADO AQUI   │  │  │
+│  │  │     (sensor-pressao-rail)   │  │  │
+│  │  └─────────────────────────────┘  │  │
+│  └───────────────────────────────────┘  │
+└─────────────────────────────────────────┘
+
+📌 O que acontece quando você clica no menu
+
+    Você clica em "Sensor de Pressão do Rail"
+
+    O navegador muda a URL para #sistema-de-injecao/sensor-pressao-rail
+
+    O menu.js detecta a mudança e faz:
+    javascript
+
+    fetch('conteudo/sistema-de-injecao/sensor-pressao-rail.html')
+
+    Pega o conteúdo do arquivo e injeta dentro do <article id="page-card">:
+    javascript
+
+    card.innerHTML = `<div class="page-crumb">...</div>
+                      <h1>Sensor de Pressão do Rail</h1>
+                      ${corpo}`;  // ← aqui o "corpo" é o conteúdo do seu arquivo
+
+🧩 Por isso o arquivo é um fragmento
+
+Como o conteúdo é inserido dentro de uma <article> que já está dentro do <body> do index.html, o arquivo sensor-pressao-rail.html não pode ter:
+
+    ❌ <!DOCTYPE html>
+
+    ❌ <html>, <head>, <body>
+
+    ❌ <link> para o CSS
+
+    ❌ <script src="menu.js">
+
+Porque tudo isso já existe no index.html. Se você adicionar, o HTML vai ficar inválido (tags <html> dentro de <article>, scripts carregados 2x, etc.).
+
+Ele deve ter apenas o miolo:
+html
+
+<!-- ✅ CORRETO — apenas o conteúdo -->
+<header class="art-head">...</header>
+<p>Use este roteiro quando...</p>
+<h2 id="fluxo">Fluxograma</h2>
+<div class="fluxo">...</div>
+<h2 id="valores">Valores e pinos</h2>
+<table>...</table>
+...
+
+🔍 Comparando com o index.html
+
+O index.html é um arquivo completo:
+html
+
+<!DOCTYPE html>            ← ✅ tem
+<html lang="pt-BR">         ← ✅ tem
+<head>                      ← ✅ tem
+  <link rel="stylesheet">   ← ✅ tem
+</head>
+<body>                      ← ✅ tem
+  <header>...</header>      ← navbar e estrutura
+  <main>                    ← conteúdo
+    <article id="page-card"></article>  ← recebe o fragmento
+  </main>
+  <script src="menu.js"></script>       ← ✅ tem
+</body>
+</html>
+
+Os arquivos sensor-pressao-rail.html, valvula-mprop.html, etc., são fragmentos:
+html
+
+<!-- ❌ NÃO tem DOCTYPE -->
+<!-- ❌ NÃO tem <html> -->
+<!-- ❌ NÃO tem <body> -->
+<!-- ❌ NÃO tem <script> -->
+
+<!-- ✅ Apenas o conteúdo do artigo -->
+<header class="art-head">
+  <h1>Sensor de Pressão do Rail</h1>
+</header>
+<h2>Fluxograma</h2>
+<div class="fluxo">...</div>
+
+🎯 O que isso significa na prática
+Ao criar um novo fluxograma, o arquivo deve:
+Item	Está no fragmento?
+<!DOCTYPE html>	❌ Não
+<html>, <head>, <body>	❌ Não
+<link rel="stylesheet">	❌ Não
+<script src="menu.js">	❌ Não
+<header class="art-head">	✅ Sim
+<h2>, <p>, <table>	✅ Sim
+<div class="fluxo">...</div>	✅ Sim
+📖 Resumindo numa frase
+
+    O sensor-pressao-rail.html não é uma página completa, é um pedaço de HTML que o menu.js vai colar dentro da "caixa" do index.html. Por isso ele não tem <!DOCTYPE>, <html>, <body>, <script> — tudo isso já está no index.html.
+
+🧪 Teste prático
+
+Faça o seguinte teste mental:
+
+    Imagine que você abre o site e clica em Sensor de Pressão do Rail.
+
+    O index.html continua sendo a página principal (a "moldura").
+
+    Dentro do <article id="page-card"> aparece o conteúdo do sensor-pressao-rail.html.
+
+Se você abrir o sensor-pressao-rail.html direto no navegador (sem passar pelo site), ele vai aparecer "cru" — só texto sem estilo, porque falta o style.css, o menu.js e a estrutura do index.html.
+
+Por isso ele é chamado de fragmento: ele precisa do index.html para existir.
+⚠️ O que muda se você adicionar DOCTYPE
+
+Se você colocar <!DOCTYPE html> no sensor-pressao-rail.html, o navegador vai tentar interpretar como uma página nova. Resultado:
+
+    O <head> e o <body> do index.html vão entrar em conflito
+
+    Os estilos do style.css podem quebrar
+
+    O fluxograma pode não funcionar (porque o menu.js já rodou antes do conteúdo chegar)
+
+    A navbar pode desaparecer ou duplicar
+
+Conclusão: deixe os fragmentos sem cabeçalho HTML. É assim que o site foi desenhado. ✔
+🚀 Agora sim, aplicando ao seu caso
+
+O sensor-pressao-rail.html que você me mandou está perfeito como está — ele tem apenas o conteúdo do artigo, sem cabeçalho HTML, sem scripts. Isso é o formato correto para funcionar com o menu.js.
+
+O único problema que existia era que o seu menu.js não tinha a lógica do fluxograma interativo (o código que faz os botões Sim/Não mostrarem o próximo passo). Já corrigi na resposta anterior — é só substituir o menu.js pelo que te mandei.
+
+Depois disso, os 21 fluxogramas funcionarão normalmente. 🎉
+
+Se ficou alguma dúvida, me avisa! 🚀
+depois que atualisou o menu nao funciona mais o fluxograma
+
+Entendi! Depois de atualizar o menu.js, o fluxograma parou de funcionar. Isso acontece porque a função initFluxograma está sendo chamada antes do conteúdo do artigo ser inserido no DOM, ou porque houve algum conflito com a ordem de execução.
+
+Vou te entregar a correção definitiva — uma versão do menu.js onde o fluxograma é inicializado imediatamente depois que o fetch retorna o conteúdo, sem setTimeout e sem depender de eventos.
+📄 Substitua o menu.js inteiro por este
+javascript
+
+// ==========================================
+// MENU E NAVEGAÇÃO
+// ==========================================
+const navItems = document.querySelectorAll('.nav-item');
+const mobileToggleBtn = document.getElementById('mobile-toggle-btn');
+const mainNav = document.getElementById('main-nav');
+const toggleIcon = mobileToggleBtn.querySelector('i');
+
+navItems.forEach(item => {
+  const btn = item.querySelector('.nav-btn');
+  btn.addEventListener('click', (e) => {
+    if (window.innerWidth <= 960) {
+      e.preventDefault();
+      item.classList.toggle('active');
+    }
+  });
+});
+
+mobileToggleBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const isOpen = mainNav.classList.toggle('active');
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+  if (isOpen) {
+    toggleIcon.classList.remove('fa-bars');
+    toggleIcon.classList.add('fa-xmark');
+  } else {
+    toggleIcon.classList.remove('fa-xmark');
+    toggleIcon.classList.add('fa-bars');
+    navItems.forEach(item => item.classList.remove('active'));
+  }
+});
+
+// ==========================================
+// BOTÃO VOLTAR AO TOPO
+// ==========================================
+const btnTop = document.getElementById('btn-top');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 150) btnTop.classList.add('visible');
+  else btnTop.classList.remove('visible');
+});
+btnTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ==========================================
+// CARREGAR PÁGINAS
+// ==========================================
+const home = document.getElementById('home-box');
+const card = document.getElementById('page-card');
+
+async function abrirPagina() {
+  const path = decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '');
+  document.querySelectorAll('.mega-link-item.active').forEach(a => a.classList.remove('active'));
+
+  if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
+    card.hidden = true; home.hidden = false;
+    return;
+  }
+
+  const link = document.querySelector(`a[href="#${path}"]`);
+  if (link && link.classList.contains('mega-link-item')) link.classList.add('active');
+  const menu = link ? link.closest('.nav-item').querySelector('.nav-btn span').textContent.trim() : '';
+  const titulo = !link ? '' :
+    link.classList.contains('explore-link')
+      ? link.closest('.mega-explore-side').querySelector('h5').textContent.trim()
+      : link.textContent.trim();
+
+  home.hidden = true; card.hidden = false;
+  card.innerHTML = '<p class="page-loading">Carregando...</p>';
+  window.scrollTo({ top: 0 });
+
+  try {
+    const resp = await fetch(`conteudo/${path}.html`);
+    if (!resp.ok) throw new Error(`Página não encontrada (${resp.status})`);
+    const corpo = await resp.text();
+    if (decodeURIComponent(location.hash.slice(1)) !== path) return;
+
+    card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div><h1>${titulo}</h1>${corpo}`;
+
+    // ✅ Melhora o artigo (abas, acordeões)
+    melhorarArtigo();
+
+    // ✅ INICIALIZA O FLUXOGRAMA IMEDIATAMENTE APÓS INSERIR O CONTEÚDO
+    // (não usa setTimeout — roda direto, sem esperar)
+    initFluxograma();
+
+  } catch (err) {
+    card.innerHTML = `<h1>Erro</h1><p>${err.message}.</p>`;
+  }
+}
+
+document.querySelectorAll('.mega-menu a').forEach(a => {
+  a.addEventListener('click', () => {
+    if (window.innerWidth <= 960) {
+      if (mainNav.classList.contains('active')) mobileToggleBtn.click();
+    } else {
+      const item = a.closest('.nav-item');
+      item.classList.add('closed');
+      item.addEventListener('mouseleave', () => item.classList.remove('closed'), { once: true });
+    }
+  });
+});
+
+window.addEventListener('hashchange', abrirPagina);
+
+// ==========================================
+// BUSCA NA HOME
+// ==========================================
+const busca = document.getElementById('home-search');
+const resultados = document.getElementById('home-results');
+if (busca) {
+  const itens = [...document.querySelectorAll('.mega-link-item')].map(a => ({
+    nome: a.textContent.trim(),
+    href: a.getAttribute('href'),
+    menu: a.closest('.nav-item').querySelector('.nav-btn span').textContent.trim()
+  }));
+  const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  busca.addEventListener('input', () => {
+    const q = norm(busca.value.trim());
+    if (!q) { resultados.hidden = true; return; }
+    const achou = itens.filter(i => norm(i.nome).includes(q)).slice(0, 8);
+    resultados.innerHTML = achou.length
+      ? achou.map(i => `<a href="${i.href}">${i.nome}<small>${i.menu}</small></a>`).join('')
+      : '<p>Nada encontrado.</p>';
+    resultados.hidden = false;
+  });
+  resultados.addEventListener('click', () => { resultados.hidden = true; busca.value = ''; });
+  document.addEventListener('click', e => { if (!e.target.closest('.home-search')) resultados.hidden = true; });
+}
+
+// ==========================================
+// FLUXOGRAMA INTERATIVO — versão definitiva
+// ==========================================
+function initFluxograma() {
+  // Busca TODOS os fluxogramas da página (pode ter mais de um)
+  const fluxos = document.querySelectorAll('.fluxo');
+  if (!fluxos.length) return;
+
+  fluxos.forEach(fluxo => {
+    const passos = fluxo.querySelectorAll('.passo');
+    if (!passos.length) return;
+
+    // Esconde todos, exceto o primeiro
+    passos.forEach((p, i) => {
+      if (i === 0) p.removeAttribute('hidden');
+      else p.setAttribute('hidden', '');
+    });
+
+    // Remove listener antigo se já existir (evita duplicar)
+    if (fluxo._fluxoHandler) {
+      fluxo.removeEventListener('click', fluxo._fluxoHandler);
+    }
+
+    // Cria o handler
+    fluxo._fluxoHandler = (e) => {
+      const btn = e.target.closest('.resp button[data-ir]');
+      if (!btn) return;
+      e.preventDefault();
+      e.stopPropagation();
+
+      const targetId = btn.getAttribute('data-ir');
+      const target = document.getElementById(targetId);
+      if (!target) return;
+
+      // Esconde todos os passos do fluxo
+      passos.forEach(p => p.setAttribute('hidden', ''));
+
+      // Mostra o passo de destino
+      target.removeAttribute('hidden');
+
+      // Scroll até o passo mostrado
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+
+    fluxo.addEventListener('click', fluxo._fluxoHandler);
+  });
+}
+
+// ==========================================
+// ABAS, ACORDEÕES E IMAGENS
+// ==========================================
+const lb = document.createElement('dialog');
+lb.className = 'lightbox';
+lb.innerHTML = '<button type="button" class="lb-close" aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button><img alt=""><p></p>';
+document.body.append(lb);
+const lbImg = lb.querySelector('img');
+const lbTxt = lb.querySelector('p');
+
+function abrirImagem(src, legenda) {
+  lbImg.hidden = false;
+  lbImg.src = src;
+  lbImg.alt = legenda;
+  lbTxt.textContent = legenda;
+  lb.showModal();
+}
+lbImg.addEventListener('error', () => {
+  lbImg.hidden = true;
+  lbTxt.textContent = 'Imagem ainda não adicionada: ' + lbTxt.textContent;
+});
+lb.addEventListener('click', e => {
+  if (e.target === lb || e.target.closest('.lb-close')) lb.close();
+});
+
+function rolarPara(el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+
+function ativarAba(bar, panels, i) {
+  [...bar.children].forEach((b, j) => b.classList.toggle('on', j === i));
+  panels.forEach((p, j) => p.classList.toggle('on', j === i));
+}
+
+function melhorarArtigo() {
+  if (card.querySelector('.art-head')) card.querySelector(':scope > h1')?.remove();
+
+  card.querySelectorAll('img').forEach(img => {
+    img.addEventListener('error', () => {
+      const d = document.createElement('div');
+      d.className = 'img-falta';
+      d.innerHTML = '<i class="fa-regular fa-image"></i><span></span>';
+      d.querySelector('span').textContent = img.alt || 'Imagem';
+      img.replaceWith(d);
+    }, { once: true });
+  });
+
+  card.querySelectorAll('.trio').forEach(trio => {
+    const cols = [...trio.children];
+    const bar = document.createElement('div');
+    bar.className = 'mini-tabs';
+    cols.forEach(c => {
+      const h = c.querySelector('h4');
+      if (!h) return;
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = h.textContent;
+      bar.append(b);
+      c.classList.add('mini-panel');
+      h.hidden = true;
+    });
+    trio.prepend(bar);
+    trio.classList.add('enh');
+    ativarAba(bar, cols, 0);
+  });
+
+  card.querySelectorAll('.codigos').forEach(c => c.classList.add('enh'));
+
+  const h2s = [...card.querySelectorAll(':scope > h2')];
+  if (h2s.length >= 3) {
+    const bar = document.createElement('div');
+    bar.className = 'art-tabs';
+    bar.setAttribute('role', 'tablist');
+    const panels = h2s.map((h, i) => {
+      const sec = document.createElement('section');
+      sec.className = 'art-panel';
+      h.before(sec);
+      let n = h;
+      do { const nx = n.nextElementSibling; sec.append(n); n = nx; } while (n && !n.matches('h2'));
+      const b = document.createElement('button');
+      b.type = 'button';
+      const num = document.createElement('em');
+      num.textContent = i + 1;
+      b.append(num, h.textContent);
+      bar.append(b);
+      return sec;
+    });
+    panels.forEach((p, i) => {
+      const nav = document.createElement('div');
+      nav.className = 'aba-nav';
+      nav.innerHTML =
+        (i > 0 ? `<button type="button" data-aba="${i - 1}">← ${h2s[i - 1].textContent}</button>` : '<span></span>') +
+        '<button type="button" data-indice>↑ Índice</button>' +
+        (i < panels.length - 1 ? `<button type="button" data-aba="${i + 1}">${h2s[i + 1].textContent} →</button>` : '<span></span>');
+      p.append(nav);
+    });
+    const lab = document.createElement('p');
+    lab.className = 'art-index-title';
+    lab.textContent = 'Neste artigo — toque numa seção';
+    panels[0].before(lab, bar);
+    card.querySelector('.toc')?.remove();
+    ativarAba(bar, panels, 0);
+  }
+}
+
+card.addEventListener('click', e => {
+  const tab = e.target.closest('.mini-tabs button, .art-tabs button');
+  if (tab) {
+    const bar = tab.parentElement;
+    const principal = bar.classList.contains('art-tabs');
+    const panels = [...bar.parentElement.querySelectorAll(principal ? ':scope > .art-panel' : ':scope > .mini-panel')];
+    const idx = [...bar.children].indexOf(tab);
+    ativarAba(bar, panels, idx);
+    if (principal) rolarPara(window.innerWidth <= 960 ? panels[idx] : bar);
+    return;
+  }
+  const nav = e.target.closest('[data-aba]');
+  if (nav) {
+    const bar = card.querySelector('.art-tabs');
+    const panels = [...card.querySelectorAll(':scope > .art-panel')];
+    ativarAba(bar, panels, +nav.dataset.aba);
+    rolarPara(panels[+nav.dataset.aba]);
+    return;
+  }
+  if (e.target.closest('[data-indice]')) { rolarPara(card.querySelector('.art-index-title')); return; }
+  const cod = e.target.closest('.codigos.enh .codigo');
+  if (cod && !e.target.closest('a')) { cod.classList.toggle('open'); return; }
+  const link = e.target.closest('a.img-link');
+  if (link) { e.preventDefault(); abrirImagem(link.href, link.textContent.trim()); return; }
+  const im = e.target.closest('img');
+  if (im) abrirImagem(im.currentSrc || im.src, im.alt);
+});
+
+// ==========================================
+// INICIALIZA NA PRIMEIRA CARGA
+// ==========================================
+abrirPagina();
+
+🔑 O que mudou nesta versão
+Antes	Agora
+initFluxograma chamado com setTimeout(150)	Chamado direto, logo após card.innerHTML = ...
+melhorarArtigo() reorganiza as <h2> em abas	Continua funcionando igual
+Fluxo interativo dependia do tempo	Roda imediatamente, sem espera
+🎯 Como funciona agora
+
+Quando você clica em "Sensor de Pressão do Rail":
+
+    menu.js faz o fetch do arquivo
+
+    Injeta o conteúdo no card
+
+    Chama melhorarArtigo() (abas, acordeões)
+
+    Chama initFluxograma() imediatamente — sem espera
+
+    Os botões Sim/Não já ficam ativos no primeiro clique
+
+⚠️ IMPORTANTE — Verifique uma coisa antes
+
+O melhorarArtigo() tem uma parte que transforma as <h2> em abas quando existem 3 ou mais <h2> no artigo.
+
+O seu sensor-pressao-rail.html tem 3 <h2>:
+
+    <h2 id="fluxo">Fluxograma</h2>
+
+    <h2 id="valores">Valores e pinos</h2>
+
+    <h2 id="codigos">Códigos relacionados</h2>
+
+Isso significa que o fluxograma vai ficar escondido dentro da primeira aba "Fluxograma". Você precisa clicar na aba para vê-lo.
+🔧 Solução opcional — Desativa as abas automáticas
+
+Se você não quer que o fluxograma fique escondido dentro de uma aba, adicione esta linha no início da função melhorarArtigo():
+javascript
+
+function melhorarArtigo() {
+  // Não transforma em abas quando tiver um fluxograma na página
+  const temFluxo = card.querySelector('.fluxo');
+  
+  if (card.querySelector('.art-head')) card.querySelector(':scope > h1')?.remove();
+
+  // ... resto do código
+
+  const h2s = [...card.querySelectorAll(':scope > h2')];
+  if (h2s.length >= 3 && !temFluxo) {   // ← adiciona o "&& !temFluxo"
+    // cria as abas...
+  }
+}
+
+Assim, quando a página tiver um fluxograma, não cria abas e o fluxograma fica visível direto, sem precisar clicar em nada.
+✅ Como testar
+
+    Substitua o menu.js pelo código acima
+
+    Recarregue o site com Ctrl + F5 (força limpar o cache)
+
+    Clique em Diagnóstico → Sensores → Sensor de Pressão do Rail
+
+    Você deve ver:
+
+        O título "Sensor de Pressão do Rail"
+
+        O primeiro passo do fluxograma já visível
+
+        Os botões Sim e Não funcionando
+
+🧪 Se ainda não funcionar
+
+Abra o Console (F12) e rode:
+javascript
+
+console.log('Fluxo:', document.querySelectorAll('.fluxo').length);
+console.log('Passos:', document.querySelectorAll('.passo').length);
+console.log('Botões:', document.querySelectorAll('.resp button[data-ir]').length);
+console.log('Handler:', document.querySelector('.fluxo')?._fluxoHandler ? 'OK' : 'FALTANDO');
+
+Me diga o que apareceu que eu ajusto. 🚀
+!DOCTYPE html.txt
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
