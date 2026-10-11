@@ -1,13 +1,14 @@
-// ==========================================
-// MENU E NAVEGAÇÃO
-// ==========================================
 const navItems = document.querySelectorAll('.nav-item');
 const mobileToggleBtn = document.getElementById('mobile-toggle-btn');
 const mainNav = document.getElementById('main-nav');
 const toggleIcon = mobileToggleBtn.querySelector('i');
 
+// ==========================================
+// LÓGICA DO MENU MOBILE
+// ==========================================
 navItems.forEach(item => {
   const btn = item.querySelector('.nav-btn');
+  
   btn.addEventListener('click', (e) => {
     if (window.innerWidth <= 960) {
       e.preventDefault();
@@ -19,7 +20,13 @@ navItems.forEach(item => {
 mobileToggleBtn.addEventListener('click', (e) => {
   e.stopPropagation();
   const isOpen = mainNav.classList.toggle('active');
-  document.body.style.overflow = isOpen ? 'hidden' : '';
+  
+  if (isOpen) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
+
   if (isOpen) {
     toggleIcon.classList.remove('fa-bars');
     toggleIcon.classList.add('fa-xmark');
@@ -35,15 +42,19 @@ mobileToggleBtn.addEventListener('click', (e) => {
 // ==========================================
 const btnTop = document.getElementById('btn-top');
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 150) btnTop.classList.add('visible');
-  else btnTop.classList.remove('visible');
+  if (window.scrollY > 150) {
+    btnTop.classList.add('visible');
+  } else {
+    btnTop.classList.remove('visible');
+  }
 });
+
 btnTop.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
 // ==========================================
-// CARREGAR PÁGINAS
+// CARREGAR PÁGINAS DE conteudo/<menu>/<item>.html
 // ==========================================
 const home = document.getElementById('home-box');
 const card = document.getElementById('page-card');
@@ -52,6 +63,7 @@ async function abrirPagina() {
   const path = decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '');
   document.querySelectorAll('.mega-link-item.active').forEach(a => a.classList.remove('active'));
 
+  // sem rota válida = Home
   if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
     card.hidden = true; home.hidden = false;
     return;
@@ -74,21 +86,16 @@ async function abrirPagina() {
     if (!resp.ok) throw new Error(`Página não encontrada (${resp.status})`);
     const corpo = await resp.text();
     if (decodeURIComponent(location.hash.slice(1)) !== path) return;
-
     card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div><h1>${titulo}</h1>${corpo}`;
-
-    // ✅ Melhora o artigo (abas, acordeões)
     melhorarArtigo();
-
-    // ✅ INICIALIZA O FLUXOGRAMA IMEDIATAMENTE APÓS INSERIR O CONTEÚDO
-    // (não usa setTimeout — roda direto, sem esperar)
-    initFluxograma();
-
+    // Aguarda o DOM atualizar e inicializa o fluxograma
+    setTimeout(initFluxograma, 150);
   } catch (err) {
-    card.innerHTML = `<h1>Erro</h1><p>${err.message}.</p>`;
+    card.innerHTML = `<h1>Erro</h1><p>${err.message}. Se estiver abrindo o arquivo direto no computador, use um servidor (GitHub Pages ou <code>python -m http.server</code>).</p>`;
   }
 }
 
+// clicou num item: fecha o menu (celular) ou o painel (desktop)
 document.querySelectorAll('.mega-menu a').forEach(a => {
   a.addEventListener('click', () => {
     if (window.innerWidth <= 960) {
@@ -102,9 +109,21 @@ document.querySelectorAll('.mega-menu a').forEach(a => {
 });
 
 window.addEventListener('hashchange', abrirPagina);
+abrirPagina();
 
 // ==========================================
-// BUSCA NA HOME
+// ÍNDICE INTERNO DOS ARTIGOS
+// ==========================================
+card.addEventListener('click', (e) => {
+  const alvo = e.target.closest('[data-goto]');
+  if (!alvo) return;
+  e.preventDefault();
+  const el = document.getElementById(alvo.dataset.goto);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+// ==========================================
+// BUSCA DA PÁGINA INICIAL
 // ==========================================
 const busca = document.getElementById('home-search');
 const resultados = document.getElementById('home-results');
@@ -129,55 +148,7 @@ if (busca) {
 }
 
 // ==========================================
-// FLUXOGRAMA INTERATIVO — versão definitiva
-// ==========================================
-function initFluxograma() {
-  // Busca TODOS os fluxogramas da página (pode ter mais de um)
-  const fluxos = document.querySelectorAll('.fluxo');
-  if (!fluxos.length) return;
-
-  fluxos.forEach(fluxo => {
-    const passos = fluxo.querySelectorAll('.passo');
-    if (!passos.length) return;
-
-    // Esconde todos, exceto o primeiro
-    passos.forEach((p, i) => {
-      if (i === 0) p.removeAttribute('hidden');
-      else p.setAttribute('hidden', '');
-    });
-
-    // Remove listener antigo se já existir (evita duplicar)
-    if (fluxo._fluxoHandler) {
-      fluxo.removeEventListener('click', fluxo._fluxoHandler);
-    }
-
-    // Cria o handler
-    fluxo._fluxoHandler = (e) => {
-      const btn = e.target.closest('.resp button[data-ir]');
-      if (!btn) return;
-      e.preventDefault();
-      e.stopPropagation();
-
-      const targetId = btn.getAttribute('data-ir');
-      const target = document.getElementById(targetId);
-      if (!target) return;
-
-      // Esconde todos os passos do fluxo
-      passos.forEach(p => p.setAttribute('hidden', ''));
-
-      // Mostra o passo de destino
-      target.removeAttribute('hidden');
-
-      // Scroll até o passo mostrado
-      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    };
-
-    fluxo.addEventListener('click', fluxo._fluxoHandler);
-  });
-}
-
-// ==========================================
-// ABAS, ACORDEÕES E IMAGENS
+// ARTIGOS: abas, acordeão, imagens e caixa de diálogo
 // ==========================================
 const lb = document.createElement('dialog');
 lb.className = 'lightbox';
@@ -227,7 +198,6 @@ function melhorarArtigo() {
     bar.className = 'mini-tabs';
     cols.forEach(c => {
       const h = c.querySelector('h4');
-      if (!h) return;
       const b = document.createElement('button');
       b.type = 'button';
       b.textContent = h.textContent;
@@ -308,6 +278,50 @@ card.addEventListener('click', e => {
 });
 
 // ==========================================
-// INICIALIZA NA PRIMEIRA CARGA
+// FLUXOGRAMA INTERATIVO
+// (motor-nao-acelera, sensor-pressao-rail, valvula-mprop, etc.)
 // ==========================================
-abrirPagina();
+function initFluxograma() {
+  const fluxo = document.querySelector('.fluxo');
+  if (!fluxo) return;
+
+  const passos = fluxo.querySelectorAll('.passo');
+  if (!passos.length) return;
+
+  // Esconde todos, exceto o primeiro
+  passos.forEach((p, i) => {
+    if (i === 0) {
+      p.removeAttribute('hidden');
+    } else {
+      p.setAttribute('hidden', '');
+    }
+  });
+
+  // Remove listener antigo se existir (evita duplicar)
+  if (fluxo._fluxoClickHandler) {
+    fluxo.removeEventListener('click', fluxo._fluxoClickHandler);
+  }
+
+  // Delegação de evento para os botões Sim/Não
+  fluxo._fluxoClickHandler = (e) => {
+    const btn = e.target.closest('.resp button[data-ir]');
+    if (!btn) return;
+
+    const targetId = btn.getAttribute('data-ir');
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    // Esconde todos os passos
+    passos.forEach(p => p.setAttribute('hidden', ''));
+
+    // Mostra o passo de destino
+    target.removeAttribute('hidden');
+
+    // Scroll suave até o passo mostrado
+    setTimeout(() => {
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 80);
+  };
+
+  fluxo.addEventListener('click', fluxo._fluxoClickHandler);
+}
