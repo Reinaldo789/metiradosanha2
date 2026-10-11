@@ -1,0 +1,46 @@
+<header class="art-head">
+  <span class="art-kicker">Diagnóstico · Atuadores</span>
+  <h1>Modulador da Turbina</h1>
+  <p class="art-lead">Atuador do turboalimentador, que controla a pressão de sobrealimentação.</p>
+  <div class="chips"><span>MWM Sprint 4.07 TCE</span><span>4 códigos</span><span>Manual de Diagnóstico V-3.4</span></div>
+</header>
+<p>Escolha uma aba: os códigos de falha deste componente, os roteiros de diagnóstico do manual ou os cuidados antes de testar.</p>
+
+<h2 id="cod">Códigos de falha</h2>
+<div class="codigos">
+  <div class="codigo"><span class="num">P0243</span><div>
+    <h4>Atuador do Turboalimentador</h4>
+    <p><strong>Causa:</strong> Sinal do atuador do turboalimentador perdido</p>
+    <p>Possivelmente o conector do atuador esteja desligado, o chicote elétrico ou a válvula estejam com circuito aberto.</p>
+    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada Ao reconhecer a falha, o ECM desliga o modulador e seta a abertura da válvula em 50%, trabalhando no range abaixo de 2400 rpm e abaixo de 30 mg/ciclo. Através deste sinal o ECM controla a abertura do atuador do turboalimentador, possibilitando o controle da pressão no coletor de admissão.</p>
+  </div></div>
+  <div class="codigo"><span class="num">P0244</span><div>
+    <h4>Modulador do Turboalimentador</h4>
+    <p><strong>Causa:</strong> Temperatura elevada no CI de controle do atuador do turboalimentador</p>
+    <p>Houve um superaquecimento no circuito integrado, localizado dentro do ECM, que controla o sinal do atuador do turboalimentador. É possível que haja problemas no circuito do atuador do turboalimentador ou problemas no circuito do ECM. Caso seja necessário testar o circuito do atuador, utilizar a árvore referente ao Pcode P0245 e P0246. Se o circuito estiver funcionando adequadamente e a falha persistir, substituir o ECM.</p>
+    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada Ao reconhecer a falha, o ECM desliga o modulador e seta a abertura da válvula em 50%, trabalhando no range abaixo de 2400 rpm e abaixo de 30 mg/ciclo.</p>
+  </div></div>
+  <div class="codigo"><span class="num">P0245</span><div>
+    <h4>Atuador do Turboalimentador</h4>
+    <p><strong>Causa:</strong> Sinal de tensão baixa no atuador do turboalimentador</p>
+    <p>Foi detectado um sinal de tensão baixa no atuador do turboalimentador. É possível que a resistência do solenóide esteja alterada ou haja um curto-circuito ao negativo.</p>
+    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada Ao reconhecer a falha, o ECM desliga o modulador e seta a abertura da válvula em 50%, trabalhando no range abaixo de 2400rpm e abaixo de 30 mg/ciclo. Através deste sinal o ECM controla a abertura do atuador do turboalimentador, possibilitando o controle da pressão no coletor de admissão.</p>
+  </div></div>
+  <div class="codigo"><span class="num">P0246</span><div>
+    <h4>Atuador do Turboalimentador</h4>
+    <p><strong>Causa:</strong> Sinal de tensão alta no atuador do turboalimentador</p>
+    <p>Foi detectado um sinal de tensão elevada no modulador. É possível que a resistência do solenóide esteja alterada ou haja um curto-circuito ao positivo.</p>
+    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada Ao reconhecer a falha, o ECM desliga o modulador e seta a abertura da válvula em 50%, trabalhando no range abaixo de 2400 rpm e abaixo de 30 mg/ciclo. Através deste sinal o ECM controla a abertura do atuador do turboalimentador, possibilitando o controle da pressão no coletor de admissão.</p>
+  </div></div>
+</div>
+
+<h2 id="roteiro">Roteiros de diagnóstico</h2>
+<p>Fluxogramas do manual para cada código. Toque na imagem para ampliar.</p>
+<figure><img src="img/diagnostico/p94.jpg" alt="Roteiro P0243" loading="lazy"><figcaption>Roteiro P0243</figcaption></figure>
+<figure><img src="img/diagnostico/p96.jpg" alt="Roteiro P0244" loading="lazy"><figcaption>Roteiro P0244</figcaption></figure>
+<figure><img src="img/diagnostico/p98.jpg" alt="Roteiro P0245" loading="lazy"><figcaption>Roteiro P0245</figcaption></figure>
+<figure><img src="img/diagnostico/p100.jpg" alt="Roteiro P0246" loading="lazy"><figcaption>Roteiro P0246</figcaption></figure>
+
+<h2 id="cuidados">Antes de testar</h2>
+<ol><li>Use pontas de prova apropriadas e desconecte o sensor ou o atuador antes de medir;</li><li>Confronte os terminais com o esquema do chicote e procure corrosão, umidade e terminais danificados;</li><li>Confira a fixação dos conectores e se não há curto com partes metálicas;</li><li>Verifique a bateria, os bornes, o cabo B+ e o regulador do alternador: tensão ruim gera falhas em vários componentes.</li></ol>
+<p>Mais detalhes em <a href="#sistema-de-injecao/sensores-e-atuadores">Sensores e Atuadores</a>.</p>
