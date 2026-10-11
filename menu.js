@@ -1,51 +1,73 @@
-// ==========================================
-// MENU E NAVEGAÇÃO
-// ==========================================
 const navItems = document.querySelectorAll('.nav-item');
 const mobileToggleBtn = document.getElementById('mobile-toggle-btn');
 const mainNav = document.getElementById('main-nav');
-const toggleIcon = mobileToggleBtn ? mobileToggleBtn.querySelector('i') : null;
+const toggleIcon = mobileToggleBtn.querySelector('i');
 
-// ---------- MENU MOBILE ----------
+// ==========================================
+// LÓGICA DO MENU MOBILE (SEM SANFONA)
+// Cada item abre/fecha independentemente
+// ==========================================
 navItems.forEach(item => {
   const btn = item.querySelector('.nav-btn');
+  
   btn.addEventListener('click', (e) => {
     if (window.innerWidth <= 960) {
       e.preventDefault();
-      item.classList.toggle('active');
+      
+      // Sanfona: ao abrir um item, fecha os outros
+      const abrir = !item.classList.contains('active');
+      navItems.forEach(i => i.classList.remove('active'));
+      if (abrir) {
+        item.classList.add('active');
+        item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
     }
   });
 });
 
-if (mobileToggleBtn) {
-  mobileToggleBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isOpen = mainNav.classList.toggle('active');
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-    if (isOpen) {
-      toggleIcon.classList.remove('fa-bars');
-      toggleIcon.classList.add('fa-xmark');
-    } else {
-      toggleIcon.classList.remove('fa-xmark');
-      toggleIcon.classList.add('fa-bars');
-      navItems.forEach(item => item.classList.remove('active'));
-    }
-  });
-}
+// Toggle Menu Hamburguer Mobile
+mobileToggleBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const isOpen = mainNav.classList.toggle('active');
+  
+  // Bloqueia a rolagem do fundo do site quando o menu está aberto no celular
+  if (isOpen) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
 
-// ---------- BOTÃO VOLTAR AO TOPO ----------
-const btnTop = document.getElementById('btn-top');
-if (btnTop) {
-  window.addEventListener('scroll', () => {
-    btnTop.classList.toggle('visible', window.scrollY > 150);
-  });
-  btnTop.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-}
+  if (isOpen) {
+    toggleIcon.classList.remove('fa-bars');
+    toggleIcon.classList.add('fa-xmark');
+  } else {
+    toggleIcon.classList.remove('fa-xmark');
+    toggleIcon.classList.add('fa-bars');
+    // Fecha todos os itens ao fechar o menu hambúrguer
+    navItems.forEach(item => item.classList.remove('active'));
+  }
+});
 
 // ==========================================
-// CARREGAR PÁGINAS
+// BOTÃO VOLTAR AO TOPO
+// ==========================================
+const btnTop = document.getElementById('btn-top');
+const cabecalho = document.querySelector('.site-wrapper > header');
+window.addEventListener('scroll', () => {
+  cabecalho.classList.toggle('scrolled', window.scrollY > 20);
+  if (window.scrollY > 150) {
+    btnTop.classList.add('visible');
+  } else {
+    btnTop.classList.remove('visible');
+  }
+});
+
+btnTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ==========================================
+// CARREGAR PÁGINAS DE conteudo/<menu>/<item>.html
 // ==========================================
 const home = document.getElementById('home-box');
 const card = document.getElementById('page-card');
@@ -54,9 +76,9 @@ async function abrirPagina() {
   const path = decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '');
   document.querySelectorAll('.mega-link-item.active').forEach(a => a.classList.remove('active'));
 
+  // sem rota válida = Home
   if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
-    card.hidden = true;
-    home.hidden = false;
+    card.hidden = true; home.hidden = false;
     return;
   }
 
@@ -68,8 +90,7 @@ async function abrirPagina() {
       ? link.closest('.mega-explore-side').querySelector('h5').textContent.trim()
       : link.textContent.trim();
 
-  home.hidden = true;
-  card.hidden = false;
+  home.hidden = true; card.hidden = false;
   card.innerHTML = '<p class="page-loading">Carregando...</p>';
   window.scrollTo({ top: 0 });
 
@@ -77,20 +98,15 @@ async function abrirPagina() {
     const resp = await fetch(`conteudo/${path}.html`);
     if (!resp.ok) throw new Error(`Página não encontrada (${resp.status})`);
     const corpo = await resp.text();
-
+    if (decodeURIComponent(location.hash.slice(1)) !== path) return;
     card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div><h1>${titulo}</h1>${corpo}`;
-
-    // 1) Aplica abas e melhorias
     melhorarArtigo();
-
-    // 2) ATIVA O FLUXOGRAMA (usa classe .on, compatível com o style.css)
-    ativarFluxograma();
-
   } catch (err) {
-    card.innerHTML = `<h1>Erro</h1><p>${err.message}</p>`;
+    card.innerHTML = `<h1>Erro</h1><p>${err.message}. Se estiver abrindo o arquivo direto no computador, use um servidor (GitHub Pages ou <code>python -m http.server</code>).</p>`;
   }
 }
 
+// clicou num item: fecha o menu (celular) ou o painel (desktop)
 document.querySelectorAll('.mega-menu a').forEach(a => {
   a.addEventListener('click', () => {
     if (window.innerWidth <= 960) {
@@ -104,9 +120,19 @@ document.querySelectorAll('.mega-menu a').forEach(a => {
 });
 
 window.addEventListener('hashchange', abrirPagina);
+abrirPagina();
+
+// índice interno dos artigos: <a data-goto="id"> rola até o título
+card.addEventListener('click', (e) => {
+  const alvo = e.target.closest('[data-goto]');
+  if (!alvo) return;
+  e.preventDefault();
+  const el = document.getElementById(alvo.dataset.goto);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
 
 // ==========================================
-// BUSCA NA HOME
+// BUSCA DA PÁGINA INICIAL (usa os links do menu)
 // ==========================================
 const busca = document.getElementById('home-search');
 const resultados = document.getElementById('home-results');
@@ -131,127 +157,7 @@ if (busca) {
 }
 
 // ==========================================
-// FLUXOGRAMA INTERATIVO — usa classe .on (compatível com o style.css)
-// ==========================================
-function ativarFluxograma() {
-  const fluxos = document.querySelectorAll('.fluxo');
-  if (!fluxos.length) return;
-
-  fluxos.forEach((fluxo) => {
-    const passos = fluxo.querySelectorAll('.passo');
-    if (!passos.length) return;
-
-    // Ativa apenas o primeiro passo
-    passos.forEach((p, i) => {
-      if (i === 0) p.classList.add('on');
-      else p.classList.remove('on');
-    });
-
-    // Remove handler antigo para evitar duplicar cliques
-    if (fluxo._handler) {
-      fluxo.removeEventListener('click', fluxo._handler);
-    }
-
-    // Cria o handler
-    fluxo._handler = function (e) {
-      const btn = e.target.closest('.resp button[data-ir]');
-      if (!btn) return;
-      e.preventDefault();
-      e.stopPropagation();
-
-      const targetId = btn.getAttribute('data-ir');
-      const target = document.getElementById(targetId);
-      if (!target) return;
-
-      // Remove .on de todos os passos
-      passos.forEach(p => p.classList.remove('on'));
-
-      // Adiciona .on apenas no passo de destino
-      target.classList.add('on');
-
-      // Scroll suave até o passo mostrado
-      setTimeout(() => {
-        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 50);
-    };
-
-    fluxo.addEventListener('click', fluxo._handler);
-  });
-}
-
-// ==========================================
-// MELHORAR ARTIGO (abas e acordeões)
-// ==========================================
-function melhorarArtigo() {
-  if (card.querySelector('.art-head')) card.querySelector(':scope > h1')?.remove();
-
-  // Corrige imagens que não carregam
-  card.querySelectorAll('img').forEach(img => {
-    img.addEventListener('error', () => {
-      const d = document.createElement('div');
-      d.className = 'img-falta';
-      d.innerHTML = '<i class="fa-regular fa-image"></i><span></span>';
-      d.querySelector('span').textContent = img.alt || 'Imagem';
-      img.replaceWith(d);
-    }, { once: true });
-  });
-
-  // Trio (3 colunas) viram mini abas
-  card.querySelectorAll('.trio').forEach(trio => {
-    const cols = [...trio.children];
-    const bar = document.createElement('div');
-    bar.className = 'mini-tabs';
-    cols.forEach(c => {
-      const h = c.querySelector('h4');
-      if (!h) return;
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.textContent = h.textContent;
-      bar.append(b);
-      c.classList.add('mini-panel');
-      h.hidden = true;
-    });
-    trio.prepend(bar);
-    trio.classList.add('enh');
-    ativarAba(bar, cols, 0);
-  });
-
-  card.querySelectorAll('.codigos').forEach(c => c.classList.add('enh'));
-
-  // Só cria abas se NÃO houver fluxograma na página
-  // (o fluxograma precisa ficar visível diretamente, sem abas)
-  const temFluxo = card.querySelector('.fluxo');
-  const h2s = [...card.querySelectorAll(':scope > h2')];
-
-  if (h2s.length >= 3 && !temFluxo) {
-    const bar = document.createElement('div');
-    bar.className = 'art-tabs';
-    const panels = h2s.map((h, i) => {
-      const sec = document.createElement('section');
-      sec.className = 'art-panel';
-      h.before(sec);
-      let n = h;
-      do { const nx = n.nextElementSibling; sec.append(n); n = nx; } while (n && !n.matches('h2'));
-      const b = document.createElement('button');
-      b.type = 'button';
-      const num = document.createElement('em');
-      num.textContent = i + 1;
-      b.append(num, h.textContent);
-      bar.append(b);
-      return sec;
-    });
-    panels[0].before(bar);
-    ativarAba(bar, panels, 0);
-  }
-}
-
-function ativarAba(bar, panels, i) {
-  [...bar.children].forEach((b, j) => b.classList.toggle('on', j === i));
-  panels.forEach((p, j) => p.classList.toggle('on', j === i));
-}
-
-// ==========================================
-// ABAS, ACORDEÕES E IMAGENS (para artigos sem fluxograma)
+// ARTIGOS: abas, acordeão, imagens e caixa de diálogo
 // ==========================================
 const lb = document.createElement('dialog');
 lb.className = 'lightbox';
@@ -262,6 +168,7 @@ const lbTxt = lb.querySelector('p');
 
 function abrirImagem(src, legenda) {
   lbImg.hidden = false;
+  lbImg.classList.remove('zoom');
   lbImg.src = src;
   lbImg.alt = legenda;
   lbTxt.textContent = legenda;
@@ -277,7 +184,111 @@ lb.addEventListener('click', e => {
 
 function rolarPara(el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
 
+function mostrarPasso(f, id, rolar = true) {
+  f.querySelectorAll('.passo').forEach(p => p.classList.toggle('on', p.id === id));
+  if (rolar) f.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function ativarAba(bar, panels, i) {
+  [...bar.children].forEach((b, j) => b.classList.toggle('on', j === i));
+  panels.forEach((p, j) => p.classList.toggle('on', j === i));
+}
+
+function melhorarArtigo() {
+  // o artigo já traz o próprio título
+  if (card.querySelector('.art-head')) card.querySelector(':scope > h1')?.remove();
+
+  // imagem que não existe vira uma caixa com a legenda
+  card.querySelectorAll('img').forEach(img => {
+    img.addEventListener('error', () => {
+      const d = document.createElement('div');
+      d.className = 'img-falta';
+      d.innerHTML = '<i class="fa-regular fa-image"></i><span></span>';
+      d.querySelector('span').textContent = img.alt || 'Imagem';
+      img.replaceWith(d);
+    }, { once: true });
+  });
+
+  // blocos de 2-3 colunas viram mini abas
+  card.querySelectorAll('.trio').forEach(trio => {
+    const cols = [...trio.children];
+    const bar = document.createElement('div');
+    bar.className = 'mini-tabs';
+    cols.forEach(c => {
+      const h = c.querySelector('h4');
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = h.textContent;
+      bar.append(b);
+      c.classList.add('mini-panel');
+      h.hidden = true;
+    });
+    trio.prepend(bar);
+    trio.classList.add('enh');
+    ativarAba(bar, cols, 0);
+  });
+
+  // fluxogramas de diagnóstico (Sim / Não)
+  card.querySelectorAll('.fluxo').forEach(f => {
+    f._hist = [];
+    f.querySelectorAll('.passo').forEach(p => {
+      const nav = document.createElement('div');
+      nav.className = 'fluxo-nav';
+      nav.innerHTML = '<button type="button" data-voltar>← Voltar</button><button type="button" data-reiniciar>↺ Recomeçar</button>';
+      p.append(nav);
+    });
+    mostrarPasso(f, f.querySelector('.passo').id, false);
+  });
+
+  // códigos de falha em acordeão
+  card.querySelectorAll('.codigos').forEach(c => c.classList.add('enh'));
+
+  // cada título h2 vira uma aba
+  const h2s = [...card.querySelectorAll(':scope > h2')];
+  if (h2s.length >= 3) {
+    const bar = document.createElement('div');
+    bar.className = 'art-tabs';
+    bar.setAttribute('role', 'tablist');
+    const panels = h2s.map((h, i) => {
+      const sec = document.createElement('section');
+      sec.className = 'art-panel';
+      h.before(sec);
+      let n = h;
+      do { const nx = n.nextElementSibling; sec.append(n); n = nx; } while (n && !n.matches('h2'));
+      const b = document.createElement('button');
+      b.type = 'button';
+      const num = document.createElement('em');
+      num.textContent = i + 1;
+      b.append(num, h.textContent);
+      bar.append(b);
+      return sec;
+    });
+    panels.forEach((p, i) => {
+      const nav = document.createElement('div');
+      nav.className = 'aba-nav';
+      nav.innerHTML =
+        (i > 0 ? `<button type="button" data-aba="${i - 1}">← ${h2s[i - 1].textContent}</button>` : '<span></span>') +
+        '<button type="button" data-indice>↑ Índice</button>' +
+        (i < panels.length - 1 ? `<button type="button" data-aba="${i + 1}">${h2s[i + 1].textContent} →</button>` : '<span></span>');
+      p.append(nav);
+    });
+    const lab = document.createElement('p');
+    lab.className = 'art-index-title';
+    lab.textContent = 'Neste artigo — toque numa seção';
+    panels[0].before(lab, bar);
+    card.querySelector('.toc')?.remove();
+    ativarAba(bar, panels, 0);
+  }
+}
+
 card.addEventListener('click', e => {
+  const fl = e.target.closest('.fluxo');
+  if (fl) {
+    const ir = e.target.closest('[data-ir]');
+    if (ir) { fl._hist.push(ir.closest('.passo').id); mostrarPasso(fl, ir.dataset.ir); return; }
+    if (e.target.closest('[data-voltar]')) { const id = fl._hist.pop(); if (id) mostrarPasso(fl, id); return; }
+    if (e.target.closest('[data-reiniciar]')) { fl._hist = []; mostrarPasso(fl, fl.querySelector('.passo').id); return; }
+  }
   const tab = e.target.closest('.mini-tabs button, .art-tabs button');
   if (tab) {
     const bar = tab.parentElement;
@@ -305,9 +316,6 @@ card.addEventListener('click', e => {
   if (im) abrirImagem(im.currentSrc || im.src, im.alt);
 });
 
-// ==========================================
-// INICIALIZA NA PRIMEIRA CARGA
-// ==========================================
-document.addEventListener('DOMContentLoaded', () => {
-  abrirPagina();
-});
+cabecalho.classList.toggle('scrolled', window.scrollY > 20);
+
+lbImg.addEventListener('click', () => lbImg.classList.toggle('zoom'));
