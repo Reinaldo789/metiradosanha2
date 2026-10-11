@@ -1,0 +1,26 @@
+<!-- Superaquecimento do motor - MWM Sprint 2.8 -->
+<header class="art-head">
+  <span class="art-kicker">Motor · Diagnóstico</span>
+  <h1>Superaquecimento do Motor</h1>
+  <p class="art-lead">Fluxograma de diagnóstico: responda Sim ou Não em cada passo até chegar à solução.</p>
+  <div class="chips"><span>MWM Sprint 2.8</span><span>S10 até 2011</span><span>Temperatura alta</span></div>
+</header>
+
+<p>Use este roteiro quando o motor aquece além do normal. As causas mais comuns são: falta de líquido, termostática travada, radiador entupido, bomba d'água com defeito ou ventoinha inoperante.</p>
+
+<div class="aviso"><strong>Atenção</strong><p>Nunca abra o reservatório de água com o motor quente. Aguarde o resfriamento completo antes de remover a tampa.</p></div>
+
+<h2 id="fluxo">Fluxograma</h2>
+<div class="fluxo">
+  <div class="passo" id="p1"><span class="passo-n">Passo 1</span><p>Verifique o <strong>nível do líquido de arrefecimento</strong> no reservatório. <strong>Está no nível correto?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p2">Sim</button><button type="button" class="nao" data-ir="r1">Não</button></div></div>
+  <div class="passo fim erro" id="r1"><span class="passo-n">Nível baixo</span><ul><li>Complete o nível com líquido de arrefecimento;</li><li>Verifique se há vazamentos;</li><li>Se o nível baixar novamente, verifique junta do cabeçote;</li><li>Refaça o teste.</li></ul></div>
+  <div class="passo" id="p2"><span class="passo-n">Passo 2</span><p>Verifique se há <strong>vazamentos</strong> no radiador, mangueiras, bomba d'água e junta do cabeçote. <strong>Existe vazamento visível?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r2">Sim</button><button type="button" class="nao" data-ir="p3">Não</button></div></div>
+  <div class="passo fim erro" id="r2"><span class="passo-n">Vazamento</span><ul><li>Substitua a mangueira ou componente vazando;</li><li>Se for junta do cabeçote, retífica do cabeçote;</li><li>Refaça o teste.</li></ul></div>
+  <div class="passo" id="p3"><span class="passo-n">Passo 3</span><p>Verifique se a <strong>correia</strong> e a <strong>ventoinha</strong> estão funcionando. <strong>Estão OK?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p4">Sim</button><button type="button" class="nao" data-ir="r3">Não</button></div></div>
+  <div class="passo fim erro" id="r3"><span class="passo-n">Correia/Ventoinha</span><ul><li>Substitua a correia se estiver desgastada;</li><li>Verifique a embreagem viscosa da ventoinha;</li><li>Refaça o teste.</li></ul></div>
+  <div class="passo" id="p4"><span class="passo-n">Passo 4</span><p>Verifique a <strong>válvula termostática</strong>. Com o motor frio, ela deve estar fechada; com o motor quente, deve estar aberta. <strong>Está funcionando corretamente?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p5">Sim</button><button type="button" class="nao" data-ir="r4">Não</button></div></div>
+ 
