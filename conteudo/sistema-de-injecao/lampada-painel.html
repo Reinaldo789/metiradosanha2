@@ -1,13 +1,46 @@
-<!-- Escreva aqui o artigo: Lâmpada Painel -->
-<p>Texto de introdução sobre Lâmpada Painel.</p>
+<header class="art-head">
+  <span class="art-kicker">Diagnóstico · Atuadores</span>
+  <h1>Lâmpada do Painel</h1>
+  <p class="art-lead">Lâmpada amarela de advertência no painel de instrumentos.</p>
+  <div class="chips"><span>MWM Sprint 4.07 TCE</span><span>4 códigos</span><span>Manual de Diagnóstico V-3.4</span></div>
+</header>
+<p>Escolha uma aba: os códigos de falha deste componente, os roteiros de diagnóstico do manual ou os cuidados antes de testar.</p>
 
-<h2>Como funciona</h2>
-<p>...</p>
+<h2 id="cod">Códigos de falha</h2>
+<div class="codigos">
+  <div class="codigo"><span class="num">P1650</span><div>
+    <h4>Lâmpada Amarela de Advertência</h4>
+    <p><strong>Causa:</strong> Sinal de alimentação da luz amarela de advertência perdido.</p>
+    <p>Durante o check do sistema, foi detectado um circuito aberto proveniente da luz amarela de advertência. Possivelmente a lâmpada amarela de advertência está queimada ou o circuito de alimentação da luz amarela de advertência está interrompido.</p>
+    <p><strong>Reação do ECM:</strong> Luz amarela de advertência não é acionada Não há estratégia. A falha não reduz a potência do motor. Este sinal é utilizado pelo ECM para ativar a luz amarela de advertência de indicação de avarias (amarela).</p>
+  </div></div>
+  <div class="codigo"><span class="num">P1651</span><div>
+    <h4>Luz Amarela de Advertência</h4>
+    <p><strong>Causa:</strong> Sinal de tensão elevada no circuito da luz de advertência</p>
+    <p>Foi detectado um sinal de tensão elevada no circuito da lâmpada de advertência. Verificar o funcionamento do sistema de carga e do circuito da lâmpada. Se for necessário consulte as árvores correspondentes aos Pcodes P1650 e P0563.</p>
+    <p><strong>Reação do ECM:</strong> Lâmpada não é acionada Não há estratégia. A falha não reduz a potência do motor. Este sinal é utilizado pelo ECM para ativar a lâmpada de indicação de avarias (amarela).</p>
+  </div></div>
+  <div class="codigo"><span class="num">P1652</span><div>
+    <h4>Luz Amarela de Advertência</h4>
+    <p><strong>Causa:</strong> Sinal de tensão baixa na lâmpada de aviso.</p>
+    <p>Foi detectado um sinal de tensão baixa proveniente da lâmpada de advertência. Verificar o funcionamento do sistema de carga e do circuito da lâmpada, se for necessário. Consulte as informações correspondentes aos PCodes P1650 e P0562.</p>
+    <p><strong>Reação do ECM:</strong> Lâmpada não é acionada Não há estratégia. A falha não reduz a potência do motor. Este sinal é utilizado pelo ECM para ativar a lâmpada de indicação de avarias (amarela).</p>
+  </div></div>
+  <div class="codigo"><span class="num">P1653</span><div>
+    <h4>Luz Amarela de Advertência</h4>
+    <p><strong>Causa:</strong> Temperatura excessiva no CI de controle da luz de advertência</p>
+    <p>Foi identificado um superaquecimento no CI que controla o circuito da luz de advertência. Esse circuito integrado é parte integrante do ECM. Teste o circuito da lâmpada, se necessário utilize as informações referentes ao PCode P1650. Se o circuito estiver funcionando adequadamente e a falha persistir, substituir o ECM.</p>
+    <p><strong>Reação do ECM:</strong> Lâmpada não é acionada Não há estratégia. A falha não reduz a potência do motor. Este sinal é utilizado pelo ECM para ativar a lâmpada de indicação de avarias (amarela).</p>
+  </div></div>
+</div>
 
-<h2>Sintomas de falha</h2>
-<ul>
-  <li>...</li>
-</ul>
+<h2 id="roteiro">Roteiros de diagnóstico</h2>
+<p>Fluxogramas do manual para cada código. Toque na imagem para ampliar.</p>
+<figure><img src="img/diagnostico/p192.jpg" alt="Roteiro P1650" loading="lazy"><figcaption>Roteiro P1650</figcaption></figure>
+<figure><img src="img/diagnostico/p194.jpg" alt="Roteiro P1651" loading="lazy"><figcaption>Roteiro P1651</figcaption></figure>
+<figure><img src="img/diagnostico/p196.jpg" alt="Roteiro P1652" loading="lazy"><figcaption>Roteiro P1652</figcaption></figure>
+<figure><img src="img/diagnostico/p198.jpg" alt="Roteiro P1653" loading="lazy"><figcaption>Roteiro P1653</figcaption></figure>
 
-<h2>Como testar</h2>
-<p>...</p>
+<h2 id="cuidados">Antes de testar</h2>
+<ol><li>Use pontas de prova apropriadas e desconecte o sensor ou o atuador antes de medir;</li><li>Confronte os terminais com o esquema do chicote e procure corrosão, umidade e terminais danificados;</li><li>Confira a fixação dos conectores e se não há curto com partes metálicas;</li><li>Verifique a bateria, os bornes, o cabo B+ e o regulador do alternador: tensão ruim gera falhas em vários componentes.</li></ol>
+<p>Mais detalhes em <a href="#sistema-de-injecao/sensores-e-atuadores">Sensores e Atuadores</a>.</p>

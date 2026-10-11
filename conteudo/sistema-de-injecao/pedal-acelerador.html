@@ -1,13 +1,46 @@
-<!-- Escreva aqui o artigo: Pedal Acelerador -->
-<p>Texto de introdução sobre Pedal Acelerador.</p>
+<header class="art-head">
+  <span class="art-kicker">Diagnóstico · Atuadores</span>
+  <h1>Pedal do Acelerador</h1>
+  <p class="art-lead">Posição do pedal, lida por dois sinais (acelerador 1 e 2).</p>
+  <div class="chips"><span>MWM Sprint 4.07 TCE</span><span>4 códigos</span><span>Manual de Diagnóstico V-3.4</span></div>
+</header>
+<p>Escolha uma aba: os códigos de falha deste componente, os roteiros de diagnóstico do manual ou os cuidados antes de testar.</p><div class="dica"><strong>Fluxograma interativo</strong><p>Para o motor que não responde ao acelerador, use o roteiro <a href="#sistema-de-injecao/motor-nao-acelera">Motor Não Acelera</a>.</p></div>
 
-<h2>Como funciona</h2>
-<p>...</p>
+<h2 id="cod">Códigos de falha</h2>
+<div class="codigos">
+  <div class="codigo"><span class="num">P0121</span><div>
+    <h4>Sensor do Pedal do Acelerador</h4>
+    <p><strong>Causa:</strong> Não plausibilidade entre os sinais do acelerador 1, com o acelerador 2, ou o sinal foi interrompido</p>
+    <p>Foi detectada uma variação de tensão no potenciômetro do pedal do acelerador ou o sinal foi interrompido. Essa tensão é comparada entre os dois potenciômetros e, caso a diferença entre ambos esteja maior que 415mV, a falha será novamente reconhecida.</p>
+    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada O ECM reconhece a falha e o pedal do acelerador perde a funcionalidade e vai para 0%. A marcha-lenta é aumentada, limitada a uma rotação de 1500 rpm, não inibindo torque e débito. Este sinal é utilizado pelo ECM para validar a marcha-lenta e variar rpm de acordo com a solicitação do condutor.</p>
+  </div></div>
+  <div class="codigo"><span class="num">P0123</span><div>
+    <h4>Sensor do Pedal do Acelerador 1</h4>
+    <p><strong>Causa:</strong> Sinal de tensão elevada no acelerador 1</p>
+    <p>Foi detectado um sinal de tensão elevada no sensor de pedal do acelerador 1. Possivelmente a resistência do sensor esteja alterada ou haja um curto-circuito ao positivo.</p>
+    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada O ECM reconhece a falha e o pedal do acelerador perde a funcionalidade e vai para 0%. A marcha-lenta é aumentada, limitada a uma rotação de 1500 rpm, não inibindo torque e débito. Este sinal é utilizado pelo ECM para validar a marcha-lenta e variar rpm de acordo com a solicitação do condutor.</p>
+  </div></div>
+  <div class="codigo"><span class="num">P0221</span><div>
+    <h4>Sensor do Pedal do Acelerador</h4>
+    <p><strong>Causa:</strong> Não plausibilidade entre os sinais do acelerador 2, com o acelerador 1</p>
+    <p>Foi detectada uma variação de tensão no potenciômetro do pedal do acelerador ou o sinal foi interrompido. Essa tensão é comparada entre os dois potenciômetros e, caso a diferença entre ambos esteja maior que 415mV, a falha será novamente reconhecida.</p>
+    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada O ECM reconhece a falha e o pedal do acelerador perde a funcionalidade e vai para 0%. A marcha-lenta é aumentada, limitada a uma rotação de 1500 rpm, não inibindo torque e débito. Este sinal é utilizado pelo ECM para validar a marcha-lenta e variar rpm de acordo com a solicitação do condutor.</p>
+  </div></div>
+  <div class="codigo"><span class="num">P0223</span><div>
+    <h4>Sensor do Pedal do Acelerador 2</h4>
+    <p><strong>Causa:</strong> Sinal de tensão alta no acelerador 2</p>
+    <p>Foi detectado um sinal de tensão elevada no sensor de pedal do acelerador 2. Possivelmente a resistência do sensor esteja alterada ou há um curto-circuito ao positivo.</p>
+    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada O ECM reconhece a falha e o pedal do acelerador perde a funcionalidade e vai para 0%. A marcha-lenta é aumentada, limitada a uma rotação de 1500 rpm, não inibindo torque e débito. Este sinal é utilizado pelo ECM para validar a marcha-lenta e variar rpm de acordo com a solicitação do condutor.</p>
+  </div></div>
+</div>
 
-<h2>Sintomas de falha</h2>
-<ul>
-  <li>...</li>
-</ul>
+<h2 id="roteiro">Roteiros de diagnóstico</h2>
+<p>Fluxogramas do manual para cada código. Toque na imagem para ampliar.</p>
+<figure><img src="img/diagnostico/p64.jpg" alt="Roteiro P0121" loading="lazy"><figcaption>Roteiro P0121</figcaption></figure>
+<figure><img src="img/diagnostico/p66.jpg" alt="Roteiro P0123" loading="lazy"><figcaption>Roteiro P0123</figcaption></figure>
+<figure><img src="img/diagnostico/p80.jpg" alt="Roteiro P0221" loading="lazy"><figcaption>Roteiro P0221</figcaption></figure>
+<figure><img src="img/diagnostico/p82.jpg" alt="Roteiro P0223" loading="lazy"><figcaption>Roteiro P0223</figcaption></figure>
 
-<h2>Como testar</h2>
-<p>...</p>
+<h2 id="cuidados">Antes de testar</h2>
+<ol><li>Use pontas de prova apropriadas e desconecte o sensor ou o atuador antes de medir;</li><li>Confronte os terminais com o esquema do chicote e procure corrosão, umidade e terminais danificados;</li><li>Confira a fixação dos conectores e se não há curto com partes metálicas;</li><li>Verifique a bateria, os bornes, o cabo B+ e o regulador do alternador: tensão ruim gera falhas em vários componentes.</li></ol>
+<p>Mais detalhes em <a href="#sistema-de-injecao/sensores-e-atuadores">Sensores e Atuadores</a>.</p>
