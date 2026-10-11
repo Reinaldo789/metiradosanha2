@@ -30,4 +30,36 @@
   <div class="passo fim erro" id="r5"><span class="passo-n">Suspeita de ECM</span><ul><li>Se a alimentação e o aterramento do ECM estiverem OK e a falha persistir, substitua o ECM;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
 </div>
 
-<h2
+<h2 id="valores">Valores e pinos</h2>
+<table><tr><th>Teste</th><th>Valor esperado</th></tr>
+<tr><td>Tensão de alimentação dos sensores (5 V)</td><td>5 V</td></tr>
+<tr><td>Tensão de alimentação do ECM (K01 / K05)</td><td>tensão da bateria</td></tr>
+<tr><td>Aterramento do ECM (K02 / K04 / K06)</td><td>menor que 1 Ω em relação ao terra</td></tr>
+<tr><td>Continuidade chicote ↔ sensor</td><td>menor que 1 Ω</td></tr></table>
+
+<h3>Sensores alimentados a 5 V</h3>
+<table><tr><th>Sensor</th><th>Pinos de alimentação</th></tr>
+<tr><td>Pedal do acelerador (1 e 2)</td><td>K45, K46</td></tr>
+<tr><td>Sensor de pressão do coletor</td><td>A13, A23</td></tr>
+<tr><td>Sensor de pressão do Rail</td><td>A28, A08</td></tr>
+<tr><td>Sensor de fase do comando</td><td>A11</td></tr></table>
+
+<div class="dica"><strong>Função do ECM</strong><p>O ECM fornece alimentação de 5 V para todos esses sensores. Se a tensão estiver baixa (P0641 / P0651) ou alta (P0642 / P0652), todos os sensores ligados a esse barramento ficam com sinal incorreto e o motor perde desempenho.</p></div>
+
+<h2 id="solucoes">Soluções comuns</h2>
+<ul>
+<li><strong>Curto-circuito na alimentação de 5 V:</strong> identifique o sensor ou o trecho do chicote com problema e repare;</li>
+<li><strong>Chicote rompido entre ECM e sensor:</strong> repare o trecho danificado;</li>
+<li><strong>Conector com oxidação:</strong> limpe e reapente os terminais;</li>
+<li><strong>Fusíveis F25 / F26 queimados:</strong> substitua por outros de mesma amperagem;</li>
+<li><strong>Aterramento do ECM com mau contato:</strong> limpe e reaperte os pinos K02, K04 e K06;</li>
+<li><strong>Suspeita de ECM:</strong> se todo o circuito estiver OK e a falha persistir, substitua o ECM.</li>
+</ul>
+
+<h2 id="codigos">Códigos relacionados</h2>
+<ul>
+<li><strong>P0641</strong>: Tensão de alimentação dos sensores baixa — marcha-lenta em 1500 rpm;</li>
+<li><strong>P0642</strong>: Tensão de alimentação dos sensores alta — marcha-lenta em 1500 rpm;</li>
+<li><strong>P0651</strong>: Tensão de alimentação dos sensores baixa — desliga o motor;</li>
+<li><strong>P0652</strong>: Tensão de alimentação dos sensores alta — desliga o motor.</li>
+</ul>
