@@ -1,124 +1,103 @@
-const navItems = document.querySelectorAll('.nav-item');
-const mobileToggleBtn = document.getElementById('mobile-toggle-btn');
-const mainNav = document.getElementById('main-nav');
-const toggleIcon = mobileToggleBtn.querySelector('i');
+/* ==================================================
+   GUIA TÉCNICO — SPRINT ELETRÔNICO
+   Scripts compartilhados
+   ================================================== */
 
-// ==========================================
-// LÓGICA DO MENU MOBILE (SEM SANFONA)
-// Cada item abre/fecha independentemente
-// ==========================================
-navItems.forEach(item => {
-  const btn = item.querySelector('.nav-btn');
-  
-  btn.addEventListener('click', (e) => {
-    if (window.innerWidth <= 960) {
-      e.preventDefault();
-      
-      // Apenas alterna o item clicado (não fecha os outros)
-      item.classList.toggle('active');
-    }
-  });
-});
+// ---------- MENU MOBILE ----------
+function initMobileMenu() {
+    const toggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.topbar nav');
+    if (!toggle || !nav) return;
 
-// Toggle Menu Hamburguer Mobile
-mobileToggleBtn.addEventListener('click', (e) => {
-  e.stopPropagation();
-  const isOpen = mainNav.classList.toggle('active');
-  
-  // Bloqueia a rolagem do fundo do site quando o menu está aberto no celular
-  if (isOpen) {
-    document.body.style.overflow = 'hidden';
-  } else {
-    document.body.style.overflow = '';
-  }
-
-  if (isOpen) {
-    toggleIcon.classList.remove('fa-bars');
-    toggleIcon.classList.add('fa-xmark');
-  } else {
-    toggleIcon.classList.remove('fa-xmark');
-    toggleIcon.classList.add('fa-bars');
-    // Fecha todos os itens ao fechar o menu hambúrguer
-    navItems.forEach(item => item.classList.remove('active'));
-  }
-});
-
-// ==========================================
-// BOTÃO VOLTAR AO TOPO
-// ==========================================
-const btnTop = document.getElementById('btn-top');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 150) {
-    btnTop.classList.add('visible');
-  } else {
-    btnTop.classList.remove('visible');
-  }
-});
-
-btnTop.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-// ==========================================
-// CARREGAR PÁGINAS DE conteudo/<menu>/<item>.html
-// ==========================================
-const home = document.getElementById('home-box');
-const card = document.getElementById('page-card');
-
-async function abrirPagina() {
-  const path = decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '');
-  document.querySelectorAll('.mega-link-item.active').forEach(a => a.classList.remove('active'));
-
-  // sem rota válida = Home
-  if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
-    card.hidden = true; home.hidden = false;
-    return;
-  }
-
-  const link = document.querySelector(`a[href="#${path}"]`);
-  if (link && link.classList.contains('mega-link-item')) link.classList.add('active');
-  const menu = link ? link.closest('.nav-item').querySelector('.nav-btn span').textContent.trim() : '';
-  const titulo = !link ? '' :
-    link.classList.contains('explore-link')
-      ? link.closest('.mega-explore-side').querySelector('h5').textContent.trim()
-      : link.textContent.trim();
-
-  home.hidden = true; card.hidden = false;
-  card.innerHTML = '<p class="page-loading">Carregando...</p>';
-  window.scrollTo({ top: 0 });
-
-  try {
-    const resp = await fetch(`conteudo/${path}.html`);
-    if (!resp.ok) throw new Error(`Página não encontrada (${resp.status})`);
-    const corpo = await resp.text();
-    if (decodeURIComponent(location.hash.slice(1)) !== path) return;
-    card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div><h1>${titulo}</h1>${corpo}`;
-  } catch (err) {
-    card.innerHTML = `<h1>Erro</h1><p>${err.message}. Se estiver abrindo o arquivo direto no computador, use um servidor (GitHub Pages ou <code>python -m http.server</code>).</p>`;
-  }
+    toggle.addEventListener('click', () => {
+        nav.classList.toggle('open');
+    });
 }
 
-// clicou num item: fecha o menu (celular) ou o painel (desktop)
-document.querySelectorAll('.mega-menu a').forEach(a => {
-  a.addEventListener('click', () => {
-    if (window.innerWidth <= 960) {
-      if (mainNav.classList.contains('active')) mobileToggleBtn.click();
-    } else {
-      const item = a.closest('.nav-item');
-      item.classList.add('closed');
-      item.addEventListener('mouseleave', () => item.classList.remove('closed'), { once: true });
-    }
-  });
-});
+// ---------- ACCORDION ----------
+function initAccordion() {
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const item = header.parentElement;
+            item.classList.toggle('active');
+        });
+    });
+}
 
-window.addEventListener('hashchange', abrirPagina);
-abrirPagina();
+// ---------- SIDEBAR ATIVA CONFORME SCROLL ----------
+function initSidebarScroll() {
+    const sections = document.querySelectorAll('.section[id]');
+    const sidebarLinks = document.querySelectorAll('.sidebar a[href^="#"]');
+    if (!sections.length || !sidebarLinks.length) return;
 
-// índice interno dos artigos: <a data-goto="id"> rola até o título
-card.addEventListener('click', (e) => {
-  const alvo = e.target.closest('[data-goto]');
-  if (!alvo) return;
-  e.preventDefault();
-  const el = document.getElementById(alvo.dataset.goto);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.addEventListener('scroll', () => {
+        const scrollPos = window.scrollY + 120;
+        let currentId = null;
+
+        sections.forEach(section => {
+            if (scrollPos >= section.offsetTop &&
+                scrollPos < section.offsetTop + section.offsetHeight) {
+                currentId = section.id;
+            }
+        });
+
+        sidebarLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + currentId) {
+                link.classList.add('active');
+            }
+        });
+    });
+}
+
+// ---------- SMOOTH SCROLL PARA ÂNCORAS ----------
+function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            const target = document.querySelector(targetId);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Atualiza URL sem pular
+                history.pushState(null, null, targetId);
+            }
+        });
+    });
+}
+
+// ---------- CONTADOR ANIMADO (Home) ----------
+function animateCounter(elementId, targetValue, duration = 1200) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+
+    let start = 0;
+    const step = targetValue / (duration / 16);
+
+    const timer = setInterval(() => {
+        start += step;
+        if (start >= targetValue) {
+            element.textContent = targetValue;
+            clearInterval(timer);
+        } else {
+            element.textContent = Math.floor(start);
+        }
+    }, 16);
+}
+
+function initHomeCounters() {
+    if (!document.getElementById('stat-systems')) return;
+    animateCounter('stat-systems', 4);
+    animateCounter('stat-groups', 10);
+    animateCounter('stat-topics', 39);
+}
+
+// ---------- INIT GERAL ----------
+document.addEventListener('DOMContentLoaded', () => {
+    initMobileMenu();
+    initAccordion();
+    initSidebarScroll();
+    initSmoothScroll();
+    initHomeCounters();
 });
