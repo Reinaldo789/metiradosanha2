@@ -1,46 +1,60 @@
+<!-- Atuador do Turboalimentador com falha (luz acesa) - MWM Sprint 2.8 -->
 <header class="art-head">
-  <span class="art-kicker">Diagnóstico · Atuadores</span>
-  <h1>Modulador da Turbina</h1>
-  <p class="art-lead">Atuador do turboalimentador, que controla a pressão de sobrealimentação.</p>
-  <div class="chips"><span>MWM Sprint 4.07 TCE</span><span>4 códigos</span><span>Manual de Diagnóstico V-3.4</span></div>
+  <span class="art-kicker">Sistema de Injeção · Diagnóstico</span>
+  <h1>Atuador do Turboalimentador (Modulador)</h1>
+  <p class="art-lead">Fluxograma de diagnóstico com a luz amarela acesa: responda Sim ou Não em cada passo até chegar à solução.</p>
+  <div class="chips"><span>MWM Sprint 2.8</span><span>S10 até 2011</span><span>P0243 · P0244 · P0245 · P0246</span></div>
 </header>
-<p>Escolha uma aba: os códigos de falha deste componente, os roteiros de diagnóstico do manual ou os cuidados antes de testar.</p>
 
-<h2 id="cod">Códigos de falha</h2>
-<div class="codigos">
-  <div class="codigo"><span class="num">P0243</span><div>
-    <h4>Atuador do Turboalimentador</h4>
-    <p><strong>Causa:</strong> Sinal do atuador do turboalimentador perdido</p>
-    <p>Possivelmente o conector do atuador esteja desligado, o chicote elétrico ou a válvula estejam com circuito aberto.</p>
-    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada Ao reconhecer a falha, o ECM desliga o modulador e seta a abertura da válvula em 50%, trabalhando no range abaixo de 2400 rpm e abaixo de 30 mg/ciclo. Através deste sinal o ECM controla a abertura do atuador do turboalimentador, possibilitando o controle da pressão no coletor de admissão.</p>
-  </div></div>
-  <div class="codigo"><span class="num">P0244</span><div>
-    <h4>Modulador do Turboalimentador</h4>
-    <p><strong>Causa:</strong> Temperatura elevada no CI de controle do atuador do turboalimentador</p>
-    <p>Houve um superaquecimento no circuito integrado, localizado dentro do ECM, que controla o sinal do atuador do turboalimentador. É possível que haja problemas no circuito do atuador do turboalimentador ou problemas no circuito do ECM. Caso seja necessário testar o circuito do atuador, utilizar a árvore referente ao Pcode P0245 e P0246. Se o circuito estiver funcionando adequadamente e a falha persistir, substituir o ECM.</p>
-    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada Ao reconhecer a falha, o ECM desliga o modulador e seta a abertura da válvula em 50%, trabalhando no range abaixo de 2400 rpm e abaixo de 30 mg/ciclo.</p>
-  </div></div>
-  <div class="codigo"><span class="num">P0245</span><div>
-    <h4>Atuador do Turboalimentador</h4>
-    <p><strong>Causa:</strong> Sinal de tensão baixa no atuador do turboalimentador</p>
-    <p>Foi detectado um sinal de tensão baixa no atuador do turboalimentador. É possível que a resistência do solenóide esteja alterada ou haja um curto-circuito ao negativo.</p>
-    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada Ao reconhecer a falha, o ECM desliga o modulador e seta a abertura da válvula em 50%, trabalhando no range abaixo de 2400rpm e abaixo de 30 mg/ciclo. Através deste sinal o ECM controla a abertura do atuador do turboalimentador, possibilitando o controle da pressão no coletor de admissão.</p>
-  </div></div>
-  <div class="codigo"><span class="num">P0246</span><div>
-    <h4>Atuador do Turboalimentador</h4>
-    <p><strong>Causa:</strong> Sinal de tensão alta no atuador do turboalimentador</p>
-    <p>Foi detectado um sinal de tensão elevada no modulador. É possível que a resistência do solenóide esteja alterada ou haja um curto-circuito ao positivo.</p>
-    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada Ao reconhecer a falha, o ECM desliga o modulador e seta a abertura da válvula em 50%, trabalhando no range abaixo de 2400 rpm e abaixo de 30 mg/ciclo. Através deste sinal o ECM controla a abertura do atuador do turboalimentador, possibilitando o controle da pressão no coletor de admissão.</p>
-  </div></div>
+<p>Use este roteiro quando a diagnose registrar P0243 (sinal perdido), P0244 (temperatura elevada no CI), P0245 (tensão baixa) ou P0246 (tensão alta). Sem o atuador, a pressão do turbo fica limitada e o motor perde potência.</p>
+
+<div class="aviso"><strong>Atenção</strong><p>O atuador do turbo é uma válvula eletromagnética que controla a passagem de vácuo para a waste-gate. É comandada pelo ECM e ajusta a pressão do ar na admissão.</p></div>
+
+<h2 id="fluxo">Fluxograma</h2>
+<div class="fluxo">
+  <div class="passo" id="p1"><span class="passo-n">Passo 1</span><p><strong>A ferramenta registrou P0243, P0244, P0245 ou P0246?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p2">Sim</button><button type="button" class="nao" data-ir="r1">Não</button></div></div>
+  <div class="passo fim acao" id="r1"><span class="passo-n">Outro código</span><p>Siga o fluxograma do código apresentado.</p></div>
+  <div class="passo" id="p2"><span class="passo-n">Passo 2</span><p>Desligue o conector do atuador do turbo. Ligue o contato, sem dar partida, e meça a tensão entre o negativo da bateria e o pino <strong>1</strong> do conector do atuador. <strong>O valor é igual à tensão da bateria?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p3">Sim</button><button type="button" class="nao" data-ir="r2">Não</button></div></div>
+  <div class="passo fim erro" id="r2"><span class="passo-n">Alimentação incorreta</span><ul><li>Meça a continuidade do fusível F29 e do pino 1 do atuador à base do fusível. Valores devem ser menores que 1 Ω;</li><li>Verifique tensão e terminais da bateria;</li><li>Providencie reparos e refaça o teste.</li></ul></div>
+  <div class="passo" id="p3"><span class="passo-n">Passo 3</span><p>Instale um frequentímetro entre o negativo da bateria e o pino <strong>2</strong> do conector do atuador. Ligue o contato sem dar partida. <strong>O valor está entre 300 Hz e 310 Hz?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p4">Sim</button><button type="button" class="nao" data-ir="r3">Não</button></div></div>
+  <div class="passo fim erro" id="r3"><span class="passo-n">Chicote interrompido</span><ul><li>Meça a continuidade do chicote entre o pino 2 do atuador e o pino A15 do conector do ECM (menor que 1 Ω);</li><li>Se o valor estiver OK, verifique alimentação elétrica do ECM;</li><li>Se o chicote estiver OK e a falha persistir, substitua o ECM.</li></ul></div>
+  <div class="passo" id="p4"><span class="passo-n">Passo 4</span><p>Meça a resistência do atuador do turbo entre os pinos 1 e 2. <strong>O valor está entre 14 Ω e 17 Ω?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r4">Sim</button><button type="button" class="nao" data-ir="r5">Não</button></div></div>
+  <div class="passo fim ok" id="r4"><span class="passo-n">Atuador OK</span><ul><li>Verifique mau contato ou oxidações nos conectores;</li><li>Apague os códigos de falha e refaça o teste;</li><li>Se não houver mais falhas, libere o veículo.</li></ul></div>
+  <div class="passo fim erro" id="r5"><span class="passo-n">Substituir atuador</span><ul><li>Substitua o atuador do turboalimentador;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
 </div>
 
-<h2 id="roteiro">Roteiros de diagnóstico</h2>
-<p>Fluxogramas do manual para cada código. Toque na imagem para ampliar.</p>
-<figure><img src="img/diagnostico/p94.jpg" alt="Roteiro P0243" loading="lazy"><figcaption>Roteiro P0243</figcaption></figure>
-<figure><img src="img/diagnostico/p96.jpg" alt="Roteiro P0244" loading="lazy"><figcaption>Roteiro P0244</figcaption></figure>
-<figure><img src="img/diagnostico/p98.jpg" alt="Roteiro P0245" loading="lazy"><figcaption>Roteiro P0245</figcaption></figure>
-<figure><img src="img/diagnostico/p100.jpg" alt="Roteiro P0246" loading="lazy"><figcaption>Roteiro P0246</figcaption></figure>
+<h2 id="valores">Valores e pinos</h2>
+<table><tr><th>Teste</th><th>Valor esperado</th></tr>
+<tr><td>Alimentação do atuador (pino 1)</td><td>tensão da bateria</td></tr>
+<tr><td>Frequência do sinal PWM (pino 2)</td><td>300 Hz a 310 Hz</td></tr>
+<tr><td>Resistência do atuador (pinos 1-2)</td><td>14 Ω a 17 Ω</td></tr>
+<tr><td>Fusível F29</td><td>menor que 1 Ω</td></tr></table>
 
-<h2 id="cuidados">Antes de testar</h2>
-<ol><li>Use pontas de prova apropriadas e desconecte o sensor ou o atuador antes de medir;</li><li>Confronte os terminais com o esquema do chicote e procure corrosão, umidade e terminais danificados;</li><li>Confira a fixação dos conectores e se não há curto com partes metálicas;</li><li>Verifique a bateria, os bornes, o cabo B+ e o regulador do alternador: tensão ruim gera falhas em vários componentes.</li></ol>
-<p>Mais detalhes em <a href="#sistema-de-injecao/sensores-e-atuadores">Sensores e Atuadores</a>.</p>
+<h3>Pinos do atuador e do ECM</h3>
+<table><tr><th>Pino do atuador</th><th>Pino do ECM / Origem</th><th>Função</th></tr>
+<tr><td>1</td><td>Pino 87 do relé principal (via F29)</td><td>Alimentação positiva</td></tr>
+<tr><td>2</td><td>A15</td><td>Sinal PWM de controle</td></tr></table>
+
+<div class="dica"><strong>Função do atuador</strong><p>Controla a válvula waste-gate do turbo. O ECM varia a largura de pulso (PWM) para regular a pressão do ar admitido, evitando excesso de pressão na admissão.</p></div>
+
+<h2 id="solucoes">Soluções comuns</h2>
+<ul>
+<li><strong>Conector com oxidação:</strong> limpe e reapente os terminais;</li>
+<li><strong>Fusível F29 queimado:</strong> substitua e refaça o teste;</li>
+<li><strong>Mangueiras de vácuo soltas ou rasgadas:</strong> verifique as conexões entre atuador, waste-gate e bomba de vácuo;</li>
+<li><strong>Bomba tandem (gerador de vácuo) com desgaste:</strong> teste a pressão negativa;</li>
+<li><strong>Atuador com resistência fora do especificado:</strong> substitua o atuador;</li>
+<li><strong>ECM com defeito:</strong> se chicote e atuador estiverem OK e a falha persistir, substitua o ECM.</li>
+</ul>
+
+<h2 id="codigos">Códigos relacionados</h2>
+<ul>
+<li><strong>P0243</strong>: Sinal do atuador perdido — válvula em 50%;</li>
+<li><strong>P0244</strong>: Temperatura elevada no CI do atuador — válvula em 50%;</li>
+<li><strong>P0245</strong>: Tensão baixa no atuador — válvula em 50%;</li>
+<li><strong>P0246</strong>: Tensão alta no atuador — válvula em 50%.</li>
+</ul>
