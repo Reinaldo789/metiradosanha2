@@ -1,7 +1,6 @@
 // ==========================================
-// GUIA TÉCNICO — menu.js
+// MENU E NAVEGAÇÃO
 // ==========================================
-
 const navItems = document.querySelectorAll('.nav-item');
 const mobileToggleBtn = document.getElementById('mobile-toggle-btn');
 const mainNav = document.getElementById('main-nav');
@@ -84,7 +83,7 @@ async function abrirPagina() {
     // 1) Aplica abas e melhorias
     melhorarArtigo();
 
-    // 2) ATIVA O FLUXOGRAMA (roda imediatamente, sem delay)
+    // 2) ATIVA O FLUXOGRAMA (usa classe .on, compatível com o style.css)
     ativarFluxograma();
 
   } catch (err) {
@@ -132,38 +131,28 @@ if (busca) {
 }
 
 // ==========================================
-// FLUXOGRAMA INTERATIVO
+// FLUXOGRAMA INTERATIVO — usa classe .on (compatível com o style.css)
 // ==========================================
 function ativarFluxograma() {
   const fluxos = document.querySelectorAll('.fluxo');
-  if (!fluxos.length) {
-    console.log('Nenhum fluxograma encontrado na página.');
-    return;
-  }
-  console.log('Fluxogramas encontrados:', fluxos.length);
+  if (!fluxos.length) return;
 
-  fluxos.forEach((fluxo, index) => {
+  fluxos.forEach((fluxo) => {
     const passos = fluxo.querySelectorAll('.passo');
-    console.log(`Fluxo ${index + 1}: ${passos.length} passos`);
     if (!passos.length) return;
 
-    // Esconde todos os passos, exceto o primeiro
+    // Ativa apenas o primeiro passo
     passos.forEach((p, i) => {
-      if (i === 0) {
-        p.removeAttribute('hidden');
-        p.style.display = ''; // Garante que o primeiro aparece
-      } else {
-        p.setAttribute('hidden', '');
-        p.style.display = 'none'; // Força o esconder
-      }
+      if (i === 0) p.classList.add('on');
+      else p.classList.remove('on');
     });
 
-    // Remove listener antigo (evita duplicar cliques)
+    // Remove handler antigo para evitar duplicar cliques
     if (fluxo._handler) {
       fluxo.removeEventListener('click', fluxo._handler);
     }
 
-    // Cria o handler de clique
+    // Cria o handler
     fluxo._handler = function (e) {
       const btn = e.target.closest('.resp button[data-ir]');
       if (!btn) return;
@@ -172,22 +161,15 @@ function ativarFluxograma() {
 
       const targetId = btn.getAttribute('data-ir');
       const target = document.getElementById(targetId);
-      if (!target) {
-        console.warn('Passo de destino não encontrado:', targetId);
-        return;
-      }
+      if (!target) return;
 
-      // Esconde todos
-      passos.forEach(p => {
-        p.setAttribute('hidden', '');
-        p.style.display = 'none';
-      });
+      // Remove .on de todos os passos
+      passos.forEach(p => p.classList.remove('on'));
 
-      // Mostra o destino
-      target.removeAttribute('hidden');
-      target.style.display = 'block';
+      // Adiciona .on apenas no passo de destino
+      target.classList.add('on');
 
-      // Rola até o passo
+      // Scroll suave até o passo mostrado
       setTimeout(() => {
         target.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }, 50);
@@ -203,6 +185,7 @@ function ativarFluxograma() {
 function melhorarArtigo() {
   if (card.querySelector('.art-head')) card.querySelector(':scope > h1')?.remove();
 
+  // Corrige imagens que não carregam
   card.querySelectorAll('img').forEach(img => {
     img.addEventListener('error', () => {
       const d = document.createElement('div');
@@ -213,6 +196,7 @@ function melhorarArtigo() {
     }, { once: true });
   });
 
+  // Trio (3 colunas) viram mini abas
   card.querySelectorAll('.trio').forEach(trio => {
     const cols = [...trio.children];
     const bar = document.createElement('div');
@@ -234,7 +218,8 @@ function melhorarArtigo() {
 
   card.querySelectorAll('.codigos').forEach(c => c.classList.add('enh'));
 
-  // ⚠️ Só cria abas se NÃO houver fluxograma na página
+  // Só cria abas se NÃO houver fluxograma na página
+  // (o fluxograma precisa ficar visível diretamente, sem abas)
   const temFluxo = card.querySelector('.fluxo');
   const h2s = [...card.querySelectorAll(':scope > h2')];
 
@@ -264,6 +249,61 @@ function ativarAba(bar, panels, i) {
   [...bar.children].forEach((b, j) => b.classList.toggle('on', j === i));
   panels.forEach((p, j) => p.classList.toggle('on', j === i));
 }
+
+// ==========================================
+// ABAS, ACORDEÕES E IMAGENS (para artigos sem fluxograma)
+// ==========================================
+const lb = document.createElement('dialog');
+lb.className = 'lightbox';
+lb.innerHTML = '<button type="button" class="lb-close" aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button><img alt=""><p></p>';
+document.body.append(lb);
+const lbImg = lb.querySelector('img');
+const lbTxt = lb.querySelector('p');
+
+function abrirImagem(src, legenda) {
+  lbImg.hidden = false;
+  lbImg.src = src;
+  lbImg.alt = legenda;
+  lbTxt.textContent = legenda;
+  lb.showModal();
+}
+lbImg.addEventListener('error', () => {
+  lbImg.hidden = true;
+  lbTxt.textContent = 'Imagem ainda não adicionada: ' + lbTxt.textContent;
+});
+lb.addEventListener('click', e => {
+  if (e.target === lb || e.target.closest('.lb-close')) lb.close();
+});
+
+function rolarPara(el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+
+card.addEventListener('click', e => {
+  const tab = e.target.closest('.mini-tabs button, .art-tabs button');
+  if (tab) {
+    const bar = tab.parentElement;
+    const principal = bar.classList.contains('art-tabs');
+    const panels = [...bar.parentElement.querySelectorAll(principal ? ':scope > .art-panel' : ':scope > .mini-panel')];
+    const idx = [...bar.children].indexOf(tab);
+    ativarAba(bar, panels, idx);
+    if (principal) rolarPara(window.innerWidth <= 960 ? panels[idx] : bar);
+    return;
+  }
+  const nav = e.target.closest('[data-aba]');
+  if (nav) {
+    const bar = card.querySelector('.art-tabs');
+    const panels = [...card.querySelectorAll(':scope > .art-panel')];
+    ativarAba(bar, panels, +nav.dataset.aba);
+    rolarPara(panels[+nav.dataset.aba]);
+    return;
+  }
+  if (e.target.closest('[data-indice]')) { rolarPara(card.querySelector('.art-index-title')); return; }
+  const cod = e.target.closest('.codigos.enh .codigo');
+  if (cod && !e.target.closest('a')) { cod.classList.toggle('open'); return; }
+  const link = e.target.closest('a.img-link');
+  if (link) { e.preventDefault(); abrirImagem(link.href, link.textContent.trim()); return; }
+  const im = e.target.closest('img');
+  if (im) abrirImagem(im.currentSrc || im.src, im.alt);
+});
 
 // ==========================================
 // INICIALIZA NA PRIMEIRA CARGA
