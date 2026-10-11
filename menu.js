@@ -1,14 +1,15 @@
+// ==========================================
+// GUIA TÉCNICO — menu.js
+// ==========================================
+
 const navItems = document.querySelectorAll('.nav-item');
 const mobileToggleBtn = document.getElementById('mobile-toggle-btn');
 const mainNav = document.getElementById('main-nav');
-const toggleIcon = mobileToggleBtn.querySelector('i');
+const toggleIcon = mobileToggleBtn ? mobileToggleBtn.querySelector('i') : null;
 
-// ==========================================
-// LÓGICA DO MENU MOBILE
-// ==========================================
+// ---------- MENU MOBILE ----------
 navItems.forEach(item => {
   const btn = item.querySelector('.nav-btn');
-  
   btn.addEventListener('click', (e) => {
     if (window.innerWidth <= 960) {
       e.preventDefault();
@@ -17,44 +18,35 @@ navItems.forEach(item => {
   });
 });
 
-mobileToggleBtn.addEventListener('click', (e) => {
-  e.stopPropagation();
-  const isOpen = mainNav.classList.toggle('active');
-  
-  if (isOpen) {
-    document.body.style.overflow = 'hidden';
-  } else {
-    document.body.style.overflow = '';
-  }
+if (mobileToggleBtn) {
+  mobileToggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = mainNav.classList.toggle('active');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    if (isOpen) {
+      toggleIcon.classList.remove('fa-bars');
+      toggleIcon.classList.add('fa-xmark');
+    } else {
+      toggleIcon.classList.remove('fa-xmark');
+      toggleIcon.classList.add('fa-bars');
+      navItems.forEach(item => item.classList.remove('active'));
+    }
+  });
+}
 
-  if (isOpen) {
-    toggleIcon.classList.remove('fa-bars');
-    toggleIcon.classList.add('fa-xmark');
-  } else {
-    toggleIcon.classList.remove('fa-xmark');
-    toggleIcon.classList.add('fa-bars');
-    navItems.forEach(item => item.classList.remove('active'));
-  }
-});
-
-// ==========================================
-// BOTÃO VOLTAR AO TOPO
-// ==========================================
+// ---------- BOTÃO VOLTAR AO TOPO ----------
 const btnTop = document.getElementById('btn-top');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 150) {
-    btnTop.classList.add('visible');
-  } else {
-    btnTop.classList.remove('visible');
-  }
-});
-
-btnTop.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+if (btnTop) {
+  window.addEventListener('scroll', () => {
+    btnTop.classList.toggle('visible', window.scrollY > 150);
+  });
+  btnTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
 
 // ==========================================
-// CARREGAR PÁGINAS DE conteudo/<menu>/<item>.html
+// CARREGAR PÁGINAS
 // ==========================================
 const home = document.getElementById('home-box');
 const card = document.getElementById('page-card');
@@ -63,9 +55,9 @@ async function abrirPagina() {
   const path = decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '');
   document.querySelectorAll('.mega-link-item.active').forEach(a => a.classList.remove('active'));
 
-  // sem rota válida = Home
   if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
-    card.hidden = true; home.hidden = false;
+    card.hidden = true;
+    home.hidden = false;
     return;
   }
 
@@ -77,7 +69,8 @@ async function abrirPagina() {
       ? link.closest('.mega-explore-side').querySelector('h5').textContent.trim()
       : link.textContent.trim();
 
-  home.hidden = true; card.hidden = false;
+  home.hidden = true;
+  card.hidden = false;
   card.innerHTML = '<p class="page-loading">Carregando...</p>';
   window.scrollTo({ top: 0 });
 
@@ -85,17 +78,20 @@ async function abrirPagina() {
     const resp = await fetch(`conteudo/${path}.html`);
     if (!resp.ok) throw new Error(`Página não encontrada (${resp.status})`);
     const corpo = await resp.text();
-    if (decodeURIComponent(location.hash.slice(1)) !== path) return;
+
     card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div><h1>${titulo}</h1>${corpo}`;
+
+    // 1) Aplica abas e melhorias
     melhorarArtigo();
-    // Aguarda o DOM atualizar e inicializa o fluxograma
-    setTimeout(initFluxograma, 150);
+
+    // 2) ATIVA O FLUXOGRAMA (roda imediatamente, sem delay)
+    ativarFluxograma();
+
   } catch (err) {
-    card.innerHTML = `<h1>Erro</h1><p>${err.message}. Se estiver abrindo o arquivo direto no computador, use um servidor (GitHub Pages ou <code>python -m http.server</code>).</p>`;
+    card.innerHTML = `<h1>Erro</h1><p>${err.message}</p>`;
   }
 }
 
-// clicou num item: fecha o menu (celular) ou o painel (desktop)
 document.querySelectorAll('.mega-menu a').forEach(a => {
   a.addEventListener('click', () => {
     if (window.innerWidth <= 960) {
@@ -109,21 +105,9 @@ document.querySelectorAll('.mega-menu a').forEach(a => {
 });
 
 window.addEventListener('hashchange', abrirPagina);
-abrirPagina();
 
 // ==========================================
-// ÍNDICE INTERNO DOS ARTIGOS
-// ==========================================
-card.addEventListener('click', (e) => {
-  const alvo = e.target.closest('[data-goto]');
-  if (!alvo) return;
-  e.preventDefault();
-  const el = document.getElementById(alvo.dataset.goto);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-});
-
-// ==========================================
-// BUSCA DA PÁGINA INICIAL
+// BUSCA NA HOME
 // ==========================================
 const busca = document.getElementById('home-search');
 const resultados = document.getElementById('home-results');
@@ -148,37 +132,74 @@ if (busca) {
 }
 
 // ==========================================
-// ARTIGOS: abas, acordeão, imagens e caixa de diálogo
+// FLUXOGRAMA INTERATIVO
 // ==========================================
-const lb = document.createElement('dialog');
-lb.className = 'lightbox';
-lb.innerHTML = '<button type="button" class="lb-close" aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button><img alt=""><p></p>';
-document.body.append(lb);
-const lbImg = lb.querySelector('img');
-const lbTxt = lb.querySelector('p');
+function ativarFluxograma() {
+  const fluxos = document.querySelectorAll('.fluxo');
+  if (!fluxos.length) {
+    console.log('Nenhum fluxograma encontrado na página.');
+    return;
+  }
+  console.log('Fluxogramas encontrados:', fluxos.length);
 
-function abrirImagem(src, legenda) {
-  lbImg.hidden = false;
-  lbImg.src = src;
-  lbImg.alt = legenda;
-  lbTxt.textContent = legenda;
-  lb.showModal();
+  fluxos.forEach((fluxo, index) => {
+    const passos = fluxo.querySelectorAll('.passo');
+    console.log(`Fluxo ${index + 1}: ${passos.length} passos`);
+    if (!passos.length) return;
+
+    // Esconde todos os passos, exceto o primeiro
+    passos.forEach((p, i) => {
+      if (i === 0) {
+        p.removeAttribute('hidden');
+        p.style.display = ''; // Garante que o primeiro aparece
+      } else {
+        p.setAttribute('hidden', '');
+        p.style.display = 'none'; // Força o esconder
+      }
+    });
+
+    // Remove listener antigo (evita duplicar cliques)
+    if (fluxo._handler) {
+      fluxo.removeEventListener('click', fluxo._handler);
+    }
+
+    // Cria o handler de clique
+    fluxo._handler = function (e) {
+      const btn = e.target.closest('.resp button[data-ir]');
+      if (!btn) return;
+      e.preventDefault();
+      e.stopPropagation();
+
+      const targetId = btn.getAttribute('data-ir');
+      const target = document.getElementById(targetId);
+      if (!target) {
+        console.warn('Passo de destino não encontrado:', targetId);
+        return;
+      }
+
+      // Esconde todos
+      passos.forEach(p => {
+        p.setAttribute('hidden', '');
+        p.style.display = 'none';
+      });
+
+      // Mostra o destino
+      target.removeAttribute('hidden');
+      target.style.display = 'block';
+
+      // Rola até o passo
+      setTimeout(() => {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 50);
+    };
+
+    fluxo.addEventListener('click', fluxo._handler);
+  });
 }
-lbImg.addEventListener('error', () => {
-  lbImg.hidden = true;
-  lbTxt.textContent = 'Imagem ainda não adicionada: ' + lbTxt.textContent;
-});
-lb.addEventListener('click', e => {
-  if (e.target === lb || e.target.closest('.lb-close')) lb.close();
-});
 
-function rolarPara(el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-
-function ativarAba(bar, panels, i) {
-  [...bar.children].forEach((b, j) => b.classList.toggle('on', j === i));
-  panels.forEach((p, j) => p.classList.toggle('on', j === i));
-}
-
+// ==========================================
+// MELHORAR ARTIGO (abas e acordeões)
+// ==========================================
 function melhorarArtigo() {
   if (card.querySelector('.art-head')) card.querySelector(':scope > h1')?.remove();
 
@@ -198,6 +219,7 @@ function melhorarArtigo() {
     bar.className = 'mini-tabs';
     cols.forEach(c => {
       const h = c.querySelector('h4');
+      if (!h) return;
       const b = document.createElement('button');
       b.type = 'button';
       b.textContent = h.textContent;
@@ -212,11 +234,13 @@ function melhorarArtigo() {
 
   card.querySelectorAll('.codigos').forEach(c => c.classList.add('enh'));
 
+  // ⚠️ Só cria abas se NÃO houver fluxograma na página
+  const temFluxo = card.querySelector('.fluxo');
   const h2s = [...card.querySelectorAll(':scope > h2')];
-  if (h2s.length >= 3) {
+
+  if (h2s.length >= 3 && !temFluxo) {
     const bar = document.createElement('div');
     bar.className = 'art-tabs';
-    bar.setAttribute('role', 'tablist');
     const panels = h2s.map((h, i) => {
       const sec = document.createElement('section');
       sec.className = 'art-panel';
@@ -231,97 +255,19 @@ function melhorarArtigo() {
       bar.append(b);
       return sec;
     });
-    panels.forEach((p, i) => {
-      const nav = document.createElement('div');
-      nav.className = 'aba-nav';
-      nav.innerHTML =
-        (i > 0 ? `<button type="button" data-aba="${i - 1}">← ${h2s[i - 1].textContent}</button>` : '<span></span>') +
-        '<button type="button" data-indice>↑ Índice</button>' +
-        (i < panels.length - 1 ? `<button type="button" data-aba="${i + 1}">${h2s[i + 1].textContent} →</button>` : '<span></span>');
-      p.append(nav);
-    });
-    const lab = document.createElement('p');
-    lab.className = 'art-index-title';
-    lab.textContent = 'Neste artigo — toque numa seção';
-    panels[0].before(lab, bar);
-    card.querySelector('.toc')?.remove();
+    panels[0].before(bar);
     ativarAba(bar, panels, 0);
   }
 }
 
-card.addEventListener('click', e => {
-  const tab = e.target.closest('.mini-tabs button, .art-tabs button');
-  if (tab) {
-    const bar = tab.parentElement;
-    const principal = bar.classList.contains('art-tabs');
-    const panels = [...bar.parentElement.querySelectorAll(principal ? ':scope > .art-panel' : ':scope > .mini-panel')];
-    const idx = [...bar.children].indexOf(tab);
-    ativarAba(bar, panels, idx);
-    if (principal) rolarPara(window.innerWidth <= 960 ? panels[idx] : bar);
-    return;
-  }
-  const nav = e.target.closest('[data-aba]');
-  if (nav) {
-    const bar = card.querySelector('.art-tabs');
-    const panels = [...card.querySelectorAll(':scope > .art-panel')];
-    ativarAba(bar, panels, +nav.dataset.aba);
-    rolarPara(panels[+nav.dataset.aba]);
-    return;
-  }
-  if (e.target.closest('[data-indice]')) { rolarPara(card.querySelector('.art-index-title')); return; }
-  const cod = e.target.closest('.codigos.enh .codigo');
-  if (cod && !e.target.closest('a')) { cod.classList.toggle('open'); return; }
-  const link = e.target.closest('a.img-link');
-  if (link) { e.preventDefault(); abrirImagem(link.href, link.textContent.trim()); return; }
-  const im = e.target.closest('img');
-  if (im) abrirImagem(im.currentSrc || im.src, im.alt);
-});
-
-// ==========================================
-// FLUXOGRAMA INTERATIVO
-// (motor-nao-acelera, sensor-pressao-rail, valvula-mprop, etc.)
-// ==========================================
-function initFluxograma() {
-  const fluxo = document.querySelector('.fluxo');
-  if (!fluxo) return;
-
-  const passos = fluxo.querySelectorAll('.passo');
-  if (!passos.length) return;
-
-  // Esconde todos, exceto o primeiro
-  passos.forEach((p, i) => {
-    if (i === 0) {
-      p.removeAttribute('hidden');
-    } else {
-      p.setAttribute('hidden', '');
-    }
-  });
-
-  // Remove listener antigo se existir (evita duplicar)
-  if (fluxo._fluxoClickHandler) {
-    fluxo.removeEventListener('click', fluxo._fluxoClickHandler);
-  }
-
-  // Delegação de evento para os botões Sim/Não
-  fluxo._fluxoClickHandler = (e) => {
-    const btn = e.target.closest('.resp button[data-ir]');
-    if (!btn) return;
-
-    const targetId = btn.getAttribute('data-ir');
-    const target = document.getElementById(targetId);
-    if (!target) return;
-
-    // Esconde todos os passos
-    passos.forEach(p => p.setAttribute('hidden', ''));
-
-    // Mostra o passo de destino
-    target.removeAttribute('hidden');
-
-    // Scroll suave até o passo mostrado
-    setTimeout(() => {
-      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 80);
-  };
-
-  fluxo.addEventListener('click', fluxo._fluxoClickHandler);
+function ativarAba(bar, panels, i) {
+  [...bar.children].forEach((b, j) => b.classList.toggle('on', j === i));
+  panels.forEach((p, j) => p.classList.toggle('on', j === i));
 }
+
+// ==========================================
+// INICIALIZA NA PRIMEIRA CARGA
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+  abrirPagina();
+});
