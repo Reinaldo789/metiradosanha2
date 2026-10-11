@@ -1,95 +1,65 @@
+<!-- Sensor de Pressão/Temperatura do Ar de Admissão com falha - MWM Sprint 2.8 -->
 <header class="art-head">
-  <span class="art-kicker">Diagnóstico · Sensores</span>
-  <h1>Sensor de Pressão e Temperatura da Admissão</h1>
-  <p class="art-lead">Pressão e temperatura do ar no coletor de admissão e pressão atmosférica.</p>
-  <div class="chips"><span>MWM Sprint 4.07 TCE</span><span>11 códigos</span><span>Manual de Diagnóstico V-3.4</span></div>
+  <span class="art-kicker">Sistema de Injeção · Diagnóstico</span>
+  <h1>Sensor de Pressão/Temperatura do Ar de Admissão</h1>
+  <p class="art-lead">Fluxograma de diagnóstico com a luz amarela acesa: responda Sim ou Não em cada passo até chegar à solução.</p>
+  <div class="chips"><span>MWM Sprint 2.8</span><span>S10 até 2011</span><span>P0112 · P0113 · P0237 · P0238</span></div>
 </header>
-<p>Escolha uma aba: os códigos de falha deste componente, os roteiros de diagnóstico do manual ou os cuidados antes de testar.</p>
 
-<h2 id="cod">Códigos de falha</h2>
-<div class="codigos">
-  <div class="codigo"><span class="num">P0106</span><div>
-    <h4>Sensor de Pressão Atmosférica</h4>
-    <p><strong>Causa:</strong> Incoerência entre a pressão atmosférica e a pressão do coletor de admissão</p>
-    <p>Foi detectado uma incoerência entre as informações enviadas pelos sensores de pressão atmosférica e o sensor de pressão do coletor de admissão. O sensor de pressão atmosférica é parte integrante do ECM. É possível que o sensor de pressão atmosférica, sensor de pressão do coletor, atuador do turboalimentador ou o funcionamento da turbina estejam alterados.</p>
-    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada Ao reconhecer a falha, o ECM não avalia qual dos sensores está avariado (pressão atmosférica ou pressão de admissão) a faz a setagem dos erros de ambos os sensores. É adotado um valor padrão para a pressão atmosférica de 800hPa. Este sinal é utilizado pelo ECM para utilizar mapas de injeção em função da altitude para proteção do turboalimentador e motor.</p>
-  </div></div>
-  <div class="codigo"><span class="num">P0107</span><div>
-    <h4>Sensor de Pressão Atmosférica</h4>
-    <p><strong>Causa:</strong> Tensão baixa no sensor de pressão atmosférica.</p>
-    <p>Foi identificado uma tensão abaixo do especificado no sensor de pressão atmosférica, instalado no interior do ECM. Verificar se a alimentação positiva e negativa do ECM estão adequadas, se necessário consulte as folhas 1 a 5 das verificações preliminares. Se a alimentação elétrica do ECM estiver adequada e a falha persistir, substitua o ECM.</p>
-    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada Ao reconhecer a falha, se a rotação do motor estiver abaixo de 700 rpm, a pressão de admissão será usada como valor de substituição. Caso o sensor de pressão de admissão esteja também com defeito, será adotado um valor padrão para a pressão atmosférica de 800hPa. Este sinal é utilizado pelo ECM para utilizar mapas de injeção em função da altitude para proteção do turboalimentador e motor.</p>
-  </div></div>
-  <div class="codigo"><span class="num">P0108</span><div>
-    <h4>Sensor de Pressão Atmosférica</h4>
-    <p><strong>Causa:</strong> Tensão alta no sensor de pressão atmosférica</p>
-    <p>Foi identificado um valor de tensão acima do especificado no sensor de pressão atmosférica, instalado no interior do ECM. Verificar a tensão de alimentação do ECM, se necessário consultar as orientações referentes as verificações preliminares, folha 1 a 5, se não houver problema na alimentação elétrica, substitua o ECM.</p>
-    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada Ao reconhecer a falha, se a rotação do motor estiver abaixo de 700 rpm, a pressão de admissão será usada como valor de substituição. Caso o sensor de pressão de admissão esteja também com defeito, será adotado um valor padrão para a pressão atmosférica de 800hPa. Este sinal é utilizado pelo ECM para utilizar mapas de injeção em função da altitude para proteção do turboalimentador e motor.</p>
-  </div></div>
-  <div class="codigo"><span class="num">P0112</span><div>
-    <h4>Temperatura de Ar do Coletor de Admissão</h4>
-    <p><strong>Causa:</strong> Sinal de tensão baixa no sensor de temperatura do ar de admissão</p>
-    <p>Foi detectado um sinal de tensão baixa, proveniente do sensor. É possível que a resistência do sensor esteja alterada ou haja um curto-circuito ao terra.</p>
-    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada Ao reconhecer a falha, o ECM assume valor de substituição de 40°C. Este sinal é utilizado pelo ECM para calcular a massa de ar admitida e: Definir tempo de injeção; Calcular ângulo de início de injeção.</p>
-  </div></div>
-  <div class="codigo"><span class="num">P0113</span><div>
-    <h4>Temperatura de Ar do Coletor de Admissão</h4>
-    <p><strong>Causa:</strong> Sinal de tensão elevada no sensor de temperatura do ar de admissão</p>
-    <p>Foi detectado um sinal de tensão elevada, proveniente do sensor. É possível que a resistência do sensor esteja alterada, o conector desligado ou haja um curto-circuito ao positivo do sensor .</p>
-    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada Ao reconhecer a falha, o ECM assume valor de substituição de 40°C. Este sinal é utilizado pelo ECM para calcular a massa de ar admitida e: Definir tempo de injeção; Calcular ângulo de início de injeção.</p>
-  </div></div>
-  <div class="codigo"><span class="num">P0234</span><div>
-    <h4>Sensor de Pressão do Ar no Coletor de Admissão</h4>
-    <p><strong>Causa:</strong> Pressão no coletor de admissão acima do solicitado pelo sistema.</p>
-    <p>A pressão lida no coletor de admissão está acima do especificado para o regime de funcionamento do motor. Verificar o funcionamento da turbina e do atuador do turboalimentador. Verificar as mangueiras de interligação do atuador do turboalimentador com a turbina e a bomba tanden (gerador de depressão).</p>
-    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada Ao reconhecer a falha, o ECM desliga o modulador e seta a abertura da válvula em 40%, acima de 2400 rpm e 30mg/ciclo. Trata-se de uma função de software para gerenciar ação da válvula controle do atuador do turbo, regulando a pressão do ar no coletor de admissão.</p>
-  </div></div>
-  <div class="codigo"><span class="num">P0235</span><div>
-    <h4>Sensor de Pressão do Ar no Coletor de Admissão</h4>
-    <p><strong>Causa:</strong> Sinal do sensor de pressão do coletor de admissão perdido</p>
-    <p>O ECM identificou a ausência do sinal do sensor de pressão do coletor de admissão. Possivelmente o chicote elétrico ou o sensor esteja com circuito aberto, sem ligação com o ECM.</p>
-    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada Ao reconhecer a falha, a pressão interna inibe o cálculo de pressão atmosférica através da pressão de admissão e utiliza um valor de substituição de 800 hPa. A regulação do modulador do turbo é desligada e a abertura da válvula é calibrada para 40%, trabalhando no range abaixo de 2400 rpm e abaixo de 30mg/ciclo. Este sinal é utilizado pelo ECM para calcular a massa de ar admitida e: • • • Definir o tempo de injeção; Calcular ângulo de início de injeção; Como proteção no mapa de emissões.</p>
-  </div></div>
-  <div class="codigo"><span class="num">P0236</span><div>
-    <h4>Sensor de Pressão do Ar no Coletor de Admissão</h4>
-    <p><strong>Causa:</strong> Valor de pressão no coletor de admissão não plausível</p>
-    <p>O ECM identificou que a informação da pressão no coletor de admissão é incoerente com o regime de funcionamento do motor. É possível que o sensor de pressão de ar esteja com defeito, há mau contato ou oxidações nos conectores ou interferência eletromagnética no chicote.</p>
-    <p><strong>Reação do ECM:</strong> Ao reconhecer a falha, o ECM utiliza um valor de substituição do mapa de fumaça padrão de 1000 hPa. Luz amarela de advertência é acionada Esta pressão inibe o cálculo de pressão atmosférica através da pressão de admissão e utiliza um valor de substituição de 800 hPa. A regulação do modulador do turbo é desligada e a abertura da válvula é calibrada para 40%, trabalhando no range abaixo de 2400 rpm e abaixo de 30mg/ciclo. Este sinal é utilizado pelo ECM para calcular a massa de ar admitida e: • • • Definir o tempo de injeção; Calcular ângulo de início de injeção; Como proteção no mapa de emissões.</p>
-  </div></div>
-  <div class="codigo"><span class="num">P0237</span><div>
-    <h4>Sensor de Pressão do Ar no Coletor de Admissão</h4>
-    <p><strong>Causa:</strong> Sinal de tensão baixa no sensor de pressão do coletor de admissão</p>
-    <p>Foi detectado um sinal de baixa tensão não compatível com os sinais dos demais sensores. É possível que a resistência do sensor esteja alterado a alimentação do sensor desligado ou há um curto-circuito ao terra.</p>
-    <p><strong>Reação do ECM:</strong> Ao reconhecer a falha, o ECM utiliza um valor de substituição do mapa de fumaça padrão de 1000 hPa. Luz amarela de advertência é acionada Esta pressão inibe o cálculo de pressão atmosférica através da pressão de admissão e utiliza um valor de substituição de 800 hPa. A regulação do modulador do turbo é desligada e a abertura da válvula é calibrada para 40%, trabalhando no range abaixo de 2400 rpm e abaixo de 30 mg/ciclo. Este sinal é utilizado pelo ECM para calcular a massa de ar admitida e: • • • Definir o tempo de injeção; Calcular ângulo de início de injeção; Como proteção no mapa de emissões.</p>
-  </div></div>
-  <div class="codigo"><span class="num">P0238</span><div>
-    <h4>Sensor de Pressão do Ar no Coletor de Admissão</h4>
-    <p><strong>Causa:</strong> Sinal de tensão alta no sensor de pressão do coletor de admissão</p>
-    <p>Foi detectado um sinal de tensão elevada não compatível com os sinais dos demais sensores. É possível que a resistência do sensor esteja alterada, conector desligado ou um curto-circuito ao positivo.</p>
-    <p><strong>Reação do ECM:</strong> Ao reconhecer a falha, o ECM utiliza um valor de substituição do mapa de fumaça padrão de 1000 hPa. Luz amarela de advertência é acionada Esta pressão inibe o cálculo de pressão atmosférica através da pressão de admissão e utiliza um valor de substituição de 800 hPa. A regulação do modulador do turbo é desligada e a abertura da válvula é calibrada para 40%, trabalhando no range abaixo de 2400 rpm e abaixo de 30 mg/ciclo. Este sinal é utilizado pelo ECM para calcular a massa de ar admitida e: • • • Definir o tempo de injeção; Calcular ângulo de início de injeção; Como proteção no mapa de emissões.</p>
-  </div></div>
-  <div class="codigo"><span class="num">P0299</span><div>
-    <h4>Sensor de Pressão do Ar no Coletor de Admissão</h4>
-    <p><strong>Causa:</strong> Pressão no coletor de admissão abaixo do solicitado pelo sistema</p>
-    <p>A pressão lida no coletor de admissão está abaixo do especificado para o regime de funcionamento do motor. Verificar o funcionamento da turbina e do atuador do turboalimentador.</p>
-    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada Ao reconhecer a falha, o ECM desliga o modulador e seta a abertura da válvula em 40%, acima de 2400 rpm e 30mg/ciclo. Trata-se de uma função de software para gerenciar ação da válvula controle do atuador do turbo, regulando a pressão do ar no coletor de admissão.</p>
-  </div></div>
+<p>Use este roteiro quando a diagnose registrar falhas de tensão baixa/alta nos circuitos de pressão ou temperatura do ar. O ECM assume valor substituto quando o sinal falha.</p>
+
+<h2 id="fluxo">Fluxograma</h2>
+<div class="fluxo">
+  <div class="passo" id="p1"><span class="passo-n">Passo 1</span><p><strong>A ferramenta registrou P0112, P0113, P0237 ou P0238?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p2">Sim</button><button type="button" class="nao" data-ir="r1">Não</button></div></div>
+  <div class="passo fim acao" id="r1"><span class="passo-n">Outro código</span><p>Siga o fluxograma do código apresentado.</p></div>
+  <div class="passo" id="p2"><span class="passo-n">Passo 2</span><p>Verifique visualmente o conector do sensor na curva de admissão. Há <strong>oxidação, umidade ou terminais tortos</strong>?</p>
+    <div class="resp"><button type="button" class="sim" data-ir="r2">Sim</button><button type="button" class="nao" data-ir="p3">Não</button></div></div>
+  <div class="passo fim erro" id="r2"><span class="passo-n">Corrigir conector</span><ul><li>Limpe e reapente os terminais;</li><li>Apague os códigos e repita o teste.</li></ul></div>
+  <div class="passo" id="p3"><span class="passo-n">Passo 3</span><p>Desligue o conector do sensor. Ligue o contato, sem dar partida, e meça a tensão entre os pinos <strong>1 e 3</strong>. <strong>O valor é 5 V?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p4">Sim</button><button type="button" class="nao" data-ir="r3">Não</button></div></div>
+  <div class="passo fim erro" id="r3"><span class="passo-n">Alimentação incorreta</span><ul><li>Verifique continuidade entre pino 3 do sensor e pino A13 do ECM;</li><li>Verifique continuidade entre pino 1 do sensor e pino A23 do ECM;</li><li>Providencie os reparos necessários.</li></ul></div>
+  <div class="passo" id="p4"><span class="passo-n">Passo 4</span><p>Verifique a continuidade do chicote entre os pinos <strong>2 e 4</strong> do sensor e os pinos <strong>A40 e A53</strong> do ECM. <strong>O valor é menor que 1 Ω?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p5">Sim</button><button type="button" class="nao" data-ir="r4">Não</button></div></div>
+  <div class="passo fim erro" id="r4"><span class="passo-n">Chicote interrompido</span><ul><li>Repare ou substitua o chicote;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+  <div class="passo" id="p5"><span class="passo-n">Passo 5</span><p>Verifique o <strong>curto-circuito</strong> entre os pinos 2 e 4 do sensor e o terra. <strong>Existe continuidade?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r5">Sim</button><button type="button" class="nao" data-ir="p6">Não</button></div></div>
+  <div class="passo fim erro" id="r5"><span class="passo-n">Curto-circuito</span><ul><li>Repare o chicote;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+  <div class="passo" id="p6"><span class="passo-n">Passo 6</span><p>Ligue o motor em marcha-lenta. Leia a <strong>pressão do coletor</strong> na tela "Status do Motor". <strong>O valor está entre 0,8 e 1,0 bar?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p7">Sim</button><button type="button" class="nao" data-ir="r6">Não</button></div></div>
+  <div class="passo fim erro" id="r6"><span class="passo-n">Pressão fora do esperado</span><ul><li>Substitua o sensor de pressão/temperatura do ar;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+  <div class="passo" id="p7"><span class="passo-n">Passo 7</span><p>Compare os valores de pressão do coletor com a pressão atmosférica (motor parado, chave ligada). <strong>Estão próximos?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r7">Sim</button><button type="button" class="nao" data-ir="r8">Não</button></div></div>
+  <div class="passo fim ok" id="r7"><span class="passo-n">Sensor OK</span><ul><li>Apague os códigos de falha;</li><li>Se não houver mais falhas, libere o veículo.</li></ul></div>
+  <div class="passo fim erro" id="r8"><span class="passo-n">Verificar ECM</span><ul><li>Se a leitura de pressão atmosférica estiver incoerente, substitua o ECM;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
 </div>
 
-<h2 id="roteiro">Roteiros de diagnóstico</h2>
-<p>Fluxogramas do manual para cada código. Toque na imagem para ampliar.</p>
-<figure><img src="img/diagnostico/p48.jpg" alt="Roteiro P0106" loading="lazy"><figcaption>Roteiro P0106</figcaption></figure>
-<figure><img src="img/diagnostico/p50.jpg" alt="Roteiro P0107" loading="lazy"><figcaption>Roteiro P0107</figcaption></figure>
-<figure><img src="img/diagnostico/p52.jpg" alt="Roteiro P0108" loading="lazy"><figcaption>Roteiro P0108</figcaption></figure>
-<figure><img src="img/diagnostico/p54.jpg" alt="Roteiro P0112" loading="lazy"><figcaption>Roteiro P0112</figcaption></figure>
-<figure><img src="img/diagnostico/p56.jpg" alt="Roteiro P0113" loading="lazy"><figcaption>Roteiro P0113</figcaption></figure>
-<figure><img src="img/diagnostico/p84.jpg" alt="Roteiro P0234" loading="lazy"><figcaption>Roteiro P0234</figcaption></figure>
-<figure><img src="img/diagnostico/p86.jpg" alt="Roteiro P0235" loading="lazy"><figcaption>Roteiro P0235</figcaption></figure>
-<figure><img src="img/diagnostico/p88.jpg" alt="Roteiro P0236" loading="lazy"><figcaption>Roteiro P0236</figcaption></figure>
-<figure><img src="img/diagnostico/p90.jpg" alt="Roteiro P0237" loading="lazy"><figcaption>Roteiro P0237</figcaption></figure>
-<figure><img src="img/diagnostico/p92.jpg" alt="Roteiro P0238" loading="lazy"><figcaption>Roteiro P0238</figcaption></figure>
-<figure><img src="img/diagnostico/p102.jpg" alt="Roteiro P0299" loading="lazy"><figcaption>Roteiro P0299</figcaption></figure>
+<h2 id="valores">Valores e pinos</h2>
+<table><tr><th>Teste</th><th>Valor esperado</th></tr>
+<tr><td>Alimentação do sensor (pinos 1-3)</td><td>5 V</td></tr>
+<tr><td>Pressão do coletor em marcha-lenta</td><td>0,8 bar a 1,0 bar</td></tr>
+<tr><td>Continuidade chicote ↔ ECM</td><td>menor que 1 Ω</td></tr></table>
 
-<h2 id="cuidados">Antes de testar</h2>
-<ol><li>Use pontas de prova apropriadas e desconecte o sensor ou o atuador antes de medir;</li><li>Confronte os terminais com o esquema do chicote e procure corrosão, umidade e terminais danificados;</li><li>Confira a fixação dos conectores e se não há curto com partes metálicas;</li><li>Verifique a bateria, os bornes, o cabo B+ e o regulador do alternador: tensão ruim gera falhas em vários componentes.</li></ol>
-<p>Mais detalhes em <a href="#sistema-de-injecao/sensores-e-atuadores">Sensores e Atuadores</a>.</p>
+<h3>Pinos do sensor e do ECM</h3>
+<table><tr><th>Pino do sensor</th><th>Pino do ECM</th><th>Função</th></tr>
+<tr><td>1</td><td>A23</td><td>GND da pressão/temperatura</td></tr>
+<tr><td>2</td><td>A53</td><td>Sinal de temperatura do ar (NTC)</td></tr>
+<tr><td>3</td><td>A13</td><td>Alimentação de 5 V</td></tr>
+<tr><td>4</td><td>A40</td><td>Sinal de pressão do coletor</td></tr></table>
+
+<h2 id="solucoes">Soluções comuns</h2>
+<ul>
+<li><strong>Conector com oxidação:</strong> limpe e reapente os terminais;</li>
+<li><strong>Chicote rompido ou em curto:</strong> repare o trecho danificado;</li>
+<li><strong>Sensor com leitura incoerente:</strong> substitua o sensor;</li>
+<li><strong>Vazamento de ar na admissão:</strong> verifique mangueiras e abraçadeiras;</li>
+<li><strong>Turbina ou modulador com falha:</strong> verifique pressão real do turbo.</li>
+</ul>
+
+<h2 id="codigos">Códigos relacionados</h2>
+<ul>
+<li><strong>P0112</strong>: Tensão baixa no sensor de temperatura do ar — ECM assume 40 °C;</li>
+<li><strong>P0113</strong>: Tensão alta no sensor de temperatura do ar — ECM assume 40 °C;</li>
+<li><strong>P0237</strong>: Tensão baixa no sensor de pressão do coletor — valor padrão 1000 hPa;</li>
+<li><strong>P0238</strong>: Tensão alta no sensor de pressão do coletor — valor padrão 1000 hPa.</li>
+</ul>
