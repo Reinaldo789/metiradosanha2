@@ -72,10 +72,13 @@ btnTop.addEventListener('click', () => {
 const home = document.getElementById('home-box');
 const card = document.getElementById('page-card');
 
-async function abrirPagina() {
-  const path = decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '');
-  document.querySelectorAll('.mega-link-item.active').forEach(a => a.classList.remove('active'));
-  // ...
+// CÓDIGO NOVO: Marca TODOS os links do menu que apontem para a rota atual
+const linksCorrespondentes = document.querySelectorAll(`a[href="#${path}"]`);
+linksCorrespondentes.forEach(link => {
+  if (link.classList.contains('mega-link-item')) {
+    link.classList.add('active');
+  }
+});
 
   
   // sem rota válida = Home
