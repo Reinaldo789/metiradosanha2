@@ -4,8 +4,7 @@ const mainNav = document.getElementById('main-nav');
 const toggleIcon = mobileToggleBtn.querySelector('i');
 
 // ==========================================
-// LÓGICA DO MENU MOBILE (SEM SANFONA)
-// Cada item abre/fecha independentemente
+// LÓGICA DO MENU MOBILE
 // ==========================================
 navItems.forEach(item => {
   const btn = item.querySelector('.nav-btn');
@@ -13,24 +12,15 @@ navItems.forEach(item => {
   btn.addEventListener('click', (e) => {
     if (window.innerWidth <= 960) {
       e.preventDefault();
-      
-      // Sanfona: ao abrir um item, fecha os outros
-      const abrir = !item.classList.contains('active');
-      navItems.forEach(i => i.classList.remove('active'));
-      if (abrir) {
-        item.classList.add('active');
-        item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
+      item.classList.toggle('active');
     }
   });
 });
 
-// Toggle Menu Hamburguer Mobile
 mobileToggleBtn.addEventListener('click', (e) => {
   e.stopPropagation();
   const isOpen = mainNav.classList.toggle('active');
   
-  // Bloqueia a rolagem do fundo do site quando o menu está aberto no celular
   if (isOpen) {
     document.body.style.overflow = 'hidden';
   } else {
@@ -43,7 +33,6 @@ mobileToggleBtn.addEventListener('click', (e) => {
   } else {
     toggleIcon.classList.remove('fa-xmark');
     toggleIcon.classList.add('fa-bars');
-    // Fecha todos os itens ao fechar o menu hambúrguer
     navItems.forEach(item => item.classList.remove('active'));
   }
 });
@@ -52,9 +41,7 @@ mobileToggleBtn.addEventListener('click', (e) => {
 // BOTÃO VOLTAR AO TOPO
 // ==========================================
 const btnTop = document.getElementById('btn-top');
-const cabecalho = document.querySelector('.site-wrapper > header');
 window.addEventListener('scroll', () => {
-  cabecalho.classList.toggle('scrolled', window.scrollY > 20);
   if (window.scrollY > 150) {
     btnTop.classList.add('visible');
   } else {
@@ -76,7 +63,6 @@ async function abrirPagina() {
   const path = decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '');
   document.querySelectorAll('.mega-link-item.active').forEach(a => a.classList.remove('active'));
 
-  // sem rota válida = Home
   if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
     card.hidden = true; home.hidden = false;
     return;
@@ -101,6 +87,8 @@ async function abrirPagina() {
     if (decodeURIComponent(location.hash.slice(1)) !== path) return;
     card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div><h1>${titulo}</h1>${corpo}`;
     melhorarArtigo();
+    // Inicializa o fluxograma se a página tiver um
+    setTimeout(initFluxograma, 100);
   } catch (err) {
     card.innerHTML = `<h1>Erro</h1><p>${err.message}. Se estiver abrindo o arquivo direto no computador, use um servidor (GitHub Pages ou <code>python -m http.server</code>).</p>`;
   }
@@ -122,7 +110,9 @@ document.querySelectorAll('.mega-menu a').forEach(a => {
 window.addEventListener('hashchange', abrirPagina);
 abrirPagina();
 
-// índice interno dos artigos: <a data-goto="id"> rola até o título
+// ==========================================
+// ÍNDICE INTERNO DOS ARTIGOS
+// ==========================================
 card.addEventListener('click', (e) => {
   const alvo = e.target.closest('[data-goto]');
   if (!alvo) return;
@@ -132,7 +122,7 @@ card.addEventListener('click', (e) => {
 });
 
 // ==========================================
-// BUSCA DA PÁGINA INICIAL (usa os links do menu)
+// BUSCA DA PÁGINA INICIAL
 // ==========================================
 const busca = document.getElementById('home-search');
 const resultados = document.getElementById('home-results');
@@ -168,7 +158,6 @@ const lbTxt = lb.querySelector('p');
 
 function abrirImagem(src, legenda) {
   lbImg.hidden = false;
-  lbImg.classList.remove('zoom');
   lbImg.src = src;
   lbImg.alt = legenda;
   lbTxt.textContent = legenda;
@@ -184,21 +173,14 @@ lb.addEventListener('click', e => {
 
 function rolarPara(el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
 
-function mostrarPasso(f, id, rolar = true) {
-  f.querySelectorAll('.passo').forEach(p => p.classList.toggle('on', p.id === id));
-  if (rolar) f.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
-
 function ativarAba(bar, panels, i) {
   [...bar.children].forEach((b, j) => b.classList.toggle('on', j === i));
   panels.forEach((p, j) => p.classList.toggle('on', j === i));
 }
 
 function melhorarArtigo() {
-  // o artigo já traz o próprio título
   if (card.querySelector('.art-head')) card.querySelector(':scope > h1')?.remove();
 
-  // imagem que não existe vira uma caixa com a legenda
   card.querySelectorAll('img').forEach(img => {
     img.addEventListener('error', () => {
       const d = document.createElement('div');
@@ -209,7 +191,6 @@ function melhorarArtigo() {
     }, { once: true });
   });
 
-  // blocos de 2-3 colunas viram mini abas
   card.querySelectorAll('.trio').forEach(trio => {
     const cols = [...trio.children];
     const bar = document.createElement('div');
@@ -228,22 +209,8 @@ function melhorarArtigo() {
     ativarAba(bar, cols, 0);
   });
 
-  // fluxogramas de diagnóstico (Sim / Não)
-  card.querySelectorAll('.fluxo').forEach(f => {
-    f._hist = [];
-    f.querySelectorAll('.passo').forEach(p => {
-      const nav = document.createElement('div');
-      nav.className = 'fluxo-nav';
-      nav.innerHTML = '<button type="button" data-voltar>← Voltar</button><button type="button" data-reiniciar>↺ Recomeçar</button>';
-      p.append(nav);
-    });
-    mostrarPasso(f, f.querySelector('.passo').id, false);
-  });
-
-  // códigos de falha em acordeão
   card.querySelectorAll('.codigos').forEach(c => c.classList.add('enh'));
 
-  // cada título h2 vira uma aba
   const h2s = [...card.querySelectorAll(':scope > h2')];
   if (h2s.length >= 3) {
     const bar = document.createElement('div');
@@ -282,13 +249,6 @@ function melhorarArtigo() {
 }
 
 card.addEventListener('click', e => {
-  const fl = e.target.closest('.fluxo');
-  if (fl) {
-    const ir = e.target.closest('[data-ir]');
-    if (ir) { fl._hist.push(ir.closest('.passo').id); mostrarPasso(fl, ir.dataset.ir); return; }
-    if (e.target.closest('[data-voltar]')) { const id = fl._hist.pop(); if (id) mostrarPasso(fl, id); return; }
-    if (e.target.closest('[data-reiniciar]')) { fl._hist = []; mostrarPasso(fl, fl.querySelector('.passo').id); return; }
-  }
   const tab = e.target.closest('.mini-tabs button, .art-tabs button');
   if (tab) {
     const bar = tab.parentElement;
@@ -316,6 +276,46 @@ card.addEventListener('click', e => {
   if (im) abrirImagem(im.currentSrc || im.src, im.alt);
 });
 
-cabecalho.classList.toggle('scrolled', window.scrollY > 20);
+// ==========================================
+// FLUXOGRAMA INTERATIVO (motor-nao-acelera, sensor-pressao-rail, valvula-mprop, etc.)
+// ==========================================
+function initFluxograma() {
+  const fluxo = document.querySelector('.fluxo');
+  if (!fluxo) return;
 
-lbImg.addEventListener('click', () => lbImg.classList.toggle('zoom'));
+  const passos = fluxo.querySelectorAll('.passo');
+
+  // Esconde todos, exceto o primeiro
+  passos.forEach((p, i) => {
+    if (i === 0) {
+      p.removeAttribute('hidden');
+    } else {
+      p.setAttribute('hidden', '');
+    }
+  });
+
+  // Delegação de evento para os botões Sim/Não
+  fluxo.addEventListener('click', (e) => {
+    const btn = e.target.closest('.resp button[data-ir]');
+    if (!btn) return;
+
+    const targetId = btn.getAttribute('data-ir');
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    // Esconde todos os passos
+    passos.forEach(p => p.setAttribute('hidden', ''));
+
+    // Mostra o passo de destino
+    target.removeAttribute('hidden');
+
+    // Scroll suave até o passo mostrado
+    setTimeout(() => {
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 80);
+  });
+}
+
+// Chama o initFluxograma depois de um pequeno delay para garantir que o DOM foi atualizado
+window.addEventListener('hashchange', () => setTimeout(initFluxograma, 200));
+document.addEventListener('DOMContentLoaded', () => setTimeout(initFluxograma, 300));
