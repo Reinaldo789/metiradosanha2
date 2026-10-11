@@ -73,69 +73,8 @@ const home = document.getElementById('home-box');
 const card = document.getElementById('page-card');
 
 async function abrirPagina() {
-  // Captura o caminho limpo após o #
-  const rawHash = location.hash.slice(1);
-  const path = decodeURIComponent(rawHash).replace(/^\/+/, '').trim();
-
-  // 1. Limpa o destaque ativo de todos os links
-  document.querySelectorAll('.mega-link-item.active').forEach(a => a.classList.remove('active'));
-
-  // 2. Se for a página inicial (sem hash válida), exibe a Home
-  if (!path || !/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
-    if (card) card.hidden = true;
-    if (home) home.hidden = false;
-    return;
-  }
-
-  // 3. Marca o link ativo no menu (se existir)
-  const links = document.querySelectorAll(`a[href="#${path}"]`);
-  let linkAtivo = null;
-  links.forEach(l => {
-    if (l.classList.contains('mega-link-item')) {
-      l.classList.add('active');
-      linkAtivo = l;
-    }
-  });
-
-  const menu = linkAtivo && linkAtivo.closest('.nav-item')
-    ? linkAtivo.closest('.nav-item').querySelector('.nav-btn span').textContent.trim()
-    : 'Guia';
-
-  const titulo = linkAtivo ? linkAtivo.textContent.trim() : path.split('/')[1];
-
-  // 4. Prepara a área do cartão de conteúdo
-  if (home) home.hidden = true;
-  if (card) {
-    card.hidden = false;
-    card.innerHTML = '<p class="page-loading">A carregar conteúdo...</p>';
-  }
-  window.scrollTo({ top: 0 });
-
-  // 5. Procura o ficheiro HTML correspondente
-  try {
-    const response = await fetch(`conteudo/${path}.html`);
-    if (!response.ok) {
-      throw new Error(`Ficheiro não encontrado: conteudo/${path}.html (Status ${response.status})`);
-    }
-    const htmlContent = await response.text();
-    
-    // Confirma se a hash não mudou durante o carregamento
-    if (decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '').trim() !== path) return;
-
-    card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div><h1>${titulo}</h1>${htmlContent}`;
-    
-    if (typeof melhorarArtigo === 'function') {
-      melhorarArtigo();
-    }
-  } catch (err) {
-    card.innerHTML = `
-      <div style="padding: 1rem; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; color: #991b1b;">
-        <h2>Erro ao carregar a página</h2>
-        <p><strong>Detalhe:</strong> ${err.message}</p>
-        <p><small>Verifique se o ficheiro <code>conteudo/${path}.html</code> existe exatamente com esse nome no repositório do GitHub.</small></p>
-      </div>`;
-  }
-}
+  const path = decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '');
+  document.querySelectorAll('.mega-link-item.active, .explore-link.active').forEach(a => a.classList.remove('active'));
   
   // sem rota válida = Home
   if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
