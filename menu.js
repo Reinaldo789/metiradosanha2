@@ -73,58 +73,69 @@ const home = document.getElementById('home-box');
 const card = document.getElementById('page-card');
 
 async function abrirPagina() {
-  const path = decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '');
-  
-  // 1. Limpa a classe 'active' de TODOS os links do mega menu
+  // Captura o caminho limpo após o #
+  const rawHash = location.hash.slice(1);
+  const path = decodeURIComponent(rawHash).replace(/^\/+/, '').trim();
+
+  // 1. Limpa o destaque ativo de todos os links
   document.querySelectorAll('.mega-link-item.active').forEach(a => a.classList.remove('active'));
 
-  // 2. Se for a página inicial (sem rota), exibe a Home e encerra
-  if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
-    card.hidden = true; 
-    home.hidden = false;
+  // 2. Se for a página inicial (sem hash válida), exibe a Home
+  if (!path || !/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
+    if (card) card.hidden = true;
+    if (home) home.hidden = false;
     return;
   }
 
-  // 3. Destaca TODOS os links que correspondem ao hash atual
-  const linksCorrespondentes = document.querySelectorAll(`a[href="#${path}"]`);
-  let linkReferencia = null;
-
-  linksCorrespondentes.forEach(link => {
-    if (link.classList.contains('mega-link-item')) {
-      link.classList.add('active');
-      linkReferencia = link;
+  // 3. Marca o link ativo no menu (se existir)
+  const links = document.querySelectorAll(`a[href="#${path}"]`);
+  let linkAtivo = null;
+  links.forEach(l => {
+    if (l.classList.contains('mega-link-item')) {
+      l.classList.add('active');
+      linkAtivo = l;
     }
   });
 
-  // 4. Obtém título e grupo
-  const menu = linkReferencia && linkReferencia.closest('.nav-item') 
-    ? linkReferencia.closest('.nav-item').querySelector('.nav-btn span').textContent.trim() 
-    : '';
-    
-  const titulo = linkReferencia 
-    ? (linkReferencia.classList.contains('explore-link')
-        ? linkReferencia.closest('.mega-explore-side').querySelector('h5').textContent.trim()
-        : linkReferencia.textContent.trim())
-    : '';
+  const menu = linkAtivo && linkAtivo.closest('.nav-item')
+    ? linkAtivo.closest('.nav-item').querySelector('.nav-btn span').textContent.trim()
+    : 'Guia';
 
-  // 5. Exibe o cartão da página e carrega o HTML
-  home.hidden = true; 
-  card.hidden = false;
-  card.innerHTML = '<p class="page-loading">Carregando...</p>';
+  const titulo = linkAtivo ? linkAtivo.textContent.trim() : path.split('/')[1];
+
+  // 4. Prepara a área do cartão de conteúdo
+  if (home) home.hidden = true;
+  if (card) {
+    card.hidden = false;
+    card.innerHTML = '<p class="page-loading">A carregar conteúdo...</p>';
+  }
   window.scrollTo({ top: 0 });
 
+  // 5. Procura o ficheiro HTML correspondente
   try {
-    const resp = await fetch(`conteudo/${path}.html`);
-    if (!resp.ok) throw new Error(`Página não encontrada (${resp.status})`);
-    const corpo = await resp.text();
-    if (decodeURIComponent(location.hash.slice(1)) !== path) return;
-    card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div><h1>${titulo}</h1>${corpo}`;
-    melhorarArtigo();
+    const response = await fetch(`conteudo/${path}.html`);
+    if (!response.ok) {
+      throw new Error(`Ficheiro não encontrado: conteudo/${path}.html (Status ${response.status})`);
+    }
+    const htmlContent = await response.text();
+    
+    // Confirma se a hash não mudou durante o carregamento
+    if (decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '').trim() !== path) return;
+
+    card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div><h1>${titulo}</h1>${htmlContent}`;
+    
+    if (typeof melhorarArtigo === 'function') {
+      melhorarArtigo();
+    }
   } catch (err) {
-    card.innerHTML = `<h1>Erro</h1><p>${err.message}. Se estiver abrindo o arquivo direto no computador, use um servidor (GitHub Pages ou <code>python -m http.server</code>).</p>`;
+    card.innerHTML = `
+      <div style="padding: 1rem; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; color: #991b1b;">
+        <h2>Erro ao carregar a página</h2>
+        <p><strong>Detalhe:</strong> ${err.message}</p>
+        <p><small>Verifique se o ficheiro <code>conteudo/${path}.html</code> existe exatamente com esse nome no repositório do GitHub.</small></p>
+      </div>`;
   }
 }
-
   
   // sem rota válida = Home
   if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
