@@ -63,6 +63,7 @@ async function abrirPagina() {
   const path = decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '');
   document.querySelectorAll('.mega-link-item.active').forEach(a => a.classList.remove('active'));
 
+  // sem rota válida = Home
   if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
     card.hidden = true; home.hidden = false;
     return;
@@ -87,8 +88,8 @@ async function abrirPagina() {
     if (decodeURIComponent(location.hash.slice(1)) !== path) return;
     card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div><h1>${titulo}</h1>${corpo}`;
     melhorarArtigo();
-    // Inicializa o fluxograma se a página tiver um
-    setTimeout(initFluxograma, 100);
+    // Aguarda o DOM atualizar e inicializa o fluxograma
+    setTimeout(initFluxograma, 150);
   } catch (err) {
     card.innerHTML = `<h1>Erro</h1><p>${err.message}. Se estiver abrindo o arquivo direto no computador, use um servidor (GitHub Pages ou <code>python -m http.server</code>).</p>`;
   }
@@ -277,13 +278,15 @@ card.addEventListener('click', e => {
 });
 
 // ==========================================
-// FLUXOGRAMA INTERATIVO (motor-nao-acelera, sensor-pressao-rail, valvula-mprop, etc.)
+// FLUXOGRAMA INTERATIVO
+// (motor-nao-acelera, sensor-pressao-rail, valvula-mprop, etc.)
 // ==========================================
 function initFluxograma() {
   const fluxo = document.querySelector('.fluxo');
   if (!fluxo) return;
 
   const passos = fluxo.querySelectorAll('.passo');
+  if (!passos.length) return;
 
   // Esconde todos, exceto o primeiro
   passos.forEach((p, i) => {
@@ -294,8 +297,13 @@ function initFluxograma() {
     }
   });
 
+  // Remove listener antigo se existir (evita duplicar)
+  if (fluxo._fluxoClickHandler) {
+    fluxo.removeEventListener('click', fluxo._fluxoClickHandler);
+  }
+
   // Delegação de evento para os botões Sim/Não
-  fluxo.addEventListener('click', (e) => {
+  fluxo._fluxoClickHandler = (e) => {
     const btn = e.target.closest('.resp button[data-ir]');
     if (!btn) return;
 
@@ -313,9 +321,7 @@ function initFluxograma() {
     setTimeout(() => {
       target.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 80);
-  });
-}
+  };
 
-// Chama o initFluxograma depois de um pequeno delay para garantir que o DOM foi atualizado
-window.addEventListener('hashchange', () => setTimeout(initFluxograma, 200));
-document.addEventListener('DOMContentLoaded', () => setTimeout(initFluxograma, 300));
+  fluxo.addEventListener('click', fluxo._fluxoClickHandler);
+}
