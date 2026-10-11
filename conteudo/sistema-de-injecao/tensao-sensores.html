@@ -1,0 +1,33 @@
+<!-- Tensão de Alimentação dos Sensores com falha (luz acesa) - MWM Sprint 2.8 -->
+<header class="art-head">
+  <span class="art-kicker">Sistema Elétrico · Diagnóstico</span>
+  <h1>Tensão de Alimentação dos Sensores</h1>
+  <p class="art-lead">Fluxograma de diagnóstico com a luz amarela acesa: responda Sim ou Não em cada passo até chegar à solução.</p>
+  <div class="chips"><span>MWM Sprint 2.8</span><span>S10 até 2011</span><span>P0641 · P0642 · P0651 · P0652</span></div>
+</header>
+
+<p>Use este roteiro quando a diagnose registrar falhas na tensão de alimentação dos sensores (5 V). O ECM fornece essa tensão a vários sensores (pedal, pressão do coletor, pressão do Rail, etc.) e um problema afeta todos ao mesmo tempo.</p>
+
+<div class="aviso"><strong>Atenção</strong><p>Quando a tensão de alimentação dos sensores está fora do especificado, o pedal do acelerador pode ficar inativo e a marcha-lenta é fixada em 1500 rpm.</p></div>
+
+<h2 id="fluxo">Fluxograma</h2>
+<div class="fluxo">
+  <div class="passo" id="p1"><span class="passo-n">Passo 1</span><p><strong>A ferramenta registrou P0641, P0642, P0651 ou P0652?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p2">Sim</button><button type="button" class="nao" data-ir="r1">Não</button></div></div>
+  <div class="passo fim acao" id="r1"><span class="passo-n">Outro código</span><p>Siga o fluxograma do código apresentado.</p></div>
+  <div class="passo" id="p2"><span class="passo-n">Passo 2</span><p>Verifique a <strong>tensão de alimentação e os pontos de aterramento do ECM</strong> (folha 4 das verificações preliminares). <strong>Estão corretos?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p3">Sim</button><button type="button" class="nao" data-ir="r2">Não</button></div></div>
+  <div class="passo fim erro" id="r2"><span class="passo-n">Alimentação do ECM</span><ul><li>Verifique continuidade dos fusíveis F25 e F26;</li><li>Verifique a alimentação positiva direta dos pinos K01 e K05 do ECM;</li><li>Verifique o aterramento dos pinos K02, K04 e K06 do ECM;</li><li>Refaça o teste após os reparos.</li></ul></div>
+  <div class="passo" id="p3"><span class="passo-n">Passo 3</span><p>Verifique se existe <strong>curto-circuito nos terminais de alimentação dos sensores</strong> (5 V) e no pedal do acelerador. <strong>Existe curto?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r3">Sim</button><button type="button" class="nao" data-ir="p4">Não</button></div></div>
+  <div class="passo fim erro" id="r3"><span class="passo-n">Curto-circuito</span><ul><li>Identifique o sensor ou chicote em curto;</li><li>Repare o trecho danificado;</li><li>Apague os códigos de falha e refaça o teste.</li></ul></div>
+  <div class="passo" id="p4"><span class="passo-n">Passo 4</span><p>Meça a tensão de alimentação nos sensores (pedal do acelerador, pressão do coletor, pressão do Rail). <strong>O valor é 5 V?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p5">Sim</button><button type="button" class="nao" data-ir="r4">Não</button></div></div>
+  <div class="passo fim erro" id="r4"><span class="passo-n">Tensão incorreta</span><ul><li>Verifique o chicote entre o ECM e o sensor afetado;</li><li>Verifique mau contato nos conectores;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+  <div class="passo" id="p5"><span class="passo-n">Passo 5</span><p>Apague os códigos de falha e funcione o motor. <strong>Alguma falha reapareceu?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r5">Sim</button><button type="button" class="nao" data-ir="r6">Não</button></div></div>
+  <div class="passo fim ok" id="r6"><span class="passo-n">Circuito OK</span><ul><li>Se não houver mais falhas registradas, libere o veículo.</li></ul></div>
+  <div class="passo fim erro" id="r5"><span class="passo-n">Suspeita de ECM</span><ul><li>Se a alimentação e o aterramento do ECM estiverem OK e a falha persistir, substitua o ECM;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+</div>
+
+<h2
