@@ -75,7 +75,11 @@ const card = document.getElementById('page-card');
 async function abrirPagina() {
   const path = decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '');
   document.querySelectorAll('.mega-link-item.active, .explore-link.active').forEach(a => a.classList.remove('active'));
-
+  
+  // ...
+  
+  document.querySelectorAll(`a[href="#${path}"]`).forEach(l => l.classList.add('active'));
+  const link = document.querySelector(`a[href="#${path}"]`);
 
   // sem rota válida = Home
   if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
