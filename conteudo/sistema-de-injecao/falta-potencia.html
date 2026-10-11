@@ -1,0 +1,61 @@
+<!-- Falta de potência no motor - MWM Sprint 2.8 -->
+<header class="art-head">
+  <span class="art-kicker">Motor · Diagnóstico</span>
+  <h1>Falta de Potência</h1>
+  <p class="art-lead">Fluxograma de diagnóstico: responda Sim ou Não em cada passo até chegar à solução.</p>
+  <div class="chips"><span>MWM Sprint 2.8</span><span>S10 até 2011</span><span>Perda de potência</span></div>
+</header>
+
+<p>Use este roteiro quando o motor perde potência, demora para desenvolver ou não atinge a rotação máxima. As causas mais comuns são: restrição na admissão, sensor de pressão do coletor, turbo ou combustível.</p>
+
+<h2 id="fluxo">Fluxograma</h2>
+<div class="fluxo">
+  <div class="passo" id="p1"><span class="passo-n">Passo 1</span><p>Ligue a ferramenta de diagnose. <strong>Existe alguma falha registrada?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r1">Sim</button><button type="button" class="nao" data-ir="p2">Não</button></div></div>
+  <div class="passo fim acao" id="r1"><span class="passo-n">Falha registrada</span><p>Siga o fluxograma do respectivo código. Verifique especialmente os sensores de pressão do coletor, pressão do Rail e sensores de fase/rotação.</p></div>
+  <div class="passo" id="p2"><span class="passo-n">Passo 2</span><p>Verifique o <strong>filtro de ar</strong> e as <strong>mangueiras de admissão</strong>. <strong>Estão OK?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p3">Sim</button><button type="button" class="nao" data-ir="r2">Não</button></div></div>
+  <div class="passo fim erro" id="r2"><span class="passo-n">Admissão restrita</span><ul><li>Substitua o filtro de ar;</li><li>Substitua mangueiras rasgadas;</li><li>Refaça o teste.</li></ul></div>
+  <div class="passo" id="p3"><span class="passo-n">Passo 3</span><p>Verifique a <strong>pressão do turbo</strong> na ferramenta. <strong>Está dentro do especificado?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p4">Sim</button><button type="button" class="nao" data-ir="r3">Não</button></div></div>
+  <div class="passo fim erro" id="r3"><span class="passo-n">Turbo com falha</span><p>Consulte o fluxograma do <a href="#sistema-de-injecao/modulador-turbina">Atuador do Turboalimentador</a> (P0243 a P0246).</p></div>
+  <div class="passo" id="p4"><span class="passo-n">Passo 4</span><p>Verifique o <strong>sensor de pressão do coletor</strong> na ferramenta. <strong>Leitura coerente com o motor?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p5">Sim</button><button type="button" class="nao" data-ir="r4">Não</button></div></div>
+  <div class="passo fim erro" id="r4"><span class="passo-n">Sensor com falha</span><p>Consulte o fluxograma do <a href="#sistema-de-injecao/sensor-pressao-adm">Sensor de Pressão do Coletor</a> (P0237/P0238).</p></div>
+  <div class="passo" id="p5"><span class="passo-n">Passo 5</span><p>Verifique a <strong>pressão de combustível antes da CP3</strong>. <strong>Está dentro do especificado?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p6">Sim</button><button type="button" class="nao" data-ir="r5">Não</button></div></div>
+  <div class="passo fim erro" id="r5"><span class="passo-n">Combustível insuficiente</span><ul><li>Verifique o filtro de combustível;</li><li>Verifique a bomba elétrica;</li><li>Verifique a bomba de engrenagem;</li><li>Verifique a válvula KUV.</li></ul></div>
+  <div class="passo" id="p6"><span class="passo-n">Passo 6</span><p>Verifique a <strong>pressão no Rail</strong> em diferentes rotações. <strong>Está dentro do especificado?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p7">Sim</button><button type="button" class="nao" data-ir="r6">Não</button></div></div>
+  <div class="passo fim erro" id="r6"><span class="passo-n">Pressão do Rail errada</span><ul><li>Verifique a válvula MProp (P0001 a P0004);</li><li>Verifique o sensor de pressão do Rail (P0192/P0193);</li><li>Verifique a bomba de alta pressão (CP3);</li><li>Verifique os injetores.</li></ul></div>
+  <div class="passo" id="p7"><span class="passo-n">Passo 7</span><p>Verifique se há <strong>restrição no escapamento</strong> (catalisador, silencioso, tubo amassado). <strong>Está desobstruído?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r7">Sim</button><button type="button" class="nao" data-ir="r8">Não</button></div></div>
+  <div class="passo fim erro" id="r8"><span class="passo-n">Escapamento obstruído</span><ul><li>Desobstrua o escapamento;</li><li>Substitua o silencioso ou catalisador, se necessário;</li><li>Refaça o teste.</li></ul></div>
+  <div class="passo fim ok" id="r7"><span class="passo-n">Verificações finais</span><ul><li>Verifique a compressão dos cilindros;</li><li>Verifique o sincronismo comando/manivelas;</li><li>Verifique se o motor não está sobrecarregado;</li><li>Verifique o combustível utilizado;</li><li>Se tudo OK, consulte o manual do veículo.</li></ul></div>
+</div>
+
+<h2 id="valores">Valores de referência</h2>
+<table><tr><th>Item</th><th>Valor esperado</th></tr>
+<tr><td>Pressão do turbo</td><td>conforme especificação MWM</td></tr>
+<tr><td>Pressão do Rail em marcha-lenta</td><td>≈ 300-400 bar</td></tr>
+<tr><td>Compressão (motor novo)</td><td>28 bar (mínimo)</td></tr>
+<tr><td>Compressão (motor usado)</td><td>23 bar (mínimo)</td></tr></table>
+
+<h2 id="solucoes">Causas comuns</h2>
+<ul>
+<li><strong>Filtro de ar sujo:</strong> substitua;</li>
+<li><strong>Mangueira do turbo rasgada:</strong> substitua;</li>
+<li><strong>Modulador do turbo com defeito:</strong> verifique o fluxograma do P0243 a P0246;</li>
+<li><strong>Sensor de pressão do coletor com falha:</strong> substitua;</li>
+<li><strong>Válvula MProp com defeito:</strong> substitua a bomba CP3 completa;</li>
+<li><strong>Restrição no escapamento:</strong> desobstrua;</li>
+<li><strong>Baixa compressão:</strong> retífica do motor.</li>
+</ul>
+
+<h2 id="codigos">Códigos relacionados</h2>
+<ul>
+<li><strong>P0087</strong>: Pressão do Rail abaixo — reduz pressão para 80%;</li>
+<li><strong>P0237 / P0238</strong>: Sensor de pressão do coletor — valor padrão de 1000 hPa;</li>
+<li><strong>P0243 a P0246</strong>: Modulador do turbo — atuador em 50%;</li>
+<li><strong>P1090 / P1091</strong>: Desvio de pressão do Rail — limita débito e rotação a 2000 rpm.</li>
+</ul>
