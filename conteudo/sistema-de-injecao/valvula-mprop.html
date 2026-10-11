@@ -1,454 +1,704 @@
-<!-- Válvula MProp. Imagens: salve em img/valvula-mprop/ com os nomes usados abaixo. -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluxograma — Válvula MProp (MWM 2.8)</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* ============ FLUXOGRAMA INTERATIVO ============ */
+        .art-head {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.8rem 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid var(--border);
+            border-left: 5px solid var(--primary);
+        }
 
-<!-- CABEÇALHO DO ARTIGO -->
-<header class="art-head hero-article">
-  <div class="hero-content">
-    <span class="art-kicker"><i class="fa-solid fa-microchip"></i> Sistema de Injeção</span>
-    <h1>Válvula MProp</h1>
-    <p class="art-lead">A válvula reguladora de pressão de combustível ajusta a pressão em função da rotação e da carga do motor, dentro da faixa definida no mapeamento do ECM.</p>
-    <div class="chips">
-      <span class="chip"><i class="fa-solid fa-gauge-simple"></i> Circuito de baixa pressão</span>
-      <span class="chip"><i class="fa-solid fa-bolt"></i> Comando PWM 12 V</span>
-      <span class="chip"><i class="fa-solid fa-truck-pickup"></i> Agrale Marruá</span>
-    </div>
-  </div>
-</header>
+        .art-kicker {
+            display: inline-block;
+            background: #fdecea;
+            color: var(--primary);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin-bottom: 0.8rem;
+        }
 
-<!-- INTRODUÇÃO -->
-<div class="highlight-card info margin-top-lg">
-  <i class="fa-solid fa-circle-info card-icon"></i>
-  <div>
-    <p>A MProp atua no circuito de baixa pressão, antes do estágio de pressurização, para garantir que a bomba de alta pressão gere apenas a pressão necessária para a demanda do motor em um dado momento. Na Agrale Marrua é um componente vital para o funcionamento.</p>
-  </div>
+        .art-head h1 {
+            color: var(--primary);
+            font-size: 1.7rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .art-lead {
+            color: var(--text-light);
+            font-size: 0.98rem;
+            margin-bottom: 1rem;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .chips span {
+            display: inline-block;
+            background: #f0f2f5;
+            color: var(--secondary);
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 0.3rem 0.75rem;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        /* ---------- FLUXOGRAMA ---------- */
+        .fluxo {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid var(--border);
+        }
+
+        .passo {
+            background: #fff;
+            border: 2px solid #1a3a8f;
+            border-radius: 8px;
+            padding: 1rem 1.2rem;
+            margin-bottom: 0.8rem;
+            max-width: 680px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            transition: all 0.3s;
+        }
+
+        .passo-n {
+            display: inline-block;
+            background: #1a3a8f;
+            color: #fff;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 0.6rem;
+        }
+
+        .passo p {
+            margin: 0.5rem 0;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .passo ul {
+            padding-left: 1.2rem;
+            margin: 0.5rem 0;
+            font-size: 0.88rem;
+        }
+
+        .passo ul li {
+            margin-bottom: 0.3rem;
+            line-height: 1.5;
+        }
+
+        .passo strong {
+            color: var(--secondary);
+        }
+
+        /* Variações de cor */
+        .passo.acao {
+            border-color: #16a34a;
+            background: #f0fdf4;
+        }
+        .passo.acao .passo-n { background: #16a34a; }
+
+        .passo.erro {
+            border-color: #dc2626;
+            background: #fef2f2;
+        }
+        .passo.erro .passo-n { background: #dc2626; }
+
+        .passo.ok {
+            border-color: #16a34a;
+            background: #f0fdf4;
+        }
+        .passo.ok .passo-n { background: #16a34a; }
+
+        .passo.fim {
+            border-width: 3px;
+            border-style: double;
+        }
+
+        /* Botões Sim/Não */
+        .resp {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px dashed var(--border);
+        }
+
+        .resp button {
+            border: none;
+            border-radius: 6px;
+            padding: 0.5rem 1.2rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .resp .sim {
+            background: #16a34a;
+            color: #fff;
+        }
+        .resp .sim:hover {
+            background: #15803d;
+            transform: translateY(-1px);
+        }
+
+        .resp .nao {
+            background: #dc2626;
+            color: #fff;
+        }
+        .resp .nao:hover {
+            background: #b91c1c;
+            transform: translateY(-1px);
+        }
+
+        .resp button:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ---------- TABELAS ---------- */
+        .tabela-diag {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            font-size: 0.9rem;
+        }
+
+        .tabela-diag th {
+            background: var(--primary);
+            color: #fff;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .tabela-diag td {
+            padding: 0.7rem 1rem;
+            border-bottom: 1px solid var(--border);
+            background: #fff;
+        }
+
+        .tabela-diag tr:last-child td { border-bottom: none; }
+        .tabela-diag tr:hover td { background: #fafafa; }
+
+        /* Dica */
+        .dica {
+            background: #e3f2fd;
+            border-left: 4px solid #1565c0;
+            border-radius: 6px;
+            padding: 1rem 1.2rem;
+            margin: 1rem 0;
+            font-size: 0.92rem;
+        }
+
+        .dica strong {
+            display: block;
+            color: #0d3c61;
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+
+        .aviso {
+            background: #fff8e1;
+            border-left: 4px solid #f57c00;
+            border-radius: 6px;
+            padding: 1rem 1.2rem;
+            margin: 1rem 0;
+            font-size: 0.92rem;
+        }
+
+        .aviso strong {
+            display: block;
+            color: #7c4a00;
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+
+        /* H2 dentro do article */
+        .artigo h2 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin: 1.8rem 0 0.8rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .artigo h3 {
+            color: var(--secondary);
+            font-size: 1.05rem;
+            margin: 1.2rem 0 0.6rem;
+        }
+
+        /* Oculta passos até serem liberados */
+        .passo[hidden] { display: none !important; }
+
+        /* Container do artigo */
+        .artigo {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.8rem 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid var(--border);
+        }
+
+        @media (max-width: 700px) {
+            .art-head h1 { font-size: 1.3rem; }
+            .passo { padding: 0.9rem 1rem; }
+            .resp button { padding: 0.45rem 1rem; font-size: 0.8rem; }
+            .artigo { padding: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ============ TOPBAR ============ -->
+<div class="topbar">
+    <a href="../index.html" class="logo">🔧 Guia Técnico</a>
+    <button class="menu-toggle">☰</button>
+    <nav>
+        <a href="../index.html">Início</a>
+        <a href="../sistema-eletrico/index.html">Elétrico</a>
+        <a href="../alimentacao-combustivel/index.html">Combustível</a>
+        <a href="index.html" class="active">Injeção</a>
+        <a href="../motor-chassi/index.html">Motor & Chassi</a>
+    </nav>
 </div>
 
-<!-- NAVEGAÇÃO RÁPIDA (INDICE) -->
-<nav class="toc" aria-label="Neste artigo">
-  <div class="toc-title"><i class="fa-solid fa-list-ul"></i> Neste artigo</div>
-  <ul class="toc-grid">
-    <li><a href="#" data-goto="localizacao"><i class="fa-solid fa-chevron-right"></i> Localização</a></li>
-    <li><a href="#" data-goto="funcionamento"><i class="fa-solid fa-chevron-right"></i> Funcionamento</a></li>
-    <li><a href="#" data-goto="parte-eletrica"><i class="fa-solid fa-chevron-right"></i> Parte elétrica e testes</a></li>
-    <li><a href="#" data-goto="estrutura-mecanica"><i class="fa-solid fa-chevron-right"></i> Estrutura mecânica</a></li>
-    <li><a href="#" data-goto="problemas-combustivel"><i class="fa-solid fa-chevron-right"></i> Problemas com combustível</a></li>
-    <li><a href="#" data-goto="problemas-comuns"><i class="fa-solid fa-chevron-right"></i> Problemas comuns</a></li>
-    <li><a href="#" data-goto="codigos-de-falha"><i class="fa-solid fa-chevron-right"></i> Códigos de falha</a></li>
-  </ul>
-</nav>
+<div class="layout">
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="sidebar">
+        <a href="../index.html" class="back-home">← Voltar ao início</a>
+        <h3>Injeção — Sensores</h3>
+        <ul>
+            <li><a href="sensor-rotacao.html">🔄 Sensor de Rotação</a></li>
+            <li><a href="sensor-fase.html">🎯 Sensor de Fase</a></li>
+            <li><a href="sensor-pressao-adm.html">🌬️ Sensor de Pressão Adm.</a></li>
+            <li><a href="sensor-temp-ecm.html">🌡️ Sensor de Temperatura</a></li>
+            <li><a href="sensor-pressao-rail.html">⛽ Sensor de Pressão Rail</a></li>
+        </ul>
+        <h3 style="margin-top:1rem;">Injeção — Atuadores</h3>
+        <ul>
+            <li><a href="valvula-mprop.html">🔧 Válvula MProp</a></li>
+            <li><a href="pedal-acelerador.html">🚀 Pedal Acelerador</a></li>
+            <li><a href="modulador-turbina.html">🌀 Modulador Turbina</a></li>
+            <li><a href="bicos-injetores.html">💉 Bicos Injetores</a></li>
+        </ul>
+        <h3 style="margin-top:1rem;">Fluxogramas</h3>
+        <ul>
+            <li><a href="fluxo-acelerador.html">🚀 Acelerador</a></li>
+            <li><a href="fluxo-mprop.html" class="active">🔧 Válvula MProp</a></li>
+        </ul>
+    </aside>
 
-<!-- SEÇÃO 1: LOCALIZAÇÃO -->
-<section class="art-section">
-  <h2 id="localizacao"><i class="fa-solid fa-location-dot"></i> Localização</h2>
-  <figure class="media-card">
-    <img src="img/valvula-mprop/01-localizacao.jpg" alt="Localização da válvula MProp" loading="lazy">
-    <figcaption><i class="fa-solid fa-camera"></i> Localização da válvula MProp na bomba de alta pressão</figcaption>
-  </figure>
-</section>
+    <!-- ============ MAIN ============ -->
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../index.html">Início</a><span>›</span>
+            <a href="index.html">Sistema de Injeção</a><span>›</span>Fluxograma MProp
+        </div>
 
-<!-- SEÇÃO 2: FUNCIONAMENTO -->
-<section class="art-section">
-  <h2 id="funcionamento"><i class="fa-solid fa-gears"></i> Funcionamento</h2>
-  
-  <div class="info-box">
-    <ul class="styled-list">
-      <li>Recebe o combustível da bomba de engrenagem;</li>
-      <li>Controla o fluxo da alimentação de combustível na linha de baixa pressão;</li>
-      <li>Trabalha na mesma linha da Válvula KUV;</li>
-      <li>É alimentada pela ECM com sinal PWM de 12 V e trabalha com duty cycle;</li>
-      <li>Controla o fluxo que alimenta os elementos bombeadores de alta.</li>
-    </ul>
-  </div>
+        <!-- ============ CABEÇALHO ============ -->
+        <header class="art-head">
+            <span class="art-kicker">Sistema de Injeção · Diagnóstico · Válvula MProp</span>
+            <h1>Válvula MProp não Responde (Luz Amarela Acesa)</h1>
+            <p class="art-lead">Fluxograma interativo para diagnosticar falhas na válvula reguladora de pressão de combustível da bomba de alta pressão (CP3) do MWM Sprint 2.8. Responda Sim ou Não em cada passo até chegar à solução.</p>
+            <div class="chips">
+                <span>MWM Sprint 2.8</span>
+                <span>S10 até 2011</span>
+                <span>P0001 · P0002 · P0003 · P0004</span>
+                <span>Bomba CP3</span>
+            </div>
+        </header>
 
-  <div class="grid-2col">
-    <figure class="media-card">
-      <img src="img/valvula-mprop/02-funcionamento.jpg" alt="Funcionamento da válvula MProp" loading="lazy">
-    </figure>
-    <figure class="media-card">
-      <img src="img/valvula-mprop/03-bomba-aberta.jpg" alt="Bomba de alta pressão aberta com o percurso do combustível" loading="lazy">
-      <figcaption><i class="fa-solid fa-route"></i> Bomba aberta e, na seta azul, o percurso do combustível dentro da bomba de alta pressão, controlado pela válvula MProp.</figcaption>
-    </figure>
-  </div>
+        <!-- ============ INTRODUÇÃO ============ -->
+        <article class="artigo">
+            <p>Use este roteiro quando a <strong>luz amarela de advertência permanece acesa</strong> e a ferramenta de diagnóstico registra um dos códigos relacionados à válvula reguladora de pressão de combustível da bomba de alta pressão (CP3). Você vai precisar de um <strong>multímetro</strong> e da <strong>ferramenta de diagnose MWM</strong>.</p>
 
-  <div class="highlight-card info">
-    <i class="fa-solid fa-hashtag card-icon"></i>
-    <div>
-      <p>Possui um número que indica sua capacidade de vazão, mas esse número, para motores pequenos, não influencia no funcionamento.</p>
-    </div>
-  </div>
+            <div class="aviso">
+                <strong>⚠️ Atenção</strong>
+                A válvula MProp é <strong>integrada à bomba de alta pressão</strong> e não pode ser desmontada separadamente. Se constatado problema interno, a bomba CP3 completa deve ser substituída ou enviada para análise.
+            </div>
 
-  <figure class="media-card small-img">
-    <img src="img/valvula-mprop/04-numero-vazao.jpg" alt="Número de vazão gravado na válvula" loading="lazy">
-    <figcaption>Número de vazão gravado na válvula</figcaption>
-  </figure>
-</section>
+            <h2 id="fluxo">Fluxograma Interativo</h2>
+            <p>Clique nas opções <strong>Sim</strong> ou <strong>Não</strong> conforme o resultado de cada teste. O fluxo se adapta automaticamente ao seu caminho.</p>
+        </article>
 
-<!-- SEÇÃO 3: PARTE ELÉTRICA E TESTES -->
-<section class="art-section">
-  <h2 id="parte-eletrica"><i class="fa-solid fa-bolt"></i> Parte elétrica e testes</h2>
-  <p>O ajuste da pressão necessária é feito pela válvula reguladora, comandada e processada pelo ECM, que a gerencia com um sinal modulado de pulsos.</p>
+        <!-- ============ FLUXOGRAMA ============ -->
+        <div class="fluxo">
 
-  <div class="grid-2col margin-v">
-    <div class="info-box">
-      <ul class="styled-list">
-        <li><strong>Pulsos largos:</strong> alta pressão;</li>
-        <li><strong>Pulsos curtos:</strong> baixa pressão;</li>
-        <li>O sensor de pressão do Rail fornece feedback à ECU para esse ajuste em tempo real;</li>
-        <li>Se durante os testes não houver tensão, verifique os fusíveis <strong>F25, F26, F27 e F28</strong> e o relé principal. <!-- Vídeo: cole aqui o link --></li>
-      </ul>
-    </div>
-    <figure class="media-card">
-      <img src="img/valvula-mprop/05-parte-eletrica.jpg" alt="Circuito elétrico da válvula MProp" loading="lazy">
-    </figure>
-  </div>
+            <!-- PASSO 1 -->
+            <div class="passo" id="p1">
+                <span class="passo-n">Passo 1</span>
+                <p><strong>A ferramenta de diagnóstico registrou falha relacionada à válvula MProp?</strong></p>
+                <ul>
+                    <li>P0001 — Sinal da válvula reguladora perdido</li>
+                    <li>P0002 — Temperatura elevada no CI da válvula</li>
+                    <li>P0003 — Curto-circuito ao terra na válvula</li>
+                    <li>P0004 — Curto-circuito ao positivo na válvula</li>
+                </ul>
+                <div class="resp">
+                    <button type="button" class="sim" data-ir="p2">Sim</button>
+                    <button type="button" class="nao" data-ir="r1">Não</button>
+                </div>
+            </div>
 
-  <!-- CARDS DE ESPECIFICAÇÕES -->
-  <div class="specs-grid">
-    <div class="spec-card"><b class="spec-val">2,6 a 3,5 Ω</b><span class="spec-label">Resistência</span></div>
-    <div class="spec-card"><b class="spec-val">12 V</b><span class="spec-label">Alimentação</span></div>
-    <div class="spec-card"><b class="spec-val">100 Hz - 1,5 kHz</b><span class="spec-label">PWM</span></div>
-    <div class="spec-card"><b class="spec-val">20 a 40%</b><span class="spec-label">Duty cycle (Lenta)</span></div>
-    <div class="spec-card"><b class="spec-val">60 a 80%</b><span class="spec-label">Duty cycle (Alta Carga)</span></div>
-  </div>
+            <!-- RESPOSTA 1 -->
+            <div class="passo fim acao" id="r1" hidden>
+                <span class="passo-n">Sem falha MProp</span>
+                <p>Nenhuma falha relacionada à MProp foi registrada. Siga o fluxo do código apresentado ou verifique as <strong>verificações preliminares</strong> (bateria, aterramento, conectores) antes de prosseguir.</p>
+            </div>
 
-  <div class="dica-card">
-    <div class="dica-header"><i class="fa-solid fa-lightbulb"></i> <strong>Entenda o duty cycle</strong></div>
-    <p>Em 50% a tensão fica metade do tempo ligada e metade desligada, mas é sempre 12 V, independente da rotação do motor. O que muda é o tempo em que permanece ligada, e por isso o multímetro comum mostra a média da tensão naquele intervalo.</p>
-  </div>
+            <!-- PASSO 2 -->
+            <div class="passo" id="p2" hidden>
+                <span class="passo-n">Passo 2</span>
+                <p>Desligue o conector da válvula MProp. Ligue o contato sem dar partida. Meça a tensão entre os pinos <strong>1 e 2</strong> do conector da válvula.</p>
+                <p><strong>O valor encontrado é aproximadamente 5V?</strong></p>
+                <div class="resp">
+                    <button type="button" class="sim" data-ir="p3">Sim</button>
+                    <button type="button" class="nao" data-ir="r2">Não</button>
+                </div>
+            </div>
 
-  <figure class="media-card margin-v">
-    <img src="img/valvula-mprop/06-duty-cycle.jpg" alt="Sinal PWM e duty cycle" loading="lazy">
-  </figure>
+            <!-- RESPOSTA 2 -->
+            <div class="passo erro" id="r2" hidden>
+                <span class="passo-n">Alimentação incorreta</span>
+                <ul>
+                    <li>Verificar alimentação elétrica do ECM;</li>
+                    <li>Verificar continuidade do fusível F25 e F26;</li>
+                    <li>Verificar problemas no ECM;</li>
+                    <li>Providenciar reparos necessários e refazer os testes.</li>
+                </ul>
+            </div>
 
-  <!-- ABAS ANIMADAS PARA TESTES ELÉTRICOS -->
-  <div class="interactive-tabs-wrapper">
-    <div class="tabs-header">
-      <button class="tab-btn active" onclick="switchTab(event, 'tab-multimetro')"><i class="fa-solid fa-wave-square"></i> Teste Tensão Multímetro</button>
-      <button class="tab-btn" onclick="switchTab(event, 'tab-caneta')"><i class="fa-solid fa-vial"></i> Caneta de Polaridade</button>
-      <button class="tab-btn" onclick="switchTab(event, 'tab-resistencia')"><i class="fa-solid fa-omega"></i> Teste de Resistência</button>
-    </div>
+            <!-- PASSO 3 -->
+            <div class="passo" id="p3" hidden>
+                <span class="passo-n">Passo 3</span>
+                <p>Ligue o conector da válvula MProp. Instale o voltímetro entre os pinos <strong>1 e 2</strong> do conector. Acione a partida e meça a tensão.</p>
+                <p><strong>O valor encontrado é aproximadamente 0,5V?</strong></p>
+                <div class="resp">
+                    <button type="button" class="sim" data-ir="p4">Sim</button>
+                    <button type="button" class="nao" data-ir="r3">Não</button>
+                </div>
+            </div>
 
-    <!-- CONTEÚDO ABA 1 -->
-    <div id="tab-multimetro" class="tab-content active">
-      <h3 id="teste-tensao-multimetro">Teste de tensão com multímetro</h3>
-      <ul class="styled-list">
-        <li>O teste de tensão verifica da caixa de fusíveis até o conector da válvula;</li>
-        <li>O teste de resistência verifica somente a válvula.</li>
-      </ul>
-      <p class="margin-v-sm">Com o multímetro você encontrará valores que dependem do duty cycle no momento da medição. Em 50%, por exemplo, o valor aproximado seria 6 V.</p>
-      <p>Não se preocupe se encontrar valores discrepantes como nas imagens abaixo: isso já basta para saber que há 12 V em um terminal e pulso negativo no outro.</p>
-      
-      <div class="grid-2col margin-v">
-        <figure class="media-card">
-          <img src="img/valvula-mprop/07-multimetro-1.jpg" alt="Medição de tensão com multímetro" loading="lazy">
-        </figure>
-        <figure class="media-card">
-          <img src="img/valvula-mprop/08-multimetro-2.jpg" alt="Medição entre o terminal e o negativo da bateria" loading="lazy">
-          <figcaption>Medindo um dos terminais (positivo) contra o negativo da bateria, encontrará 12 V.</figcaption>
-        </figure>
-      </div>
-    </div>
+            <!-- RESPOSTA 3 -->
+            <div class="passo erro" id="r3" hidden>
+                <span class="passo-n">Verificar circuito da válvula</span>
+                <ul>
+                    <li>Verificar mau contato nos conectores da válvula MProp e do ECM;</li>
+                    <li>Verificar interrupções no chicote;</li>
+                    <li>Reparar a falha encontrada e refazer o teste.</li>
+                </ul>
+            </div>
 
-    <!-- CONTEÚDO ABA 2 -->
-    <div id="tab-caneta" class="tab-content">
-      <h3 id="teste-tensao-caneta">Teste de tensão com caneta de polaridade</h3>
-      <figure class="media-card margin-v">
-        <img src="img/valvula-mprop/09-caneta-polaridade.jpg" alt="Teste com caneta de polaridade" loading="lazy">
-      </figure>
-      <p><strong>Valores encontrados:</strong> 12 V positivo e negativo controlado pela ECM.</p>
-    </div>
+            <!-- PASSO 4 -->
+            <div class="passo" id="p4" hidden>
+                <span class="passo-n">Passo 4</span>
+                <p>Desligue o conector da válvula MProp. Meça a resistência entre os pinos <strong>1 e 2</strong> do conector da válvula (lado do componente).</p>
+                <p><strong>O valor está entre 2,7Ω e 3,4Ω?</strong></p>
+                <div class="resp">
+                    <button type="button" class="sim" data-ir="p5">Sim</button>
+                    <button type="button" class="nao" data-ir="r4">Não</button>
+                </div>
+            </div>
 
-    <!-- CONTEÚDO ABA 3 -->
-    <div id="tab-resistencia" class="tab-content">
-      <h3 id="teste-resistencia">Teste de resistência com multímetro</h3>
-      <p>Meça entre os dois terminais da válvula, com o plug elétrico desconectado. Deve encontrar valores entre <strong>2,6 e 3,5 ohm (Ω)</strong>. Não é preciso retirá-la para medir, só desconectar o terminal elétrico.</p>
-      <div class="highlight-card success margin-v-sm">
-        <i class="fa-solid fa-circle-check card-icon"></i>
-        <div><p>É extremamente raro encontrar problemas elétricos nesta válvula.</p></div>
-      </div>
-      <figure class="media-card margin-v">
-        <img src="img/valvula-mprop/10-resistencia.jpg" alt="Medição de resistência nos terminais da válvula" loading="lazy">
-      </figure>
-    </div>
-  </div>
-</section>
+            <!-- RESPOSTA 4 -->
+            <div class="passo erro" id="r4" hidden>
+                <span class="passo-n">Válvula com defeito</span>
+                <ul>
+                    <li>A válvula reguladora de pressão de combustível está com defeito;</li>
+                    <li>Essa válvula é integrada à bomba de alta pressão e não pode ser desmontada;</li>
+                    <li>Substituir a bomba de alta pressão completa ou enviar para análise.</li>
+                </ul>
+            </div>
 
-<!-- SEÇÃO 4: ESTRUTURA MECÂNICA -->
-<section class="art-section">
-  <h2 id="estrutura-mecanica"><i class="fa-solid fa-wrench"></i> Estrutura mecânica</h2>
-  <p>A válvula possui 1 cilindro com dois furos calibrados e 1 êmbolo magnetizado pela bobina. Em repouso ela é normalmente aberta, mas o motor não liga com ela desconectada, devido ao check list da ECM.</p>
-  <p>Quando recebe o PWM de 12 V da ECM, a bobina magnetiza e o êmbolo pulsa o cilindro para frente, pressionando a mola e ajustando a quantidade de combustível pedida pelo ECM conforme a carga do momento.</p>
+            <!-- PASSO 5 -->
+            <div class="passo" id="p5" hidden>
+                <span class="passo-n">Passo 5</span>
+                <p>Verifique a continuidade do chicote entre os pinos <strong>1</strong> e <strong>2</strong> do conector da válvula e os pinos <strong>A49</strong> e <strong>A19</strong> do conector do ECM, respectivamente.</p>
+                <p><strong>O valor é menor ou igual a 1Ω?</strong></p>
+                <div class="resp">
+                    <button type="button" class="sim" data-ir="p6">Sim</button>
+                    <button type="button" class="nao" data-ir="r5">Não</button>
+                </div>
+            </div>
 
-  <div class="highlight-card warning margin-v">
-    <i class="fa-solid fa-triangle-exclamation card-icon"></i>
-    <div>
-      <strong>Atenção</strong>
-      <p>Não abra a válvula sem ferramentas específicas para isso.</p>
-    </div>
-  </div>
+            <!-- RESPOSTA 5 -->
+            <div class="passo erro" id="r5" hidden>
+                <span class="passo-n">Chicote interrompido</span>
+                <ul>
+                    <li>Verificar mau contato nos conectores da válvula MProp e do ECM;</li>
+                    <li>Verificar interrupções no chicote;</li>
+                    <li>Reparar a falha encontrada e refazer o teste.</li>
+                </ul>
+            </div>
 
-  <div class="grid-2col margin-v">
-    <figure class="media-card"><img src="img/valvula-mprop/11-mecanica-1.jpg" alt="Estrutura interna da válvula" loading="lazy"><figcaption>Estrutura interna da válvula</figcaption></figure>
-    <figure class="media-card"><img src="img/valvula-mprop/12-mecanica-2.jpg" alt="Cilindro e êmbolo da válvula" loading="lazy"><figcaption>Cilindro e êmbolo da válvula</figcaption></figure>
-  </div>
+            <!-- PASSO 6 -->
+            <div class="passo" id="p6" hidden>
+                <span class="passo-n">Passo 6</span>
+                <p>Verifique o curto-circuito entre os pinos <strong>1</strong> e <strong>2</strong> do conector da válvula MProp e o terra, e entre os pinos e o positivo da bateria.</p>
+                <p><strong>Existe continuidade (curto) com terra ou positivo?</strong></p>
+                <div class="resp">
+                    <button type="button" class="sim" data-ir="r6">Sim</button>
+                    <button type="button" class="nao" data-ir="p7">Não</button>
+                </div>
+            </div>
 
-  <h3 id="teste-mecanico" class="margin-top-lg"><i class="fa-solid fa-hand"></i> Teste mecânico</h3>
-  <div class="info-box">
-    <ul class="styled-list">
-      <li>Bata a válvula numa superfície macia (pneu ou palma da mão). Nas primeiras batidas (3 a 5) pode não ouvir o êmbolo, pois a válvula pode estar cheia de combustível;</li>
-      <li>Se continuar batendo e não ouvir o êmbolo, ele pode estar travado, ou o cilindro está travado na posição aberta, impedindo o movimento;</li>
-      <li>Se balançar a válvula sem bater e ouvir o êmbolo se movendo livremente, o cilindro está travado na posição fechada.</li>
-    </ul>
-  </div>
+            <!-- RESPOSTA 6 -->
+            <div class="passo erro" id="r6" hidden>
+                <span class="passo-n">Curto-circuito no chicote</span>
+                <ul>
+                    <li>Verificar curto-circuito no conector da válvula MProp e do ECM em relação ao terra;</li>
+                    <li>Verificar curto-circuito no chicote;</li>
+                    <li>Providenciar os reparos necessários e refazer os testes.</li>
+                </ul>
+            </div>
 
-  <figure class="media-card margin-v">
-    <img src="img/valvula-mprop/13-teste-mecanico.jpg" alt="Teste mecânico batendo a válvula" loading="lazy">
-  </figure>
+            <!-- PASSO 7 -->
+            <div class="passo" id="p7" hidden>
+                <span class="passo-n">Passo 7</span>
+                <p>A válvula MProp e o chicote estão OK. <strong>Verifique a alimentação elétrica do ECM</strong> (folha 4 das verificações preliminares) e a <strong>continuidade dos fusíveis F25 e F26</strong>.</p>
+                <p><strong>Alimentação do ECM está correta?</strong></p>
+                <div class="resp">
+                    <button type="button" class="sim" data-ir="r7">Sim</button>
+                    <button type="button" class="nao" data-ir="r8">Não</button>
+                </div>
+            </div>
 
-  <p>Para um diagnóstico mais preciso, meça a profundidade do cilindro dentro da válvula, antes de bater ou abrir.</p>
+            <!-- RESPOSTA 7 -->
+            <div class="passo fim erro" id="r7" hidden>
+                <span class="passo-n">Suspeita de falha no ECM</span>
+                <ul>
+                    <li>Verificar alimentação positiva direta dos pinos K01 e K05 da ECM;</li>
+                    <li>Verificar alimentação negativa direta dos pinos K02, K04 e K06 do ECM;</li>
+                    <li>Verificar carga da bateria;</li>
+                    <li>Verificar cabos da bateria com isolamento danificado ou ligação incorreta;</li>
+                    <li>Verificar os bornes com impurezas;</li>
+                    <li>Verificar o regulador de voltagem do alternador;</li>
+                    <li>Verificar o estado do fusível de 10 A e de 15 A de alimentação da bateria;</li>
+                    <li>Apagar todos os códigos de falha inativos;</li>
+                    <li>Se a falha persistir, substituir o ECM.</li>
+                </ul>
+            </div>
 
-  <!-- CARDS PARALELOS TRAVADA ABERTA / TRAVADA FECHADA -->
-  <div class="trio-grid margin-v">
-    <div class="status-card danger">
-      <h4><i class="fa-solid fa-lock-open"></i> Travada aberta</h4>
-      <ul class="styled-list">
-        <li>Sem barulho do êmbolo batendo na mão;</li>
-        <li>Profundidade medida: <strong>15 mm</strong>;</li>
-        <li>A viatura liga e desliga durante a aceleração.</li>
-      </ul>
-    </div>
-    <div class="status-card danger">
-      <h4><i class="fa-solid fa-lock"></i> Travada fechada</h4>
-      <ul class="styled-list">
-        <li>Induzido livre dentro da bobina;</li>
-        <li>Cilindro travado à frente do alojamento;</li>
-        <li>Profundidade medida: <strong>10 mm</strong>;</li>
-        <li>A viatura não liga.</li>
-      </ul>
-    </div>
-  </div>
+            <!-- RESPOSTA 8 -->
+            <div class="passo fim ok" id="r8" hidden>
+                <span class="passo-n">Válvula MProp OK</span>
+                <ul>
+                    <li>Válvula reguladora de pressão de combustível OK;</li>
+                    <li>Verificar oxidações e fixação do conector da válvula;</li>
+                    <li>Apagar os códigos de falha e repetir o teste;</li>
+                    <li>Se não houver mais falhas, liberar o veículo.</li>
+                </ul>
+            </div>
 
-  <div class="grid-2col margin-v">
-    <figure class="media-card"><img src="img/valvula-mprop/14-travada-1.jpg" alt="Medição da profundidade do cilindro" loading="lazy"></figure>
-    <figure class="media-card"><img src="img/valvula-mprop/15-travada-2.jpg" alt="Válvula travada aberta e fechada" loading="lazy"></figure>
-  </div>
-</section>
+        </div>
 
-<!-- SEÇÃO 5: PROBLEMAS COM COMBUSTÍVEL -->
-<section class="art-section">
-  <h2 id="problemas-combustivel"><i class="fa-solid fa-droplet-slash"></i> Problemas com combustível</h2>
-  <p>A sujeira trava o cilindro dentro do corpo da válvula.</p>
+        <!-- ============ VALORES ============ -->
+        <article class="artigo">
+            <h2 id="valores">Valores e Pinos de Referência</h2>
 
-  <div class="info-box margin-v-sm">
-    <ul class="styled-list">
-      <li><strong>Motor não liga por falta de combustível no tubo Rail:</strong> provavelmente a válvula travou <strong>fechada</strong> e não passa combustível para a bomba de alta;</li>
-      <li><strong>Motor liga, mas desliga durante a aceleração:</strong> provavelmente travou <strong>aberta</strong>; o sensor do Rail acusa pressão elevada e o motor entra em modo de segurança e desliga;</li>
-      <li><strong>Excesso de fumaça preta no escapamento:</strong> é bem provável que a válvula esteja com problemas.</li>
-    </ul>
-  </div>
+            <table class="tabela-diag">
+                <thead>
+                    <tr>
+                        <th>Teste</th>
+                        <th>Valor Esperado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Alimentação da válvula (pinos 1-2, conector desligado)</td>
+                        <td><strong>5V</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Tensão na válvula com partida acionada</td>
+                        <td><strong>≈ 0,5V</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Resistência da válvula (pinos 1-2)</td>
+                        <td><strong>2,7Ω a 3,4Ω</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Continuidade chicote ↔ ECM</td>
+                        <td><strong>≤ 1Ω</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Curto-circuito com terra ou positivo</td>
+                        <td><strong>Não deve haver</strong></td>
+                    </tr>
+                </tbody>
+            </table>
 
-  <p>Se for excesso de pressão, a central acusa na luz de diagnóstico e desliga o motor. Nesse caso é possível dar partida novamente e o motor liga; em outros erros parecidos, o motor não ligaria.</p>
+            <h3>Mapeamento de Pinos</h3>
+            <table class="tabela-diag">
+                <thead>
+                    <tr>
+                        <th>Pino da Válvula</th>
+                        <th>Pino do ECM</th>
+                        <th>Função</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>A49</td>
+                        <td>GND da Válvula Reguladora de Pressão</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>A19</td>
+                        <td>Alimentação de 5V da Válvula Reguladora</td>
+                    </tr>
+                </tbody>
+            </table>
 
-  <figure class="media-card margin-v">
-    <img src="img/valvula-mprop/16-problemas-combustivel.jpg" alt="Válvula com sujeira" loading="lazy">
-  </figure>
+            <div class="dica">
+                <strong>ℹ️ Função da Válvula MProp</strong>
+                A válvula MProp (reguladora de pressão de combustível) ajusta a pressão do combustível em função da rotação e carga do motor, dentro da faixa definida pelo ECM. É comandada por um sinal modulado de pulso (PWM): um pulso largo = alta pressão; um pulso curto = baixa pressão.
+            </div>
+        </article>
 
-  <div class="highlight-card warning">
-    <i class="fa-solid fa-triangle-exclamation card-icon"></i>
-    <div>
-      <strong>Atenção</strong>
-      <p>Não abra a válvula: ela é regulada em máquina de teste de vazão. Se estiver travada aberta, aplique descarbonizante e bata nela, com moderação, numa superfície macia até ouvir o êmbolo destravado. Se estiver travada fechada (induzido "solto"), empurre o cilindro para dentro com um objeto pontiagudo, aplique o produto e bata numa superfície macia.</p>
-    </div>
-  </div>
-</section>
+        <!-- ============ SOLUÇÕES ============ -->
+        <article class="artigo">
+            <h2 id="solucoes">Causas Comuns e Soluções (MWM 2.8)</h2>
+            <p>Baseado em manuais MWM, fóruns de reparadores e casos reais documentados.</p>
 
-<!-- SEÇÃO 6: PROBLEMAS COMUNS -->
-<section class="art-section">
-  <h2 id="problemas-comuns"><i class="fa-solid fa-bug"></i> Problemas comuns</h2>
+            <h3>1. Conector solto ou mau contato</h3>
+            <p>O scanner pode acusar falha na MProp mesmo quando o problema é apenas um <strong>terminal folgado ou oxidado</strong> no conector. <strong>Solução:</strong> Reapertar os terminais e limpar os contatos antes de substituir qualquer peça.</p>
 
-  <h3 id="problemas-eletricos" class="margin-top-md">Problemas elétricos</h3>
-  <div class="trio-grid margin-v-sm">
-    <div class="diagnostic-box">
-      <h4><i class="fa-solid fa-stethoscope"></i> Sintomas</h4>
-      <ul class="styled-list"><li>Motor dá partida, mas não liga;</li><li>Bomba elétrica não ligou.</li></ul>
-    </div>
-    <div class="diagnostic-box">
-      <h4><i class="fa-solid fa-magnifying-glass"></i> Possíveis causas</h4>
-      <ul class="styled-list"><li>Fusíveis F25, F26, F27 e F28 queimados;</li><li>Relé principal queimado;</li><li>Válvula MProp desconectada ou queimada.</li></ul>
-    </div>
-    <div class="diagnostic-box">
-      <h4><i class="fa-solid fa-screwdriver-wrench"></i> Possíveis soluções</h4>
-      <ul class="styled-list"><li>Verificar a tensão da bateria;</li><li>Verificar tensão no relé principal;</li><li>Verificar 5 V em qualquer um dos sensores;</li><li>Realizar os testes de voltagem e resistência.</li></ul>
-    </div>
-  </div>
-  <p class="text-muted">É extremamente raro encontrar uma MProp com problemas elétricos, mas é bom conferir se os terminais não estão folgados.</p>
+            <h3>2. Chicote rompido ou em curto</h3>
+            <p>Verificar o chicote entre os pinos <strong>1 e 2</strong> do conector e os pinos <strong>A49 e A19</strong> do ECM. <strong>Solução:</strong> Reparar ou substituir o chicote.</p>
 
-  <h3 id="sem-pressao-rail" class="margin-top-lg">Sem pressão de combustível no tubo Rail</h3>
-  <div class="trio-grid margin-v-sm">
-    <div class="diagnostic-box">
-      <h4><i class="fa-solid fa-stethoscope"></i> Sintomas</h4>
-      <ul class="styled-list"><li>Bomba elétrica ligou;</li><li>Sem pressão de combustível no tubo Rail.</li></ul>
-    </div>
-    <div class="diagnostic-box">
-      <h4><i class="fa-solid fa-magnifying-glass"></i> Possíveis causas</h4>
-      <ul class="styled-list">
-        <li>Falta de combustível;</li>
-        <li>Bomba elétrica sem funcionar;</li>
-        <li>Válvula de proteção do Rail com vazamento <!-- Vídeo: cole aqui o link -->;</li>
-        <li>Válvula KUV travada no fundo do alojamento;</li>
-        <li>Válvula MProp travada fechada;</li>
-        <li>Sujeira na bomba de alta.</li>
-      </ul>
-    </div>
-    <div class="diagnostic-box">
-      <h4><i class="fa-solid fa-screwdriver-wrench"></i> Possíveis soluções</h4>
-      <ul class="styled-list">
-        <li>Ver se chega combustível da <a href="#alimentacao-de-combustivel/bomba-eletrica">bomba elétrica</a> até a entrada da bomba de alta;</li>
-        <li>Verificar excesso de retorno nos <a href="#sistema-de-injecao/bicos-injetores">bicos injetores</a>;</li>
-        <li>Medir a <a href="#sistema-de-injecao/sensor-pres-rail">tensão no sensor do Rail</a> durante as partidas;</li>
-        <li>Verificar a <a href="#alimentacao-de-combustivel/tubo-rail">válvula de proteção do Rail</a>;</li>
-        <li>Retirar a <a href="#alimentacao-de-combustivel/valvula-kuv">válvula KUV</a> e ver se está travada;</li>
-        <li>Retirar a MProp e ver se está travada <!-- Vídeo: cole aqui o link -->;</li>
-        <li>Se nada resolver, retirar a <a href="#alimentacao-de-combustivel/bomba-alta-pressao">bomba de alta</a> para limpeza.</li>
-      </ul>
-    </div>
-  </div>
+            <h3>3. Resistência da válvula fora do especificado</h3>
+            <p>Se a resistência medida entre os pinos 1 e 2 estiver fora da faixa de <strong>2,7Ω a 3,4Ω</strong>, a válvula está com defeito. <strong>Solução:</strong> Substituir a bomba de alta pressão completa (CP3) — a válvula é integrada e não pode ser substituída separadamente.</p>
 
-  <div class="dica-card">
-    <div class="dica-header"><i class="fa-solid fa-lightbulb"></i> <strong>Dica</strong></div>
-    <p>O jeito mais fácil de ver se está chegando combustível é afrouxar o tubo do bico injetor. Afrouxe sempre pelo lado do bico: no tubo Rail a rosca é extremamente frágil.</p>
-  </div>
+            <h3>4. Bomba de Alta Pressão (CP3) com desgaste</h3>
+            <p>Falta de estanqueidade na bomba CP3 causa <strong>pressão insuficiente</strong>, resultando em falhas na aceleração e perda de potência. <strong>Teste:</strong> 100 bar (mín. 80 bar), 200 bar (mín. 180 bar), 400 bar (mín. 380 bar).</p>
 
-  <h3 id="alta-pressao-rail" class="margin-top-lg">Alta pressão de combustível no tubo Rail</h3>
-  <div class="trio-grid margin-v-sm">
-    <div class="diagnostic-box">
-      <h4><i class="fa-solid fa-stethoscope"></i> Sintomas</h4>
-      <ul class="styled-list"><li>Alta pressão no tubo Rail;</li><li>Acende a luz de injeção e desliga o motor.</li></ul>
-    </div>
-    <div class="diagnostic-box">
-      <h4><i class="fa-solid fa-magnifying-glass"></i> Possíveis causas</h4>
-      <ul class="styled-list"><li>Válvula MProp travada aberta;</li><li><a href="#sistema-de-injecao/sensor-pres-rail">Sensor do Rail</a> avariado.</li></ul>
-    </div>
-    <div class="diagnostic-box">
-      <h4><i class="fa-solid fa-screwdriver-wrench"></i> Possíveis soluções</h4>
-      <ul class="styled-list"><li>Limpar a válvula MProp;</li><li>Trocar o sensor do Rail avariado.</li></ul>
-    </div>
-  </div>
+            <h3>5. Alimentação do ECM com falha</h3>
+            <p>Verificar continuidade do <strong>fusível F25 (10A)</strong> e <strong>F26 (15A)</strong>. Se estiverem queimados, substituir e refazer o teste.</p>
 
-  <div class="dica-card">
-    <div class="dica-header"><i class="fa-solid fa-lightbulb"></i> <strong>Dica</strong></div>
-    <p>Problemas no sensor do Rail e na MProp confundem muito, pois um depende do outro. Repare se há excesso de fumaça preta no escapamento: isso indica excesso de combustível nos injetores por falha da MProp.</p>
-  </div>
+            <h3>6. ECM com defeito</h3>
+            <p>Se todos os testes anteriores estiverem OK e a falha persistir, o problema pode estar no <strong>circuito interno do ECM</strong>. <strong>Solução:</strong> Substituir o ECM.</p>
 
-  <!-- DIAGNÓSTICOS E SCANNER -->
-  <div class="sub-block margin-top-lg">
-    <h3><i class="fa-solid fa-meter"></i> Testes com multímetro</h3>
-    <p>Meça a tensão no pino 02 do sensor do tubo:</p>
-    <div class="specs-grid">
-      <div class="spec-card"><b class="spec-val">0,5 V</b><span class="spec-label">Chave ligada, antes da partida</span></div>
-      <div class="spec-card"><b class="spec-val">≈ 1,2 V</b><span class="spec-label">Marcha lenta</span></div>
-      <div class="spec-card"><b class="spec-val">até ≈ 4,5 V</b><span class="spec-label">Rotação alta</span></div>
-    </div>
-  </div>
+            <div class="aviso">
+                <strong>⚠️ Antes de qualquer teste elétrico</strong>
+                Confira a bateria, os bornes e o alternador. Tensão baixa ou instável causa falhas em vários sensores e atuadores ao mesmo tempo, gerando diagnósticos falsos.
+            </div>
+        </article>
 
-  <div class="sub-block margin-top-lg">
-    <h3><i class="fa-solid fa-laptop-code"></i> Testes com scanner</h3>
-    <p>Se a pressão real estiver sempre acima, a MProp pode estar travada ou o sensor de pressão com defeito.</p>
-    
-    <div class="grid-2col margin-v">
-      <figure class="media-card">
-        <img src="img/valvula-mprop/17-scanner-1.jpg" alt="Pressão do Rail no scanner" loading="lazy">
-        <figcaption>Em 750 rpm, marcha lenta, a pressão deveria estar entre 200 e 500 bar</figcaption>
-      </figure>
-      <figure class="media-card">
-        <img src="img/valvula-mprop/18-scanner-2.jpg" alt="Pressão do Rail no scanner em rotação alta" loading="lazy">
-        <figcaption>Em 2.000 rpm a pressão já está no limite máximo aceitável para máxima rotação</figcaption>
-      </figure>
-    </div>
-  </div>
+        <!-- ============ CÓDIGOS ============ -->
+        <article class="artigo">
+            <h2 id="codigos">Códigos Relacionados</h2>
+            <p>Se a diagnose registrar um destes códigos, siga o fluxograma acima:</p>
 
-  <div class="sub-block margin-top-lg">
-    <h3><i class="fa-solid fa-list-check"></i> Procedimento "metiradosanha"</h3>
-    <p>O ideal é tentar destravar com produtos químicos que não sejam agressivos ao material da válvula, em uma cuba ultrassônica. Antes de retirar a MProp, verifique:</p>
-    <div class="info-box margin-v-sm">
-      <ul class="styled-list">
-        <li>Se tem combustível no tanque;</li>
-        <li>Filtros e pescador de combustível desobstruídos;</li>
-        <li>Mangueiras com vazamentos;</li>
-        <li>Vazão da bomba elétrica;</li>
-        <li>Se o combustível chega até a bomba de alta.</li>
-      </ul>
-    </div>
-  </div>
-</section>
+            <table class="tabela-diag">
+                <thead>
+                    <tr>
+                        <th>P-Code</th>
+                        <th>Descrição</th>
+                        <th>Estratégia do ECM</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>P0001</strong></td>
+                        <td>Sinal da válvula reguladora de pressão perdido</td>
+                        <td>Desliga o motor em qualquer regime. Não permite nova partida.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>P0002</strong></td>
+                        <td>Temperatura elevada no CI de controle da válvula</td>
+                        <td>Desliga o motor em qualquer regime. Não permite nova partida.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>P0003</strong></td>
+                        <td>Curto-circuito ao terra na válvula</td>
+                        <td>Desliga o motor.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>P0004</strong></td>
+                        <td>Curto-circuito ao positivo na válvula</td>
+                        <td>Desliga o motor.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </article>
 
-<!-- SEÇÃO 7: CÓDIGOS DE FALHA -->
-<section class="art-section">
-  <h2 id="codigos-de-falha"><i class="fa-solid fa-triangle-exclamation"></i> Códigos de falha</h2>
-  
-  <div class="codigos-container">
-    
-    <div class="codigo-card">
-      <div class="codigo-badge">1211</div>
-      <div class="codigo-info">
-        <h4>Falha no sinal da válvula reguladora de pressão (M-PROP)</h4>
-        <p>Não há comunicação elétrica adequada entre o ECM e a válvula. Pode indicar:</p>
-        <ul class="styled-list"><li>Chicote rompido ou com mau contato;</li><li>Conector mal encaixado ou oxidado;</li><li>M-PROP aberta (sem continuidade) ou em curto.</li></ul>
-      </div>
-    </div>
+    </main>
+</div>
 
-    <div class="codigo-card">
-      <div class="codigo-badge">1221</div>
-      <div class="codigo-info">
-        <h4>Curto-circuito à massa no circuito da válvula M-PROP</h4>
-        <p>A linha de comando está encostando na carcaça (terra), forçando o módulo a cortar o sinal. Causas comuns:</p>
-        <ul class="styled-list"><li>Fio prensado ou isolação rompida;</li><li>Bobina da M-PROP em curto;</li><li>Sujeira ou umidade no chicote.</li></ul>
-      </div>
-    </div>
+<footer>
+    <p>Guia Técnico — Fluxograma Válvula MProp (MWM 2.8)</p>
+    <p><a href="../index.html">← Voltar ao início</a></p>
+</footer>
 
-    <div class="codigo-card">
-      <div class="codigo-badge danger">1222</div>
-      <div class="codigo-info">
-        <h4>Curto-circuito ao positivo no circuito da válvula M-PROP</h4>
-        <p>O comando da ECU está recebendo 12 V direto, por falha no chicote ou inversão elétrica.</p>
-        <p><strong>Cuidado:</strong> pode queimar o driver interno do módulo se persistir.</p>
-      </div>
-    </div>
+<script src="../script.js"></script>
+<script>
+    // ==================================================
+    // FLUXOGRAMA INTERATIVO — Válvula MProp
+    // ==================================================
+    document.addEventListener('DOMContentLoaded', () => {
+        // Inicializa todos os passos ocultos, exceto o primeiro
+        document.querySelectorAll('.passo').forEach(p => {
+            if (p.id !== 'p1') p.setAttribute('hidden', '');
+        });
 
-    <div class="codigo-card">
-      <div class="codigo-badge">1231</div>
-      <div class="codigo-info">
-        <h4>Sinal fora da faixa esperada da válvula M-PROP</h4>
-        <p>A ECU envia o PWM corretamente, mas o comportamento da válvula não é o esperado. Causas prováveis:</p>
-        <ul class="styled-list"><li>Travamento interno (mola ou êmbolo sujo);</li><li>Combustível contaminado (borra ou sujeira fina);</li><li>Retorno do Rail obstruído.</li></ul>
-      </div>
-    </div>
+        // Detecta cliques nos botões Sim/Não
+        document.querySelectorAll('.resp button[data-ir]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.getAttribute('data-ir');
+                const target = document.getElementById(targetId);
 
-    <div class="codigo-card">
-      <div class="codigo-badge">1617</div>
-      <div class="codigo-info">
-        <h4>Pressão do Rail abaixo do mínimo esperado em marcha lenta</h4>
-        <p>Mesmo com PWM alto, a pressão medida no tubo Rail é baixa. Pode indicar:</p>
-        <ul class="styled-list"><li>Válvula M-PROP travada fechada;</li><li>Bomba de alta desgastada;</li><li>Entrada de ar na linha de baixa pressão.</li></ul>
-      </div>
-    </div>
+                // Oculta todos os passos
+                document.querySelectorAll('.passo').forEach(p => {
+                    p.setAttribute('hidden', '');
+                });
 
-    <div class="codigo-card">
-      <div class="codigo-badge warning">1618</div>
-      <div class="codigo-info">
-        <h4>Pressão do Rail acima do máximo permitido</h4>
-        <p>A ECU tenta reduzir a pressão, mas a M-PROP não responde. Causas:</p>
-        <ul class="styled-list"><li>Válvula travada aberta;</li><li>Obstrução na linha de retorno;</li><li>Sensor de pressão do Rail com leitura incorreta.</li></ul>
-      </div>
-    </div>
+                // Mostra o passo de destino
+                if (target) {
+                    target.removeAttribute('hidden');
 
-    <div class="codigo-card">
-      <div class="codigo-badge">1625</div>
-      <div class="codigo-info">
-        <h4>Válvula M-PROP com atuação lenta ou instável</h4>
-        <p>A oscilação da pressão no Rail não acompanha o comando PWM. Costuma ser intermitente e aparecer com o motor quente ou sob carga variável. Pode indicar:</p>
-        <ul class="styled-list"><li>Desgaste interno da válvula;</li><li>Combustível de má qualidade;</li><li>Borra ou corrosão no corpo da válvula.</li></ul>
-      </div>
-    </div>
-
-  </div>
-</section>
+                    // Scroll suave até o passo
+                    setTimeout(() => {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 100);
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
