@@ -76,37 +76,6 @@ async function abrirPagina() {
   const path = decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '');
   document.querySelectorAll('.mega-link-item.active, .explore-link.active').forEach(a => a.classList.remove('active'));
 
-  // sem rota válida = Home
-  if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
-    card.hidden = true; home.hidden = false;
-    return;
-  }
-
-  // ✅ Marca TODOS os links com esse href (corrige duplicados)
-  document.querySelectorAll(`a[href="#${path}"]`).forEach(l => l.classList.add('active'));
-  const link = document.querySelector(`a[href="#${path}"]`);
-
-  const menu = link ? link.closest('.nav-item').querySelector('.nav-btn span').textContent.trim() : '';
-  const titulo = !link ? '' :
-    link.classList.contains('explore-link')
-      ? link.closest('.mega-explore-side').querySelector('h5').textContent.trim()
-      : link.textContent.trim();
-
-  home.hidden = true; card.hidden = false;
-  card.innerHTML = '<p class="page-loading">Carregando...</p>';
-  window.scrollTo({ top: 0 });
-
-  try {
-    const resp = await fetch(`conteudo/${path}.html`);
-    if (!resp.ok) throw new Error(`Página não encontrada (${resp.status})`);
-    const corpo = await resp.text();
-    if (decodeURIComponent(location.hash.slice(1)) !== path) return;
-    card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div><h1>${titulo}</h1>${corpo}`;
-    melhorarArtigo();
-  } catch (err) {
-    card.innerHTML = `<h1>Erro</h1><p>${err.message}. Se estiver abrindo o arquivo direto no computador, use um servidor (GitHub Pages ou <code>python -m http.server</code>).</p>`;
-  }
-}
 
   // sem rota válida = Home
   if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
