@@ -1,0 +1,213 @@
+<!-- Interruptor do Pedal do Freio com falha (luz acesa) - MWM Sprint 2.8 -->
+<header class="art-head">
+  <span class="art-kicker">Sistema Elétrico · Diagnóstico</span>
+  <h1>Interruptor do Pedal do Freio</h1>
+  <p class="art-lead">Fluxograma de diagnóstico com a luz amarela acesa: responda Sim ou Não em cada passo até chegar à solução.</p>
+  <div class="chips"><span>MWM Sprint 2.8</span><span>S10 até 2011</span><span>P0504</span><span>Pinos K17 · K80</span></div>
+</header>
+
+<p>Use este roteiro quando a diagnose registrar P0504 (sinal do interruptor do pedal do freio não plausível). A falha só é reconhecida após 5 minutos com o motor em funcionamento, porque o ECM precisa confirmar que o interruptor principal e o redundante não estão trabalhando em oposição um ao outro.</p>
+
+<div class="aviso"><strong>Atenção</strong><p>O interruptor do freio possui dois circuitos internos: um <strong>normalmente aberto (NA)</strong> e um <strong>normalmente fechado (NF)</strong>. Eles devem trabalhar em oposição — quando um fecha, o outro abre. Se os dois estão no mesmo estado, o ECM acusa o P0504.</p></div>
+
+<h2 id="fluxo">Fluxograma</h2>
+<div class="fluxo">
+  <div class="passo" id="p1">
+    <span class="passo-n">Passo 1</span>
+    <p><strong>A ferramenta registrou P0504?</strong></p>
+    <div class="resp">
+      <button type="button" class="sim" data-ir="p2">Sim</button>
+      <button type="button" class="nao" data-ir="r1">Não</button>
+    </div>
+  </div>
+  <div class="passo fim acao" id="r1">
+    <span class="passo-n">Outro código</span>
+    <p>Siga o fluxograma do código apresentado.</p>
+  </div>
+
+  <div class="passo" id="p2">
+    <span class="passo-n">Passo 2</span>
+    <p>Verifique visualmente o interruptor no pedal do freio e o conector. <strong>Há oxidação, umidade ou terminais tortos?</strong></p>
+    <div class="resp">
+      <button type="button" class="sim" data-ir="r2">Sim</button>
+      <button type="button" class="nao" data-ir="p3">Não</button>
+    </div>
+  </div>
+  <div class="passo fim erro" id="r2">
+    <span class="passo-n">Corrigir conector</span>
+    <ul>
+      <li>Limpe e reapente os terminais;</li>
+      <li>Apague os códigos de falha e repita o teste.</li>
+    </ul>
+  </div>
+
+  <div class="passo" id="p3">
+    <span class="passo-n">Passo 3</span>
+    <p>Verifique o <strong>fusível F29</strong> (10 A) no circuito do interruptor. <strong>O fusível está OK?</strong></p>
+    <div class="resp">
+      <button type="button" class="sim" data-ir="p4">Sim</button>
+      <button type="button" class="nao" data-ir="r3">Não</button>
+    </div>
+  </div>
+  <div class="passo fim erro" id="r3">
+    <span class="passo-n">Fusível queimado</span>
+    <ul>
+      <li>Substitua o fusível F29 por outro de mesma amperagem;</li>
+      <li>Apague os códigos e refaça o teste.</li>
+    </ul>
+  </div>
+
+  <div class="passo" id="p4">
+    <span class="passo-n">Passo 4</span>
+    <p>Com a chave ligada, meça a tensão no pino <strong>11 (COM*)</strong> do conector do interruptor em relação ao terra. <strong>O valor é próximo da tensão da bateria?</strong></p>
+    <div class="resp">
+      <button type="button" class="sim" data-ir="p5">Sim</button>
+      <button type="button" class="nao" data-ir="r4">Não</button>
+    </div>
+  </div>
+  <div class="passo fim erro" id="r4">
+    <span class="passo-n">Sem alimentação</span>
+    <ul>
+      <li>Verifique a continuidade do chicote entre o fusível F29 e o pino 11 do conector;</li>
+      <li>Verifique o relé principal K15;</li>
+      <li>Repare o chicote e refaça o teste.</li>
+    </ul>
+  </div>
+
+  <div class="passo" id="p5">
+    <span class="passo-n">Passo 5</span>
+    <p>Com o pedal do freio <strong>em repouso</strong>, meça a continuidade entre os pinos <strong>11 (COM*) e 12 (NA*)</strong>, e entre <strong>11 (COM*) e 14 (NF*)</strong>. <strong>Um deve estar aberto e o outro fechado?</strong></p>
+    <div class="resp">
+      <button type="button" class="sim" data-ir="p6">Sim</button>
+      <button type="button" class="nao" data-ir="r5">Não</button>
+    </div>
+  </div>
+  <div class="passo fim erro" id="r5">
+    <span class="passo-n">Interruptor com defeito</span>
+    <ul>
+      <li>Substitua o interruptor do pedal do freio;</li>
+      <li>Apague os códigos e refaça o teste.</li>
+    </ul>
+  </div>
+
+  <div class="passo" id="p6">
+    <span class="passo-n">Passo 6</span>
+    <p>Pressione o pedal do freio. Meça novamente a continuidade entre os pinos 11-12 e 11-14. <strong>Os estados se inverteram (o que estava fechado abriu e vice-versa)?</strong></p>
+    <div class="resp">
+      <button type="button" class="sim" data-ir="p7">Sim</button>
+      <button type="button" class="nao" data-ir="r6">Não</button>
+    </div>
+  </div>
+  <div class="passo fim erro" id="r6">
+    <span class="passo-n">Interruptor com defeito</span>
+    <ul>
+      <li>Substitua o interruptor do pedal do freio;</li>
+      <li>Verifique a regulagem do interruptor no pedal;</li>
+      <li>Apague os códigos e refaça o teste.</li>
+    </ul>
+  </div>
+
+  <div class="passo" id="p7">
+    <span class="passo-n">Passo 7</span>
+    <p>Desligue o conector do ECM. Verifique a continuidade do chicote entre os pinos do interruptor e os pinos <strong>K17</strong> e <strong>K80</strong> do ECM. <strong>O valor é menor que 1 Ω?</strong></p>
+    <div class="resp">
+      <button type="button" class="sim" data-ir="p8">Sim</button>
+      <button type="button" class="nao" data-ir="r7">Não</button>
+    </div>
+  </div>
+  <div class="passo fim erro" id="r7">
+    <span class="passo-n">Chicote interrompido</span>
+    <ul>
+      <li>Verifique mau contato no conector do ECM;</li>
+      <li>Repare o chicote;</li>
+      <li>Apague os códigos e refaça o teste.</li>
+    </ul>
+  </div>
+
+  <div class="passo" id="p8">
+    <span class="passo-n">Passo 8</span>
+    <p>Verifique o <strong>curto-circuito</strong> entre o chicote do interruptor e o terra, e entre o chicote e o positivo. <strong>Existe curto?</strong></p>
+    <div class="resp">
+      <button type="button" class="sim" data-ir="r8">Sim</button>
+      <button type="button" class="nao" data-ir="p9">Não</button>
+    </div>
+  </div>
+  <div class="passo fim erro" id="r8">
+    <span class="passo-n">Curto-circuito</span>
+    <ul>
+      <li>Identifique e isole o ponto em curto;</li>
+      <li>Repare o chicote;</li>
+      <li>Apague os códigos e refaça o teste.</li>
+    </ul>
+  </div>
+
+  <div class="passo" id="p9">
+    <span class="passo-n">Passo 9</span>
+    <p>Interruptor e chicote OK. Verifique a <strong>regulagem</strong> do interruptor no pedal do freio — quando o pedal é pressionado, os contatos devem mudar de estado imediatamente. <strong>Está regulado corretamente?</strong></p>
+    <div class="resp">
+      <button type="button" class="sim" data-ir="r9">Sim</button>
+      <button type="button" class="nao" data-ir="r10">Não</button>
+    </div>
+  </div>
+  <div class="passo fim ok" id="r9">
+    <span class="passo-n">Sistema OK</span>
+    <ul>
+      <li>Apague os códigos de falha;</li>
+      <li>Se não houver mais falhas registradas, libere o veículo.</li>
+    </ul>
+  </div>
+  <div class="passo fim erro" id="r10">
+    <span class="passo-n">Regulagem</span>
+    <ul>
+      <li>Ajuste o interruptor conforme especificação do manual do veículo;</li>
+      <li>Apague os códigos e refaça o teste;</li>
+      <li>Se a falha persistir, substitua o interruptor.</li>
+    </ul>
+  </div>
+</div>
+
+<h2 id="valores">Valores e pinos</h2>
+<table>
+  <tr><th>Teste</th><th>Valor esperado</th></tr>
+  <tr><td>Tensão no pino 11 (COM*) com chave ligada</td><td>tensão da bateria</td></tr>
+  <tr><td>Continuidade pino 11 ↔ 12 (pedal em repouso)</td><td>aberto</td></tr>
+  <tr><td>Continuidade pino 11 ↔ 14 (pedal em repouso)</td><td>fechado</td></tr>
+  <tr><td>Continuidade pino 11 ↔ 12 (pedal pressionado)</td><td>fechado</td></tr>
+  <tr><td>Continuidade pino 11 ↔ 14 (pedal pressionado)</td><td>aberto</td></tr>
+  <tr><td>Continuidade chicote ↔ ECM</td><td>menor que 1 Ω</td></tr>
+  <tr><td>Fusível F29</td><td>10 A, continuidade menor que 1 Ω</td></tr>
+</table>
+
+<h3>Pinos do interruptor e do ECM</h3>
+<table>
+  <tr><th>Pino do interruptor</th><th>Ligação</th><th>Função</th></tr>
+  <tr><td>11 (COM*)</td><td>Alimentação (via F29)</td><td>Comum aos dois contatos</td></tr>
+  <tr><td>12 (NA*)</td><td>K17 do ECM</td><td>Normalmente aberto</td></tr>
+  <tr><td>14 (NF*)</td><td>K80 do ECM</td><td>Normalmente fechado</td></tr>
+</table>
+
+<div class="dica">
+  <strong>Função do interruptor do freio</strong>
+  <p>O ECM usa o sinal do interruptor do freio para validar a plausibilidade com o pedal do acelerador. Se o motorista está acelerando e o freio está acionado ao mesmo tempo, o ECM entende que há uma falha e aciona o P0504. Isso evita acelerações involuntárias.</p>
+</div>
+
+<h2 id="solucoes">Soluções comuns</h2>
+<ul>
+  <li><strong>Interruptor com defeito:</strong> substitua o interruptor do pedal do freio;</li>
+  <li><strong>Regulagem incorreta:</strong> ajuste a posição do interruptor no pedal;</li>
+  <li><strong>Conector com oxidação:</strong> limpe e reapente os terminais;</li>
+  <li><strong>Fusível F29 queimado:</strong> substitua por outro de mesma amperagem;</li>
+  <li><strong>Chicote rompido ou em curto:</strong> repare o trecho danificado;</li>
+  <li><strong>Mau contato no pedal:</strong> verifique a fixação do interruptor;</li>
+  <li><strong>Peças:</strong> use interruptor original MWM ou Bosch.</li>
+</ul>
+
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Antes de qualquer teste elétrico, confira a bateria e o alternador. Tensão instável gera falhas em vários circuitos ao mesmo tempo.</p>
+</div>
+
+<h2 id="codigos">Códigos relacionados</h2>
+<ul>
+  <li><strong>P0504</strong>: Sinal do interruptor do pedal do freio não plausível — ECM inibe avaliação de plausibilidade entre pedal do freio e pedal do acelerador. <strong>Não reduz potência do motor.</strong></li>
+</ul>
