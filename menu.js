@@ -72,13 +72,58 @@ btnTop.addEventListener('click', () => {
 const home = document.getElementById('home-box');
 const card = document.getElementById('page-card');
 
-// CÓDIGO NOVO: Marca TODOS os links do menu que apontem para a rota atual
-const linksCorrespondentes = document.querySelectorAll(`a[href="#${path}"]`);
-linksCorrespondentes.forEach(link => {
-  if (link.classList.contains('mega-link-item')) {
-    link.classList.add('active');
+async function abrirPagina() {
+  const path = decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '');
+  
+  // 1. Limpa a classe 'active' de TODOS os links do mega menu
+  document.querySelectorAll('.mega-link-item.active').forEach(a => a.classList.remove('active'));
+
+  // 2. Se for a página inicial (sem rota), exibe a Home e encerra
+  if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
+    card.hidden = true; 
+    home.hidden = false;
+    return;
   }
-});
+
+  // 3. Destaca TODOS os links que correspondem ao hash atual
+  const linksCorrespondentes = document.querySelectorAll(`a[href="#${path}"]`);
+  let linkReferencia = null;
+
+  linksCorrespondentes.forEach(link => {
+    if (link.classList.contains('mega-link-item')) {
+      link.classList.add('active');
+      linkReferencia = link;
+    }
+  });
+
+  // 4. Obtém título e grupo
+  const menu = linkReferencia && linkReferencia.closest('.nav-item') 
+    ? linkReferencia.closest('.nav-item').querySelector('.nav-btn span').textContent.trim() 
+    : '';
+    
+  const titulo = linkReferencia 
+    ? (linkReferencia.classList.contains('explore-link')
+        ? linkReferencia.closest('.mega-explore-side').querySelector('h5').textContent.trim()
+        : linkReferencia.textContent.trim())
+    : '';
+
+  // 5. Exibe o cartão da página e carrega o HTML
+  home.hidden = true; 
+  card.hidden = false;
+  card.innerHTML = '<p class="page-loading">Carregando...</p>';
+  window.scrollTo({ top: 0 });
+
+  try {
+    const resp = await fetch(`conteudo/${path}.html`);
+    if (!resp.ok) throw new Error(`Página não encontrada (${resp.status})`);
+    const corpo = await resp.text();
+    if (decodeURIComponent(location.hash.slice(1)) !== path) return;
+    card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div><h1>${titulo}</h1>${corpo}`;
+    melhorarArtigo();
+  } catch (err) {
+    card.innerHTML = `<h1>Erro</h1><p>${err.message}. Se estiver abrindo o arquivo direto no computador, use um servidor (GitHub Pages ou <code>python -m http.server</code>).</p>`;
+  }
+}
 
   
   // sem rota válida = Home
