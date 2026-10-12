@@ -3,11 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Anexo E - Diagrama Explicativo | Agrale Marruá AM21</title>
+<title>Circuitos - Origem e Destino | Agrale Marruá AM21</title>
 <style>
   :root {
     --vermelho: #cc0000;
-    --cinza-uce: #9e9e9e;
     --cinza-escuro: #2c2c2c;
     --borda: #ddd;
     --fundo: #f4f4f4;
@@ -60,7 +59,7 @@
     margin-top: 4px;
   }
 
-  /* ===== NOTA EXPLICATIVA ===== */
+  /* ===== NOTA ===== */
   .nota-explicativa {
     background: #e3f2fd;
     border-left: 4px solid #2196f3;
@@ -70,12 +69,10 @@
     margin-bottom: 24px;
     line-height: 1.6;
   }
-  .nota-explicativa strong {
-    color: #1565c0;
-  }
+  .nota-explicativa strong { color: #1565c0; }
 
-  /* ===== DIAGRAMA ===== */
-  .diagrama {
+  /* ===== CIRCUITO ===== */
+  .circuito {
     background: #fff;
     border-radius: 10px;
     box-shadow: var(--sombra);
@@ -83,137 +80,103 @@
     margin-bottom: 30px;
   }
 
-  /* Cabeçalho do diagrama */
-  .diagrama-header {
+  .circuito-header {
     display: grid;
     grid-template-columns: 120px 1fr;
-    background: var(--cinza-uce);
-    border-bottom: 2px solid #999;
+    background: #666;
+    border-bottom: 2px solid #444;
   }
-  .diagrama-header .uce-label {
+  .circuito-header .label {
     display: flex;
     align-items: center;
     justify-content: center;
     writing-mode: vertical-rl;
     transform: rotate(180deg);
     font-weight: 800;
-    font-size: .75rem;
+    font-size: .7rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     color: #fff;
-    background: #888;
+    background: #555;
     padding: 8px 4px;
     text-align: center;
-    min-height: 70px;
+    min-height: 60px;
   }
-  .diagrama-header .titulo {
+  .circuito-header .titulo {
     display: flex;
     align-items: center;
     padding: 14px 20px;
     font-weight: 700;
     font-size: 1rem;
-    color: #333;
+    color: #fff;
     text-transform: uppercase;
     letter-spacing: 1px;
   }
 
-  /* Bloco de componente */
-  .bloco-componente {
-    border-bottom: 1px solid var(--borda);
-  }
-  .bloco-componente:last-child { border-bottom: none; }
-
-  .bloco-titulo {
+  /* ===== BLOCO DE ETAPAS ===== */
+  .etapas {
     display: grid;
-    grid-template-columns: 120px 1fr;
-    background: #f0f0f0;
-    border-bottom: 1px solid var(--borda);
-  }
-  .bloco-titulo .vazio { background: #e0e0e0; }
-  .bloco-titulo .nome {
-    padding: 8px 20px;
-    font-weight: 700;
-    font-size: .85rem;
-    text-transform: uppercase;
-    letter-spacing: .5px;
-    color: #444;
-  }
-
-  /* Linhas de conexão */
-  .linha-conexao {
-    display: grid;
-    grid-template-columns: 120px 100px 1fr 240px;
+    grid-template-columns: 140px 1fr 140px;
     align-items: center;
-    min-height: 48px;
-    background: #fafafa;
+    min-height: 56px;
     border-bottom: 1px solid #eee;
-    font-size: .8rem;
+    font-size: .82rem;
   }
-  .linha-conexao:nth-child(even) { background: #fff; }
-  .linha-conexao:hover { background: #fff8f8; }
+  .etapas:nth-child(even) { background: #fafafa; }
+  .etapas:hover { background: #fff8f8; }
 
-  /* Pino */
-  .pino {
+  /* Origem */
+  .origem {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 4px;
-    border-right: 2px solid #ccc;
+    padding: 6px 8px;
+    text-align: center;
     font-weight: 700;
     color: #333;
     font-size: .75rem;
     line-height: 1.2;
-    text-align: center;
+    border-right: 2px solid #ccc;
   }
-  .pino .codigo {
+  .origem .tipo {
     background: #ddd;
     border-radius: 3px;
-    padding: 1px 6px;
+    padding: 1px 8px;
     font-size: .65rem;
-    margin-bottom: 2px;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+  .origem .nome-origem {
+    font-weight: 700;
+    color: var(--cinza-escuro);
   }
 
-  /* Identificação do fio */
-  .fio-id {
+  /* Caminho (fio) */
+  .caminho {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    padding: 4px 6px;
-    font-family: "Consolas", monospace;
-    font-size: .7rem;
-    line-height: 1.3;
-    text-align: center;
-    border-right: 1px dashed #ccc;
-  }
-  .fio-id .funcao {
-    font-weight: 700;
-    color: #333;
-  }
-  .fio-id .bitola-cor {
-    color: #666;
-    font-size: .65rem;
-  }
-
-  /* Linha visual do fio */
-  .fio-linha {
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-    height: 100%;
+    padding: 4px 10px;
     position: relative;
   }
-  .fio-linha::before {
+  .caminho .fio-linha {
+    display: flex;
+    align-items: center;
+    height: 20px;
+    position: relative;
+    margin-bottom: 2px;
+  }
+  .caminho .fio-linha::before {
     content: "";
     display: block;
     width: 100%;
     height: 3px;
     background: var(--cor-fio, #999);
     border-radius: 2px;
-    position: relative;
   }
-  .fio-linha::after {
+  .caminho .fio-linha::after {
     content: "";
     position: absolute;
     right: 0;
@@ -224,27 +187,64 @@
     top: 50%;
     transform: translateY(-50%);
   }
-
-  /* Nome do componente */
-  .componente-nome {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 4px 10px;
-    font-size: .75rem;
-    font-weight: 600;
-    color: #333;
-    text-align: right;
+  .caminho .fio-id {
+    font-family: "Consolas", monospace;
+    font-size: .7rem;
+    color: #666;
+    text-align: center;
     line-height: 1.3;
   }
-  .componente-nome .obs {
-    font-weight: 400;
-    font-size: .65rem;
+  .caminho .fio-id .funcao {
+    font-weight: 700;
+    color: #333;
+  }
+  .caminho .fio-id .bitola-cor {
     color: #888;
-    font-style: italic;
+    font-size: .65rem;
   }
 
-  /* Cores dos fios */
+  /* Destino */
+  .destino {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 8px;
+    text-align: center;
+    font-weight: 700;
+    color: #333;
+    font-size: .75rem;
+    line-height: 1.2;
+    border-left: 2px solid #ccc;
+  }
+  .destino .tipo {
+    background: #ddd;
+    border-radius: 3px;
+    padding: 1px 8px;
+    font-size: .65rem;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+  .destino .nome-destino {
+    font-weight: 700;
+    color: var(--cinza-escuro);
+  }
+
+  /* ===== PASSAGENS (fusíveis, relés, conectores) ===== */
+  .passagem {
+    display: inline-block;
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 12px;
+    padding: 2px 10px;
+    font-size: .7rem;
+    font-weight: 700;
+    color: #856404;
+    margin: 0 4px;
+  }
+
+  /* ===== CORES DOS FIOS ===== */
   .cor-azul { --cor-fio: var(--azul); }
   .cor-verde { --cor-fio: var(--verde); }
   .cor-roxo { --cor-fio: var(--roxo); }
@@ -259,63 +259,6 @@
   .cor-lilas { --cor-fio: var(--lilas); }
   .cor-violeta { --cor-fio: var(--violeta); }
 
-  /* ===== LEGENDA DE SÍMBOLOS ===== */
-  .legenda-simbolos {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: var(--sombra);
-    padding: 20px 24px;
-    margin-bottom: 30px;
-  }
-  .legenda-simbolos h3 {
-    font-size: .95rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--vermelho);
-    margin-bottom: 16px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid var(--borda);
-  }
-  .legenda-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 16px;
-  }
-  .legenda-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 10px 12px;
-    background: #fafafa;
-    border-radius: 8px;
-    border-left: 3px solid var(--vermelho);
-  }
-  .legenda-item .icone {
-    font-size: 1.4rem;
-    flex-shrink: 0;
-    width: 32px;
-    text-align: center;
-  }
-  .legenda-item .texto {
-    font-size: .82rem;
-    line-height: 1.5;
-  }
-  .legenda-item .texto strong {
-    display: block;
-    color: var(--cinza-escuro);
-    margin-bottom: 2px;
-  }
-
-  /* ===== NOTA ===== */
-  .nota {
-    background: #fff3cd;
-    border-left: 4px solid #ffc107;
-    padding: 12px 16px;
-    border-radius: 6px;
-    font-size: .85rem;
-    margin: 20px 0;
-  }
-
   /* ===== RODAPÉ ===== */
   .rodape {
     text-align: center;
@@ -328,29 +271,30 @@
 
   /* ===== RESPONSIVO ===== */
   @media (max-width: 900px) {
-    .linha-conexao {
-      grid-template-columns: 90px 90px 1fr 160px;
-      font-size: .7rem;
+    .etapas {
+      grid-template-columns: 100px 1fr 100px;
+      font-size: .75rem;
     }
-    .componente-nome { font-size: .65rem; }
-    .fio-id { font-size: .6rem; }
-    .diagrama-header { grid-template-columns: 90px 1fr; }
-    .bloco-titulo { grid-template-columns: 90px 1fr; }
+    .origem, .destino { font-size: .7rem; }
+    .caminho .fio-id { font-size: .65rem; }
   }
   @media (max-width: 600px) {
-    .linha-conexao {
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto auto;
-      gap: 4px;
+    .etapas {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto;
+      gap: 6px;
+      padding: 8px;
+      text-align: center;
+    }
+    .origem, .destino {
+      border: none;
+      border-bottom: 1px solid #ccc;
       padding: 6px;
     }
-    .pino { border-right: none; border-bottom: 1px solid #ccc; }
-    .fio-id { border-right: none; border-bottom: 1px dashed #ccc; }
-    .fio-linha { grid-column: 1 / -1; height: 20px; }
-    .componente-nome { text-align: left; }
-    .diagrama-header { grid-template-columns: 70px 1fr; }
-    .diagrama-header .uce-label { font-size: .6rem; }
-    .legenda-grid { grid-template-columns: 1fr; }
+    .caminho { padding: 4px 0; }
+    .caminho .fio-linha { justify-content: center; }
+    .caminho .fio-linha::before { width: 80%; }
+    .caminho .fio-linha::after { right: 10%; }
   }
 </style>
 </head>
@@ -358,341 +302,597 @@
 
 <!-- ==================== CABEÇALHO ==================== -->
 <header class="header">
-  <h1>Anexo E <span>Diagrama Explicativo</span></h1>
-  <span class="sub">Agrale Marruá AM21 VTNE 3/4t · Motor MWM Sprint 4.07 TCE · Euro III</span>
+  <h1>Circuitos <span>Origem → Destino</span></h1>
+  <span class="sub">Agrale Marruá AM21 · Motor MWM Sprint 4.07 TCE · Euro III</span>
 </header>
 
-<!-- ==================== NOTA EXPLICATIVA ==================== -->
-<div class="nota-explicativa">
-  <strong>📖 Como ler este diagrama:</strong> Este anexo mostra como interpretar o esquema elétrico do veículo. 
-  Cada linha representa um <strong>fio</strong>, identificado pela <strong>função</strong> (número), 
-  <strong>bitola</strong> (mm²) e <strong>cor</strong>. A coluna da esquerda mostra o <strong>pino da UCE</strong> 
-  (ou central elétrica), a coluna central mostra o <strong>fio</strong> e a coluna da direita mostra o 
-  <strong>componente</strong> conectado.
-</div>
-
-<!-- ==================== DIAGRAMA ==================== -->
-<div class="diagrama">
-
-  <!-- Cabeçalho -->
-  <div class="diagrama-header">
-    <div class="uce-label">Central Elétrica / UCE</div>
-    <div class="titulo">Exemplos de Interligação - Anexo E</div>
-  </div>
-
-  <!-- ===== EXEMPLO 1: CENTRAL ELÉTRICA ===== -->
-  <div class="bloco-componente">
-    <div class="bloco-titulo">
-      <div class="vazio"></div>
-      <div class="nome">Exemplo 1: Central Elétrica com Fusíveis e Relés</div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">F12</span>15A</div>
-      <div class="fio-id"><span class="funcao">410</span><span class="bitola-cor">0,75 VM</span></div>
-      <div class="fio-linha cor-vermelho"></div>
-      <div class="componente-nome">86 Relé Farol Baixo <span class="obs">(Central Elétrica)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">F12</span>15A</div>
-      <div class="fio-id"><span class="funcao">415</span><span class="bitola-cor">1,5 AZ</span></div>
-      <div class="fio-linha cor-azul"></div>
-      <div class="componente-nome">Farol Baixo Esquerdo <span class="obs">(Central Elétrica)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">F11</span>15A</div>
-      <div class="fio-id"><span class="funcao">420</span><span class="bitola-cor">1,5 AZ</span></div>
-      <div class="fio-linha cor-azul"></div>
-      <div class="componente-nome">Farol Baixo Direito <span class="obs">(Central Elétrica)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">F5</span>15A</div>
-      <div class="fio-id"><span class="funcao">910</span><span class="bitola-cor">0,75 VM</span></div>
-      <div class="fio-linha cor-vermelho"></div>
-      <div class="componente-nome">86 Relé Farol Alto <span class="obs">(Central Elétrica)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">F5</span>15A</div>
-      <div class="fio-id"><span class="funcao">915</span><span class="bitola-cor">1,5 AZ</span></div>
-      <div class="fio-linha cor-azul"></div>
-      <div class="componente-nome">Farol Alto Esquerdo <span class="obs">(Central Elétrica)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">F6</span>15A</div>
-      <div class="fio-id"><span class="funcao">920</span><span class="bitola-cor">1,5 AZ</span></div>
-      <div class="fio-linha cor-azul"></div>
-      <div class="componente-nome">Farol Alto Direito <span class="obs">(Central Elétrica)</span></div>
-    </div>
-  </div>
-
-  <!-- ===== EXEMPLO 2: SENSORES DO MOTOR ===== -->
-  <div class="bloco-componente">
-    <div class="bloco-titulo">
-      <div class="vazio"></div>
-      <div class="nome">Exemplo 2: Sensores e Atuadores do Motor</div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">A28</span>5VDC</div>
-      <div class="fio-id"><span class="funcao">5V</span><span class="bitola-cor">0,5 VM/BR</span></div>
-      <div class="fio-linha cor-vermelho"></div>
-      <div class="componente-nome">Sensor de Pressão do Rail <span class="obs">(Alimentação 5V)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">A48</span>SINAL</div>
-      <div class="fio-id"><span class="funcao">SINAL</span><span class="bitola-cor">0,5 AZ/BR</span></div>
-      <div class="fio-linha cor-azul"></div>
-      <div class="componente-nome">Sensor de Pressão do Rail <span class="obs">(Sinal)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">A16</span>GND</div>
-      <div class="fio-id"><span class="funcao">GND</span><span class="bitola-cor">0,5 MA/BR</span></div>
-      <div class="fio-linha cor-marrom"></div>
-      <div class="componente-nome">Sensor de Pressão do Rail <span class="obs">(Terra)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">A29</span>CKP+</div>
-      <div class="fio-id"><span class="funcao">CKP+</span><span class="bitola-cor">0,5 AZ</span></div>
-      <div class="fio-linha cor-azul"></div>
-      <div class="componente-nome">Sensor de Rotação - CKP <span class="obs">(Sinal Positivo)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">A30</span>CKP-</div>
-      <div class="fio-id"><span class="funcao">CKP-</span><span class="bitola-cor">0,5 BR</span></div>
-      <div class="fio-linha cor-branco"></div>
-      <div class="componente-nome">Sensor de Rotação - CKP <span class="obs">(Sinal Negativo)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">A31</span>CMP+</div>
-      <div class="fio-id"><span class="funcao">CMP+</span><span class="bitola-cor">0,5 AZ</span></div>
-      <div class="fio-linha cor-azul"></div>
-      <div class="componente-nome">Sensor de Fase - CMP <span class="obs">(Sinal Positivo)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">A32</span>CMP-</div>
-      <div class="fio-id"><span class="funcao">CMP-</span><span class="bitola-cor">0,5 BR</span></div>
-      <div class="fio-linha cor-branco"></div>
-      <div class="componente-nome">Sensor de Fase - CMP <span class="obs">(Sinal Negativo)</span></div>
-    </div>
-  </div>
-
-  <!-- ===== EXEMPLO 3: ILUMINAÇÃO ===== -->
-  <div class="bloco-componente">
-    <div class="bloco-titulo">
-      <div class="vazio"></div>
-      <div class="nome">Exemplo 3: Circuito de Iluminação e Lanternas</div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">F17</span>7,5A</div>
-      <div class="fio-id"><span class="funcao">830</span><span class="bitola-cor">1,0 AZ</span></div>
-      <div class="fio-linha cor-azul"></div>
-      <div class="componente-nome">Lanterna Traseira Esquerda <span class="obs">(Posição)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">F17</span>7,5A</div>
-      <div class="fio-id"><span class="funcao">830</span><span class="bitola-cor">0,75 AZ</span></div>
-      <div class="fio-linha cor-azul"></div>
-      <div class="componente-nome">Farol Esquerdo - Lanterna <span class="obs">(Posição)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">F18</span>7,5A</div>
-      <div class="fio-id"><span class="funcao">833</span><span class="bitola-cor">1,0 AZ</span></div>
-      <div class="fio-linha cor-azul"></div>
-      <div class="componente-nome">Lanterna Traseira Direita <span class="obs">(Posição)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">F18</span>7,5A</div>
-      <div class="fio-id"><span class="funcao">833</span><span class="bitola-cor">0,75 AZ</span></div>
-      <div class="fio-linha cor-azul"></div>
-      <div class="componente-nome">Farol Direito - Lanterna <span class="obs">(Posição)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">F18</span>7,5A</div>
-      <div class="fio-id"><span class="funcao">833</span><span class="bitola-cor">1,0 LR</span></div>
-      <div class="fio-linha cor-laranja"></div>
-      <div class="componente-nome">Lanterna Traseira Esquerda <span class="obs">(Militar - 58e)</span></div>
-    </div>
-  </div>
-
-  <!-- ===== EXEMPLO 4: FREIO E RÉ ===== -->
-  <div class="bloco-componente">
-    <div class="bloco-titulo">
-      <div class="vazio"></div>
-      <div class="nome">Exemplo 4: Circuito das Luzes do Ré e Freio de Serviço</div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">F16</span>10A</div>
-      <div class="fio-id"><span class="funcao">245</span><span class="bitola-cor">1,0 AZ</span></div>
-      <div class="fio-linha cor-azul"></div>
-      <div class="componente-nome">Interruptor das Luzes de Freio <span class="obs">(54 Luz de Freio)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">F16</span>10A</div>
-      <div class="fio-id"><span class="funcao">247</span><span class="bitola-cor">1,5 AZ</span></div>
-      <div class="fio-linha cor-azul"></div>
-      <div class="componente-nome">Lanterna Traseira Direita <span class="obs">(Freio Civil)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">F16</span>10A</div>
-      <div class="fio-id"><span class="funcao">247</span><span class="bitola-cor">1,0 AZ</span></div>
-      <div class="fio-linha cor-azul"></div>
-      <div class="componente-nome">Lanterna Traseira Esquerda <span class="obs">(Freio Civil)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">F4</span>7,5A</div>
-      <div class="fio-id"><span class="funcao">020</span><span class="bitola-cor">1,0 BR</span></div>
-      <div class="fio-linha cor-branco"></div>
-      <div class="componente-nome">Interruptor da Luz de Ré <span class="obs">(Luz de Ré)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">F4</span>7,5A</div>
-      <div class="fio-id"><span class="funcao">015</span><span class="bitola-cor">1,5 BR</span></div>
-      <div class="fio-linha cor-branco"></div>
-      <div class="componente-nome">Lanterna Traseira Direita <span class="obs">(Luz de Ré)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">F4</span>7,5A</div>
-      <div class="fio-id"><span class="funcao">015</span><span class="bitola-cor">1,5 BR</span></div>
-      <div class="fio-linha cor-branco"></div>
-      <div class="componente-nome">Lanterna Traseira Esquerda <span class="obs">(Luz de Ré)</span></div>
-    </div>
-  </div>
-
-  <!-- ===== EXEMPLO 5: SENSORES E ATUADORES ===== -->
-  <div class="bloco-componente">
-    <div class="bloco-titulo">
-      <div class="vazio"></div>
-      <div class="nome">Exemplo 5: Sensores e Atuadores do Motor</div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">A28</span>5VDC</div>
-      <div class="fio-id"><span class="funcao">5V</span><span class="bitola-cor">0,5 VM/BR</span></div>
-      <div class="fio-linha cor-vermelho"></div>
-      <div class="componente-nome">Sensor de Pressão do Rail <span class="obs">(Alimentação 5V)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">A48</span>SINAL</div>
-      <div class="fio-id"><span class="funcao">SINAL</span><span class="bitola-cor">0,5 AZ/BR</span></div>
-      <div class="fio-linha cor-azul"></div>
-      <div class="componente-nome">Sensor de Pressão do Rail <span class="obs">(Sinal)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">A16</span>GND</div>
-      <div class="fio-id"><span class="funcao">GND</span><span class="bitola-cor">0,5 MA/BR</span></div>
-      <div class="fio-linha cor-marrom"></div>
-      <div class="componente-nome">Sensor de Pressão do Rail <span class="obs">(Terra)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">A29</span>CKP+</div>
-      <div class="fio-id"><span class="funcao">CKP+</span><span class="bitola-cor">0,5 AZ</span></div>
-      <div class="fio-linha cor-azul"></div>
-      <div class="componente-nome">Sensor de Rotação - CKP <span class="obs">(Sinal Positivo)</span></div>
-    </div>
-
-    <div class="linha-conexao">
-      <div class="pino"><span class="codigo">A30</span>CKP-</div>
-      <div class="fio-id"><span class="funcao">CKP-</span><span class="bitola-cor">0,5 BR</span></div>
-      <div class="fio-linha cor-branco"></div>
-      <div class="componente-nome">Sensor de Rotação - CKP <span class="obs">(Sinal Negativo)</span></div>
-    </div>
-  </div>
-
-</div>
-
-<!-- ==================== LEGENDA DE SÍMBOLOS ==================== -->
-<div class="legenda-simbolos">
-  <h3>🔍 Legenda de Símbolos e Identificações</h3>
-  <div class="legenda-grid">
-
-    <div class="legenda-item">
-      <div class="icone">🔌</div>
-      <div class="texto">
-        <strong>Pino / Terminal</strong>
-        Código de identificação do pino na UCE ou central elétrica (ex: A28, F12).
-      </div>
-    </div>
-
-    <div class="legenda-item">
-      <div class="icone">📏</div>
-      <div class="texto">
-        <strong>Bitola do Fio</strong>
-        Secção transversal em mm² (ex: 0,5 / 1,0 / 2,5 / 4,0).
-      </div>
-    </div>
-
-    <div class="legenda-item">
-      <div class="icone">🎨</div>
-      <div class="texto">
-        <strong>Cor do Fio</strong>
-        Abreviação da cor (ex: VM = Vermelho, AZ = Azul, BR = Branco).
-      </div>
-    </div>
-
-    <div class="legenda-item">
-      <div class="icone">📋</div>
-      <div class="texto">
-        <strong>Função / Número</strong>
-        Número de identificação da função do fio (ex: 245 = Luz de Freio).
-      </div>
-    </div>
-
-    <div class="legenda-item">
-      <div class="icone">⚡</div>
-      <div class="texto">
-        <strong>Fusível</strong>
-        Número do fusível + amperagem (ex: F12 15A).
-      </div>
-    </div>
-
-    <div class="legenda-item">
-      <div class="icone">🔗</div>
-      <div class="texto">
-        <strong>Chicote</strong>
-        Letra que identifica o chicote (A = Dianteiro, B = Traseiro, etc.).
-      </div>
-    </div>
-
-  </div>
-</div>
-
 <!-- ==================== NOTA ==================== -->
-<div class="nota">
-  <strong>📌 Nota:</strong> Este diagrama explicativo é uma representação visual de como interpretar o esquema elétrico. 
-  Para valores exatos de pinagem, bitola e cor, consulte sempre o <strong>esquema elétrico oficial DE 611.001</strong> 
-  e o <strong>manual de oficina</strong> do veículo.
+<div class="nota-explicativa">
+  <strong>📖 Como ler:</strong> Cada linha mostra o <strong>caminho completo da corrente</strong> — 
+  de onde sai (<strong>Origem</strong>), por onde passa (<strong>Fusíveis, Relés, Conectores</strong>) 
+  e onde termina (<strong>Destino</strong>). A cor da linha representa a <strong>cor do fio</strong>.
+</div>
+
+<!-- ==================== CIRCUITO: IGNIÇÃO E PARTIDA ==================== -->
+<div class="circuito">
+  <div class="circuito-header">
+    <div class="label">Circuito</div>
+    <div class="titulo">Ignição, Partida e Alternador</div>
+  </div>
+
+  <!-- Linha 1: Bateria → Motor de Partida -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">Bateria (+30)</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-vermelho"></div>
+      <div class="fio-id">
+        <span class="funcao">230</span> · <span class="bitola-cor">4,0 VM</span> · 
+        <span class="passagem">Interruptor Chave Geral</span> · 
+        <span class="passagem">Motor de Partida</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">Motor de Partida</span>
+    </div>
+  </div>
+
+  <!-- Linha 2: Bateria → Alternador -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">Bateria (+30)</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-vermelho"></div>
+      <div class="fio-id">
+        <span class="funcao">210</span> · <span class="bitola-cor">25,0 VM</span> · 
+        <span class="passagem">Alternador (B+)</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">Alternador</span>
+    </div>
+  </div>
+
+  <!-- Linha 3: Chave de Ignição → Solenoide -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">Chave de Ignição</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-azul"></div>
+      <div class="fio-id">
+        <span class="funcao">215</span> · <span class="bitola-cor">1,0 AZ</span> · 
+        <span class="passagem">Solenoide Bomba Injetora</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">Solenoide</span>
+    </div>
+  </div>
+
+  <!-- Linha 4: Chave de Ignição → Luz Indicadora -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">Chave de Ignição</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-vermelho"></div>
+      <div class="fio-id">
+        <span class="funcao">250</span> · <span class="bitola-cor">1,0 VM</span> · 
+        <span class="passagem">Fusível F7 (7,5A)</span> · 
+        <span class="passagem">Painel de Instrumentos</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">Luz Indicadora de Carga</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CIRCUITO: FARÓIS ==================== -->
+<div class="circuito">
+  <div class="circuito-header">
+    <div class="label">Circuito</div>
+    <div class="titulo">Faróis (Baixo e Alto)</div>
+  </div>
+
+  <!-- Linha 1: Bateria → Relé Farol Baixo -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">Bateria (+30)</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-vermelho"></div>
+      <div class="fio-id">
+        <span class="funcao">230</span> · <span class="bitola-cor">1,5 VM</span> · 
+        <span class="passagem">Fusível F11 (15A)</span> · 
+        <span class="passagem">Relé Farol Baixo (Y2)</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">Farol Baixo Esquerdo</span>
+    </div>
+  </div>
+
+  <!-- Linha 2: Bateria → Relé Farol Alto -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">Bateria (+30)</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-vermelho"></div>
+      <div class="fio-id">
+        <span class="funcao">230</span> · <span class="bitola-cor">1,5 VM</span> · 
+        <span class="passagem">Fusível F5 (15A)</span> · 
+        <span class="passagem">Relé Farol Alto (Y3)</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">Farol Alto Esquerdo</span>
+    </div>
+  </div>
+
+  <!-- Linha 3: Interruptor → Relé Farol Baixo -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">Interruptor de Faróis</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-vermelho"></div>
+      <div class="fio-id">
+        <span class="funcao">410</span> · <span class="bitola-cor">0,75 VM</span> · 
+        <span class="passagem">86 Relé Farol Baixo</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">Relé Farol Baixo (Y2)</span>
+    </div>
+  </div>
+
+  <!-- Linha 4: Interruptor → Relé Farol Alto -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">Interruptor de Faróis</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-vermelho"></div>
+      <div class="fio-id">
+        <span class="funcao">910</span> · <span class="bitola-cor">0,75 VM</span> · 
+        <span class="passagem">86 Relé Farol Alto</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">Relé Farol Alto (Y3)</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CIRCUITO: ILUMINAÇÃO E LANTERNAS ==================== -->
+<div class="circuito">
+  <div class="circuito-header">
+    <div class="label">Circuito</div>
+    <div class="titulo">Iluminação e Lanternas</div>
+  </div>
+
+  <!-- Linha 1: Bateria → Lanterna Traseira Esquerda -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">Bateria (+30)</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-azul"></div>
+      <div class="fio-id">
+        <span class="funcao">830</span> · <span class="bitola-cor">1,0 AZ</span> · 
+        <span class="passagem">Fusível F17 (7,5A)</span> · 
+        <span class="passagem">Interruptor de Faróis</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">Lanterna Traseira Esquerda</span>
+    </div>
+  </div>
+
+  <!-- Linha 2: Bateria → Lanterna Traseira Direita -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">Bateria (+30)</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-azul"></div>
+      <div class="fio-id">
+        <span class="funcao">833</span> · <span class="bitola-cor">1,0 AZ</span> · 
+        <span class="passagem">Fusível F18 (7,5A)</span> · 
+        <span class="passagem">Interruptor de Faróis</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">Lanterna Traseira Direita</span>
+    </div>
+  </div>
+
+  <!-- Linha 3: Bateria → Farol Esquerdo (Lanterna) -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">Bateria (+30)</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-azul"></div>
+      <div class="fio-id">
+        <span class="funcao">830</span> · <span class="bitola-cor">0,75 AZ</span> · 
+        <span class="passagem">Fusível F17 (7,5A)</span> · 
+        <span class="passagem">Interruptor de Faróis</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">Farol Esquerdo (Lanterna)</span>
+    </div>
+  </div>
+
+  <!-- Linha 4: Bateria → Farol Direito (Lanterna) -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">Bateria (+30)</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-azul"></div>
+      <div class="fio-id">
+        <span class="funcao">833</span> · <span class="bitola-cor">0,75 AZ</span> · 
+        <span class="passagem">Fusível F18 (7,5A)</span> · 
+        <span class="passagem">Interruptor de Faróis</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">Farol Direito (Lanterna)</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CIRCUITO: LUZES DE FREIO E RÉ ==================== -->
+<div class="circuito">
+  <div class="circuito-header">
+    <div class="label">Circuito</div>
+    <div class="titulo">Luzes de Freio e Ré</div>
+  </div>
+
+  <!-- Linha 1: Bateria → Interruptor de Freio -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">Bateria (+30)</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-azul"></div>
+      <div class="fio-id">
+        <span class="funcao">245</span> · <span class="bitola-cor">1,0 AZ</span> · 
+        <span class="passagem">Fusível F16 (10A)</span> · 
+        <span class="passagem">Interruptor das Luzes de Freio</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">Interruptor de Freio</span>
+    </div>
+  </div>
+
+  <!-- Linha 2: Interruptor → Lanterna Traseira Direita (Freio) -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">Interruptor de Freio</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-azul"></div>
+      <div class="fio-id">
+        <span class="funcao">247</span> · <span class="bitola-cor">1,5 AZ</span> · 
+        <span class="passagem">Relé Alimentação Freio (Y9)</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">Lanterna Traseira Direita</span>
+    </div>
+  </div>
+
+  <!-- Linha 3: Interruptor → Lanterna Traseira Esquerda (Freio) -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">Interruptor de Freio</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-azul"></div>
+      <div class="fio-id">
+        <span class="funcao">247</span> · <span class="bitola-cor">1,0 AZ</span> · 
+        <span class="passagem">Relé Alimentação Freio (Y9)</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">Lanterna Traseira Esquerda</span>
+    </div>
+  </div>
+
+  <!-- Linha 4: Bateria → Interruptor de Ré -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">Bateria (+30)</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-branco"></div>
+      <div class="fio-id">
+        <span class="funcao">020</span> · <span class="bitola-cor">1,0 BR</span> · 
+        <span class="passagem">Fusível F4 (7,5A)</span> · 
+        <span class="passagem">Interruptor da Luz de Ré</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">Interruptor de Ré</span>
+    </div>
+  </div>
+
+  <!-- Linha 5: Interruptor → Lanternas (Ré) -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">Interruptor de Ré</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-branco"></div>
+      <div class="fio-id">
+        <span class="funcao">015</span> · <span class="bitola-cor">1,5 BR</span> · 
+        <span class="passagem">Lanternas Traseiras (Esq. e Dir.)</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">Lanternas Traseiras</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CIRCUITO: SENSORES DO MOTOR ==================== -->
+<div class="circuito">
+  <div class="circuito-header">
+    <div class="label">Circuito</div>
+    <div class="titulo">Sensores e Atuadores do Motor</div>
+  </div>
+
+  <!-- Linha 1: UCE → Sensor de Pressão do Rail (5V) -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">UCE (A28)</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-vermelho"></div>
+      <div class="fio-id">
+        <span class="funcao">5V</span> · <span class="bitola-cor">0,5 VM/BR</span> · 
+        <span class="passagem">Sensor de Pressão do Rail</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">Sensor Pressão Rail</span>
+    </div>
+  </div>
+
+  <!-- Linha 2: UCE → Sensor de Pressão do Rail (Sinal) -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">UCE (A48)</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-azul"></div>
+      <div class="fio-id">
+        <span class="funcao">SINAL</span> · <span class="bitola-cor">0,5 AZ/BR</span> · 
+        <span class="passagem">Sensor de Pressão do Rail</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">Sensor Pressão Rail</span>
+    </div>
+  </div>
+
+  <!-- Linha 3: UCE → Sensor de Pressão do Rail (GND) -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">UCE (A16)</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-marrom"></div>
+      <div class="fio-id">
+        <span class="funcao">GND</span> · <span class="bitola-cor">0,5 MA/BR</span> · 
+        <span class="passagem">Sensor de Pressão do Rail</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">Sensor Pressão Rail</span>
+    </div>
+  </div>
+
+  <!-- Linha 4: UCE → Sensor de Rotação (CKP+) -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">UCE (A29)</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-azul"></div>
+      <div class="fio-id">
+        <span class="funcao">CKP+</span> · <span class="bitola-cor">0,5 AZ</span> · 
+        <span class="passagem">Sensor de Rotação CKP</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">Sensor CKP</span>
+    </div>
+  </div>
+
+  <!-- Linha 5: UCE → Sensor de Rotação (CKP-) -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">UCE (A30)</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-branco"></div>
+      <div class="fio-id">
+        <span class="funcao">CKP-</span> · <span class="bitola-cor">0,5 BR</span> · 
+        <span class="passagem">Sensor de Rotação CKP</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">Sensor CKP</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CIRCUITO: ALIMENTAÇÃO DA INJEÇÃO ==================== -->
+<div class="circuito">
+  <div class="circuito-header">
+    <div class="label">Circuito</div>
+    <div class="titulo">Alimentação do Sistema de Injeção Eletrônica</div>
+  </div>
+
+  <!-- Linha 1: Bateria → Relé Principal -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">Bateria (+30)</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-vermelho"></div>
+      <div class="fio-id">
+        <span class="funcao">286</span> · <span class="bitola-cor">1,5 VM</span> · 
+        <span class="passagem">Fusível F28 (15A)</span> · 
+        <span class="passagem">Relé Principal (Y9)</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">Relé Principal (Y9)</span>
+    </div>
+  </div>
+
+  <!-- Linha 2: Relé Principal → UCE -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">Relé Principal (Y9)</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-verde"></div>
+      <div class="fio-id">
+        <span class="funcao">277</span> · <span class="bitola-cor">2,5 VD/BR</span> · 
+        <span class="passagem">UCE (Conector K)</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">UCE (ECU Motor)</span>
+    </div>
+  </div>
+
+  <!-- Linha 3: Bateria → UCE (F25) -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">Bateria (+30)</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-verde"></div>
+      <div class="fio-id">
+        <span class="funcao">285</span> · <span class="bitola-cor">0,5 VD/BR</span> · 
+        <span class="passagem">Fusível F25 (5A)</span> · 
+        <span class="passagem">UCE (Conector K)</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">UCE (ECU Motor)</span>
+    </div>
+  </div>
+
+  <!-- Linha 4: Bateria → UCE (F26) -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">Bateria (+30)</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-verde"></div>
+      <div class="fio-id">
+        <span class="funcao">278</span> · <span class="bitola-cor">2,5 VD/BR</span> · 
+        <span class="passagem">Fusível F26 (10A)</span> · 
+        <span class="passagem">UCE (Conector K)</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">UCE (ECU Motor)</span>
+    </div>
+  </div>
+
+  <!-- Linha 5: Bateria → UCE (F27) -->
+  <div class="etapas">
+    <div class="origem">
+      <span class="tipo">Origem</span>
+      <span class="nome-origem">Bateria (+30)</span>
+    </div>
+    <div class="caminho">
+      <div class="fio-linha cor-verde"></div>
+      <div class="fio-id">
+        <span class="funcao">279</span> · <span class="bitola-cor">2,5 VD/BR</span> · 
+        <span class="passagem">Fusível F27 (15A)</span> · 
+        <span class="passagem">UCE (Conector K)</span>
+      </div>
+    </div>
+    <div class="destino">
+      <span class="tipo">Destino</span>
+      <span class="nome-destino">UCE (ECU Motor)</span>
+    </div>
+  </div>
 </div>
 
 <!-- ==================== RODAPÉ ==================== -->
 <footer class="rodape">
   <p><strong>Agrale Marruá AM21 VTNE 3/4t</strong> · Motor MWM Sprint 4.07 TCE Euro III</p>
-  <p>Anexo E - Diagrama Explicativo · Documento de referência técnica</p>
-  <p style="margin-top:6px; font-size:.75rem;">Baseado no esquema DE 611.001 Revisão 2 · Páginas 7-8</p>
+  <p>Circuitos - Origem e Destino · Documento de referência técnica</p>
+  <p style="margin-top:6px; font-size:.75rem;">Baseado no esquema DE 611.001 Revisão 2 · Páginas 9-31</p>
 </footer>
 
 </body>
