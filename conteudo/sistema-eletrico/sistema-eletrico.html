@@ -1,0 +1,876 @@
+<!-- ============================================ -->
+<!-- ARQUIVO ÚNICO - TODOS OS CIRCUITOS           -->
+<!-- Cada bloco é filtrado pelo data-circuito     -->
+<!-- ============================================ -->
+
+<!-- ===== IGNIÇÃO, PARTIDA E ALTERNADOR ===== -->
+<div data-circuito="ignicao-partida-alternador">
+  <header class="art-head">
+    <span class="art-kicker">Sistema Elétrico · Carga e Partida</span>
+    <h1>Ignição, Partida e Alternador</h1>
+    <p class="art-lead">Circuito completo de partida e carga: da bateria ao motor de partida, alternador e luz indicadora.</p>
+    <div class="chips">
+      <span>Bateria</span><span>Motor de Partida</span><span>Alternador</span><span>Chave Geral</span><span>Fusível F7</span>
+    </div>
+  </header>
+
+  <div class="dica">
+    <strong>Como ler</strong>
+    <p>Cada seção mostra o caminho da corrente: <strong>Origem → Fusível/Relé → Componente → Terra</strong>, com função, bitola e cor do fio.</p>
+  </div>
+
+  <h2>Circuito de Partida</h2>
+  <div class="specs">
+    <div class="spec"><b>+30</b><span>Bateria</span></div>
+    <div class="spec"><b>4,0 mm²</b><span>Cabo de força</span></div>
+    <div class="spec"><b>050</b><span>Função do fio</span></div>
+  </div>
+  <ol>
+    <li><strong>Origem:</strong> Bateria (+30) — cabo <strong>A(230) · 4,0 mm² · Azul</strong>.</li>
+    <li><strong>Passa por:</strong> Interruptor da Chave Geral.</li>
+    <li><strong>Passa por:</strong> Interruptor de Ignição e Partida (posição II).</li>
+    <li><strong>Destino:</strong> Solenoide do Motor de Partida — cabo <strong>A(050) · 1,5 mm² · Azul</strong>.</li>
+    <li><strong>Terra:</strong> Chassi — cabo <strong>A(110) · 1,5 mm²</strong>.</li>
+  </ol>
+  <div class="aviso">
+    <strong>Atenção</strong>
+    <p>O cabo A(230) está sempre energizado. Desligue o cabo negativo da bateria antes de qualquer intervenção no motor de partida.</p>
+  </div>
+
+  <h2>Circuito de Carga (Alternador)</h2>
+  <div class="specs">
+    <div class="spec"><b>B+</b><span>Terminal do alternador</span></div>
+    <div class="spec"><b>25,0 mm²</b><span>Cabo de carga</span></div>
+    <div class="spec"><b>D+</b><span>Excitação</span></div>
+  </div>
+  <ol>
+    <li><strong>Origem:</strong> Terminal B+ do alternador — cabo <strong>A(210) · 25,0 mm² · Azul</strong>.</li>
+    <li><strong>Destino:</strong> Positivo da bateria (carregamento).</li>
+    <li><strong>Excitação:</strong> Chave de ignição → luz indicadora → terminal D+ — cabo <strong>C(61) · 0,75 mm² · Azul/Verde</strong>.</li>
+    <li><strong>Sinal de rotação:</strong> Terminal W → tacômetro — cabo <strong>A(520) · 0,75 mm²</strong>.</li>
+  </ol>
+
+  <h2>Fusíveis Envolvidos</h2>
+  <div class="codigos">
+    <div class="codigo">
+      <span class="num">F7</span>
+      <div>
+        <h4>7,5A — Instrumentos e Alternador</h4>
+        <p>Alimenta: lâmpada de carga, pressão de óleo, restrição do filtro, freio estacionário, nível de líquido de freio, 4x4, diagnose, água no combustível, temperatura, combustível, velocímetro, tacômetro e voltímetro.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== LIMPADOR E LAVADOR ===== -->
+<div data-circuito="limpador-lavador">
+  <header class="art-head">
+    <span class="art-kicker">Sistema Elétrico · Acessórios</span>
+    <h1>Limpador e Lavador do Para-Brisa</h1>
+    <p class="art-lead">Circuito do motor do limpador, lavador e relé temporizador.</p>
+    <div class="chips"><span>Motor Limpador</span><span>Lavador</span><span>Relé Temporizador</span><span>Fusível F1</span></div>
+  </header>
+
+  <h2>Alimentação do Sistema</h2>
+  <div class="specs">
+    <div class="spec"><b>F1</b><span>Fusível 15A</span></div>
+    <div class="spec"><b>+15</b><span>Pós-chave</span></div>
+    <div class="spec"><b>251</b><span>Função do fio</span></div>
+  </div>
+  <ol>
+    <li><strong>Origem:</strong> Bateria (+15 pós-chave) — cabo <strong>L(250) · 1,5 mm²</strong>.</li>
+    <li><strong>Passa por:</strong> Fusível F1 (15A) — cabo <strong>L(250) · 0,75 mm²</strong>.</li>
+    <li><strong>Destino:</strong> Relé temporizador Y1 e chave do limpador.</li>
+  </ol>
+
+  <h2>Motor do Limpador</h2>
+  <ol>
+    <li><strong>Terminal 53a:</strong> Velocidade baixa — cabo <strong>A(252) · 1,5 mm² · Azul</strong>.</li>
+    <li><strong>Terminal 53b:</strong> Velocidade alta — cabo <strong>A(605) · 1,0 mm² · Azul</strong>.</li>
+    <li><strong>Terminal 53e:</strong> Retorno automático — cabo <strong>A(970) · 1,5 mm² · Azul</strong>.</li>
+    <li><strong>Terminal 31:</strong> Terra — cabo <strong>A(110) · 1,5 mm²</strong>.</li>
+  </ol>
+
+  <h2>Lavador do Para-Brisa</h2>
+  <ol>
+    <li><strong>Alimentação:</strong> Cabo <strong>A(435) · 1,5 mm²</strong> da chave do limpador.</li>
+    <li><strong>Terra:</strong> Cabo <strong>A(110) · 1,0 mm²</strong>.</li>
+  </ol>
+</div>
+
+<!-- ===== DISCIPLINA DE LUZES ===== -->
+<div data-circuito="disciplina-luzes">
+  <header class="art-head">
+    <span class="art-kicker">Sistema Elétrico · Disciplina de Luzes</span>
+    <h1>Sistema de Disciplina de Luzes</h1>
+    <p class="art-lead">Relé Chave NATO, relé do freio e chave de seleção Civil/Militar/PARK.</p>
+    <div class="chips"><span>Relé NATO</span><span>Relé Freio</span><span>Civil/Militar</span><span>PARK/OFF</span></div>
+  </header>
+
+  <h2>Relé Chave NATO (Y7)</h2>
+  <div class="specs">
+    <div class="spec"><b>30</b><span>Positivo (+30)</span></div>
+    <div class="spec"><b>86</b><span>Excitação</span></div>
+    <div class="spec"><b>87</b><span>Saída</span></div>
+  </div>
+  <ol>
+    <li><strong>Entrada:</strong> +30 antes de fusíveis — cabo <strong>A(230) · 1,5 mm² · Azul</strong>.</li>
+    <li><strong>Excitação:</strong> Chave de seleção Civil/Militar — cabo <strong>A(232) · 1,5 mm² · Azul</strong>.</li>
+    <li><strong>Saída:</strong> Alimenta funções civis (pós relé).</li>
+  </ol>
+
+  <h2>Relé do Freio (Y8)</h2>
+  <ol>
+    <li><strong>Entrada:</strong> +30 antes de fusíveis.</li>
+    <li><strong>Excitação:</strong> Interruptor de freio — cabo <strong>A(247) · 1,5 mm² · Azul</strong>.</li>
+    <li><strong>Saída civil:</strong> Cabo <strong>A(245) · 1,0 mm² · Azul</strong>.</li>
+    <li><strong>Saída militar:</strong> Cabo <strong>A(249) · 1,5 mm² · Azul</strong>.</li>
+  </ol>
+
+  <div class="aviso">
+    <strong>Atenção</strong>
+    <p>Não misture as posições Civil e Militar. A seleção errada pode causar curto ou queima de fusíveis.</p>
+  </div>
+</div>
+
+<!-- ===== FARÓIS ===== -->
+<div data-circuito="farios">
+  <header class="art-head">
+    <span class="art-kicker">Sistema Elétrico · Iluminação</span>
+    <h1>Faróis (Baixo e Alto)</h1>
+    <p class="art-lead">Relés de farol baixo e alto, interruptor de faróis e lâmpadas.</p>
+    <div class="chips"><span>Farol Baixo</span><span>Farol Alto</span><span>Relé Y2</span><span>Relé Y3</span></div>
+  </header>
+
+  <h2>Farol Baixo (Relé Y2)</h2>
+  <div class="specs">
+    <div class="spec"><b>F11/F12</b><span>Fusíveis 15A</span></div>
+    <div class="spec"><b>410</b><span>Função do fio</span></div>
+    <div class="spec"><b>1,5 mm²</b><span>Bitola</span></div>
+  </div>
+  <ol>
+    <li><strong>Origem:</strong> Bateria (+30) — cabo <strong>A(230) · 1,5 mm²</strong>.</li>
+    <li><strong>Passa por:</strong> Fusível F11 (15A) e F12 (15A).</li>
+    <li><strong>Excitação do relé:</strong> Cabo <strong>A(410) · 0,75 mm² · Azul</strong>.</li>
+    <li><strong>Saída:</strong> Farol baixo esquerdo — cabo <strong>A(415) · 1,5 mm² · Azul</strong>.</li>
+    <li><strong>Saída:</strong> Farol baixo direito — cabo <strong>A(420) · 1,5 mm² · Azul</strong>.</li>
+  </ol>
+
+  <h2>Farol Alto (Relé Y3)</h2>
+  <ol>
+    <li><strong>Origem:</strong> Bateria (+30) — cabo <strong>A(230) · 1,5 mm²</strong>.</li>
+    <li><strong>Passa por:</strong> Fusível F5 (15A) e F6 (15A).</li>
+    <li><strong>Excitação do relé:</strong> Cabo <strong>A(910) · 0,75 mm² · Azul</strong>.</li>
+    <li><strong>Saída:</strong> Farol alto esquerdo — cabo <strong>A(915) · 1,5 mm² · Azul</strong>.</li>
+    <li><strong>Saída:</strong> Farol alto direito — cabo <strong>A(920) · 1,5 mm² · Azul</strong>.</li>
+  </ol>
+
+  <div class="codigos">
+    <div class="codigo"><span class="num">F5</span><div><h4>15A — Farol Alto</h4><p>Protege o farol alto direito e a lâmpada indicadora.</p></div></div>
+    <div class="codigo"><span class="num">F6</span><div><h4>15A — Farol Alto Esquerdo</h4><p>Protege o farol alto esquerdo.</p></div></div>
+    <div class="codigo"><span class="num">F11</span><div><h4>15A — Farol Baixo Direito</h4><p>Protege o farol baixo direito.</p></div></div>
+    <div class="codigo"><span class="num">F12</span><div><h4>15A — Farol Baixo Esquerdo</h4><p>Protege o farol baixo esquerdo.</p></div></div>
+  </div>
+</div>
+
+<!-- ===== ILUMINAÇÃO E LANTERNAS ===== -->
+<div data-circuito="iluminacao-lanternas">
+  <header class="art-head">
+    <span class="art-kicker">Sistema Elétrico · Iluminação</span>
+    <h1>Iluminação e Lanternas</h1>
+    <p class="art-lead">Lanternas traseiras, faróis de posição e luz de placa.</p>
+    <div class="chips"><span>Lanterna Traseira</span><span>Farol Posição</span><span>Luz de Placa</span></div>
+  </header>
+
+  <h2>Lanternas Traseiras</h2>
+  <div class="specs">
+    <div class="spec"><b>F17/F18</b><span>Fusíveis 7,5A</span></div>
+    <div class="spec"><b>830</b><span>Função do fio</span></div>
+    <div class="spec"><b>1,0 mm²</b><span>Bitola</span></div>
+  </div>
+  <ol>
+    <li><strong>Origem:</strong> Bateria (+30) — cabo <strong>A(230) · 1,0 mm²</strong>.</li>
+    <li><strong>Passa por:</strong> Fusível F17 (7,5A) e F18 (7,5A).</li>
+    <li><strong>Interruptor de faróis:</strong> Posição 58 — cabo <strong>A(830) · 1,0 mm² · Azul</strong>.</li>
+    <li><strong>Destino:</strong> Lanterna traseira esquerda — cabo <strong>B(830) · 1,0 mm² · Azul</strong>.</li>
+    <li><strong>Destino:</strong> Lanterna traseira direita — cabo <strong>B(833) · 1,0 mm² · Azul</strong>.</li>
+  </ol>
+
+  <h2>Faróis de Posição</h2>
+  <ol>
+    <li><strong>Farol esquerdo:</strong> Cabo <strong>A(830) · 0,75 mm² · Azul/Cinza</strong>.</li>
+    <li><strong>Farol direito:</strong> Cabo <strong>A(833) · 0,75 mm² · Azul/Cinza</strong>.</li>
+  </ol>
+</div>
+
+<!-- ===== LUZES DIRECIONAIS E EMERGÊNCIA ===== -->
+<div data-circuito="luzes-direcionais-emergencia">
+  <header class="art-head">
+    <span class="art-kicker">Sistema Elétrico · Sinalização</span>
+    <h1>Luzes Direcionais e de Emergência</h1>
+    <p class="art-lead">Relé de pisca, chave de seta, pisca-alerta e lanternas direcionais.</p>
+    <div class="chips"><span>Relé Pisca</span><span>Setas</span><span>Pisca-Alerta</span><span>Fusível F2/F3</span></div>
+  </header>
+
+  <h2>Relé das Luzes Direcionais (Y4)</h2>
+  <div class="specs">
+    <div class="spec"><b>F2/F3</b><span>Fusíveis 15A</span></div>
+    <div class="spec"><b>49</b><span>Entrada do relé</span></div>
+    <div class="spec"><b>49a</b><span>Saída pulsante</span></div>
+  </div>
+  <ol>
+    <li><strong>Origem:</strong> Bateria (+30) — cabo <strong>A(222) · 1,0 mm² · Azul</strong>.</li>
+    <li><strong>Passa por:</strong> Fusível F2 (15A) e F3 (15A).</li>
+    <li><strong>Alimentação do relé:</strong> Terminal 49 — cabo <strong>A(254) · 1,0 mm² · Azul</strong>.</li>
+    <li><strong>Saída pulsante:</strong> Terminal 49a — cabo <strong>A(363) · 1,0 mm² · Azul</strong>.</li>
+  </ol>
+
+  <h2>Chave de Seta (Direcional)</h2>
+  <ol>
+    <li><strong>Direita:</strong> Cabo <strong>A(570) · 1,0 mm² · Azul</strong>.</li>
+    <li><strong>Esquerda:</strong> Cabo <strong>A(640) · 1,0 mm² · Azul</strong>.</li>
+    <li><strong>Luz indicadora:</strong> Cabo <strong>A(564) · 0,75 mm² · Azul</strong>.</li>
+  </ol>
+
+  <h2>Pisca-Alerta</h2>
+  <ol>
+    <li><strong>Aciona:</strong> As 4 setas simultaneamente.</li>
+    <li><strong>Alimentação:</strong> Cabo <strong>A(222) · 1,0 mm² · Azul</strong> (com fusível F3).</li>
+    <li><strong>Luz indicadora:</strong> Cabo <strong>A(560) · 1,0 mm² · Azul</strong>.</li>
+  </ol>
+
+  <h2>Lanternas Direcionais</h2>
+  <ol>
+    <li><strong>Traseira direita:</strong> Cabo <strong>B(570) · 1,0 mm² · Azul</strong>.</li>
+    <li><strong>Traseira esquerda:</strong> Cabo <strong>B(640) · 1,0 mm² · Azul</strong>.</li>
+    <li><strong>Militar dianteira direita:</strong> Cabo <strong>K(05) · 1,0 mm² · Preto</strong>.</li>
+    <li><strong>Militar dianteira esquerda:</strong> Cabo <strong>K(05) · 1,0 mm² · Preto</strong>.</li>
+  </ol>
+</div>
+
+<!-- ===== LUZES DO RÉ E FREIO ===== -->
+<div data-circuito="luzes-re-freio">
+  <header class="art-head">
+    <span class="art-kicker">Sistema Elétrico · Sinalização Traseira</span>
+    <h1>Luzes do Ré e Freio de Serviço</h1>
+    <p class="art-lead">Interruptores de freio e ré, relé de alimentação do freio e lanternas traseiras.</p>
+    <div class="chips"><span>Freio</span><span>Ré</span><span>Relé Y9</span><span>Fusíveis F4/F16</span></div>
+  </header>
+
+  <h2>Luz de Freio</h2>
+  <div class="specs">
+    <div class="spec"><b>F16</b><span>Fusível 10A</span></div>
+    <div class="spec"><b>245</b><span>Interruptor</span></div>
+    <div class="spec"><b>247</b><span>Saída civil</span></div>
+  </div>
+  <ol>
+    <li><strong>Origem:</strong> Bateria (+30) — cabo <strong>A(245) · 1,0 mm² · Azul</strong>.</li>
+    <li><strong>Passa por:</strong> Fusível F16 (10A).</li>
+    <li><strong>Interruptor das luzes de freio:</strong> Terminal 30.</li>
+    <li><strong>Saída civil:</strong> Cabo <strong>A(247) · 1,5 mm² · Azul</strong>.</li>
+    <li><strong>Saída militar:</strong> Cabo <strong>A(249) · 1,5 mm² · Azul</strong>.</li>
+    <li><strong>Destino:</strong> Lanternas traseiras — cabo <strong>B(247) · 1,0 mm² · Azul</strong>.</li>
+  </ol>
+
+  <h2>Luz de Ré</h2>
+  <ol>
+    <li><strong>Origem:</strong> Bateria (+30) — cabo <strong>A(020) · 1,0 mm² · Branco</strong>.</li>
+    <li><strong>Passa por:</strong> Fusível F4 (7,5A).</li>
+    <li><strong>Interruptor da luz de ré:</strong> Terminal 12 — cabo <strong>B(020) · 1,0 mm² · Branco</strong>.</li>
+    <li><strong>Saída:</strong> Cabo <strong>B(015) · 1,5 mm² · Branco</strong>.</li>
+    <li><strong>Destino:</strong> Lanternas traseiras esq. e dir.</li>
+  </ol>
+
+  <div class="codigos">
+    <div class="codigo"><span class="num">F4</span><div><h4>7,5A — Luz de Ré</h4><p>Protege o circuito da luz de ré.</p></div></div>
+    <div class="codigo"><span class="num">F16</span><div><h4>10A — Luz de Freio</h4><p>Protege o circuito de freio civil e militar.</p></div></div>
+  </div>
+</div>
+
+<!-- ===== FREIO E LANTERNAS MILITAR ===== -->
+<div data-circuito="freio-lanternas-militar">
+  <header class="art-head">
+    <span class="art-kicker">Sistema Elétrico · Militar</span>
+    <h1>Freio e Lanternas (Militar)</h1>
+    <p class="art-lead">Lanternas militares traseiras e dianteiras, com espera para lança fumígeno.</p>
+    <div class="chips"><span>Lanterna Militar</span><span>LME</span><span>LMD</span><span>Lança Fumígeno</span></div>
+  </header>
+
+  <h2>Lanternas Militares Traseiras</h2>
+  <div class="specs">
+    <div class="spec"><b>F9/F10</b><span>Fusíveis 7,5A</span></div>
+    <div class="spec"><b>553</b><span>LME</span></div>
+    <div class="spec"><b>558</b><span>LMD</span></div>
+  </div>
+  <ol>
+    <li><strong>Origem:</strong> Bateria (+30) — cabo <strong>A(230) · 1,0 mm²</strong>.</li>
+    <li><strong>Passa por:</strong> Fusível F9 (7,5A) e F10 (7,5A).</li>
+    <li><strong>LME:</strong> Cabo <strong>B(553) · 1,0 mm² · Laranja</strong>.</li>
+    <li><strong>LMD:</strong> Cabo <strong>B(558) · 1,0 mm² · Laranja</strong>.</li>
+  </ol>
+
+  <h2>Lanternas Militares Dianteiras</h2>
+  <ol>
+    <li><strong>Esquerda:</strong> Cabo <strong>A(553) · 1,0 mm² · Laranja</strong>.</li>
+    <li><strong>Direita:</strong> Cabo <strong>A(558) · 1,0 mm² · Laranja</strong>.</li>
+  </ol>
+
+  <h2>Espera para Lança Fumígeno</h2>
+  <ol>
+    <li><strong>Alimentação:</strong> Cabo <strong>A(515) · 1,0 mm² · Azul</strong>.</li>
+  </ol>
+</div>
+
+<!-- ===== FAROL APROXIMAÇÃO E BUZINA ===== -->
+<div data-circuito="farol-aproximacao-buzina">
+  <header class="art-head">
+    <span class="art-kicker">Sistema Elétrico · Militar e Acessórios</span>
+    <h1>Farol de Aproximação e Buzina</h1>
+    <p class="art-lead">Farol de aproximação militar e circuito da buzina.</p>
+    <div class="chips"><span>Farol Aproximação</span><span>Buzina</span><span>Interruptor</span></div>
+  </header>
+
+  <h2>Farol de Aproximação (Militar)</h2>
+  <div class="specs">
+    <div class="spec"><b>F14</b><span>Fusível 7,5A</span></div>
+    <div class="spec"><b>460/461</b><span>Função</span></div>
+    <div class="spec"><b>0,75 mm²</b><span>Bitola</span></div>
+  </div>
+  <ol>
+    <li><strong>Origem:</strong> Bateria (+30) — cabo <strong>A(230) · 1,0 mm²</strong>.</li>
+    <li><strong>Passa por:</strong> Fusível F14 (7,5A).</li>
+    <li><strong>Interruptor:</strong> Cabo <strong>A(460) · 1,0 mm² · Azul</strong>.</li>
+    <li><strong>Destino:</strong> Farol de aproximação — cabo <strong>A(461) · 1,0 mm² · Azul</strong>.</li>
+  </ol>
+
+  <h2>Buzina</h2>
+  <ol>
+    <li><strong>Origem:</strong> Bateria (+30) — cabo <strong>A(230) · 1,0 mm²</strong>.</li>
+    <li><strong>Passa por:</strong> Fusível F15 (15A).</li>
+    <li><strong>Interruptor da buzina:</strong> Terminal 15 — cabo <strong>A(253) · 1,0 mm² · Azul</strong>.</li>
+    <li><strong>Destino:</strong> Buzina — cabo <strong>A(110) · 1,0 mm² · Azul</strong> (terra).</li>
+  </ol>
+
+  <div class="codigos">
+    <div class="codigo"><span class="num">F14</span><div><h4>7,5A — Farol de Aproximação</h4><p>Protege o farol militar.</p></div></div>
+    <div class="codigo"><span class="num">F15</span><div><h4>15A — Buzina</h4><p>Protege o circuito da buzina.</p></div></div>
+  </div>
+</div>
+
+<!-- ===== LUZ DE MAPA, VENTILADOR E RELÉ 10S ===== -->
+<div data-circuito="luz-mapa-ventilador-rele10s">
+  <header class="art-head">
+    <span class="art-kicker">Sistema Elétrico · Acessórios Internos</span>
+    <h1>Luz de Mapa, Ventilador e Relé 10 Segundos</h1>
+    <p class="art-lead">Iluminação interna, ventilação forçada e relé temporizador do filtro de ar.</p>
+    <div class="chips"><span>Luz de Mapa</span><span>Ventilador</span><span>Relé 10s</span><span>Fusível F19</span></div>
+  </header>
+
+  <h2>Luz de Mapa</h2>
+  <div class="specs">
+    <div class="spec"><b>F19</b><span>Fusível 7,5A</span></div>
+    <div class="spec"><b>234</b><span>Função</span></div>
+    <div class="spec"><b>1,5 mm²</b><span>Bitola</span></div>
+  </div>
+  <ol>
+    <li><strong>Origem:</strong> Bateria (+30) — cabo <strong>L(250) · 1,5 mm²</strong>.</li>
+    <li><strong>Passa por:</strong> Fusível F19 (7,5A).</li>
+    <li><strong>Interruptor:</strong> Cabo <strong>A(234) · 1,5 mm² · Azul</strong>.</li>
+    <li><strong>Destino:</strong> Luz de mapa — cabo <strong>A(260) · 0,75 mm² · Azul</strong>.</li>
+  </ol>
+
+  <h2>Ventilador</h2>
+  <ol>
+    <li><strong>Origem:</strong> Bateria (+30) — cabo <strong>L(250) · 1,5 mm²</strong>.</li>
+    <li><strong>Passa por:</strong> Fusível F13 (15A).</li>
+    <li><strong>Interruptor:</strong> Cabo <strong>A(224) · 1,5 mm² · Azul</strong>.</li>
+    <li><strong>Destino:</strong> Motor do ventilador — cabo <strong>A(635) · 1,0 mm² · Azul</strong>.</li>
+  </ol>
+
+  <h2>Relé 10 Segundos (Filtro de Ar)</h2>
+  <ol>
+    <li><strong>Alimentação:</strong> Cabo <strong>L(110) · 0,75 mm² · Azul</strong>.</li>
+    <li><strong>Saída:</strong> Cabo <strong>A(422a) · 0,75 mm² · Azul</strong>.</li>
+    <li><strong>Destino:</strong> Relé do filtro de ar — cabo <strong>A(422) · 0,75 mm² · Azul</strong>.</li>
+  </ol>
+</div>
+
+<!-- ===== FREIO ESTACIONAMENTO E CHECK CONTROL ===== -->
+<div data-circuito="freio-estacionamento-check-control">
+  <header class="art-head">
+    <span class="art-kicker">Sistema Elétrico · Painel</span>
+    <h1>Freio de Estacionamento, Filtro de Ar, 4x4, Nível de Água e Sinalizador</h1>
+    <p class="art-lead">Relé de Check Control, sensores e luzes indicadoras do painel.</p>
+    <div class="chips"><span>Check Control</span><span>4x4</span><span>Nível de Água</span><span>Sinalizador</span></div>
+  </header>
+
+  <h2>Freio de Estacionamento</h2>
+  <div class="specs">
+    <div class="spec"><b>F7</b><span>Fusível 7,5A</span></div>
+    <div class="spec"><b>953</b><span>Função</span></div>
+    <div class="spec"><b>0,75 mm²</b><span>Bitola</span></div>
+  </div>
+  <ol>
+    <li><strong>Origem:</strong> Bateria (+15) — cabo <strong>A(250) · 1,0 mm²</strong>.</li>
+    <li><strong>Passa por:</strong> Fusível F7 (7,5A).</li>
+    <li><strong>Interruptor:</strong> Cabo <strong>A(953) · 1,0 mm² · Azul</strong>.</li>
+    <li><strong>Luz indicadora:</strong> Cabo <strong>C(35) · 0,75 mm² · Azul</strong>.</li>
+  </ol>
+
+  <h2>Restrição do Filtro de Ar</h2>
+  <ol>
+    <li><strong>Interruptor:</strong> Cabo <strong>A(928) · 0,75 mm² · Azul</strong>.</li>
+    <li><strong>Luz indicadora:</strong> Cabo <strong>C(02) · 0,75 mm² · Azul</strong>.</li>
+  </ol>
+
+  <h2>4x4</h2>
+  <ol>
+    <li><strong>Interruptor:</strong> Cabo <strong>B(944) · 1,0 mm² · Azul</strong>.</li>
+    <li><strong>Luz indicadora:</strong> Cabo <strong>C(03) · 0,75 mm² · Azul</strong>.</li>
+  </ol>
+
+  <h2>Nível de Água</h2>
+  <ol>
+    <li><strong>Interruptor:</strong> Cabo <strong>A(422) · 0,75 mm² · Azul</strong>.</li>
+    <li><strong>Luz indicadora:</strong> Cabo <strong>C(43) · 0,75 mm² · Azul</strong>.</li>
+    <li><strong>Sinalizador sonoro:</strong> Cabo <strong>A(112) · 0,75 mm² · Azul</strong>.</li>
+  </ol>
+
+  <h2>Nível de Líquido de Freio</h2>
+  <ol>
+    <li><strong>Interruptor:</strong> Cabo <strong>A(954) · 0,75 mm² · Azul</strong>.</li>
+    <li><strong>Luz indicadora:</strong> Cabo <strong>C(04) · 0,75 mm² · Azul</strong>.</li>
+  </ol>
+</div>
+
+<!-- ===== PRESSÃO DE ÓLEO E VOLTÍMETRO ===== -->
+<div data-circuito="pressao-oleo-voltimetro">
+  <header class="art-head">
+    <span class="art-kicker">Sistema Elétrico · Painel</span>
+    <h1>Pressão de Óleo e Voltímetro</h1>
+    <p class="art-lead">Sensor de pressão, luz indicadora, manômetro e voltímetro.</p>
+    <div class="chips"><span>Sensor Pressão</span><span>Luz Óleo</span><span>Manômetro</span><span>Voltímetro</span></div>
+  </header>
+
+  <h2>Sensor de Pressão de Óleo</h2>
+  <div class="specs">
+    <div class="spec"><b>F7</b><span>Fusível 7,5A</span></div>
+    <div class="spec"><b>511</b><span>Função</span></div>
+    <div class="spec"><b>0,75 mm²</b><span>Bitola</span></div>
+  </div>
+  <ol>
+    <li><strong>Origem:</strong> Bateria (+15) — cabo <strong>A(250) · 1,0 mm²</strong>.</li>
+    <li><strong>Passa por:</strong> Fusível F7 (7,5A).</li>
+    <li><strong>Sensor:</strong> Cabo <strong>A(511) · 0,75 mm² · Azul</strong>.</li>
+    <li><strong>Luz indicadora:</strong> Cabo <strong>A(810) · 0,75 mm² · Azul</strong>.</li>
+    <li><strong>Manômetro:</strong> Cabo <strong>C(07) · 0,75 mm² · Azul/Verde</strong>.</li>
+  </ol>
+
+  <h2>Voltímetro</h2>
+  <ol>
+    <li><strong>Alimentação:</strong> Cabo <strong>C(01) · 0,75 mm² · Azul/Vermelho</strong>.</li>
+    <li><strong>Sinal:</strong> Cabo <strong>C(40) · 0,75 mm² · Verde/Vermelho</strong>.</li>
+    <li><strong>Iluminação:</strong> Cabo <strong>C(08) · 0,75 mm² · Azul/Vermelho</strong>.</li>
+  </ol>
+</div>
+
+<!-- ===== TACÔMETRO, TEMPERATURA E COMBUSTÍVEL ===== -->
+<div data-circuito="tacometro-temp-combustivel">
+  <header class="art-head">
+    <span class="art-kicker">Sistema Elétrico · Painel</span>
+    <h1>Tacômetro, Temperatura e Combustível</h1>
+    <p class="art-lead">Indicadores do painel e seus sensores.</p>
+    <div class="chips"><span>Tacômetro</span><span>Temperatura</span><span>Combustível</span></div>
+  </header>
+
+  <h2>Tacômetro</h2>
+  <div class="specs">
+    <div class="spec"><b>F7</b><span>Fusível 7,5A</span></div>
+    <div class="spec"><b>520</b><span>Terminal W</span></div>
+    <div class="spec"><b>0,75 mm²</b><span>Bitola</span></div>
+  </div>
+  <ol>
+    <li><strong>Alimentação:</strong> Cabo <strong>A(250) · 1,0 mm²</strong>.</li>
+    <li><strong>Sinal do alternador:</strong> Cabo <strong>A(520) · 0,75 mm² · Azul</strong>.</li>
+    <li><strong>Iluminação:</strong> Cabo <strong>C(09) · 0,75 mm² · Azul/Verde</strong>.</li>
+  </ol>
+
+  <h2>Indicador de Temperatura</h2>
+  <ol>
+    <li><strong>Sensor:</strong> Cabo <strong>A(675) · 0,75 mm² · Azul</strong>.</li>
+    <li><strong>Sinal:</strong> Cabo <strong>C(26) · 0,75 mm² · Cinza/Vermelho</strong>.</li>
+    <li><strong>Alimentação:</strong> Cabo <strong>C(05) · 0,75 mm² · Azul/Vermelho</strong>.</li>
+  </ol>
+
+  <h2>Indicador de Combustível</h2>
+  <ol>
+    <li><strong>Sensor:</strong> Cabo <strong>B(060) · 1,0 mm² · Marrom</strong>.</li>
+    <li><strong>Sinal:</strong> Cabo <strong>C(25) · 0,75 mm² · Cinza/Vermelho</strong>.</li>
+    <li><strong>Alimentação:</strong> Cabo <strong>C(06) · 0,75 mm² · Azul/Vermelho</strong>.</li>
+  </ol>
+</div>
+
+<!-- ===== TOMADA ELÉTRICA ===== -->
+<div data-circuito="tomada-eletrica">
+  <header class="art-head">
+    <span class="art-kicker">Sistema Elétrico · Acessórios Externos</span>
+    <h1>Tomada Elétrica</h1>
+    <p class="art-lead">Tomada elétrica de 12 polos para reboque e implementos.</p>
+    <div class="chips"><span>12 Polos</span><span>7 Polos</span><span>Reboque</span></div>
+  </header>
+
+  <h2>Tomada 12 Polos</h2>
+  <div class="specs">
+    <div class="spec"><b>12P</b><span>Cabo de ligação</span></div>
+    <div class="spec"><b>1,0 mm²</b><span>Bitola</span></div>
+    <div class="spec"><b>+30</b><span>Alimentação</span></div>
+  </div>
+  <ol>
+    <li><strong>LME:</strong> Cabo <strong>F(640) · 1,0 mm² · Azul</strong>.</li>
+    <li><strong>RE:</strong> Cabo <strong>F(110) · 1,5 mm² · Azul</strong>.</li>
+    <li><strong>31:</strong> Terra — cabo <strong>F(110) · 1,5 mm² · Azul</strong>.</li>
+    <li><strong>PE:</strong> Cabo <strong>F(830) · 1,0 mm² · Azul</strong>.</li>
+    <li><strong>PD:</strong> Cabo <strong>F(833) · 1,0 mm² · Azul</strong>.</li>
+    <li><strong>LMD:</strong> Cabo <strong>F(570) · 1,0 mm² · Azul</strong>.</li>
+    <li><strong>LM:</strong> Cabo <strong>F(860) · 1,0 mm² · Azul</strong>.</li>
+    <li><strong>54:</strong> Cabo <strong>F(247) · 1,0 mm² · Azul</strong>.</li>
+    <li><strong>FM:</strong> Cabo <strong>F(249) · 1,0 mm² · Azul</strong>.</li>
+    <li><strong>58:</strong> Cabo <strong>F(953) · 1,0 mm² · Azul</strong>.</li>
+  </ol>
+
+  <div class="dica">
+    <strong>Conexão para tomada 7 polos</strong>
+    <p>Caso o veículo use tomada de 7 polos, apenas 7 dos 12 contatos são utilizados. Consulte o manual do implemento.</p>
+  </div>
+</div>
+
+<!-- ===== PLACAS DE BORNES E ELEVADOR ===== -->
+<div data-circuito="placas-bornes-elevador">
+  <header class="art-head">
+    <span class="art-kicker">Sistema Elétrico · Alimentação</span>
+    <h1>Placas de Bornes e Elevador de Tensão</h1>
+    <p class="art-lead">Elevador de tensão ARPE, placas de borne 12V e 24V e voltímetro.</p>
+    <div class="chips"><span>Elevador</span><span>Placa 12V</span><span>Placa 24V</span><span>Voltímetro</span></div>
+  </header>
+
+  <h2>Elevador de Tensão ARPE</h2>
+  <div class="specs">
+    <div class="spec"><b>EB 1224S-20A</b><span>Modelo</span></div>
+    <div class="spec"><b>12V → 24V</b><span>Conversão</span></div>
+    <div class="spec"><b>20A</b><span>Corrente máx.</span></div>
+  </div>
+  <ol>
+    <li><strong>Entrada 12V:</strong> Cabo <strong>N(01) · 10,0 mm² · Vermelho</strong>.</li>
+    <li><strong>Entrada GND:</strong> Cabo <strong>N(02) · 10,0 mm² · Marrom</strong>.</li>
+    <li><strong>Saída 24V:</strong> Cabo <strong>N(03) · 6,0 mm² · Marrom</strong>.</li>
+    <li><strong>Saída GND:</strong> Cabo <strong>N(04) · 6,0 mm² · Marrom</strong>.</li>
+  </ol>
+
+  <h2>Placas de Borne</h2>
+  <ol>
+    <li><strong>Placa 24V +:</strong> Cabo <strong>N(03) · 6,0 mm² · Marrom</strong>.</li>
+    <li><strong>Placa 24V -:</strong> Cabo <strong>O(02) · 1,0 mm² · Marrom</strong>.</li>
+    <li><strong>Placa 12V +:</strong> Cabo <strong>N(05) · 1,0 mm² · Marrom</strong>.</li>
+    <li><strong>Placa 12V -:</strong> Cabo <strong>N(06) · 1,0 mm² · Marrom</strong>.</li>
+  </ol>
+
+  <h2>Voltímetro 24V</h2>
+  <ol>
+    <li><strong>Alimentação:</strong> Cabo <strong>N(05) · 1,0 mm² · Marrom</strong>.</li>
+    <li><strong>Interruptor de iluminação:</strong> Cabo <strong>O(02) · 1,0 mm² · Marrom</strong>.</li>
+  </ol>
+</div>
+
+<!-- ===== SINAL DE VELOCIDADE ===== -->
+<div data-circuito="sinal-velocidade">
+  <header class="art-head">
+    <span class="art-kicker">Sistema Elétrico · Instrumentação</span>
+    <h1>Sinal de Velocidade</h1>
+    <p class="art-lead">Sensor Hall, velocímetro e comunicação com a ECU do motor.</p>
+    <div class="chips"><span>Sensor Hall</span><span>Velocímetro</span><span>ECU</span><span>Fusível F30</span></div>
+  </header>
+
+  <h2>Sensor de Velocidade Hall</h2>
+  <div class="specs">
+    <div class="spec"><b>F30</b><span>Fusível 5A</span></div>
+    <div class="spec"><b>288</b><span>Função</span></div>
+    <div class="spec"><b>1,0 mm²</b><span>Bitola</span></div>
+  </div>
+  <ol>
+    <li><strong>Origem:</strong> Bateria (+30) — cabo <strong>D(288) · 1,0 mm² · Verde</strong>.</li>
+    <li><strong>Passa por:</strong> Fusível F30 (5A).</li>
+    <li><strong>Alimentação do sensor:</strong> Cabo <strong>D(288) · 1,0 mm² · Verde</strong>.</li>
+    <li><strong>Sinal do sensor:</strong> Cabo <strong>G(645) · 0,75 mm² · Marrom</strong>.</li>
+    <li><strong>Terra do sensor:</strong> Cabo <strong>G(110) · 0,75 mm² · Marrom</strong>.</li>
+  </ol>
+
+  <h2>Velocímetro</h2>
+  <ol>
+    <li><strong>Alimentação:</strong> Cabo <strong>A(840) · 0,75 mm² · Azul</strong>.</li>
+    <li><strong>Sinal do sensor:</strong> Cabo <strong>C(25) · 0,75 mm² · Cinza/Vermelho</strong>.</li>
+    <li><strong>Sinal para ECU:</strong> Cabo <strong>D(645) · 0,5 mm² · Verde/Branco</strong>.</li>
+  </ol>
+
+  <h2>ECU Motor (Conector K)</h2>
+  <ol>
+    <li><strong>Pino 53:</strong> Cabo <strong>D(288) · 1,0 mm² · Verde</strong>.</li>
+    <li><strong>Pino 75:</strong> Cabo <strong>D(645) · 0,5 mm² · Verde/Branco</strong>.</li>
+    <li><strong>Pino 17:</strong> Cabo <strong>D(170) · 1,0 mm² · Verde</strong>.</li>
+  </ol>
+</div>
+
+<!-- ===== ALIMENTAÇÃO INJEÇÃO ===== -->
+<div data-circuito="alimentacao-injecao">
+  <header class="art-head">
+    <span class="art-kicker">Sistema de Injeção · Alimentação</span>
+    <h1>Alimentação do Sistema de Injeção</h1>
+    <p class="art-lead">Relé principal, fusíveis F25, F26 e F27 e alimentação da ECU.</p>
+    <div class="chips"><span>Relé Principal</span><span>F25</span><span>F26</span><span>F27</span><span>ECU</span></div>
+  </header>
+
+  <h2>Relé Principal (Y9)</h2>
+  <div class="specs">
+    <div class="spec"><b>F28</b><span>Fusível 15A</span></div>
+    <div class="spec"><b>286</b><span>Função</span></div>
+    <div class="spec"><b>1,5 mm²</b><span>Bitola</span></div>
+  </div>
+  <ol>
+    <li><strong>Origem:</strong> Bateria (+30) — cabo <strong>D(286) · 1,5 mm² · Verde</strong>.</li>
+    <li><strong>Passa por:</strong> Fusível F28 (15A).</li>
+    <li><strong>Relé principal:</strong> Alimenta a ECU e os sensores.</li>
+    <li><strong>Saída:</strong> Cabo <strong>D(277) · 2,5 mm² · Verde/Branco</strong>.</li>
+  </ol>
+
+  <h2>Alimentação da ECU</h2>
+  <ol>
+    <li><strong>F25 (5A):</strong> Cabo <strong>D(285) · 0,5 mm² · Verde/Branco</strong> → pino 01.</li>
+    <li><strong>F26 (10A):</strong> Cabo <strong>D(278) · 2,5 mm² · Verde/Branco</strong> → pino 04.</li>
+    <li><strong>F27 (15A):</strong> Cabo <strong>D(279) · 2,5 mm² · Verde/Branco</strong> → pino 05.</li>
+    <li><strong>Pino 28:</strong> Cabo <strong>D(285) · 0,5 mm² · Verde/Branco</strong>.</li>
+    <li><strong>Pino 42:</strong> Cabo <strong>D(799) · 0,5 mm² · Verde</strong>.</li>
+    <li><strong>Pino 70:</strong> Cabo <strong>D(695) · 0,5 mm² · Verde</strong>.</li>
+    <li><strong>Pino 72:</strong> Cabo <strong>D(170) · 0,5 mm² · Verde</strong>.</li>
+  </ol>
+
+  <div class="codigos">
+    <div class="codigo"><span class="num">F25</span><div><h4>5A — ECU Motor +15</h4><p>Alimentação da ECU após a chave.</p></div></div>
+    <div class="codigo"><span class="num">F26</span><div><h4>10A — ECU Motor +30</h4><p>Alimentação permanente da ECU.</p></div></div>
+    <div class="codigo"><span class="num">F27</span><div><h4>15A — ECU Motor +30</h4><p>Alimentação de potência da ECU.</p></div></div>
+  </div>
+</div>
+
+<!-- ===== ACELERADOR ELETRÔNICO ===== -->
+<div data-circuito="acelerador-eletronico">
+  <header class="art-head">
+    <span class="art-kicker">Sistema de Injeção · Atuadores</span>
+    <h1>Acelerador Eletrônico</h1>
+    <p class="art-lead">Sensor de posição do pedal (SPA) com duplo potenciômetro e comunicação com a ECU.</p>
+    <div class="chips"><span>Pedal</span><span>SPA</span><span>5V</span><span>ECU</span></div>
+  </header>
+
+  <h2>Sensor de Posição do Pedal (SPA)</h2>
+  <div class="specs">
+    <div class="spec"><b>001</b><span>Função</span></div>
+    <div class="spec"><b>5V</b><span>Alimentação</span></div>
+    <div class="spec"><b>0,5 mm²</b><span>Bitola</span></div>
+  </div>
+  <ol>
+    <li><strong>Alimentação 5V:</strong> Cabo <strong>D(284) · 0,5 mm² · Verde/Branco</strong>.</li>
+    <li><strong>Terra digital:</strong> Cabo <strong>D(177) · 0,5 mm² · Verde/Branco</strong>.</li>
+    <li><strong>Sinal 1:</strong> Cabo <strong>D(960) · 0,5 mm² · Verde</strong>.</li>
+    <li><strong>Sinal 2:</strong> Cabo <strong>D(330) · 0,5 mm² · Verde</strong>.</li>
+    <li><strong>Marcha lenta ON:</strong> Cabo <strong>D(670) · 0,5 mm² · Verde</strong>.</li>
+    <li><strong>Marcha lenta OFF:</strong> Cabo <strong>D(330) · 0,5 mm² · Verde</strong>.</li>
+  </ol>
+
+  <div class="aviso">
+    <strong>Atenção</strong>
+    <p>Nunca substitua o sensor do pedal sem recalibrar a ECU. O sistema pode entrar em modo de emergência.</p>
+  </div>
+</div>
+
+<!-- ===== INTERRUPTORES DOS PEDAIS ===== -->
+<div data-circuito="interruptores-pedais">
+  <header class="art-head">
+    <span class="art-kicker">Sistema de Injeção · Sensores</span>
+    <h1>Interruptores dos Pedais</h1>
+    <p class="art-lead">Interruptor de embreagem e interruptor redundante de freio.</p>
+    <div class="chips"><span>Embreagem</span><span>Freio Redundante</span><span>ECU</span></div>
+  </header>
+
+  <h2>Interruptor da Embreagem</h2>
+  <div class="specs">
+    <div class="spec"><b>F28</b><span>Fusível 15A</span></div>
+    <div class="spec"><b>860</b><span>Função</span></div>
+    <div class="spec"><b>0,5 mm²</b><span>Bitola</span></div>
+  </div>
+  <ol>
+    <li><strong>Alimentação:</strong> Cabo <strong>D(286) · 1,0 mm² · Verde</strong>.</li>
+    <li><strong>Sinal:</strong> Cabo <strong>D(860) · 1,0 mm² · Verde</strong>.</li>
+    <li><strong>ECU pino 07:</strong> Cabo <strong>D(540) · 0,5 mm² · Verde</strong>.</li>
+  </ol>
+
+  <h2>Interruptor Redundante de Freio</h2>
+  <ol>
+    <li><strong>Alimentação:</strong> Cabo <strong>D(286) · 1,0 mm² · Verde</strong>.</li>
+    <li><strong>Sinal 1:</strong> Cabo <strong>D(445) · 0,5 mm² · Verde</strong>.</li>
+    <li><strong>Sinal 2:</strong> Cabo <strong>D(860) · 0,5 mm² · Verde</strong>.</li>
+    <li><strong>ECU pino 08:</strong> Cabo <strong>D(860) · 0,5 mm² · Verde</strong>.</li>
+    <li><strong>ECU pino 09:</strong> Cabo <strong>D(445) · 0,5 mm² · Verde</strong>.</li>
+  </ol>
+</div>
+
+<!-- ===== BOMBA ELÉTRICA ===== -->
+<div data-circuito="bomba-eletrica">
+  <header class="art-head">
+    <span class="art-kicker">Sistema de Injeção · Atuadores</span>
+    <h1>Bomba Elétrica</h1>
+    <p class="art-lead">Relé da bomba elétrica, alimentação e controle pela ECU.</p>
+    <div class="chips"><span>Relé Y11</span><span>Bomba</span><span>ECU</span><span>Fusível F28/F29</span></div>
+  </header>
+
+  <h2>Relé da Bomba Elétrica (Y11)</h2>
+  <div class="specs">
+    <div class="spec"><b>F28/F29</b><span>Fusíveis</span></div>
+    <div class="spec"><b>730</b><span>Função</span></div>
+    <div class="spec"><b>1,5 mm²</b><span>Bitola</span></div>
+  </div>
+  <ol>
+    <li><strong>Origem:</strong> Bateria (+30) — cabo <strong>D(730) · 1,5 mm² · Verde</strong>.</li>
+    <li><strong>Passa por:</strong> Fusível F28 (15A) e F29 (10A).</li>
+    <li><strong>Relé Y11:</strong> Terminal 30 alimentado.</li>
+    <li><strong>Excitação:</strong> ECU pino 91 — cabo <strong>D(730) · 0,5 mm² · Verde/Branco</strong>.</li>
+    <li><strong>Saída:</strong> Bomba elétrica — cabo <strong>D(290) · 1,5 mm² · Verde</strong>.</li>
+    <li><strong>Terra:</strong> Chassi — cabo <strong>D(290) · 1,0 mm²</strong>.</li>
+  </ol>
+
+  <div class="dica">
+    <strong>Dica</strong>
+    <p>Ao ligar a ignição, a bomba elétrica funciona por 2 a 3 segundos e para. Só volta a funcionar quando o motor gira.</p>
+  </div>
+</div>
+
+<!-- ===== DIAGNOSE MOTOR E ÁGUA NO COMBUSTÍVEL ===== -->
+<div data-circuito="diagnose-motor-agua-combustivel">
+  <header class="art-head">
+    <span class="art-kicker">Sistema de Injeção · Diagnóstico</span>
+    <h1>Diagnose do Motor e Água no Combustível</h1>
+    <p class="art-lead">Sensor de água no combustível, luzes indicadoras de diagnose e conector OBD.</p>
+    <div class="chips"><span>Água no Combustível</span><span>Diagnose</span><span>OBD</span><span>ECU</span></div>
+  </header>
+
+  <h2>Sensor de Água no Combustível</h2>
+  <div class="specs">
+    <div class="spec"><b>F30</b><span>Fusível 5A</span></div>
+    <div class="spec"><b>760</b><span>Função</span></div>
+    <div class="spec"><b>0,75 mm²</b><span>Bitola</span></div>
+  </div>
+  <ol>
+    <li><strong>Alimentação:</strong> Cabo <strong>D(288) · 1,0 mm² · Verde</strong>.</li>
+    <li><strong>Passa por:</strong> Fusível F30 (5A).</li>
+    <li><strong>Sensor de água:</strong> Cabo <strong>D(760) · 1,0 mm² · Verde</strong>.</li>
+    <li><strong>Sinal:</strong> Cabo <strong>D(170) · 1,0 mm² · Verde</strong>.</li>
+    <li><strong>Luz indicadora:</strong> Cabo <strong>E(760) · 0,75 mm² · Verde</strong>.</li>
+  </ol>
+
+  <h2>Luz Indicadora de Diagnose</h2>
+  <ol>
+    <li><strong>Alimentação:</strong> Cabo <strong>E(440) · 0,75 mm² · Verde</strong>.</li>
+    <li><strong>Sinal:</strong> Cabo <strong>E(256) · 0,75 mm² · Verde</strong>.</li>
+    <li><strong>ECU pino 25:</strong> Cabo <strong>D(680) · 0,5 mm² · Verde</strong>.</li>
+    <li><strong>ECU pino 71:</strong> Cabo <strong>D(440) · 0,5 mm² · Verde</strong>.</li>
+  </ol>
+
+  <h2>Conector de Diagnose (OBD)</h2>
+  <ol>
+    <li><strong>Pino 1:</strong> Cabo <strong>D(680) · 0,5 mm² · Verde</strong>.</li>
+    <li><strong>Pino 3:</strong> Cabo <strong>D(170) · 1,0 mm² · Verde</strong>.</li>
+    <li><strong>Pino 4:</strong> Cabo <strong>D(288) · 1,0 mm² · Verde</strong>.</li>
+  </ol>
+</div>
+
+<!-- ===== SENSORES E ATUADORES DO MOTOR ===== -->
+<div data-circuito="sensores-atuadores-motor">
+  <header class="art-head">
+    <span class="art-kicker">Sistema de Injeção · Sensores e Atuadores</span>
+    <h1>Sensores e Atuadores do Motor</h1>
+    <p class="art-lead">Todos os sensores e atuadores conectados à ECU EDC16.</p>
+    <div class="chips"><span>CKP</span><span>CMP</span><span>MAF/ACT</span><span>Rail</span><span>Válvula Vácuo</span></div>
+  </header>
+
+  <h2>Sensor de Rotação (CKP)</h2>
+  <ol>
+    <li><strong>CKP+:</strong> Cabo <strong>D(0.5 AZ) · 0,5 mm² · Azul</strong> — ECU pino 11.</li>
+    <li><strong>CKP-:</strong> Cabo <strong>D(0.5 BR) · 0,5 mm² · Branco</strong> — ECU pino 12.</li>
+  </ol>
+
+  <h2>Sensor de Fase (CMP)</h2>
+  <ol>
+    <li><strong>CMP+:</strong> Cabo <strong>D(0.5 AZ) · 0,5 mm² · Azul</strong> — ECU pino 13.</li>
+    <li><strong>CMP-:</strong> Cabo <strong>D(0.5 BR) · 0,5 mm² · Branco</strong> — ECU pino 15.</li>
+  </ol>
+
+  <h2>Sensor de Pressão e Temperatura do Ar (MAF/ACT)</h2>
+  <ol>
+    <li><strong>Alimentação 5V:</strong> Cabo <strong>D(0.5 VD/AM) · 0,5 mm² · Vermelho/Amarelo</strong> — ECU pino 21.</li>
+    <li><strong>Terra:</strong> Cabo <strong>D(0.5 BR) · 0,5 mm² · Branco</strong> — ECU pino 23.</li>
+    <li><strong>Sinal MAF:</strong> Cabo <strong>D(0.5 AZ) · 0,5 mm² · Azul</strong> — ECU pino 27.</li>
+    <li><strong>Sinal ACT:</strong> Cabo <strong>D(0.5 AZ) · 0,5 mm² · Azul</strong> — ECU pino 28.</li>
+  </ol>
+
+  <h2>Sensor de Pressão do Rail</h2>
+  <ol>
+    <li><strong>Alimentação 5V:</strong> Cabo <strong>D(0.5 VD/AM) · 0,5 mm² · Vermelho/Amarelo</strong> — ECU pino 33.</li>
+    <li><strong>Sinal:</strong> Cabo <strong>D(0.5 AZ) · 0,5 mm² · Azul</strong> — ECU pino 41.</li>
+    <li><strong>Terra:</strong> Cabo <strong>D(0.5 BR) · 0,5 mm² · Branco</strong> — ECU pino 48.</li>
+  </ol>
+
+  <h2>Válvula Atuadora de Vácuo</h2>
+  <ol>
+    <li><strong>Alimentação:</strong> Cabo <strong>D(288) · 1,0 mm² · Verde</strong>.</li>
+    <li><strong>Controle PWM:</strong> Cabo <strong>D(730) · 0,5 mm² · Verde/Branco</strong> — ECU pino 91.</li>
+    <li><strong>Terra:</strong> Cabo <strong>D(31) · 0,75 mm² · Preto</strong>.</li>
+  </ol>
+
+  <h2>Sensor de Temperatura da Água (ECT)</h2>
+  <ol>
+    <li><strong>Sinal:</strong> Cabo <strong>D(0.5 BR/PR) · 0,5 mm² · Branco/Preto</strong> — ECU pino 51.</li>
+    <li><strong>Terra:</strong> Cabo <strong>D(0.5 BR) · 0,5 mm² · Branco</strong> — ECU pino 55.</li>
+  </ol>
+</div>
+
+<!-- ===== BICOS INJETORES ===== -->
+<div data-circuito="bicos-injetores">
+  <header class="art-head">
+    <span class="art-kicker">Sistema de Injeção · Atuadores</span>
+    <h1>Bicos Injetores</h1>
+    <p class="art-lead">Comando dos 4 bicos injetores pela ECU EDC16.</p>
+    <div class="chips"><span>Bico 1</span><span>Bico 2</span><span>Bico 3</span><span>Bico 4</span></div>
+  </header>
+
+  <h2>Comando dos Bicos</h2>
+  <div class="specs">
+    <div class="spec"><b>2,5 mm²</b><span>Bitola</span></div>
+    <div class="spec"><b>60 Vias</b><span>Conector A</span></div>
+    <div class="spec"><b>4 bicos</b><span>Sequencial</span></div>
+  </div>
+  <ol>
+    <li><strong>Bico 1:</strong> Cabo <strong>D(2.5 PT/AM) · 2,5 mm² · Preto/Amarelo</strong> — ECU pino 01.</li>
+    <li><strong>Bico 2:</strong> Cabo <strong>D(2.5 AZ) · 2,5 mm² · Azul</strong> — ECU pino 02.</li>
+    <li><strong>Bico 3:</strong> Cabo <strong>D(2.5 PR) · 2,5 mm² · Preto</strong> — ECU pino 16.</li>
+    <li><strong>Bico 4:</strong> Cabo <strong>D(2.5 AZ) · 2,5 mm² · Azul</strong> — ECU pino 17.</li>
+  </ol>
+
+  <h2>Retorno dos Bicos</h2>
+  <ol>
+    <li><strong>Bico 1 retorno:</strong> Cabo <strong>D(2.5 PR/CZ) · 2,5 mm² · Preto/Cinza</strong> — ECU pino 31.</li>
+    <li><strong>Bico 2 retorno:</strong> Cabo <strong>D(2.5 PT/LL) · 2,5 mm² · Preto/Lilás</strong> — ECU pino 33.</li>
+    <li><strong>Bico 3 retorno:</strong> Cabo <strong>D(2.5 AZ) · 2,5 mm² · Azul</strong> — ECU pino 46.</li>
+    <li><strong>Bico 4 retorno:</strong> Cabo <strong>D(2.5 AZ) · 2,5 mm² · Azul</strong> — ECU pino 47.</li>
+  </ol>
+
+  <div class="aviso">
+    <strong>Atenção</strong>
+    <p>Os bicos injetores trabalham com alta tensão. Nunca desconecte o conector com o motor em funcionamento.</p>
+  </div>
+</div>
