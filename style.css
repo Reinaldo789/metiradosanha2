@@ -168,30 +168,13 @@ html, body {
   gap: 1.5rem;
 }
 
-.mega-menu::-webkit-scrollbar {
-  width: 6px;
-}
-.mega-menu::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
-}
+.mega-menu::-webkit-scrollbar { width: 6px; }
+.mega-menu::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
 
-/* HOVER DESKTOP */
 @media (min-width: 961px) {
-  .nav-item:hover > .nav-btn {
-    background-color: var(--primary-light);
-    color: var(--primary);
-  }
-
-  .nav-item:hover > .nav-btn i.fa-chevron-down {
-    transform: rotate(180deg);
-  }
-
-  .nav-item:hover .mega-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
+  .nav-item:hover > .nav-btn { background-color: var(--primary-light); color: var(--primary); }
+  .nav-item:hover > .nav-btn i.fa-chevron-down { transform: rotate(180deg); }
+  .nav-item:hover .mega-menu { opacity: 1; visibility: visible; transform: translateY(0); }
 }
 
 .mega-categories-container {
@@ -200,7 +183,6 @@ html, body {
   gap: 1.2rem;
 }
 
-/* --- LINHA DE DIVISÃO PERSONALIZADA --- */
 .category-group {
   padding-bottom: 1rem;
   position: relative;
@@ -217,13 +199,8 @@ html, body {
   left: 0;
 }
 
-.category-group:last-child {
-  padding-bottom: 0;
-}
-
-.category-group:last-child::after {
-  display: none;
-}
+.category-group:last-child { padding-bottom: 0; }
+.category-group:last-child::after { display: none; }
 
 .category-title {
   font-size: 0.78rem;
@@ -281,7 +258,6 @@ html, body {
   border-color: #c7d2fe;
 }
 
-/* Painel Lateral Explore - MELHORADO */
 .mega-explore-side {
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   border-radius: 14px;
@@ -293,9 +269,7 @@ html, body {
   transition: var(--transition);
 }
 
-.mega-explore-side:hover {
-  box-shadow: var(--shadow-md);
-}
+.mega-explore-side:hover { box-shadow: var(--shadow-md); }
 
 .explore-header-title {
   font-size: 0.72rem;
@@ -322,24 +296,9 @@ html, body {
   box-shadow: 0 8px 20px rgba(49, 46, 129, 0.35);
 }
 
-.explore-banner i {
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-  color: #a5b4fc;
-}
-
-.explore-banner h5 {
-  margin: 0 0 0.3rem 0;
-  font-size: 0.9rem;
-  font-weight: 700;
-}
-
-.explore-banner p {
-  margin: 0;
-  font-size: 0.75rem;
-  opacity: 0.85;
-  line-height: 1.4;
-}
+.explore-banner i { font-size: 1.8rem; margin-bottom: 0.5rem; color: #a5b4fc; }
+.explore-banner h5 { margin: 0 0 0.3rem 0; font-size: 0.9rem; font-weight: 700; }
+.explore-banner p { margin: 0; font-size: 0.75rem; opacity: 0.85; line-height: 1.4; }
 
 .explore-link {
   color: var(--primary);
@@ -353,10 +312,7 @@ html, body {
   padding: 0.4rem 0;
 }
 
-.explore-link:hover {
-  gap: 0.7rem;
-  color: var(--primary-hover);
-}
+.explore-link:hover { gap: 0.7rem; color: var(--primary-hover); }
 
 /* ==========================================
    4. CONTEÚDO DA PÁGINA
@@ -437,10 +393,7 @@ main {
   transform: translateY(-4px) scale(1.05);
 }
 
-.float-btn.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
+.float-btn.visible { opacity: 1; pointer-events: auto; }
 
 /* ==========================================
    6. ESTILOS MOBILE - MELHORADO
@@ -472,9 +425,7 @@ main {
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .main-nav.active { 
-    display: flex; 
-  }
+  .main-nav.active { display: flex; }
 
   .nav-item {
     padding-bottom: 0;
@@ -489,10 +440,7 @@ main {
     transition: var(--transition);
   }
 
-  .nav-item.active {
-    box-shadow: var(--shadow-md);
-    border-color: #c7d2fe;
-  }
+  .nav-item.active { box-shadow: var(--shadow-md); border-color: #c7d2fe; }
 
   .nav-btn {
     width: 100%;
@@ -528,42 +476,22 @@ main {
     background: #ffffff;
   }
 
-  .nav-item.active .mega-menu {
-    display: block;
-    animation: slideDown 0.25s ease;
-  }
+  .nav-item.active .mega-menu { display: block; animation: slideDown 0.25s ease; }
 
   @keyframes slideDown {
     from { opacity: 0; transform: translateY(-8px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .nav-item.active > .nav-btn i.fa-chevron-down {
-    transform: rotate(180deg);
-  }
+  .nav-item.active > .nav-btn i.fa-chevron-down { transform: rotate(180deg); }
 
-  .mega-links-grid {
-    grid-template-columns: 1fr;
-    gap: 0.4rem;
-  }
+  .mega-links-grid { grid-template-columns: 1fr; gap: 0.4rem; }
 
-  .mega-link-item {
-    padding: 0.7rem 0.9rem;
-    background: #f8fafc;
-    border-radius: 8px;
-  }
+  .mega-link-item { padding: 0.7rem 0.9rem; background: #f8fafc; border-radius: 8px; }
+  .mega-link-item:hover { transform: none; }
 
-  .mega-link-item:hover {
-    transform: none;
-  }
-
-  .mega-explore-side {
-    margin-top: 1rem;
-  }
-
-  .category-group::after {
-    width: 100%;
-  }
+  .mega-explore-side { margin-top: 1rem; }
+  .category-group::after { width: 100%; }
 }
 
 /* ==========================================
@@ -588,11 +516,9 @@ main {
 .page-card table { border-collapse: collapse; width: 100%; display: block; overflow-x: auto; }
 .page-card td, .page-card th { border: 1px solid var(--border-color); padding: 0.4rem 0.7rem; }
 .page-loading { color: var(--text-muted); }
-/* depois de clicar num item, o painel fecha até o mouse sair e voltar */
 .nav-item.closed .mega-menu { opacity: 0 !important; visibility: hidden !important; }
 @media (max-width: 960px) { .page-card { padding: 1.2rem; border-radius: 14px; } }
 
-/* Índice interno, avisos e listas dos artigos */
 .page-card [id] { scroll-margin-top: 80px; }
 .page-card h3 { margin: 1.4rem 0 0.3rem; font-size: 1.05rem; }
 .page-card ul { padding-left: 1.3rem; }
@@ -621,10 +547,7 @@ main {
   .category-group { padding-bottom: 0.5rem; }
   .category-group::after { width: 80%; }
   .category-title { margin-bottom: 0.25rem; font-size: 0.75rem; }
-  .mega-links-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0 0.4rem;
-  }
+  .mega-links-grid { grid-template-columns: repeat(4, 1fr); gap: 0 0.4rem; }
   .mega-link-item { padding: 0.3rem 0.5rem; font-size: 0.82rem; }
   .mega-explore-side { padding: 0.8rem; justify-content: flex-start; gap: 0.6rem; }
   .explore-header-title { margin-bottom: 0; }
@@ -634,7 +557,6 @@ main {
 
 /* ==========================================
    9. MENUS ELEGANTES (sem mega menu)
-   Dropdown simples, uma coluna, abaixo de cada botão
    ========================================== */
 .explore-header-title, .explore-banner { display: none; }
 .mega-link-item i { display: none; }
@@ -674,7 +596,6 @@ main {
   .category-title { padding: 0; }
 }
 
-/* Cabeçalho do artigo nunca herda o comportamento do cabeçalho do site */
 .page-card header {
   position: static; z-index: auto; top: auto; width: auto;
   background: none; border: 0;
@@ -742,7 +663,6 @@ main {
 .home-quick a i { color: var(--primary); }
 .home-quick a:hover { border-color: var(--primary); background: var(--primary-light); }
 
-/* Rodapé */
 .site-footer { background: #0f172a; color: #cbd5e1; margin-top: 2rem; }
 .footer-inner { max-width: 1200px; margin: 0 auto; padding: 2.5rem 1.5rem; display: grid; grid-template-columns: 1.6fr repeat(4, 1fr); gap: 2rem; }
 .footer-brand .logo { color: #fff; }
@@ -771,7 +691,6 @@ main {
 .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .chips span { font-size: 0.78rem; padding: 0.25rem 0.7rem; border-radius: 99px; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.25); }
 
-/* abas principais */
 .art-tabs { display: flex; gap: 0.4rem; overflow-x: auto; padding: 0.3rem 0 0.6rem; margin: 1rem 0; border-bottom: 1px solid var(--border-color); scroll-margin-top: 70px; scrollbar-width: thin; }
 .art-tabs button, .mini-tabs button {
   flex: none; font: inherit; font-size: 0.86rem; font-weight: 600; cursor: pointer;
@@ -787,7 +706,6 @@ main {
 .aba-nav button { font: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; padding: 0.5rem 0.9rem; border-radius: 10px; border: 1px solid var(--border-color); background: #fff; color: var(--primary); transition: var(--transition); }
 .aba-nav button:hover { background: var(--primary-light); }
 
-/* mini abas (sintomas / causas / soluções) */
 .trio { border: 1px solid var(--border-color); border-radius: 14px; padding: 1rem; margin: 1rem 0; background: #fafbff; }
 .trio.enh .mini-panel { display: none; }
 .trio.enh .mini-panel.on { display: block; animation: slideDown 0.2s ease; }
@@ -795,20 +713,17 @@ main {
 .mini-tabs button { padding: 0.35rem 0.8rem; font-size: 0.82rem; }
 .trio h4 { margin: 0 0 0.3rem; }
 
-/* cartões de especificação */
 .specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.7rem; margin: 1.2rem 0; }
 .spec { background: var(--primary-light); border: 1px solid #e0e7ff; border-radius: 12px; padding: 0.9rem; text-align: center; }
 .spec b { display: block; font-size: 1.1rem; color: var(--primary); }
 .spec span { font-size: 0.78rem; color: var(--text-muted); }
 
-/* caixas de destaque */
 .dica { background: #eff6ff; border-left: 4px solid #3b82f6; border-radius: 8px; padding: 0.8rem 1rem; margin: 1.2rem 0; }
 .dica p { margin: 0.3rem 0 0; }
 .aviso strong::before, .dica strong::before { font-family: "Font Awesome 6 Free"; font-weight: 900; margin-right: 0.45rem; }
 .aviso strong::before { content: "\f071"; color: #f59e0b; }
 .dica strong::before { content: "\f0eb"; color: #3b82f6; }
 
-/* figuras e links de imagem */
 .page-card figure { margin: 1.2rem 0; }
 .page-card figure img { margin: 0; cursor: zoom-in; border: 1px solid var(--border-color); transition: var(--transition); }
 .page-card figure img:hover { box-shadow: var(--shadow-md); }
@@ -818,7 +733,6 @@ main {
 a.img-link { text-decoration: underline dotted; text-underline-offset: 3px; font-weight: 600; cursor: zoom-in; }
 a.img-link::after { content: "\f03e"; font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: 0.75em; margin-left: 0.35em; }
 
-/* códigos de falha em acordeão */
 .codigos { display: grid; gap: 0.6rem; margin-top: 1rem; }
 .codigo { display: flex; gap: 0.9rem; align-items: flex-start; border: 1px solid var(--border-color); border-radius: 14px; padding: 0.9rem 1rem; background: #fff; transition: var(--transition); }
 .codigo .num { flex: none; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--primary); border-radius: 10px; padding: 0.4rem 0.7rem; }
@@ -833,7 +747,6 @@ a.img-link::after { content: "\f03e"; font-family: "Font Awesome 6 Free"; font-w
 .codigos.enh .codigo.open h4::after { transform: rotate(180deg); }
 .codigo.open { border-color: #c7d2fe; background: #fafbff; }
 
-/* caixa de diálogo para imagens */
 .lightbox { border: 0; padding: 0; background: #0f172a; color: #e2e8f0; border-radius: 16px; max-width: min(94vw, 1000px); box-shadow: var(--shadow-lg); overflow: hidden; }
 .lightbox::backdrop { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(3px); }
 .lightbox img { display: block; max-width: 100%; max-height: 78vh; margin: 0 auto; }
@@ -842,7 +755,7 @@ a.img-link::after { content: "\f03e"; font-family: "Font Awesome 6 Free"; font-w
 @media (max-width: 960px) { .page-card .art-head { padding: 1.1rem; } .codigo { padding: 0.8rem; } }
 
 /* ==========================================
-   12. ÍNDICE DO ARTIGO (abas numeradas, claro no celular)
+   12. ÍNDICE DO ARTIGO
    ========================================== */
 .art-index-title { margin: 1.2rem 0 0.4rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); scroll-margin-top: 72px; }
 .art-tabs { margin-top: 0; }
@@ -861,10 +774,8 @@ a.img-link::after { content: "\f03e"; font-family: "Font Awesome 6 Free"; font-w
   .mini-tabs button { flex: 1 1 auto; }
 }
 
-/* Índice sem barra de rolagem: as abas quebram em várias linhas */
 .art-tabs { flex-wrap: wrap; overflow: visible; gap: 0.5rem; padding-bottom: 1rem; }
 
-/* Tabelas e listas numeradas dos artigos */
 .page-card th { background: var(--primary-light); color: var(--primary); text-align: left; font-size: 0.85rem; }
 .page-card tr:nth-child(even) td { background: #f8fafc; }
 .page-card ol { padding-left: 1.4rem; }
@@ -887,10 +798,9 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 }
 
 /* ==========================================
-   14. MENU DO CELULAR: o final da lista não fica escondido
+   14. MENU DO CELULAR
    ========================================== */
 @media (max-width: 960px) {
-  /* backdrop-filter faz o menu fixo se medir pelo cabeçalho e não pela tela */
   .site-wrapper > header { backdrop-filter: none; -webkit-backdrop-filter: none; }
   .main-nav {
     height: auto;
@@ -926,7 +836,7 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 .fluxo > .passo:first-child [data-voltar] { visibility: hidden; }
 
 /* ==========================================
-   16. ESCOLHA DE SENSOR / ATUADOR E ROTEIROS EM IMAGEM
+   16. ESCOLHA DE SENSOR / ATUADOR
    ========================================== */
 .hub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.8rem; margin: 1rem 0 1.5rem; }
 .page-card .hub-card { display: flex; gap: 0.9rem; align-items: flex-start; padding: 1rem; background: #fff; border: 1px solid var(--border-color); border-radius: 14px; text-decoration: none; color: var(--text-main); transition: var(--transition); }
@@ -938,3 +848,27 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 .lightbox { max-height: 94vh; overflow: auto; }
 .lightbox img { cursor: zoom-in; }
 .lightbox img.zoom { max-height: none; width: min(94vw, 1000px); cursor: zoom-out; }
+
+/* ==========================================
+   17. TABELAS DE ARTIGOS — FONTE REDUZIDA
+   ========================================== */
+.page-card table {
+  font-size: 0.78rem;
+}
+
+.page-card th {
+  font-size: 0.72rem;
+  padding: 0.5rem 0.7rem;
+}
+
+.page-card td {
+  padding: 0.5rem 0.7rem;
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .page-card table { font-size: 0.72rem; }
+  .page-card th { font-size: 0.68rem; padding: 0.4rem 0.5rem; }
+  .page-card td { padding: 0.4rem 0.5rem; font-size: 0.72rem; }
+}
