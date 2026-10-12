@@ -1,248 +1,76 @@
-<!-- Estilos específicos do Diagrama Elétrico para não afetar o resto do seu site -->
 <style>
-  .diagram-wrapper {
-    display: flex;
-    max-width: 100%;
-    background: #ffffff;
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    overflow: hidden;
-    margin: 1.5rem 0;
-  }
-
-  /* BARRA DA UCE (ESQUERDA) */
-  .uce-container {
-    width: 100px;
-    background-color: #f1f5f9;
-    border-right: 4px solid #94a3b8;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .uce-vertical-text {
-    transform: rotate(-90deg);
-    white-space: nowrap;
-    font-weight: 800;
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: #475569;
-  }
-
-  /* ÁREA DOS COMPONENTES (DIREITA) */
-  .diagram-rows-area {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 20px 0;
-  }
-
-  .diagram-item-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 24px;
-    padding-right: 20px;
-  }
-  .diagram-item-row:last-child { margin-bottom: 0; }
-
-  /* CHICOTE DE FIOS PARALELOS */
-  .harness-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex: 1;
-  }
-
-  .wire-track-line {
-    display: flex;
-    align-items: center;
-    height: 32px;
-    position: relative;
-  }
-
-  .pin-uce-number {
-    font-size: 11px;
-    font-weight: bold;
-    background: #ffffff;
-    border: 1px solid #cbd5e1;
-    padding: 2px 6px;
-    min-width: 48px;
-    text-align: center;
-    border-radius: 3px;
-    z-index: 2;
-  }
-
-  .wire-color-tag {
-    font-size: 10px;
-    font-weight: bold;
-    margin-left: 6px;
-    background: #ffffff;
-    padding: 0 3px;
-    z-index: 2;
-    color: #1e293b;
-  }
-
-  .wire-line-draw {
-    flex: 1;
-    height: 2px;
-    background-color: #334155;
-    margin-left: -4px;
-  }
-
-  .wire-line-dashed {
-    flex: 1;
-    height: 2px;
-    border-top: 2px dashed #64748b;
-    margin-left: -4px;
-  }
-
-  .pin-sensor-number {
-    font-size: 11px;
-    font-weight: bold;
-    border: 1px solid #475569;
-    background: #ffffff;
-    width: 18px;
-    height: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 3px;
-    margin-right: -1px;
-    z-index: 2;
-  }
-
-  /* CAIXAS DOS COMPONENTES (ESTILO DOUTOR IE) */
-  .component-spec-box {
-    width: 320px;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
-    padding: 12px;
-  }
-
-  .component-spec-box strong { font-size: 13px; color: #0f172a; display: block; }
-  .component-spec-box p { font-size: 11px; margin-top: 4px; color: #475569; line-height: 1.4; }
-
-  .badge-obs {
-    font-size: 9px;
-    font-weight: bold;
-    color: #b91c1c;
-    margin-top: 6px;
-    text-transform: uppercase;
-    display: inline-block;
-  }
-
-  /* ESTILOS DE CORES DOS COMPONENTES */
-  .box-blue   { background-color: #f0f9ff; border-color: #bae6fd; }
-  .box-yellow { background-color: #fefce8; border-color: #fef08a; }
-  .box-green  { background-color: #f0fdf4; border-color: #bbf7d0; }
-  .box-purple { background-color: #faf5ff; border-color: #e9d5ff; }
-
-  /* RESPONSIVIDADE PARA TELAS MENORES */
-  @media (max-width: 640px) {
-    .diagram-wrapper { flex-direction: column; }
-    .uce-container { width: 100%; padding: 10px; border-right: none; border-bottom: 4px solid #94a3b8; }
-    .uce-vertical-text { transform: none; }
-    .diagram-item-row { flex-direction: column; align-items: stretch; padding-right: 0; margin-bottom: 30px; border-bottom: 1px dashed #e2e8f0; padding-bottom: 15px; }
-    .component-spec-box { width: 100%; margin-top: 10px; }
-  }
+  .color-legend { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 15px; margin-bottom: 20px; }
+  .legend-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
+  .lg-chip { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; padding: 4px 8px; background: #fff; border: 1px solid #e2e8f0; border-radius: 4px; }
+  .dot { width: 12px; height: 12px; border-radius: 3px; border: 1px solid #94a3b8; display: inline-block; }
+  .d-panel { display: flex; max-width: 100%; background: #fff; border: 1px solid #cbd5e1; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); overflow: hidden; margin: 1.5rem 0; }
+  .side-box { width: 110px; background-color: #34495e; border-right: 4px solid #2c3e50; display: flex; align-items: center; justify-content: center; }
+  .side-txt { transform: rotate(-90deg); white-space: nowrap; font-weight: 800; font-size: 11px; letter-spacing: 2px; color: #fff; }
+  .rows-area { flex: 1; display: flex; flex-direction: column; padding: 20px 0; }
+  .row-item { display: flex; align-items: center; margin-bottom: 24px; padding-right: 20px; }
+  .harness { display: flex; flex-direction: column; justify-content: center; flex: 1; }
+  .track { display: flex; align-items: center; height: 32px; position: relative; }
+  .p-uce { font-size: 11px; font-weight: bold; background: #fff; border: 1px solid #cbd5e1; padding: 2px 6px; min-width: 48px; text-align: center; border-radius: 3px; z-index: 2; }
+  .w-tag { font-size: 10px; font-weight: bold; margin-left: 6px; background: #fff; padding: 0 4px; z-index: 2; color: #1e293b; }
+  .p-comp { font-size: 11px; font-weight: bold; border: 1px solid #475569; background: #fff; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; border-radius: 3px; margin-right: -1px; z-index: 2; }
+  .c-box { width: 340px; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; background-color: #f1f5f9; }
+  .c-box strong { font-size: 13px; color: #0f172a; display: block; }
+  .c-box p { font-size: 11px; margin-top: 4px; color: #475569; line-height: 1.4; }
+  .w-core { flex: 1; height: 3px; margin-left: -4px; }
+  
+  /* Cores Reais do Sistema de Disciplina */
+  .c-vd { background-color: #22c55e; }
+  .c-ma { background-color: #78350f; }
+  .c-pt { background-color: #1e293b; }
 </style>
 
-<p class="art-lead">Diagrama de conexões ponto a ponto entre os pinos de controle da central de injeção eletrônica e os principais sensores do motor.</p>
-
-<div class="diagram-wrapper">
-  
-  <!-- BARRA DA UCE -->
-  <div class="uce-container">
-    <div class="uce-vertical-text">UNIDADE DE COMANDO - UCE</div>
+<div class="color-legend">
+  <div class="legend-grid">
+    <div class="lg-chip"><span class="dot" style="background:#22c55e;"></span> VD - Verde</div>
+    <div class="lg-chip"><span class="dot" style="background:#78350f;"></span> MA - Marrom</div>
+    <div class="lg-chip"><span class="dot" style="background:#1e293b;"></span> PT - Preto</div>
   </div>
+</div>
 
-  <!-- COMPONENTES -->
-  <div class="diagram-rows-area">
+<div class="d-panel">
+  <div class="side-box"><div class="side-txt">CHAVE NATO / MILITAR</div></div>
+  <div class="rows-area">
 
-    <!-- SENSOR RAIL (ATÉ 2009) -->
-    <div class="diagram-item-row">
-      <div class="harness-box">
-        <div class="wire-track-line">
-          <div class="pin-uce-number">D/28</div>
-          <div class="wire-color-tag">MR</div>
-          <div class="wire-line-draw"></div>
-          <div class="pin-sensor-number">1</div>
+    <!-- LANTERNA MILITAR ESQUERDA -->
+    <div class="row-item">
+      <div class="harness">
+        <div class="track">
+          <div class="p-uce">D3</div>
+          <div class="w-tag">A(553)1,0 VD › (LME)</div>
+          <div class="w-core c-vd"></div>
+          <div class="p-comp">LM</div>
         </div>
-        <div class="wire-track-line">
-          <div class="pin-uce-number">D/26</div>
-          <div class="wire-color-tag">VM/AM</div>
-          <div class="wire-line-draw"></div>
-          <div class="pin-sensor-number">2</div>
-        </div>
-        <div class="wire-track-line">
-          <div class="pin-uce-number">D/18</div>
-          <div class="wire-color-tag">VM/BR</div>
-          <div class="wire-line-draw"></div>
-          <div class="pin-sensor-number">3</div>
+        <div class="track">
+          <div class="p-uce">Massa</div>
+          <div class="w-tag">B(110)1,0 MA (Terra 31)</div>
+          <div class="w-core c-ma"></div>
+          <div class="p-comp">31</div>
         </div>
       </div>
-      <div class="component-spec-box box-blue">
-        <strong>Sensor de Pressão do Rail</strong>
-        <p>Informa a pressão real de injeção de combustível do barramento Common Rail.</p>
-        <span class="badge-obs">Somente Veículos até 2009</span>
+      <div class="c-box">
+        <strong>Lanterna Militar Traseira Esquerda (Pág 16)</strong>
+        <p>Circuito de disciplina sob comando do Relé NATO Y7 (Fusível 10 - 7,5A).</p>
       </div>
     </div>
 
-    <!-- SENSOR RAIL (A PARTIR DE 2010) -->
-    <div class="diagram-item-row">
-      <div class="harness-box">
-        <div class="wire-track-line">
-          <div class="pin-uce-number">C/02</div>
-          <div class="wire-color-tag">AZ/BR</div>
-          <div class="wire-line-draw"></div>
-          <div class="pin-sensor-number">1</div>
-        </div>
-        <div class="wire-track-line">
-          <div class="pin-uce-number">D/33</div>
-          <div class="wire-color-lbl wire-color-tag">VD/VM</div>
-          <div class="wire-line-draw"></div>
-          <div class="pin-sensor-number">2</div>
-        </div>
-        <div class="wire-track-line">
-          <div class="pin-uce-number">C/01</div>
-          <div class="wire-color-tag">RS/AZ</div>
-          <div class="wire-line-draw"></div>
-          <div class="pin-sensor-number">3</div>
+    <!-- FAROL DE APROXIMAÇÃO -->
+    <div class="row-item">
+      <div class="harness">
+        <div class="track">
+          <div class="p-uce">D9</div>
+          <div class="w-tag">A(461)1,0 PT (F. APOX)</div>
+          <div class="w-core c-pt"></div>
+          <div class="p-comp">56</div>
         </div>
       </div>
-      <div class="component-spec-box box-yellow">
-        <strong>Sensor de Pressão do Rail</strong>
-        <p>Configuração de pinagem revisada com aterramento dedicado para novas UCEs.</p>
-        <span class="badge-obs" style="color: #15803d;">A partir de 2010</span>
-      </div>
-    </div>
-
-    <!-- SENSOR DE ROTAÇÃO (CKP) COM BLINDAGEM -->
-    <div class="diagram-item-row">
-      <div class="harness-box">
-        <div class="wire-track-line">
-          <div class="pin-uce-number">D/27</div>
-          <div class="wire-color-tag">AM</div>
-          <div class="wire-line-draw"></div>
-          <div class="pin-sensor-number">1</div>
-        </div>
-        <div class="wire-track-line">
-          <div class="pin-uce-number">D/34</div>
-          <div class="wire-color-tag">AZ</div>
-          <div class="wire-line-draw"></div>
-          <div class="pin-sensor-number">2</div>
-        </div>
-        <div class="wire-track-line">
-          <div class="pin-uce-number">-</div>
-          <div class="wire-color-tag">BR/PR</div>
-          <div class="wire-line-dashed"></div>
-          <div class="pin-sensor-number">3</div>
-        </div>
-      </div>
-      <div class="component-spec-box box-green">
-        <strong>Sensor de Rotação - CKP Indutivo</strong>
-        <p>Mapeamento de velocidade angular do motor. O pino 3 representa a malha de blindagem contra ruídos eletromagnéticos.</p>
+      <div class="c-box">
+        <strong>Farol de Aproximação Militar (Pág 17)</strong>
+        <p>Iluminação tática restrita ativa apenas com a chave NATO na posição militar (Fusível 14 - 7,5A).</p>
       </div>
     </div>
 
