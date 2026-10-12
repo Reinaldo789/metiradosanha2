@@ -850,7 +850,7 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 .lightbox img.zoom { max-height: none; width: min(94vw, 1000px); cursor: zoom-out; }
 
 /* ==========================================
-   17. TABELAS DE ARTIGOS — FONTE REDUZIDA
+   17. TABELAS DE ARTIGOS — TAMANHO DA FONTE
    ========================================== */
 .page-card table {
   font-size: 0.9rem;
@@ -858,11 +858,11 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 
 .page-card th {
   font-size: 0.9rem;
-  padding: 0.5rem 0.7rem;
+  padding: 0.6rem 0.8rem;
 }
 
 .page-card td {
-  padding: 0.5rem 0.7rem;
+  padding: 0.4rem 0.7rem;
   font-size: 0.8rem;
   line-height: 1.4;
 }
