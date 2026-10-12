@@ -1,13 +1,319 @@
-<!-- Escreva aqui o artigo: Luz de Farol e Posição -->
-<p>Texto de introdução sobre Luz de Farol e Posição.</p>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esquema Elétrico - Agrale Marruá AM21</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --secondary: #3b82f6;
+      --background: #f8fafc;
+      --text: #1e293b;
+      --white: #ffffff;
+      --border: #e2e8f0;
+    }
 
-<h2>Como funciona</h2>
-<p>...</p>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
 
-<h2>Sintomas de falha</h2>
-<ul>
-  <li>...</li>
-</ul>
+    body {
+      background-color: var(--background);
+      color: var(--text);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
 
-<h2>Como testar</h2>
-<p>...</p>
+    /* Lateral Esquerda: Índice Fixo */
+    .sidebar {
+      width: 320px;
+      background-color: var(--white);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .sidebar-header {
+      padding: 20px;
+      background-color: var(--primary);
+      color: var(--white);
+    }
+
+    .sidebar-header h3 { font-size: 16px; margin-bottom: 5px; }
+    .sidebar-header p { font-size: 12px; opacity: 0.8; }
+
+    .index-menu {
+      overflow-y: auto;
+      flex: 1;
+      list-style: none;
+    }
+
+    .index-item a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+
+    .index-item a:hover {
+      background-color: #eff6ff;
+      color: var(--secondary);
+    }
+
+    .page-badge {
+      background-color: #f1f5f9;
+      color: #64748b;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    /* Área Principal: Conteúdo dos Circuitos */
+    .main-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 30px;
+      scroll-behavior: smooth;
+    }
+
+    .circuit-section {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 25px;
+      margin-bottom: 30px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .circuit-title {
+      font-size: 18px;
+      color: var(--primary);
+      border-bottom: 2px solid var(--secondary);
+      padding-bottom: 8px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .circuit-page-info {
+      font-size: 12px;
+      color: #64748b;
+      align-self: flex-end;
+    }
+
+    /* Legenda de Identificação dos Fios */
+    .wire-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 13px;
+    }
+
+    .wire-table th, .wire-table td {
+      border: 1px solid var(--border);
+      padding: 10px;
+      text-align: left;
+    }
+
+    .wire-table th {
+      background-color: #f1f5f9;
+      color: #475569;
+    }
+
+    .wire-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 11px;
+      text-transform: uppercase;
+      border: 1px solid #cbd5e1;
+    }
+
+    /* Classes Dinâmicas de Cores dos Fios */
+    .wire-vm { background-color: #ef4444; color: white; }
+    .wire-pt { background-color: #000000; color: white; }
+    .wire-am { background-color: #fef08a; color: black; }
+    .wire-vd { background-color: #22c55e; color: white; }
+    .wire-az { background-color: #3b82f6; color: white; }
+    .wire-ma { background-color: #78350f; color: white; }
+    .wire-cz { background-color: #94a3b8; color: black; }
+
+    .cross-reference {
+      background-color: #fffbeb;
+      border: 1px solid #fef3c7;
+      color: #b45309;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR COM O ÍNDICE -->
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <h3>Diagrama Elétrico</h3>
+      <p>Agrale Marruá AM21 - Euro III</p>
+    </div>
+    <ul class="index-menu">
+      <li class="index-item"><a href="#c9"><span>Circuito da Ignição, Partida e Alternador</span> <span class="page-badge">Pág 09</span></a></li>
+      <li class="index-item"><a href="#c10"><span>Circuito do Limpador e Lavador</span> <span class="page-badge">Pág 10</span></a></li>
+      <li class="index-item"><a href="#c11"><span>Disciplina de Luzes (Chave NATO)</span> <span class="page-badge">Pág 11</span></a></li>
+      <li class="index-item"><a href="#c12"><span>Circuito dos Faróis</span> <span class="page-badge">Pág 12</span></a></li>
+      <li class="index-item"><a href="#c25"><span>Alimentação da Injeção Eletrônica</span> <span class="page-badge">Pág 25</span></a></li>
+      <li class="index-item"><a href="#c26"><span>Circuito do Acelerador Eletrônico</span> <span class="page-badge">Pág 26</span></a></li>
+      <li class="index-item"><a href="#c30"><span>Sensores e Atuadores do Motor</span> <span class="page-badge">Pág 30</span></a></li>
+    </ul>
+  </nav>
+
+  <!-- CONTEÚDO PRINCIPAL COM DETALHAMENTO DE FIOS -->
+  <main class="main-content">
+
+    <!-- CIRCUITO PAG 9 -->
+    <section id="c9" class="circuit-section">
+      <div class="circuit-title">
+        <span>Circuito da Ignição, Partida e Alternador</span>
+        <span class="circuit-page-info">Manual Elétrico: Página 09</span>
+      </div>
+      <p>Gerencia a alimentação primária vinda da bateria, interruptor da chave geral, motor de partida e alternador.</p>
+      
+      <table class="wire-table">
+        <thead>
+          <tr>
+            <th>Identificação do Fio</th>
+            <th>Função / Item</th>
+            <th>Medida (Bitola)</th>
+            <th>Cor Predominante</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>A(210)25,0</td>
+            <td>+B Alternador para Motor de Partida</td>
+            <td>25,0 mm²</td>
+            <td><span class="wire-badge wire-vm">Vermelho</span></td>
+          </tr>
+          <tr>
+            <td>A(230)4,0</td>
+            <td>+30 Alimentação Geral antes dos Fusíveis</td>
+            <td>4,0 mm²</td>
+            <td><span class="wire-badge wire-vm">Vermelho</span></td>
+          </tr>
+          <tr>
+            <td>A(050)1,5</td>
+            <td>Sinal de Partida (Linha 50) para o Solenóide</td>
+            <td>1,5 mm²</td>
+            <td><span class="wire-badge wire-pt">Preto</span></td>
+          </tr>
+          <tr>
+            <td>C(01)0,75AZ/VM</td>
+            <td>Luz Indicadora de Carga da Bateria (Painel)</td>
+            <td>0,75 mm²</td>
+            <td><span class="wire-badge wire-az">Azul / Vermelho</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="cross-reference">
+        <strong>🔄 Continuidade / Divisão de Páginas:</strong> Este circuito envia alimentações cruciais de pós-ignição (+15) para as <strong>Páginas 19, 20, 21, 24 e 29</strong> através das derivações de bornes da Central Elétrica.
+      </div>
+    </section>
+
+    <!-- CIRCUITO PAG 10 -->
+    <section id="c10" class="circuit-section">
+      <div class="circuit-title">
+        <span>Circuito do Limpador e Lavador do Para-Brisa</span>
+        <span class="circuit-page-info">Manual Elétrico: Página 10</span>
+      </div>
+      <p>Gerencia o temporizador Y1, o motor do limpador e a bomba de esguicho do lavador.</p>
+
+      <table class="wire-table">
+        <thead>
+          <tr>
+            <th>Identificação do Fio</th>
+            <th>Função / Item</th>
+            <th>Medida (Bitola)</th>
+            <th>Cor Predominante</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>A(251)1,5</td>
+            <td>+15 Alimentação Motor do Limpador (Fusível 1)</td>
+            <td>1,5 mm²</td>
+            <td><span class="wire-badge wire-am">Preto / Amarelo</span></td>
+          </tr>
+          <tr>
+            <td>A(970)1,5</td>
+            <td>Velocidade 2 do Motor do Limpador (53b)</td>
+            <td>1,5 mm²</td>
+            <td><span class="wire-badge wire-cz">Preto / Cinza / VM</span></td>
+          </tr>
+          <tr>
+            <td>A(110)1,5</td>
+            <td>Linha de Terra (31) do Motor do Limpador</td>
+            <td>1,5 mm²</td>
+            <td><span class="wire-badge wire-ma">Marrom</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- CIRCUITO PAG 26 -->
+    <section id="c26" class="circuit-section">
+      <div class="circuit-title">
+        <span>Circuito do Acelerador Eletrônico</span>
+        <span class="circuit-page-info">Manual Elétrico: Página 26</span>
+      </div>
+      <p>Conexão direta blindada entre os potenciômetros do pedal do acelerador (P1 e P2) e o conector "K" de 91 vias da ECU EDC16.</p>
+
+      <table class="wire-table">
+        <thead>
+          <tr>
+            <th>Identificação do Fio</th>
+            <th>Função / Item</th>
+            <th>Medida (Bitola)</th>
+            <th>Cor Predominante</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>D(001)0,5</td>
+            <td>Sinal do Pedal do Acelerador Eletrônico</td>
+            <td>0,5 mm²</td>
+            <td><span class="wire-badge wire-cz">Cinza Padrão</span></td>
+          </tr>
+          <tr>
+            <td>D(284)0,5</td>
+            <td>Alimentação de Referência (5V Digital)</td>
+            <td>0,5 mm²</td>
+            <td><span class="wire-badge wire-cz">Cinza Padrão</span></td>
+          </tr>
+          <tr>
+            <td>D(177)0,5</td>
+            <td>Terra Digital do Sensor do Acelerador</td>
+            <td>0,5 mm²</td>
+            <td><span class="wire-badge wire-cz">Cinza Padrão</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+</body>
+</html>
