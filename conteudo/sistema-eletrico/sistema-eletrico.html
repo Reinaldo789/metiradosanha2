@@ -1,176 +1,96 @@
-<!-- ESTILOS DO FLUXOGRAMA DA CHAVE NATO E FARÓIS MILITARES -->
 <style>
-  .flow-wrapper {
-    max-width: 500px;
-    margin: 20px auto;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .diagram-wrapper-marrua {
+    display: flex; align-items: center; justify-content: space-between;
+    max-width: 920px; margin: 25px auto; background: #ffffff;
+    border: 3px double #334155; border-radius: 8px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  }
+  .comp-frame-ie {
+    border: 3px solid #000000; padding: 10px; background: #ffffff;
+    text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 190px;
+  }
+  .frame-left-sensor { width: 140px; }
+  .frame-right-ecu { width: 170px; }
+  .comp-frame-ie img { max-width: 100%; height: auto; object-fit: contain; }
+  .harness-lines-marrua { flex: 1; display: flex; flex-direction: column; justify-content: space-around; height: 170px; padding: 0 12px; }
+  .wire-channel-row { display: flex; align-items: center; width: 100%; height: 32px; }
+  .pin-badge-square {
+    font-size: 12px; font-weight: bold; border: 2px solid #000000; background: #ffffff;
+    width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; z-index: 2;
+  }
+  .wire-data-box {
+    flex: 1; height: 28px; border: 2px solid #000000; margin: 0 -2px;
+    display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; color: #000000; z-index: 2;
+    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8), -1px -1px 0px rgba(255, 255, 255, 0.8);
   }
 
-  /* Caixas de Blocos Principais */
-  .flow-card {
-    width: 100%;
-    max-width: 400px;
-    background: #ffffff;
-    border: 2px solid #cbd5e1;
-    border-radius: 10px;
-    padding: 14px 18px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-    z-index: 2;
-  }
+  /* GRADIENTES DE CORES CONFORME SEU ANEXO */
+  .w-vd-am { background: linear-gradient(90deg, #22c55e 50%, #eab308 50%); background-size: 20px 100%; }
+  .w-ll { background-color: #d8b4fe; } /* Lilás Puro */
+  .w-br-pr { background: linear-gradient(90deg, #ffffff 50%, #000000 50%); background-size: 20px 100%; border-top: 1px solid #cbd5e1; border-bottom: 1px solid #cbd5e1; }
+  .w-br { background-color: #ffffff; border-top: 1px solid #cbd5e1; border-bottom: 1px solid #cbd5e1; }
+  .w-az-br { background: linear-gradient(90deg, #3b82f6 50%, #ffffff 50%); background-size: 20px 100%; }
+  .w-az { background-color: #3b82f6; color: #ffffff; }
 
-  .flow-card strong {
-    font-size: 14px;
-    color: #0f172a;
-    letter-spacing: 0.5px;
-    display: block;
+  @media (max-width: 768px) {
+    .diagram-wrapper-marrua { flex-direction: column; gap: 20px; }
+    .frame-left-sensor, .frame-right-ecu { width: 100%; min-height: auto; }
+    .harness-lines-marrua { width: 100%; height: auto; gap: 15px; }
+    .wire-channel-row { flex-direction: column; height: auto; align-items: stretch; }
+    .wire-data-box { margin: 5px 0; padding: 6px; height: auto; }
   }
-  
-  .flow-card p {
-    font-size: 11px;
-    color: #64748b;
-    margin: 2px 0 0 0;
-  }
-
-  /* Cores de Destaque Militares e Potência */
-  .flow-potencia { border-color: #ec4899; background: #fff1f2; }
-  .flow-nato     { border-color: #16a34a; background: #f0fdf4; } /* Verde Oliva / Militar */
-  .flow-fuzivel  { border-color: #f59e0b; background: #fef8e6; }
-  .flow-farol-m  { border-color: #3b82f6; background: #eff6ff; }
-  .flow-terra    { border-color: #64748b; background: #f8fafc; }
-
-  .flow-icon {
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* Linhas Conectoras Verticais (Fios Elétricos) */
-  .flow-wire {
-    width: 4px;
-    height: 52px;
-    position: relative;
-    margin: -2px 0;
-    z-index: 1;
-  }
-
-  /* Rótulo com a especificação do Fio */
-  .wire-spec-badge {
-    position: absolute;
-    top: 50%;
-    left: 15px;
-    transform: translateY(-50%);
-    font-size: 10.5px;
-    font-weight: 700;
-    color: #334155;
-    background: #ffffff;
-    padding: 3px 8px;
-    border-radius: 4px;
-    border: 1px solid #cbd5e1;
-    white-space: nowrap;
-  }
-
-  .component-pins-info {
-    width: 100%;
-    max-width: 380px;
-    font-size: 11px;
-    font-weight: 700;
-    color: #475569;
-    border-left: 2px dashed #16a34a;
-    margin: 8px 0;
-    padding-left: 12px;
-  }
-
-  /* Cores Reais dos Fios Elétricos em CSS (Pág 11 e 16) */
-  .w-v-vm { background-color: #dc2626; } /* Vermelho */
-  .w-v-vd { background-color: #22c55e; } /* Verde */
-  .w-v-ma { background-color: #78350f; } /* Marrom */
-  .w-v-pt { background-color: #1e293b; } /* Preto */
-  
-  /* Gradiente para Fio Listrado (Preto com lista Amarela) */
-  .w-v-pt-am { background: linear-gradient(180deg, #000 50%, #eab308 50%); background-size: 100% 12px; }
 </style>
 
-<p class="art-lead">Roteiro elétrico sequencial do Sistema de Disciplina de Luzes, controlando a comutação da Chave NATO para corte do circuito civil e liberação dos faróis blindados táticos.</p>
-
-<div class="flow-wrapper">
-  
-  <!-- PASSO 1: ALIMENTAÇÃO DA CENTRAL -->
-  <div class="flow-card flow-potencia">
-    <div class="flow-icon">🔋</div>
-    <div>
-      <strong>ALIMENTAÇÃO DA CENTRAL ELÉTRICA (+30)</strong>
-      <p>Barramento de corrente direta vinda do interruptor da chave geral.</p>
+<!-- DIAGRAMA: SENSOR DE ROTAÇÃO (CKP) -->
+<h2 class="home-title">Sensor de Rotação do Motor (CKP)</h2>
+<div class="diagram-wrapper-marrua">
+  <div class="comp-frame-ie frame-left-sensor">
+    <img src="img/sensor_rotacao.png" alt="Sensor CKP">
+    <span style="font-size: 10px; font-weight: bold; margin-top: 5px; color: #475569;">Sensor CKP (Indutivo)</span>
+  </div>
+  <div class="harness-lines-marrua">
+    <div class="wire-channel-row">
+      <div class="pin-badge-square">1</div>
+      <div class="wire-data-box w-vd-am">Sinal de Rotação - 0,5 VD/AM</div>
+      <div class="pin-badge-square">A12</div>
+    </div>
+    <div class="wire-channel-row">
+      <div class="pin-badge-square">2</div>
+      <div class="wire-data-box w-ll">Retorno de Sinal - 0,5 LL</div>
+      <div class="pin-badge-square">A13</div>
+    </div>
+    <div class="wire-channel-row">
+      <div class="pin-badge-square">3</div>
+      <div class="wire-data-box w-br-pr">Malha de Blindagem - 0,5 BR/PR</div>
+      <div class="pin-badge-square">A23</div>
     </div>
   </div>
-
-  <!-- FIADO DE ENTRADA NA CHAVE NATO -->
-  <div class="flow-wire w-v-vm">
-    <span class="wire-spec-badge">A(230)1,5 VM — Vermelho 1,5mm²</span>
+  <div class="comp-frame-ie frame-right-ecu">
+    <img src="img/ecu_marrua.png" alt="ECU">
+    <span style="font-size: 10px; font-weight: bold; margin-top: 5px; color: #475569;">Conector A (60 Vias)</span>
   </div>
+</div>
 
-  <!-- PASSO 2: INTERRUPTOR CIVIL / MILITAR (CHAVE NATO) -->
-  <div class="flow-card flow-nato">
-    <div class="flow-icon">🪖</div>
-    <div>
-      <strong>CHAVE NATO / INTERRUPTOR CIVIL MILITAR</strong>
-      <p>Pino H: Entrada Civil | Pino D: Saída Farol de Aproximação (460) | Pino E: Saída Luz Militar (555)</p>
+<!-- DIAGRAMA: SENSOR DE FASE (CMP) -->
+<h2 class="home-title">Sensor de Posição do Comando (Fase - CMP)</h2>
+<div class="diagram-wrapper-marrua">
+  <div class="comp-frame-ie frame-left-sensor">
+    <img src="img/sensor_fase.png" alt="Sensor CMP">
+    <span style="font-size: 10px; font-weight: bold; margin-top: 5px; color: #475569;">Sensor CMP</span>
+  </div>
+  <div class="harness-lines-marrua" style="height: 120px;">
+    <div class="wire-channel-row">
+      <div class="pin-badge-square">1</div>
+      <div class="wire-data-box w-br">Sinal de Fase - 0,5 BR</div>
+      <div class="pin-badge-square">A11</div>
+    </div>
+    <div class="wire-channel-row">
+      <div class="pin-badge-square">2</div>
+      <div class="wire-data-box w-az-br">Aterramento do Sensor - 0,5 AZ/BR</div>
+      <div class="pin-badge-square">A20</div>
     </div>
   </div>
-
-  <!-- SAÍDA DA CHAVE PARA O RELE MILITAR -->
-  <div class="flow-wire w-v-pt">
-    <span class="wire-spec-badge">A(232)1,5 PT — Comando do Relé Chave NATO</span>
+  <div class="comp-frame-ie frame-right-ecu">
+    <img src="img/ecu_marrua.png" alt="ECU">
+    <span style="font-size: 10px; font-weight: bold; margin-top: 5px; color: #475569;">Conector A (60 Vias)</span>
   </div>
-
-  <!-- PASSO 3: FUSÍVEIS DO CHICOTE MILITAR -->
-  <div class="flow-card flow-fuzivel">
-    <div class="flow-icon">🔸</div>
-    <div>
-      <strong>FUSÍVEIS DE PROTEÇÃO MILITAR (7,5A)</strong>
-      <p>F10 (Luz Militar Lado Esquerdo) | F9 (Luz Militar Lado Direito)</p>
-    </div>
-  </div>
-
-  <!-- LINHA DE SAÍDA PARA AS LANTERNAS MILITARES -->
-  <div class="flow-wire w-v-vd">
-    <span class="wire-spec-badge">A(553)1,0 VD ou A(558)1,0 VD — Verde (Luz Militar)</span>
-  </div>
-
-  <!-- PASSO 4: COMPONENTE (LANTERNA / FAROL MILITAR BLINDADO) -->
-  <div class="flow-card flow-farol-m">
-    <div class="flow-icon">🛡️</div>
-    <div>
-      <strong>LANTERNA / FAROL MILITAR (LME / LMD)</strong>
-      <p>Componentes blindados com fenda restrita para emissão de fachos táticos de luz.</p>
-    </div>
-  </div>
-
-  <!-- DETALHES DE PINAGEM MILITAR -->
-  <div class="component-pins-info">
-    Pino LM: Entrada de Luz Militar (Cabo VD) <br>
-    Pino FM: Entrada de Freio Militar (Cabo A(249)1,5 pós Relé do Freio Y8) <br>
-    Pino 31: Aterramento de Carcaça (Cabo 1,0MA)
-  </div>
-
-  <!-- FIO DE RETORNO À MASSA -->
-  <div class="flow-wire w-v-ma">
-    <span class="wire-spec-badge">B(110)1,0 MA — Marrom 1,0mm²</span>
-  </div>
-
-  <!-- PASSO 5: TERRA -->
-  <div class="flow-card flow-terra">
-    <div class="flow-icon">⏚</div>
-    <div>
-      <strong>TERRA DE CARROCERIA MILITAR (31)</strong>
-      <p>Barramento final de massa conectado à estrutura de chassi reforçada.</p>
-    </div>
-  </div>
-
 </div>
