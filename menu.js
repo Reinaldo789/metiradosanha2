@@ -61,7 +61,7 @@ btnTop.addEventListener('click', () => {
 });
 
 // ==========================================
-// CARREGAR PÁGINAS DO ARQUIVO ÚNICO
+// CARREGAR PÁGINAS: conteudo/<menu>/<item>.html
 // ==========================================
 const home = document.getElementById('home-box');
 const card = document.getElementById('page-card');
@@ -96,30 +96,18 @@ async function abrirPagina() {
   window.scrollTo({ top: 0 });
 
   try {
-    const resp = await fetch('conteudo/sistema-eletrico.html');
-    if (!resp.ok) throw new Error(`Arquivo não encontrado (${resp.status})`);
+    // 🔥 Busca por pasta: conteudo/sistema-eletrico/farios.html
+    const resp = await fetch(`conteudo/${path}.html`);
+    if (!resp.ok) throw new Error(`Página não encontrada (${resp.status})`);
 
     const corpo = await resp.text();
     if (decodeURIComponent(location.hash.slice(1)) !== path) return;
 
-    const temp = document.createElement('div');
-    temp.innerHTML = corpo;
-
-    const alvo = path.split('/')[1];
-    const secao = temp.querySelector(`[data-circuito="${alvo}"]`);
-
-    if (!secao) {
-      card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div>
-        <h1>${titulo}</h1>
-        <p>Este circuito ainda não foi adicionado ao arquivo único.</p>`;
-      return;
-    }
-
-    card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div>${secao.outerHTML}`;
+    card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div><h1>${titulo}</h1>${corpo}`;
     melhorarArtigo();
 
   } catch (err) {
-    card.innerHTML = `<h1>Erro</h1><p>${err.message}. Verifique se o arquivo <code>conteudo/sistema-eletrico.html</code> existe.</p>`;
+    card.innerHTML = `<h1>Erro</h1><p>${err.message}. Verifique se o arquivo <code>conteudo/${path}.html</code> existe.</p>`;
   }
 }
 
