@@ -1,13 +1,111 @@
-<!-- Escreva aqui o artigo: Bomba de Direção -->
-<p>Texto de introdução sobre Bomba de Direção.</p>
+<!-- Sensor de Posição do Comando de Válvulas (Sensor de Fase Bosch). Imagens: salve em img/sensor-fase/ com os nomes usados abaixo. -->
+<header class="art-head">
+  <h1>Sensor de Fase (Comando de Válvulas)</h1>
+</header>
 
-<h2>Como funciona</h2>
-<p>...</p>
+<p>O sensor de fase é um componente de Efeito Hall responsável por informar à central eletrônica (ECU Bosch EDC16) o sincronismo e o ciclo de funcionamento dos cilindros no motor MWM 2.8 Sprint Electronic (Chevrolet S10, Nissan Frontier e Agrale Marruá). Use as abas abaixo para consultar os dados, o diagnóstico e os testes elétricos.</p>
 
-<h2>Sintomas de falha</h2>
+<h2 id="dados">Dados técnicos</h2>
+<div class="specs">
+  <div class="spec"><b>Bosch</b><span>Fabricante</span></div>
+  <div class="spec"><b>Efeito Hall</b><span>Tecnologia</span></div>
+  <div class="spec"><b>12V / 5V</b><span>Alimentação</span></div>
+  <div class="spec"><b>3 Pinos</b><span>Conector</span></div>
+  <div class="spec"><b>0,8 - 1,5 mm</b><span>Entreferro</span></div>
+</div>
+
+<h3>Identificação e Localização</h3>
+<p>O sensor encontra-se instalado no cabeçote/tampa de válvulas, posicionado defronte à roda fônica (engrenagem fonadora) do comando de válvulas. Possui conector de 3 pinos selado.</p>
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Por ser um sensor ativo de Efeito Hall, medições diretas de resistência estática com multímetro no sensor desconectado não são conclusivas e podem apresentar circuito aberto devido aos circuitos integrados internos.</p>
+</div>
+<figure>
+  <img src="img/sensor-fase/00-localizacao.jpg" alt="Localização do sensor de fase no cabeçote" loading="lazy">
+  <figcaption>Localização do sensor de fase e conector do chicote principal do motor MWM 2.8</figcaption>
+</figure>
+
+<h3>Pinagem do Conector</h3>
 <ul>
-  <li>...</li>
+  <li><strong>Pino 1:</strong> Alimentação positiva (+12V da linha 15 via relé principal ou +5V de referência);</li>
+  <li><strong>Pino 2:</strong> Sinal de saída de onda quadrada (frequência / pull-up de ~5V da ECU);</li>
+  <li><strong>Pino 3:</strong> Massa dos sensores (GND retornado à ECU).</li>
 </ul>
+<div class="dica">
+  <strong>Entreferro (Distância de Leitura)</strong>
+  <p>A folga entre a ponta magnética do sensor e os dentes do comando deve estar entre 0,8 mm e 1,5 mm. <a class="img-link" href="img/sensor-fase/00-entreferro.jpg">Veja o esquema de medição do entreferro</a>.</p>
+</div>
 
-<h2>Como testar</h2>
-<p>...</p>
+<h2 id="esquema">Esquema elétrico e ondas</h2>
+<h3>Pinagem e Conexão na Central (ECU Bosch EDC16)</h3>
+<table>
+  <tr><th>Pino no Sensor</th><th>Função</th><th>Destino / Referência</th></tr>
+  <tr><td>Pino 1</td><td>Alimentação (+V)</td><td>Linha de Alimentação da ECU / Relé K15</td></tr>
+  <tr><td>Pino 2</td><td>Sinal de Fase</td><td>Entrada de Sinal da ECU (Pino dedicado de fase)</td></tr>
+  <tr><td>Pino 3</td><td>Massa (GND)</td><td>Massa de Sensores da ECU</td></tr>
+</table>
+<h3>Padrão do Sinal</h3>
+<table>
+  <tr><th>Parâmetro</th><th>Condição de Teste</th><th>Valor Esperado</th></tr>
+  <tr><td>Tensão de Alimentação</td><td>Chave ligada (Ign.): Pino 1 e Massa</td><td>11,5 V a 12,8 V (ou 4,8 V a 5,2 V)</td></tr>
+  <tr><td>Tensão de Referência (Sinal)</td><td>Chave ligada (Sensor desconectado): Pino 2 e Massa</td><td>4,8 V a 5,1 V (Linha Pull-up)</td></tr>
+  <tr><td>Sinal em Rotação (AC)</td><td>Motor girando / Marcha lenta: Pino 2 e Pino 3</td><td>2,0 V a 2,5 V AC (ou variação em Hz)</td></tr>
+</table>
+
+<h2 id="diagnostico">Diagnóstico de ocorrências</h2>
+<p>Toque em cada ocorrência para ver as causas prováveis.</p>
+<div class="codigos">
+  <div class="codigo"><span class="num">01</span><div>
+    <h4>Motor demora a pegar ou dá partida longa</h4>
+    <ul><li>Ausência do sinal de fase durante a partida, forçando a ECU a tentar sincronizar apenas pelo sensor de rotação;</li><li>Mapeamento de fase incorreto por sujeira metálica impregnada na ponta magnética do sensor;</li><li>Mau contato ou oxidação nos terminais do conector de 3 pinos;</li><li>Entreferro (distância) incorreto devido a desgaste ou montagem inadequada do sensor.</li></ul>
+  </div></div>
+  <div class="codigo"><span class="num">02</span><div>
+    <h4>Corte de combustível/injeção com motor quente</h4>
+    <ul><li>Trinca interna no enrolamento/placa semicondutora do sensor que se abre com a dilatação térmica;</li><li>Queda de tensão na linha de alimentação (+12V/+5V) quando a temperatura do cofre do motor eleva;</li><li>Chicote elétrico ressequido ou encostando no bloco com isolamento derretido.</li></ul>
+  </div></div>
+  <div class="codigo"><span class="num">03</span><div>
+    <h4>Luz de anomalia acesa (P0340 / P0341)</h4>
+    <ul><li>Falta de sincronismo entre a árvore de cames e o virabrequim (correia/engrenagens fora de ponto);</li><li>Sinal ausente ou intermitente na linha de retorno (Pino 2);</li><li>Falta de massa de sensores no Pino 3.</li></ul>
+  </div></div>
+  <div class="codigo"><span class="num">04</span><div>
+    <h4>Código P0342 (Sinal Baixo)</h4>
+    <ul><li>Curto-circuito do fio de sinal (Pino 2) com a massa/chassi;</li><li>Fio de sinal interrompido/partido entre o sensor e a ECU;</li><li>Sensor avariado internamente em curto para massa.</li></ul>
+  </div></div>
+  <div class="codigo"><span class="num">05</span><div>
+    <h4>Código P0343 (Sinal Alto)</h4>
+    <ul><li>Curto-circuito da linha de sinal (Pino 2) com a linha de alimentação positiva;</li><li>Resistência excessiva na linha de massa (Pino 3);</li><li>Defeito interno na ECU no circuito de entrada de fase.</li></ul>
+  </div></div>
+</div>
+
+<h2 id="testes">Testes de bancada e campo</h2>
+<h3>Teste de Alimentação e Massa</h3>
+<ol>
+  <li>Desconecte o plugue do sensor de fase;</li>
+  <li>Ligue a chave de ignição (posição 15 - sem dar partida);</li>
+  <li>Com o multímetro na escala de <strong>20 V DC</strong>, meça a tensão entre o <strong>Pino 1</strong> do conector e a massa da bateria: <strong>deve indicar ~12V (ou ~5V)</strong>;</li>
+  <li>Meça a tensão entre o <strong>Pino 2</strong> (sinal) e a massa: <strong>deve indicar ~5V</strong> (tensão de referência da ECU);</li>
+  <li>Meça a continuidade/tensão entre o positivo da bateria e o <strong>Pino 3</strong>: <strong>deve indicar a tensão total da bateria</strong> (~12,6V), confirmando a qualidade da massa.</li>
+</ol>
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Se as tensões de alimentação ou massa não forem encontradas, o problema está no chicote, nos fusíveis/relés da injeção ou nos pinos da ECU, e não no sensor.</p>
+</div>
+<h3>Teste do Sinal Dinâmico (Motor Girando)</h3>
+<ol>
+  <li>Mantenha o sensor conectado e insira agulhas de teste nos cabos dos pinos 2 (Sinal) e 3 (Massa);</li>
+  <li>Ajuste o multímetro para a escala de <strong>Tensão Alternada (V AC)</strong> ou <strong>Frequência (Hz)</strong>;</li>
+  <li>Dê a partida no motor ou mantenha-o em marcha lenta;</li>
+  <li>Observe a leitura: em tensão alternada deve indicar entre <strong>2,0V e 2,5V AC</strong>. Em frequência, deve mostrar variação proporcional às rotações do motor.</li>
+</ol>
+
+<h2 id="torques">Torques e especificações de montagem</h2>
+<h3>Valores de Aperto</h3>
+<table>
+  <tr><th>Item</th><th>Torque</th></tr>
+  <tr><td>Parafuso de fixação do sensor de fase ao cabeçote</td><td>10 N.m (1,0 kgf.m)</td></tr>
+  <tr><td>Parafuso da engrenagem da árvore de cames</td><td>60 N.m (6,0 kgf.m)</td></tr>
+</table>
+<div class="dica">
+  <strong>Cuidados na Instalação</strong>
+  <p>Sempre substitua o anel O-ring de vedação do sensor para evitar vazamentos de óleo na tampa/cabeçote e limpe resíduos de limalha na extremidade antes da montagem.</p>
+</div>
