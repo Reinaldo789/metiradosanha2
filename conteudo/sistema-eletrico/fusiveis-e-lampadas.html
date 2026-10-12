@@ -3,560 +3,501 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Torques de Aperto - Sprint 4.07 TCE / 4.08 TCE | Agrale Marruá</title>
+<title>Diagrama de Interligação - UCE / Sensores | Agrale Marruá</title>
 <style>
-  /* ===== RESET & BASE ===== */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --vermelho-agrale: #cc0000;
-    --vermelho-escuro: #990000;
+    --vermelho: #cc0000;
+    --cinza-uce: #9e9e9e;
     --cinza-escuro: #2c2c2c;
-    --cinza-medio: #555;
-    --cinza-claro: #f4f4f4;
-    --cinza-borda: #ddd;
-    --amarelo-alerta: #fff3cd;
-    --amarelo-borda: #ffc107;
-    --verde-dica: #d4edda;
-    --verde-borda: #28a745;
-    --branco: #ffffff;
-    --sombra: 0 2px 6px rgba(0,0,0,.08);
+    --borda: #ddd;
+    --fundo: #f4f4f4;
+    --sombra: 0 2px 8px rgba(0,0,0,.08);
   }
 
-  html { scroll-behavior: smooth; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background: var(--cinza-claro);
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--fundo);
     color: var(--cinza-escuro);
-    line-height: 1.6;
-    padding: 0 16px 60px;
-    max-width: 1100px;
+    padding: 20px;
+    max-width: 1300px;
     margin: 0 auto;
+    line-height: 1.5;
   }
 
   /* ===== CABEÇALHO ===== */
-  .art-head {
+  .header {
     text-align: center;
-    padding: 32px 0 16px;
-    border-bottom: 4px solid var(--vermelho-agrale);
-    margin-bottom: 28px;
+    padding: 24px 0 16px;
+    border-bottom: 4px solid var(--vermelho);
+    margin-bottom: 24px;
   }
-
-  .art-head h1 {
-    font-size: 2rem;
+  .header h1 {
+    font-size: 1.6rem;
     font-weight: 800;
-    color: var(--cinza-escuro);
+    text-transform: uppercase;
     letter-spacing: -.5px;
-    text-transform: uppercase;
   }
-
-  .art-head .art-sub {
+  .header h1 span { color: var(--vermelho); }
+  .header .sub {
     display: block;
-    font-size: .95rem;
-    color: var(--cinza-medio);
-    font-weight: 500;
-    margin-top: 6px;
-    letter-spacing: .3px;
-  }
-
-  .art-head .art-kicker {
-    display: inline-block;
-    background: var(--vermelho-agrale);
-    color: #fff;
-    font-size: .7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    padding: 4px 14px;
-    border-radius: 20px;
-    margin-bottom: 12px;
-  }
-
-  /* ===== AVISOS / DICAS ===== */
-  .aviso, .dica {
-    border-radius: 8px;
-    padding: 16px 20px;
-    margin: 20px 0;
-    box-shadow: var(--sombra);
-    font-size: .95rem;
-  }
-
-  .aviso {
-    background: var(--amarelo-alerta);
-    border-left: 6px solid var(--amarelo-borda);
-  }
-
-  .aviso strong {
-    display: block;
-    font-size: 1rem;
-    color: #856404;
-    margin-bottom: 4px;
-  }
-
-  .dica {
-    background: var(--verde-dica);
-    border-left: 6px solid var(--verde-borda);
-  }
-
-  .dica strong {
-    display: block;
-    font-size: 1rem;
-    color: #155724;
-    margin-bottom: 4px;
-  }
-
-  /* ===== TÍTULOS DE SEÇÃO ===== */
-  h2 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--vermelho-escuro);
-    margin: 36px 0 14px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid var(--cinza-borda);
-    scroll-margin-top: 20px;
-  }
-
-  h2::before {
-    content: "▸ ";
-    color: var(--vermelho-agrale);
-  }
-
-  /* ===== TABELAS ===== */
-  .tabela-wrap {
-    overflow-x: auto;
-    margin: 0 0 12px;
-    border-radius: 8px;
-    box-shadow: var(--sombra);
-    background: var(--branco);
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
     font-size: .9rem;
-    min-width: 640px;
-  }
-
-  thead th {
-    background: var(--vermelho-agrale);
-    color: #fff;
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: .78rem;
-    letter-spacing: .5px;
-    padding: 12px 10px;
-    text-align: left;
-    white-space: nowrap;
-  }
-
-  tbody td {
-    padding: 10px;
-    border-bottom: 1px solid var(--cinza-borda);
-    vertical-align: top;
-  }
-
-  tbody tr:nth-child(even) {
-    background: #fafafa;
-  }
-
-  tbody tr:hover {
-    background: #fff5f5;
-  }
-
-  tbody td:first-child {
-    text-align: center;
-    font-weight: 700;
-    color: var(--vermelho-agrale);
-    width: 50px;
-  }
-
-  tbody td:nth-child(2) {
-    font-family: "Consolas", "Monaco", monospace;
-    font-size: .85rem;
-    white-space: nowrap;
-    color: #333;
-  }
-
-  /* ===== DESTAQUES ===== */
-  .torque-valor {
-    font-weight: 700;
-    color: var(--cinza-escuro);
-    white-space: nowrap;
-  }
-
-  .etapa-angulo {
-    color: var(--vermelho-escuro);
-    font-weight: 600;
-    white-space: nowrap;
-  }
-
-  .janela {
-    font-size: .85rem;
-    color: var(--cinza-medio);
-    white-space: nowrap;
-  }
-
-  .vedante {
-    font-size: .8rem;
-    font-style: italic;
     color: #666;
+    margin-top: 4px;
   }
 
-  /* ===== ÍNDICE RÁPIDO ===== */
-  .indice-rapido {
-    background: var(--branco);
-    border-radius: 8px;
-    padding: 20px 24px;
+  /* ===== DIAGRAMA ===== */
+  .diagrama {
+    background: #fff;
+    border-radius: 10px;
     box-shadow: var(--sombra);
-    margin: 24px 0 32px;
+    overflow: hidden;
+    margin-bottom: 30px;
   }
 
-  .indice-rapido h3 {
-    font-size: .95rem;
+  /* Cabeçalho do diagrama */
+  .diagrama-header {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    background: var(--cinza-uce);
+    border-bottom: 2px solid #999;
+  }
+  .diagrama-header .uce-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-weight: 800;
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #fff;
+    background: #888;
+    padding: 8px 4px;
+    text-align: center;
+    min-height: 60px;
+  }
+  .diagrama-header .titulo {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #333;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: var(--cinza-medio);
-    margin-bottom: 12px;
   }
 
-  .indice-rapido ul {
-    list-style: none;
+  /* Bloco de sensor */
+  .bloco-sensor {
+    border-bottom: 1px solid var(--borda);
+  }
+  .bloco-sensor:last-child { border-bottom: none; }
+
+  .bloco-titulo {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    background: #f0f0f0;
+    border-bottom: 1px solid var(--borda);
+  }
+  .bloco-titulo .vazio { background: #e0e0e0; }
+  .bloco-titulo .nome {
+    padding: 8px 20px;
+    font-weight: 700;
+    font-size: .85rem;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: #444;
+  }
+
+  /* Linhas de conexão */
+  .linha-conexao {
+    display: grid;
+    grid-template-columns: 110px 90px 1fr 220px;
+    align-items: center;
+    min-height: 46px;
+    background: #fafafa;
+    border-bottom: 1px solid #eee;
+    font-size: .8rem;
+  }
+  .linha-conexao:nth-child(even) { background: #fff; }
+  .linha-conexao:hover { background: #fff8f8; }
+
+  /* Pino UCE */
+  .pino-uce {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .indice-rapido a {
-    display: inline-block;
-    padding: 6px 14px;
-    background: var(--cinza-claro);
-    border: 1px solid var(--cinza-borda);
-    border-radius: 20px;
-    color: var(--cinza-escuro);
-    text-decoration: none;
-    font-size: .82rem;
-    font-weight: 600;
-    transition: all .2s;
-  }
-
-  .indice-rapido a:hover {
-    background: var(--vermelho-agrale);
-    color: #fff;
-    border-color: var(--vermelho-agrale);
-  }
-
-  /* ===== RODAPÉ ===== */
-  .rodape {
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 2px solid var(--cinza-borda);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-right: 2px solid #ccc;
+    font-weight: 700;
+    color: #333;
+    font-size: .75rem;
+    line-height: 1.2;
     text-align: center;
-    font-size: .82rem;
-    color: var(--cinza-medio);
+  }
+  .pino-uce .pino {
+    background: #ddd;
+    border-radius: 3px;
+    padding: 1px 6px;
+    font-size: .65rem;
+    margin-bottom: 2px;
   }
 
-  .rodape strong {
-    color: var(--vermelho-escuro);
+  /* Identificação do fio */
+  .fio-id {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 6px;
+    font-family: "Consolas", monospace;
+    font-size: .7rem;
+    line-height: 1.3;
+    text-align: center;
+    border-right: 1px dashed #ccc;
+  }
+  .fio-id .funcao {
+    font-weight: 700;
+    color: #333;
+  }
+  .fio-id .bitola-cor {
+    color: #666;
+    font-size: .65rem;
   }
 
-  /* ===== RESPONSIVO ===== */
+  /* Linha visual do fio */
+  .fio-linha {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    height: 100%;
+    position: relative;
+  }
+  .fio-linha::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: var(--cor-fio, #999);
+    border-radius: 2px;
+    position: relative;
+  }
+  .fio-linha::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    width: 8px;
+    height: 8px;
+    background: #666;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* Nome do sensor */
+  .sensor-nome {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4px 10px;
+    font-size: .75rem;
+    font-weight: 600;
+    color: #333;
+    text-align: right;
+    line-height: 1.3;
+  }
+  .sensor-nome .obs {
+    font-weight: 400;
+    font-size: .65rem;
+    color: #888;
+    font-style: italic;
+  }
+
+  /* Cores dos fios */
+  .cor-azul { --cor-fio: #4a90d9; }
+  .cor-verde { --cor-fio: #8bc34a; }
+  .cor-roxo { --cor-fio: #9c27b0; }
+  .cor-preto { --cor-fio: #333; }
+  .cor-vermelho { --cor-fio: #d32f2f; }
+  .cor-marrom { --cor-fio: #8d6e63; }
+  .cor-branco { --cor-fio: #ccc; }
+  .cor-amarelo { --cor-fio: #fbc02d; }
+  .cor-laranja { --cor-fio: #ef6c00; }
+  .cor-cinza { --cor-fio: #9e9e9e; }
+  .cor-rosa { --cor-fio: #e91e63; }
+  .cor-lilas { --cor-fio: #ba68c8; }
+  .cor-violeta { --cor-fio: #7b1fa2; }
+
+  /* Nota */
+  .nota {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: .85rem;
+    margin: 20px 0;
+  }
+
+  /* Rodapé */
+  .rodape {
+    text-align: center;
+    font-size: .8rem;
+    color: #888;
+    margin-top: 30px;
+    padding-top: 16px;
+    border-top: 1px solid #ddd;
+  }
+
+  /* Responsivo */
+  @media (max-width: 900px) {
+    .linha-conexao {
+      grid-template-columns: 80px 80px 1fr 140px;
+      font-size: .7rem;
+    }
+    .sensor-nome { font-size: .65rem; }
+    .fio-id { font-size: .6rem; }
+    .diagrama-header { grid-template-columns: 80px 1fr; }
+    .bloco-titulo { grid-template-columns: 80px 1fr; }
+  }
   @media (max-width: 600px) {
-    body { padding: 0 10px 40px; }
-    .art-head h1 { font-size: 1.4rem; }
-    h2 { font-size: 1.05rem; }
-    table { font-size: .8rem; }
-    thead th { font-size: .7rem; padding: 8px 6px; }
-    tbody td { padding: 8px 6px; }
-  }
-
-  /* ===== IMPRESSÃO ===== */
-  @media print {
-    body { background: #fff; padding: 0; max-width: 100%; }
-    .indice-rapido, .aviso, .dica { box-shadow: none; border: 1px solid #ccc; }
-    h2 { page-break-after: avoid; }
-    table { page-break-inside: auto; }
-    tr { page-break-inside: avoid; }
-    thead { display: table-header-group; }
+    .linha-conexao {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 4px;
+      padding: 6px;
+    }
+    .pino-uce { border-right: none; border-bottom: 1px solid #ccc; }
+    .fio-id { border-right: none; border-bottom: 1px dashed #ccc; }
+    .fio-linha { grid-column: 1 / -1; height: 20px; }
+    .sensor-nome { text-align: left; }
+    .diagrama-header { grid-template-columns: 60px 1fr; }
+    .diagrama-header .uce-label { font-size: .6rem; }
   }
 </style>
 </head>
 <body>
 
 <!-- ==================== CABEÇALHO ==================== -->
-<header class="art-head">
-  <span class="art-kicker">Motor e Chassi · Especificações</span>
-  <h1>Torques de Aperto <span style="color:var(--vermelho-agrale);">Nm</span></h1>
-  <span class="art-sub">Sprint 4.07 TCE / 4.08 TCE — Agrale Marruá</span>
+<header class="header">
+  <h1>Diagrama de Interligação <span>UCE / Sensores</span></h1>
+  <span class="sub">Agrale Marruá AM21 · Motor MWM Sprint 4.07 TCE · Euro III</span>
 </header>
 
-<!-- ==================== AVISOS ==================== -->
-<div class="aviso">
-  <strong>Atenção</strong>
-  <p>Quando o torque for em duas etapas (torque + ângulo), <strong>substitua o parafuso</strong> toda vez que desmontar. Parafusos que ultrapassarem o comprimento máximo especificado devem ser descartados.</p>
+<!-- ==================== DIAGRAMA ==================== -->
+<div class="diagrama">
+
+  <!-- Cabeçalho -->
+  <div class="diagrama-header">
+    <div class="uce-label">Unidade de Comando - UCE</div>
+    <div class="titulo">Circuito de Sensores e Atuadores do Motor</div>
+  </div>
+
+  <!-- ===== SENSOR DE PRESSÃO DO RAIL ===== -->
+  <div class="bloco-sensor">
+    <div class="bloco-titulo">
+      <div class="vazio"></div>
+      <div class="nome">Sensor de Pressão do Rail</div>
+    </div>
+
+    <div class="linha-conexao">
+      <div class="pino-uce"><span class="pino">A28</span>5VDC</div>
+      <div class="fio-id"><span class="funcao">5V</span><span class="bitola-cor">0,5 VM/BR</span></div>
+      <div class="fio-linha cor-vermelho"></div>
+      <div class="sensor-nome">Alimentação 5V <span class="obs">(Linha 5V)</span></div>
+    </div>
+
+    <div class="linha-conexao">
+      <div class="pino-uce"><span class="pino">A48</span>SINAL</div>
+      <div class="fio-id"><span class="funcao">SINAL</span><span class="bitola-cor">0,5 AZ/BR</span></div>
+      <div class="fio-linha cor-azul"></div>
+      <div class="sensor-nome">Sinal de Pressão <span class="obs">(Linha de Sinal)</span></div>
+    </div>
+
+    <div class="linha-conexao">
+      <div class="pino-uce"><span class="pino">A16</span>GND</div>
+      <div class="fio-id"><span class="funcao">GND</span><span class="bitola-cor">0,5 MA/BR</span></div>
+      <div class="fio-linha cor-marrom"></div>
+      <div class="sensor-nome">Terra do Sensor <span class="obs">(Linha de Terra)</span></div>
+    </div>
+  </div>
+
+  <!-- ===== SENSOR DE ROTAÇÃO DO MOTOR ===== -->
+  <div class="bloco-sensor">
+    <div class="bloco-titulo">
+      <div class="vazio"></div>
+      <div class="nome">Sensor de Rotação do Motor - CKP Indutivo</div>
+    </div>
+
+    <div class="linha-conexao">
+      <div class="pino-uce"><span class="pino">A29</span>CKP+</div>
+      <div class="fio-id"><span class="funcao">CKP+</span><span class="bitola-cor">0,5 AZ</span></div>
+      <div class="fio-linha cor-azul"></div>
+      <div class="sensor-nome">Sinal Positivo <span class="obs">(Indutivo)</span></div>
+    </div>
+
+    <div class="linha-conexao">
+      <div class="pino-uce"><span class="pino">A30</span>CKP-</div>
+      <div class="fio-id"><span class="funcao">CKP-</span><span class="bitola-cor">0,5 BR</span></div>
+      <div class="fio-linha cor-branco"></div>
+      <div class="sensor-nome">Sinal Negativo <span class="obs">(Indutivo)</span></div>
+    </div>
+  </div>
+
+  <!-- ===== SENSOR DE FASE DO MOTOR ===== -->
+  <div class="bloco-sensor">
+    <div class="bloco-titulo">
+      <div class="vazio"></div>
+      <div class="nome">Sensor de Fase do Motor - CMP Indutivo</div>
+    </div>
+
+    <div class="linha-conexao">
+      <div class="pino-uce"><span class="pino">A31</span>CMP+</div>
+      <div class="fio-id"><span class="funcao">CMP+</span><span class="bitola-cor">0,5 AZ</span></div>
+      <div class="fio-linha cor-azul"></div>
+      <div class="sensor-nome">Sinal Positivo <span class="obs">(Indutivo)</span></div>
+    </div>
+
+    <div class="linha-conexao">
+      <div class="pino-uce"><span class="pino">A32</span>CMP-</div>
+      <div class="fio-id"><span class="funcao">CMP-</span><span class="bitola-cor">0,5 BR</span></div>
+      <div class="fio-linha cor-branco"></div>
+      <div class="sensor-nome">Sinal Negativo <span class="obs">(Indutivo)</span></div>
+    </div>
+  </div>
+
+  <!-- ===== SENSOR DE MASSA DE AR - MAF / ACT ===== -->
+  <div class="bloco-sensor">
+    <div class="bloco-titulo">
+      <div class="vazio"></div>
+      <div class="nome">Sensor de Massa de Ar - MAF e Temperatura do Ar - ACT</div>
+    </div>
+
+    <div class="linha-conexao">
+      <div class="pino-uce"><span class="pino">A23</span>+12V</div>
+      <div class="fio-id"><span class="funcao">+12V</span><span class="bitola-cor">0,75 VM/BR</span></div>
+      <div class="fio-linha cor-vermelho"></div>
+      <div class="sensor-nome">Alimentação Positiva <span class="obs">(Vem do Relé Principal)</span></div>
+    </div>
+
+    <div class="linha-conexao">
+      <div class="pino-uce"><span class="pino">A33</span>GND</div>
+      <div class="fio-id"><span class="funcao">GND</span><span class="bitola-cor">0,5 PR</span></div>
+      <div class="fio-linha cor-preto"></div>
+      <div class="sensor-nome">Terra do Sensor <span class="obs">(Linha de Terra)</span></div>
+    </div>
+
+    <div class="linha-conexao">
+      <div class="pino-uce"><span class="pino">A34</span>SINAL MAF</div>
+      <div class="fio-id"><span class="funcao">SINAL</span><span class="bitola-cor">0,5 AZ/PR</span></div>
+      <div class="fio-linha cor-azul"></div>
+      <div class="sensor-nome">Sinal de Massa de Ar <span class="obs">(MAF)</span></div>
+    </div>
+
+    <div class="linha-conexao">
+      <div class="pino-uce"><span class="pino">A35</span>SINAL ACT</div>
+      <div class="fio-id"><span class="funcao">SINAL</span><span class="bitola-cor">0,5 MA</span></div>
+      <div class="fio-linha cor-marrom"></div>
+      <div class="sensor-nome">Sinal de Temperatura do Ar <span class="obs">(ACT)</span></div>
+    </div>
+  </div>
+
+  <!-- ===== SENSOR DE POSIÇÃO DO PEDAL DO ACELERADOR - SPA ===== -->
+  <div class="bloco-sensor">
+    <div class="bloco-titulo">
+      <div class="vazio"></div>
+      <div class="nome">Sensor de Posição do Pedal do Acelerador - SPA</div>
+    </div>
+
+    <div class="linha-conexao">
+      <div class="pino-uce"><span class="pino">A36</span>5V</div>
+      <div class="fio-id"><span class="funcao">5V</span><span class="bitola-cor">0,5 VM/BR</span></div>
+      <div class="fio-linha cor-vermelho"></div>
+      <div class="sensor-nome">Alimentação 5V <span class="obs">(Linha 5V)</span></div>
+    </div>
+
+    <div class="linha-conexao">
+      <div class="pino-uce"><span class="pino">A37</span>GND</div>
+      <div class="fio-id"><span class="funcao">GND</span><span class="bitola-cor">0,5 MA/BR</span></div>
+      <div class="fio-linha cor-marrom"></div>
+      <div class="sensor-nome">Terra do Sensor <span class="obs">(Linha de Terra)</span></div>
+    </div>
+
+    <div class="linha-conexao">
+      <div class="pino-uce"><span class="pino">A38</span>SINAL 1</div>
+      <div class="fio-id"><span class="funcao">SINAL 1</span><span class="bitola-cor">0,5 AZ/BR</span></div>
+      <div class="fio-linha cor-azul"></div>
+      <div class="sensor-nome">Sinal do Pedal <span class="obs">(Potenciômetro 1)</span></div>
+    </div>
+
+    <div class="linha-conexao">
+      <div class="pino-uce"><span class="pino">A39</span>SINAL 2</div>
+      <div class="fio-id"><span class="funcao">SINAL 2</span><span class="bitola-cor">0,5 AZ/VM</span></div>
+      <div class="fio-linha cor-azul"></div>
+      <div class="sensor-nome">Sinal do Pedal <span class="obs">(Potenciômetro 2)</span></div>
+    </div>
+  </div>
+
+  <!-- ===== INTERRUPTOR DO PEDAL DE FREIO - BPP ===== -->
+  <div class="bloco-sensor">
+    <div class="bloco-titulo">
+      <div class="vazio"></div>
+      <div class="nome">Interruptor do Pedal de Freio - BPP (Instalado com o pedal livre)</div>
+    </div>
+
+    <div class="linha-conexao">
+      <div class="pino-uce"><span class="pino">A40</span>BPP</div>
+      <div class="fio-id"><span class="funcao">BPP</span><span class="bitola-cor">0,5 VD/BR</span></div>
+      <div class="fio-linha cor-verde"></div>
+      <div class="sensor-nome">Sinal do Interruptor <span class="obs">(Freio)</span></div>
+    </div>
+
+    <div class="linha-conexao">
+      <div class="pino-uce"><span class="pino">A41</span>BPP</div>
+      <div class="fio-id"><span class="funcao">BPP</span><span class="bitola-cor">0,5 VD/BR</span></div>
+      <div class="fio-linha cor-verde"></div>
+      <div class="sensor-nome">Sinal do Interruptor <span class="obs">(Freio)</span></div>
+    </div>
+  </div>
+
+  <!-- ===== ALIMENTAÇÃO ===== -->
+  <div class="bloco-sensor">
+    <div class="bloco-titulo">
+      <div class="vazio"></div>
+      <div class="nome">Alimentação Positiva (Vem do Relé Principal)</div>
+    </div>
+
+    <div class="linha-conexao">
+      <div class="pino-uce"><span class="pino">F-03i</span>10A</div>
+      <div class="fio-id"><span class="funcao">+30</span><span class="bitola-cor">1,0 VM</span></div>
+      <div class="fio-linha cor-vermelho"></div>
+      <div class="sensor-nome">Alimentação Positiva <span class="obs">(Linha 30)</span></div>
+    </div>
+
+    <div class="linha-conexao">
+      <div class="pino-uce"><span class="pino">F-11i</span>7,5A</div>
+      <div class="fio-id"><span class="funcao">+15</span><span class="bitola-cor">0,75 VM</span></div>
+      <div class="fio-linha cor-vermelho"></div>
+      <div class="sensor-nome">Alimentação Positiva <span class="obs">(Linha 15)</span></div>
+    </div>
+  </div>
+
 </div>
 
-<div class="dica">
-  <strong>Dica</strong>
-  <p>Sempre use <strong>trava química</strong> nos locais solicitados conforme manual do fabricante.</p>
-</div>
-
-<p>Use esta tabela para conferir o <strong>torque correto</strong> de cada parafuso, porca ou prisioneiro do motor. Quando o aperto for em duas etapas (torque + ângulo), siga a sequência rigorosamente.</p>
-
-<!-- ==================== ÍNDICE RÁPIDO ==================== -->
-<nav class="indice-rapido">
-  <h3>Navegação Rápida</h3>
-  <ul>
-    <li><a href="#arrefecimento">Arrefecimento</a></li>
-    <li><a href="#lubrificacao">Lubrificação</a></li>
-    <li><a href="#sobrealimentacao">Sobrealimentação</a></li>
-    <li><a href="#eletrico">Elétrico</a></li>
-    <li><a href="#transmissao">Transmissão</a></li>
-    <li><a href="#acionamento">Acionamento Frontal</a></li>
-    <li><a href="#direcao">Direção e Freio</a></li>
-    <li><a href="#especiais">Parafusos Especiais</a></li>
-    <li><a href="#geral">Fixação em Geral</a></li>
-    <li><a href="#padrao">Tabela Padrão DIN 2230</a></li>
-  </ul>
-</nav>
-
-<!-- ==================== ARREFECIMENTO ==================== -->
-<h2 id="arrefecimento">Sistema de Arrefecimento</h2>
-<div class="tabela-wrap">
-<table>
-  <thead>
-    <tr><th>Qtd.</th><th>Parafuso</th><th>Aplicação</th><th>1ª Etapa</th><th>2ª Etapa</th><th>Janela</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>4</td><td>M8x25</td><td>Tampa caixa termostatos / Bloco</td><td class="torque-valor">15±5 Nm</td><td class="etapa-angulo">25°±2°</td><td class="janela">20 a 45 Nm</td></tr>
-    <tr><td>2</td><td>M8x25</td><td>Bocal saída de água / Cabeçote</td><td class="torque-valor">10±2 Nm</td><td class="etapa-angulo">22°±2°</td><td class="janela">17 a 30 Nm</td></tr>
-    <tr><td>1</td><td>Bujão M20x1,5</td><td>Saída de água de aquecimento</td><td class="torque-valor">25+5 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>Bujão M20x1,5</td><td>Entrada de água de aquecimento</td><td class="torque-valor">25+5 Nm</td><td>—</td><td>—</td></tr>
-  </tbody>
-</table>
-</div>
-
-<!-- ==================== LUBRIFICAÇÃO ==================== -->
-<h2 id="lubrificacao">Sistema de Lubrificação</h2>
-<div class="tabela-wrap">
-<table>
-  <thead>
-    <tr><th>Qtd.</th><th>Parafuso</th><th>Aplicação</th><th>1ª Etapa</th><th>2ª Etapa</th><th>Janela</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>2</td><td>M10x45</td><td>Duto intermediário / Bloco</td><td class="torque-valor">40±6 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>2</td><td>M8x20</td><td>Tubo de sucção de óleo / Duto</td><td class="torque-valor">20±3 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>22</td><td>M8x20</td><td>Cárter / Bloco</td><td class="torque-valor">18±1 Nm</td><td class="etapa-angulo">36°±2°</td><td class="janela">25 a 40 Nm</td></tr>
-    <tr><td>2</td><td>M8x50</td><td>Cárter / Carcaça distribuição</td><td class="torque-valor">18±1 Nm</td><td class="etapa-angulo">36°±2°</td><td class="janela">25 a 40 Nm</td></tr>
-    <tr><td>2</td><td>M8x75</td><td>Cárter / Carcaça distribuição</td><td class="torque-valor">18±1 Nm</td><td class="etapa-angulo">36°±2°</td><td class="janela">25 a 40 Nm</td></tr>
-    <tr><td>4</td><td>M10x30</td><td>Cárter / Carcaça do volante</td><td class="torque-valor">40±6 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>Bujão R 1/2"</td><td>Dreno do cárter</td><td class="torque-valor">65±10 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>Parafuso oco M14x1,5</td><td>Tubo entrada óleo turbo / Bloco</td><td class="torque-valor">20+3 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>2</td><td>M6x16</td><td>Tubo retorno óleo turbo / Turbo</td><td class="torque-valor">12±2 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>Niple M18x1,5</td><td>Retorno óleo turbo / Bloco</td><td class="torque-valor">30+5 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>Niple 1 1/2"</td><td>Filtro de óleo / Bloco</td><td class="torque-valor">20±3 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>Filtro</td><td>Filtro óleo / Niple de ligação</td><td class="torque-valor">16±2 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>Parafuso oco M10x1</td><td>Tubo bomba vácuo / Bomba vácuo</td><td class="torque-valor">12+2 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>Parafuso oco M8x1</td><td>Tubo bomba vácuo / Carcaça</td><td class="torque-valor">10±2 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>M8x16</td><td>Abraçadeira respiro do motor</td><td class="torque-valor">10±2 Nm</td><td class="etapa-angulo">14°±2°</td><td class="janela">13 a 27 Nm</td></tr>
-    <tr><td>1</td><td>Niple M18x1,5</td><td>Cárter / Tubo haste de nível</td><td class="torque-valor">30+5 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>Porca capa M18x1,5</td><td>Tubo haste nível / Niple cárter</td><td class="torque-valor">25+5 Nm</td><td>—</td><td>—</td></tr>
-  </tbody>
-</table>
-</div>
-
-<!-- ==================== SOBREALIMENTAÇÃO ==================== -->
-<h2 id="sobrealimentacao">Sistema de Sobrealimentação</h2>
-<div class="tabela-wrap">
-<table>
-  <thead>
-    <tr><th>Qtd.</th><th>Parafuso</th><th>Aplicação</th><th>1ª Etapa</th><th>2ª Etapa</th><th>Janela</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>3</td><td>Prisioneiro M8x25</td><td>Curva escape / Escapamento</td><td class="torque-valor">Encosto firme</td><td class="etapa-angulo">±1/2 volta</td><td>—</td></tr>
-    <tr><td>8</td><td>M10x70</td><td>Coletor escape / Cabeçote</td><td class="torque-valor">35±2 Nm</td><td class="etapa-angulo">90°±2°</td><td class="janela">50 a 80 Nm</td></tr>
-    <tr><td>4</td><td>Prisioneiro M10x25</td><td>Coletor escape / Turbo</td><td class="torque-valor">Encosto firme</td><td class="etapa-angulo">±1/2 volta</td><td>—</td></tr>
-    <tr><td>4</td><td>Porca M10</td><td>Turbo / Coletor escape</td><td class="torque-valor">70±10 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>9</td><td>M8x35</td><td>Coletor admissão / Espaçador / Cabeçote</td><td class="torque-valor">20±5 Nm</td><td class="etapa-angulo">40°±5°</td><td class="janela">39 a 66 Nm</td></tr>
-    <tr><td>2</td><td>M8x16</td><td>Suporte modulador / Coletor admissão</td><td class="torque-valor">20±3 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>2</td><td>M6x16</td><td>Modulador / Suporte modulador</td><td class="torque-valor">5±1 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>2</td><td>M8x25</td><td>Curva admissão / Coletor admissão</td><td class="torque-valor">10±1 Nm</td><td class="etapa-angulo">25°±2°</td><td class="janela">17 a 30 Nm</td></tr>
-    <tr><td>2</td><td>Porca-V-Clamp M6</td><td>Turbo / Curva admissão</td><td class="torque-valor">6+1 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>4</td><td>Prisioneiro M10x25</td><td>Turbo / Curva escapamento</td><td class="torque-valor">Encosto firme</td><td class="etapa-angulo">±1/2 volta</td><td>—</td></tr>
-    <tr><td>4</td><td>Porca M10</td><td>Turbo / Curva escapamento</td><td class="torque-valor">70±10 Nm</td><td>—</td><td>—</td></tr>
-  </tbody>
-</table>
-</div>
-
-<!-- ==================== ELÉTRICO ==================== -->
-<h2 id="eletrico">Sistema Elétrico</h2>
-<div class="tabela-wrap">
-<table>
-  <thead>
-    <tr><th>Qtd.</th><th>Parafuso</th><th>Aplicação</th><th>1ª Etapa</th><th>2ª Etapa</th><th>Janela</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>3</td><td>M10x50</td><td>Motor de partida / Carcaça distribuição</td><td class="torque-valor">12±2 Nm</td><td class="etapa-angulo">28°±2°</td><td class="janela">35 a 55 Nm</td></tr>
-    <tr><td>1</td><td>Sensor M14x1,5</td><td>Sensor de pressão de óleo</td><td class="torque-valor">25+5 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>Sensor M12x1,5</td><td>Sensor de temperatura de água</td><td class="torque-valor">20+5 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>Sensor M6x16</td><td>Sensor de temperatura/pressão de ar</td><td class="torque-valor">3±1 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>6</td><td>M5x12</td><td>Fixação da ECU</td><td class="torque-valor">6±1 Nm</td><td>—</td><td>—</td></tr>
-  </tbody>
-</table>
-</div>
-
-<!-- ==================== TRANSMISSÃO ==================== -->
-<h2 id="transmissao">Sistema de Transmissão</h2>
-<div class="tabela-wrap">
-<table>
-  <thead>
-    <tr><th>Qtd.</th><th>Parafuso</th><th>Aplicação</th><th>1ª Etapa</th><th>2ª Etapa</th><th>Janela</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>5</td><td>M10x85</td><td>Carcaça volante / Distribuição / Bloco</td><td class="torque-valor">40±6 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>3</td><td>M10x100</td><td>Carcaça volante / Distribuição / Bloco</td><td class="torque-valor">40±6 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>5</td><td>M10x25</td><td>Carcaça volante / Distribuição</td><td class="torque-valor">40±6 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>3</td><td>M10x40</td><td>Carcaça volante / Distribuição</td><td class="torque-valor">40±6 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>M10x100</td><td>Tubo modulador / Carcaça volante</td><td class="torque-valor">40±6 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>M10x40</td><td>Tubo modulador / Carcaça volante</td><td class="torque-valor">40±6 Nm</td><td>—</td><td>—</td></tr>
-    <tr><td>8</td><td>M12x55</td><td>Volante / Árvore de manivelas</td><td class="torque-valor">30±3 Nm</td><td class="etapa-angulo">100°+10°</td><td class="janela">100 a 182 Nm</td></tr>
-    <tr><td>1</td><td>Porca M12</td><td>Parafuso do cabeçote (espaçador)</td><td class="torque-valor">80±3 Nm</td><td>—</td><td>—</td></tr>
-  </tbody>
-</table>
-</div>
-
-<!-- ==================== ACIONAMENTO FRONTAL ==================== -->
-<h2 id="acionamento">Sistema de Acionamento Frontal</h2>
-<div class="tabela-wrap">
-<table>
-  <thead>
-    <tr><th>Qtd.</th><th>Parafuso</th><th>Aplicação</th><th>1ª Etapa</th><th>2ª Etapa</th><th>3ª Etapa</th><th>Janela</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>4</td><td>M12x50</td><td>Polia / Árvore de manivelas</td><td class="torque-valor">30±3 Nm</td><td class="etapa-angulo">100°+10°</td><td class="etapa-angulo">25°±5°</td><td class="janela">100 a 182 Nm</td></tr>
-    <tr><td>6</td><td>M8x30</td><td>Cubo do ventilador / Polia árvore</td><td class="torque-valor">12±2 Nm</td><td class="etapa-angulo">25°±2°</td><td>—</td><td class="janela">17 a 35 Nm</td></tr>
-    <tr><td>7</td><td>M8x30</td><td>Suporte tomada força / Bloco</td><td class="torque-valor">18±2 Nm</td><td class="etapa-angulo">45°±2°</td><td>—</td><td class="janela">24 a 41 Nm</td></tr>
-    <tr><td>1</td><td>M10x85</td><td>Suporte alternador / Suporte tomada</td><td class="torque-valor">40±6 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>M12x40</td><td>Alternador / Suporte tomada</td><td class="torque-valor">70±10 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>M10x100</td><td>Suporte alternador / Alternador</td><td class="torque-valor">40±6 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>3</td><td>M8x20</td><td>Suporte tensor / Bloco</td><td class="torque-valor">18±2 Nm</td><td class="etapa-angulo">45°±5°</td><td>—</td><td class="janela">24 a 41 Nm</td></tr>
-    <tr><td>2</td><td>M8x30</td><td>Alavanca do tensor / Suporte</td><td class="torque-valor">20±3 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>M10x65</td><td>Tensor automático / Suporte</td><td class="torque-valor">40±6 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>M10x43</td><td>Polia Poly-V / Suporte tensor</td><td class="torque-valor">40±6 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>M8x47</td><td>Polia lisa / Suporte tensor</td><td class="torque-valor">12±2 Nm</td><td class="etapa-angulo">25°±2°</td><td>—</td><td class="janela">17 a 35 Nm</td></tr>
-    <tr><td>1</td><td>M10x40</td><td>Ventilador / Cubo do ventilador</td><td class="torque-valor">40±6 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>2</td><td>M10x130</td><td>Compressor AC / Suporte compressor</td><td class="torque-valor">40±6 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-  </tbody>
-</table>
-</div>
-
-<!-- ==================== DIREÇÃO E FREIO ==================== -->
-<h2 id="direcao">Sistema de Direção e Freio</h2>
-<div class="tabela-wrap">
-<table>
-  <thead>
-    <tr><th>Qtd.</th><th>Parafuso</th><th>Aplicação</th><th>1ª Etapa</th><th>2ª Etapa</th><th>Janela</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>2</td><td>M8x25</td><td>Bomba Tandem / Caixa de distribuição</td><td class="torque-valor">20±3 Nm</td><td>—</td><td>—</td></tr>
-  </tbody>
-</table>
-</div>
-
-<!-- ==================== PARAFUSOS ESPECIAIS ==================== -->
-<h2 id="especiais">Parafusos Especiais (Cabeçote, Mancais, Bielas)</h2>
-<div class="tabela-wrap">
-<table>
-  <thead>
-    <tr><th>Qtd.</th><th>Parafuso</th><th>Aplicação</th><th>1ª</th><th>2ª</th><th>3ª</th><th>4ª</th><th>5ª</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>10</td><td>M14x65</td><td>Cabeçote / Bloco</td><td class="torque-valor">30±4,5 Nm</td><td class="torque-valor">60±9 Nm</td><td class="torque-valor">100±15 Nm</td><td class="etapa-angulo">90°+5°</td><td class="etapa-angulo">90°+5°</td></tr>
-    <tr><td>10</td><td>M12x100</td><td>Tampa mancal árvore / Bloco</td><td class="torque-valor">20±5 Nm</td><td class="etapa-angulo">120°±5°</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>8</td><td>M10x55</td><td>Tampa biela / Haste biela</td><td class="torque-valor">20+3 Nm</td><td class="etapa-angulo">90°+10°</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>3</td><td>M10x60</td><td>Mancais engrenagem interm. / Bloco</td><td class="torque-valor">40±6 Nm</td><td class="etapa-angulo">90°±3°</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>M10x60</td><td>Engrenagem interm. bomba alta pressão</td><td class="torque-valor">40±6 Nm</td><td class="etapa-angulo">90°±3°</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>M14x40</td><td>Engrenagem árvore comando / Árvore</td><td class="torque-valor">30±3 Nm</td><td class="etapa-angulo">35°±5°</td><td>—</td><td>—</td><td>—</td></tr>
-  </tbody>
-</table>
-</div>
-
-<!-- ==================== FIXAÇÃO EM GERAL ==================== -->
-<h2 id="geral">Elementos de Fixação em Geral</h2>
-<div class="tabela-wrap">
-<table>
-  <thead>
-    <tr><th>Qtd.</th><th>Parafuso</th><th>Aplicação</th><th>1ª Etapa</th><th>2ª Etapa</th><th>Janela</th><th>Vedante</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>3</td><td>M3x8</td><td>Roda de pulso / Engrenagem árvore</td><td class="torque-valor">1±0,5 Nm</td><td>—</td><td>—</td><td class="vedante">Loctite 242</td></tr>
-    <tr><td>2</td><td>M6x12</td><td>Indicador PMS / Bomba de óleo</td><td class="torque-valor">8,5±1 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>M6x12</td><td>Sensor rotação / Carcaça distribuição</td><td class="torque-valor">8,5±1 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>M6x12</td><td>Sensor fase / Tampa válvulas</td><td class="torque-valor">8,5±1 Nm</td><td>—</td><td>—</td><td class="vedante">Vaselina</td></tr>
-    <tr><td>3</td><td>M8x20</td><td>Bomba d'água / Caixa distribuição</td><td class="torque-valor">25±5 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>8</td><td>M8x20</td><td>Bomba de óleo / Bloco</td><td class="torque-valor">15±2 Nm</td><td class="etapa-angulo">23°±2°</td><td class="janela">17 a 35 Nm</td><td>—</td></tr>
-    <tr><td>2</td><td>M8x25</td><td>Flange bomba água / Bloco</td><td class="torque-valor">20±3 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>M6x16</td><td>Abraçadeira tubo alta pressão</td><td class="torque-valor">8,5±1 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>7</td><td>M8x30</td><td>Resfriador óleo / Bloco</td><td class="torque-valor">15±5 Nm</td><td class="etapa-angulo">25°±2°</td><td class="janela">20 a 45 Nm</td><td>—</td></tr>
-    <tr><td>5</td><td>M8x30</td><td>Tampa de válvulas / Cabeçote</td><td class="torque-valor">25±2 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>3</td><td>M8x35</td><td>Flange bomba alta pressão / Distribuição</td><td class="torque-valor">30±5 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>3</td><td>M8x40</td><td>Flange bomba alta pressão / Carcaça</td><td class="torque-valor">30±5 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>3</td><td>M8x50</td><td>Tubo distribuidor / Cabeçote</td><td class="torque-valor">35±5 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>10</td><td>M8x65</td><td>Mancais de comando / Cabeçote</td><td class="torque-valor">10±1 Nm</td><td class="etapa-angulo">60°±2°</td><td class="janela">25 a 40 Nm</td><td>—</td></tr>
-    <tr><td>5</td><td>M10x25</td><td>Carcaça distribuição / Bloco</td><td class="torque-valor">40±6 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>4</td><td>M10x26</td><td>Garra fixação bico injetor / Cabeçote</td><td class="torque-valor">14±1 Nm</td><td class="etapa-angulo">55°±2°</td><td class="janela">25 a 45 Nm</td><td>—</td></tr>
-    <tr><td>1</td><td>M12x70</td><td>Engrenagem interm. comando / Cabeçote</td><td class="torque-valor">30+3 Nm</td><td class="etapa-angulo">45°±5°</td><td class="janela">90 a 130 Nm</td><td>—</td></tr>
-    <tr><td>1</td><td>Porca M18x1,5</td><td>Engrenagem / Bomba alta pressão</td><td class="torque-valor">105±5 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>8</td><td>Parafuso oco</td><td>Ejetor de óleo do pistão</td><td class="torque-valor">10±1,5 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>4</td><td>Parafuso oco</td><td>Ejetor de óleo do comando</td><td class="torque-valor">10±1,5 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>2</td><td>Parafuso oco M8x1</td><td>Tubo lubrificação caixa distribuição</td><td class="torque-valor">10±1,5 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>4</td><td>Conexão M12x1,5</td><td>Tubo alta pressão / Bico injetor</td><td class="torque-valor">20±3 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>5</td><td>Conexão M14x1,5</td><td>Tubo alta pressão / Tubo distribuidor</td><td class="torque-valor">27±3 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>Conexão M14x1,5</td><td>Tubo alta pressão / Bomba alta pressão</td><td class="torque-valor">27±3 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>4</td><td>Vela M10x1</td><td>Vela aquecedora / Cabeçote</td><td class="torque-valor">17±3 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-    <tr><td>1</td><td>Tampa inspeção</td><td>Cabeçote</td><td class="torque-valor">55±5 Nm</td><td>—</td><td>—</td><td>—</td></tr>
-  </tbody>
-</table>
-</div>
-
-<!-- ==================== TABELA PADRÃO ==================== -->
-<h2 id="padrao">Tabela Padrão para Parafusos de Aço (DIN 2230)</h2>
-<p style="margin-bottom:12px; font-size:.92rem; color:var(--cinza-medio);">Use esta tabela apenas quando o torque <strong>não</strong> estiver especificado no manual.</p>
-<div class="tabela-wrap">
-<table>
-  <thead>
-    <tr><th>Tamanho</th><th>Classe 8.8</th><th>Classe 10.9</th><th>Classe 12.9</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>M5</td><td class="torque-valor">6±1 Nm</td><td class="torque-valor">9±1 Nm</td><td class="torque-valor">10±1,5 Nm</td></tr>
-    <tr><td>M6</td><td class="torque-valor">10±1,5 Nm</td><td class="torque-valor">15±2 Nm</td><td class="torque-valor">18±3 Nm</td></tr>
-    <tr><td>M8</td><td class="torque-valor">25±4 Nm</td><td class="torque-valor">37±6 Nm</td><td class="torque-valor">43±7 Nm</td></tr>
-    <tr><td>M10</td><td class="torque-valor">50±8 Nm</td><td class="torque-valor">73±11 Nm</td><td class="torque-valor">84±13 Nm</td></tr>
-    <tr><td>M12</td><td class="torque-valor">86±13 Nm</td><td class="torque-valor">124±19 Nm</td><td class="torque-valor">145±22 Nm</td></tr>
-    <tr><td>M14</td><td class="torque-valor">135±20 Nm</td><td class="torque-valor">198±30 Nm</td><td class="torque-valor">231±35 Nm</td></tr>
-    <tr><td>M16</td><td class="torque-valor">207±31 Nm</td><td class="torque-valor">304±46 Nm</td><td class="torque-valor">325±49 Nm</td></tr>
-    <tr><td>M18</td><td class="torque-valor">298±45 Nm</td><td class="torque-valor">424±64 Nm</td><td class="torque-valor">497±75 Nm</td></tr>
-    <tr><td>M20</td><td class="torque-valor">418±63 Nm</td><td class="torque-valor">595±89 Nm</td><td class="torque-valor">696±104 Nm</td></tr>
-    <tr><td>M22</td><td class="torque-valor">569±85 Nm</td><td class="torque-valor">810±122 Nm</td><td class="torque-valor">948±142 Nm</td></tr>
-  </tbody>
-</table>
-</div>
-
-<!-- ==================== AVISOS FINAIS ==================== -->
-<div class="aviso">
-  <strong>Atenção</strong>
-  <p>Quando o torque for em duas etapas (torque + ângulo), <strong>substitua o parafuso</strong> toda vez que desmontar. Parafusos que ultrapassarem o comprimento máximo especificado devem ser descartados.</p>
-</div>
-
-<div class="dica">
-  <strong>Dica</strong>
-  <p>Reaproveite a tabela acima para consulta rápida. Todos os valores foram extraídos do <strong>Manual de Oficina Sprint 4.07 TCE / 4.08 TCE</strong> — publicação 9.408.0.006.7108.</p>
+<!-- ==================== NOTA ==================== -->
+<div class="nota">
+  <strong>📌 Nota:</strong> As cores e bitolas dos fios seguem o padrão do fabricante. 
+  A identificação <strong>Função / Bitola / Cor</strong> é a mesma utilizada no esquema elétrico oficial. 
+  Consulte sempre o manual de oficina para valores atualizados.
 </div>
 
 <!-- ==================== RODAPÉ ==================== -->
 <footer class="rodape">
-  <p><strong>Agrale Marruá AM21 VTNE 3/4t</strong> · Motor MWM Sprint 4.07 TCE Euro III</p>
-  <p>Torques de Aperto — Documento de referência técnica</p>
+  <p><strong>Agrale Marruá AM21</strong> · Diagrama de Interligação UCE / Sensores</p>
+  <p>Documento de referência técnica · Baseado no esquema DE 611.001</p>
 </footer>
 
 </body>
