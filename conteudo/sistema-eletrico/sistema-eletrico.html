@@ -1,4 +1,4 @@
-<!-- ESTILOS ESPECÍFICOS DO FLUXOGRAMA DE FARÓIS -->
+<!-- ESTILOS DO FLUXOGRAMA DA CHAVE NATO E FARÓIS MILITARES -->
 <style>
   .flow-wrapper {
     max-width: 500px;
@@ -37,11 +37,11 @@
     margin: 2px 0 0 0;
   }
 
-  /* Cores de Destaque das Caixas */
+  /* Cores de Destaque Militares e Potência */
   .flow-potencia { border-color: #ec4899; background: #fff1f2; }
+  .flow-nato     { border-color: #16a34a; background: #f0fdf4; } /* Verde Oliva / Militar */
   .flow-fuzivel  { border-color: #f59e0b; background: #fef8e6; }
-  .flow-chave    { border-color: #8b5cf6; background: #f5f3ff; }
-  .flow-farol    { border-color: #3b82f6; background: #eff6ff; }
+  .flow-farol-m  { border-color: #3b82f6; background: #eff6ff; }
   .flow-terra    { border-color: #64748b; background: #f8fafc; }
 
   .flow-icon {
@@ -82,100 +82,95 @@
     font-size: 11px;
     font-weight: 700;
     color: #475569;
-    border-left: 2px dashed #94a3b8;
+    border-left: 2px dashed #16a34a;
     margin: 8px 0;
     padding-left: 12px;
   }
 
-  /* Cores Reais dos Fios Elétricos em CSS */
+  /* Cores Reais dos Fios Elétricos em CSS (Pág 11 e 16) */
   .w-v-vm { background-color: #dc2626; } /* Vermelho */
-  .w-v-am { background-color: #eab308; } /* Amarelo */
-  .w-v-br { background-color: #e2e8f0; border-left: 1px solid #cbd5e1; border-right: 1px solid #cbd5e1; } /* Branco */
+  .w-v-vd { background-color: #22c55e; } /* Verde */
   .w-v-ma { background-color: #78350f; } /* Marrom */
+  .w-v-pt { background-color: #1e293b; } /* Preto */
   
-  /* Gradiente para Fio Listrado (Preto com lista Rosa) */
-  .w-v-pt-rs { background: linear-gradient(180deg, #000 50%, #f472b6 50%); background-size: 100% 12px; }
-  /* Gradiente para Fio Listrado (Branco com lista Preta) */
-  .w-v-br-pt { background: linear-gradient(180deg, #fff 50%, #000 50%); background-size: 100% 12px; border-left: 1px solid #cbd5e1; border-right: 1px solid #cbd5e1; }
+  /* Gradiente para Fio Listrado (Preto com lista Amarela) */
+  .w-v-pt-am { background: linear-gradient(180deg, #000 50%, #eab308 50%); background-size: 100% 12px; }
 </style>
 
-<p class="art-lead">Roteiro elétrico sequencial do circuito de iluminação dianteira, monitorando o acionamento dos relés de Farol Baixo (Y2) e Farol Alto (Y3).</p>
+<p class="art-lead">Roteiro elétrico sequencial do Sistema de Disciplina de Luzes, controlando a comutação da Chave NATO para corte do circuito civil e liberação dos faróis blindados táticos.</p>
 
 <div class="flow-wrapper">
   
-  <!-- PASSO 1: POTÊNCIA -->
+  <!-- PASSO 1: ALIMENTAÇÃO DA CENTRAL -->
   <div class="flow-card flow-potencia">
     <div class="flow-icon">🔋</div>
     <div>
-      <strong>LINHA DE POTÊNCIA (+30)</strong>
-      <p>Alimentação civil liberada após o fechamento do Relé Chave NATO.</p>
+      <strong>ALIMENTAÇÃO DA CENTRAL ELÉTRICA (+30)</strong>
+      <p>Barramento de corrente direta vinda do interruptor da chave geral.</p>
     </div>
   </div>
 
-  <!-- FIADO DA CHAVE DE FAROL -->
-  <div class="flow-wire w-v-pt-rs">
-    <span class="wire-spec-badge">A(252)1,0 PT/RS — Preto/Rosa 1,0mm²</span>
+  <!-- FIADO DE ENTRADA NA CHAVE NATO -->
+  <div class="flow-wire w-v-vm">
+    <span class="wire-spec-badge">A(230)1,5 VM — Vermelho 1,5mm²</span>
   </div>
 
-  <!-- PASSO 2: COMUTADOR / INTERRUPTOR DE FAROL -->
-  <div class="flow-card flow-chave">
-    <div class="flow-icon">🕹️</div>
+  <!-- PASSO 2: INTERRUPTOR CIVIL / MILITAR (CHAVE NATO) -->
+  <div class="flow-card flow-nato">
+    <div class="flow-icon">🪖</div>
     <div>
-      <strong>CHAVE DE FAROL (COLUNA DE DIREÇÃO)</strong>
-      <p>Pino 56: Entrada de Corrente | Pino +15: Linha de Lampejo</p>
+      <strong>CHAVE NATO / INTERRUPTOR CIVIL MILITAR</strong>
+      <p>Pino H: Entrada Civil | Pino D: Saída Farol de Aproximação (460) | Pino E: Saída Luz Militar (555)</p>
     </div>
   </div>
 
-  <div class="flow-wire w-v-br-pt">
-    <span class="wire-spec-badge">A(656b)1,0 BR/PT — Branco/Preto 1,0mm²</span>
+  <!-- SAÍDA DA CHAVE PARA O RELE MILITAR -->
+  <div class="flow-wire w-v-pt">
+    <span class="wire-spec-badge">A(232)1,5 PT — Comando do Relé Chave NATO</span>
   </div>
 
-  <!-- PASSO 3: FUSÍVEIS DE PROTEÇÃO -->
+  <!-- PASSO 3: FUSÍVEIS DO CHICOTE MILITAR -->
   <div class="flow-card flow-fuzivel">
     <div class="flow-icon">🔸</div>
     <div>
-      <strong>FUSÍVEIS INDEPENDENTES (15A)</strong>
-      <p>F12 (Baixo Esq) | F11 (Baixo Dir) | F6 (Alto Esq) | F5 (Alto Dir)</p>
+      <strong>FUSÍVEIS DE PROTEÇÃO MILITAR (7,5A)</strong>
+      <p>F10 (Luz Militar Lado Esquerdo) | F9 (Luz Militar Lado Direito)</p>
     </div>
   </div>
 
-  <!-- SAÍDA PARA O FILAMENTO DE LUZ BAIXA -->
-  <div class="flow-wire w-v-am">
-    <span class="wire-spec-badge">K(01)1,0 AM ou A(420)1,5 AM — Amarelo (Luz Baixa)</span>
+  <!-- LINHA DE SAÍDA PARA AS LANTERNAS MILITARES -->
+  <div class="flow-wire w-v-vd">
+    <span class="wire-spec-badge">A(553)1,0 VD ou A(558)1,0 VD — Verde (Luz Militar)</span>
   </div>
 
-  <!-- PASSO 4: BLOCO ÓPTICO (FARÓIS) -->
-  <div class="flow-card flow-farol">
-    <div class="flow-icon">💡</div>
+  <!-- PASSO 4: COMPONENTE (LANTERNA / FAROL MILITAR BLINDADO) -->
+  <div class="flow-card flow-farol-m">
+    <div class="flow-icon">🛡️</div>
     <div>
-      <strong>FAROL DIANTEIRO (ESQUERDO E DIREITO)</strong>
-      <p>Lâmpada H4 de filamento duplo para sinalização de rodagem.</p>
+      <strong>LANTERNA / FAROL MILITAR (LME / LMD)</strong>
+      <p>Componentes blindados com fenda restrita para emissão de fachos táticos de luz.</p>
     </div>
   </div>
 
-  <!-- INFORMAÇÃO DE PINAGEM INTERNA -->
+  <!-- DETALHES DE PINAGEM MILITAR -->
   <div class="component-pins-info">
-    Pino 56b: Entrada Farol Baixo (Cabo AM) <br>
-    Pino 56a: Entrada Farol Alto (Cabo K(02)1,0 BR ou A(920)1,5 BR) <br>
-    Pino 31: Aterramento de Carcaça (Cabo MA)
+    Pino LM: Entrada de Luz Militar (Cabo VD) <br>
+    Pino FM: Entrada de Freio Militar (Cabo A(249)1,5 pós Relé do Freio Y8) <br>
+    Pino 31: Aterramento de Carcaça (Cabo 1,0MA)
   </div>
 
-  <!-- RETORNO DE MASSA -->
+  <!-- FIO DE RETORNO À MASSA -->
   <div class="flow-wire w-v-ma">
-    <span class="wire-spec-badge">K(04)1,0 MA ou A(110)1,5 MA — Marrom 1,5mm²</span>
+    <span class="wire-spec-badge">B(110)1,0 MA — Marrom 1,0mm²</span>
   </div>
 
   <!-- PASSO 5: TERRA -->
   <div class="flow-card flow-terra">
     <div class="flow-icon">⏚</div>
     <div>
-      <strong>TERRA GERAL (CHASSI)</strong>
-      <p>Ponto de fixação de massa mecânica da carroceria dianteira.</p>
+      <strong>TERRA DE CARROCERIA MILITAR (31)</strong>
+      <p>Barramento final de massa conectado à estrutura de chassi reforçada.</p>
     </div>
   </div>
 
-</div>
-
-<div class="cross-reference">
-  <strong>🔄 Derivação de Alerta no Painel:</strong> A saída do circuito de Farol Alto gera uma derivação paralela pelo cabo <code>A(922)0,75</code>, conectada diretamente à <strong>Luz Espia Indicadora Azul</strong> no painel de instrumentos do veículo.
 </div>
