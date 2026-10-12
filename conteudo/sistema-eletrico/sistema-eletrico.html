@@ -1,96 +1,203 @@
+<!-- ESTILOS EXCLUSIVOS PARA COMPATIBILIDADE COM O DESIGN DO SEU SITE -->
 <style>
-  .diagram-wrapper-marrua {
-    display: flex; align-items: center; justify-content: space-between;
-    max-width: 920px; margin: 25px auto; background: #ffffff;
-    border: 3px double #334155; border-radius: 8px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  }
-  .comp-frame-ie {
-    border: 3px solid #000000; padding: 10px; background: #ffffff;
-    text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 190px;
-  }
-  .frame-left-sensor { width: 140px; }
-  .frame-right-ecu { width: 170px; }
-  .comp-frame-ie img { max-width: 100%; height: auto; object-fit: contain; }
-  .harness-lines-marrua { flex: 1; display: flex; flex-direction: column; justify-content: space-around; height: 170px; padding: 0 12px; }
-  .wire-channel-row { display: flex; align-items: center; width: 100%; height: 32px; }
-  .pin-badge-square {
-    font-size: 12px; font-weight: bold; border: 2px solid #000000; background: #ffffff;
-    width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; z-index: 2;
-  }
-  .wire-data-box {
-    flex: 1; height: 28px; border: 2px solid #000000; margin: 0 -2px;
-    display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; color: #000000; z-index: 2;
-    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8), -1px -1px 0px rgba(255, 255, 255, 0.8);
+  .diagram-master-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+    background: #ffffff;
+    border: 2px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05));
   }
 
-  /* GRADIENTES DE CORES CONFORME SEU ANEXO */
-  .w-vd-am { background: linear-gradient(90deg, #22c55e 50%, #eab308 50%); background-size: 20px 100%; }
-  .w-ll { background-color: #d8b4fe; } /* Lilás Puro */
-  .w-br-pr { background: linear-gradient(90deg, #ffffff 50%, #000000 50%); background-size: 20px 100%; border-top: 1px solid #cbd5e1; border-bottom: 1px solid #cbd5e1; }
-  .w-br { background-color: #ffffff; border-top: 1px solid #cbd5e1; border-bottom: 1px solid #cbd5e1; }
-  .w-az-br { background: linear-gradient(90deg, #3b82f6 50%, #ffffff 50%); background-size: 20px 100%; }
-  .w-az { background-color: #3b82f6; color: #ffffff; }
+  /* Molduras Laterais Fixas (Componente e Módulo) */
+  .diagram-frame-box {
+    border: 3px solid #0f172a;
+    background: #ffffff;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 190px;
+    text-align: center;
+  }
+  .frame-left-side { width: 140px; }
+  .frame-right-side { width: 165px; }
 
+  .diagram-frame-box img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+  
+  .diagram-frame-box span {
+    font-size: 11px;
+    font-weight: bold;
+    color: #475569;
+    margin-top: 8px;
+  }
+
+  /* Área Central do Chicote de Fios (Construção Rígida em Tabela) */
+  .diagram-harness-table-wrapper {
+    flex: 1;
+    padding: 0 15px;
+  }
+
+  .harness-wire-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .harness-wire-table td {
+    padding: 0;
+    vertical-align: middle;
+    height: 44px; /* Altura fixa para manter linhas paralelas simétricas */
+  }
+
+  /* Células das Tags de Pinagem Redondas/Quadradas */
+  .cell-pin-sensor { width: 32px; }
+  .cell-pin-ecu { width: 45px; }
+
+  .pin-tag-style {
+    font-size: 11px;
+    font-weight: bold;
+    color: #0f172a;
+    background: #ffffff;
+    border: 2px solid #0f172a;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    margin: 0 auto;
+  }
+
+  /* Canal Elétrico Central (O Fio Físico) */
+  .cell-wire-conduit {
+    position: relative;
+    padding: 0 4px;
+  }
+  
+  .wire-line-body {
+    height: 4px;
+    width: 100%;
+    border-radius: 2px;
+    border: 1px solid #1e293b;
+  }
+
+  .wire-text-overlay {
+    position: absolute;
+    top: -10px;
+    left: 15px;
+    font-size: 10px;
+    font-weight: 800;
+    color: #1e293b;
+    background: #ffffff;
+    padding: 0 6px;
+    white-space: nowrap;
+    border-radius: 2px;
+  }
+
+  /* MODELAGEM DE CORES E ZEBRADOS EM CSS PURO */
+  .color-ll { background-color: #d8b4fe; } /* Lilás / Roxo */
+  
+  /* Fio listrado Verde e Amarelo (0,5 VD/AM) */
+  .color-vd-am {
+    background: linear-gradient(90deg, #22c55e 35%, #eab308 35%, #eab308 50%, #22c55e 50%, #22c55e 85%, #eab308 85%);
+    background-size: 20px 100%;
+  }
+
+  /* Fio listrado Branco e Preto (0,5 BR/PR) */
+  .color-br-pr {
+    background: linear-gradient(90deg, #ffffff 35%, #000000 35%, #000000 50%, #ffffff 50%, #ffffff 85%, #000000 85%);
+    background-size: 20px 100%;
+  }
+
+  /* Responsividade para Dispositivos Móveis */
   @media (max-width: 768px) {
-    .diagram-wrapper-marrua { flex-direction: column; gap: 20px; }
-    .frame-left-sensor, .frame-right-ecu { width: 100%; min-height: auto; }
-    .harness-lines-marrua { width: 100%; height: auto; gap: 15px; }
-    .wire-channel-row { flex-direction: column; height: auto; align-items: stretch; }
-    .wire-data-box { margin: 5px 0; padding: 6px; height: auto; }
+    .diagram-master-container { flex-direction: column; gap: 15px; }
+    .frame-left-side, .frame-right-side { width: 100%; min-height: auto; }
+    .diagram-harness-table-wrapper { width: 100%; padding: 0; }
+    .harness-wire-table td { height: auto; display: block; width: 100%; text-align: center; }
+    .harness-wire-table tr { display: flex; flex-direction: column; gap: 4px; margin-bottom: 15px; border-bottom: 1px dashed #cbd5e1; padding-bottom: 10px; }
+    .wire-line-body { height: 6px; margin: 4px 0; }
+    .wire-text-overlay { position: static; display: inline-block; padding: 0; }
   }
 </style>
 
-<!-- DIAGRAMA: SENSOR DE ROTAÇÃO (CKP) -->
-<h2 class="home-title">Sensor de Rotação do Motor (CKP)</h2>
-<div class="diagram-wrapper-marrua">
-  <div class="comp-frame-ie frame-left-sensor">
-    <img src="img/sensor_rotacao.png" alt="Sensor CKP">
-    <span style="font-size: 10px; font-weight: bold; margin-top: 5px; color: #475569;">Sensor CKP (Indutivo)</span>
-  </div>
-  <div class="harness-lines-marrua">
-    <div class="wire-channel-row">
-      <div class="pin-badge-square">1</div>
-      <div class="wire-data-box w-vd-am">Sinal de Rotação - 0,5 VD/AM</div>
-      <div class="pin-badge-square">A12</div>
-    </div>
-    <div class="wire-channel-row">
-      <div class="pin-badge-square">2</div>
-      <div class="wire-data-box w-ll">Retorno de Sinal - 0,5 LL</div>
-      <div class="pin-badge-square">A13</div>
-    </div>
-    <div class="wire-channel-row">
-      <div class="pin-badge-square">3</div>
-      <div class="wire-data-box w-br-pr">Malha de Blindagem - 0,5 BR/PR</div>
-      <div class="pin-badge-square">A23</div>
-    </div>
-  </div>
-  <div class="comp-frame-ie frame-right-ecu">
-    <img src="img/ecu_marrua.png" alt="ECU">
-    <span style="font-size: 10px; font-weight: bold; margin-top: 5px; color: #475569;">Conector A (60 Vias)</span>
-  </div>
+<div class="aviso">
+  <strong>Mapeamento do Sensor CKP:</strong> Estrutura estável travada por tabela de alinhamento rígido. Assegura a leitura sem distorções no monitor do computador ou celular.
 </div>
 
-<!-- DIAGRAMA: SENSOR DE FASE (CMP) -->
-<h2 class="home-title">Sensor de Posição do Comando (Fase - CMP)</h2>
-<div class="diagram-wrapper-marrua">
-  <div class="comp-frame-ie frame-left-sensor">
-    <img src="img/sensor_fase.png" alt="Sensor CMP">
-    <span style="font-size: 10px; font-weight: bold; margin-top: 5px; color: #475569;">Sensor CMP</span>
+<!-- CONTAINER PRINCIPAL DO CIRCUITO DO SENSOR DE ROTAÇÃO (CKP) -->
+<div class="diagram-master-container">
+  
+  <!-- LADO ESQUERDO: SENSOR DO VEÍCULO -->
+  <div class="diagram-frame-box frame-left-side">
+    <img src="img/sensor_rotacao.png" alt="Sensor CKP">
+    <span>Sensor CKP</span>
   </div>
-  <div class="harness-lines-marrua" style="height: 120px;">
-    <div class="wire-channel-row">
-      <div class="pin-badge-square">1</div>
-      <div class="wire-data-box w-br">Sinal de Fase - 0,5 BR</div>
-      <div class="pin-badge-square">A11</div>
-    </div>
-    <div class="wire-channel-row">
-      <div class="pin-badge-square">2</div>
-      <div class="wire-data-box w-az-br">Aterramento do Sensor - 0,5 AZ/BR</div>
-      <div class="pin-badge-square">A20</div>
-    </div>
+
+  <!-- CENTRO: CHICOTE COM FIOS PARALELOS CONECTADOS -->
+  <div class="diagram-harness-table-wrapper">
+    <table class="harness-wire-table">
+      <tbody>
+        
+        <!-- LINHA DO FIO 1 (SINAL) -->
+        <tr>
+          <td class="cell-pin-sensor">
+            <div class="pin-tag-style">1</div>
+          </td>
+          <td class="cell-wire-conduit">
+            <span class="wire-text-overlay">Sinal de Rotação — 0,5 VD/AM</span>
+            <div class="wire-line-body color-vd-am"></div>
+          </td>
+          <td class="cell-pin-ecu">
+            <div class="pin-tag-style">A12</div>
+          </td>
+        </tr>
+
+        <!-- LINHA DO FIO 2 (RETORNO) -->
+        <tr>
+          <td class="cell-pin-sensor">
+            <div class="pin-tag-style">2</div>
+          </td>
+          <td class="cell-wire-conduit">
+            <span class="wire-text-overlay">Retorno de Sinal — 0,5 LL</span>
+            <div class="wire-line-body color-ll"></div>
+          </td>
+          <td class="cell-pin-ecu">
+            <div class="pin-tag-style">A13</div>
+          </td>
+        </tr>
+
+        <!-- LINHA DO FIO 3 (BLINDAGEM) -->
+        <tr>
+          <td class="cell-pin-sensor">
+            <div class="pin-tag-style">3</div>
+          </td>
+          <td class="cell-wire-conduit">
+            <span class="wire-text-overlay">Malha de Blindagem — 0,5 BR/PR</span>
+            <div class="wire-line-body color-br-pr"></div>
+          </td>
+          <td class="cell-pin-ecu">
+            <div class="pin-tag-style">A23</div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
   </div>
-  <div class="comp-frame-ie frame-right-ecu">
-    <img src="img/ecu_marrua.png" alt="ECU">
-    <span style="font-size: 10px; font-weight: bold; margin-top: 5px; color: #475569;">Conector A (60 Vias)</span>
+
+  <!-- LADO DIREITO: ECU DO MARRUÁ -->
+  <div class="diagram-frame-box frame-right-side">
+    <img src="img/ecu_marrua.png" alt="ECU EDC16">
+    <span>Conector A (60 Vias)</span>
   </div>
+
 </div>
