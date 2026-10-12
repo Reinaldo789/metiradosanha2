@@ -361,6 +361,15 @@ main {
 }
 
 /* ==========================================
+   18. PADDING DO CONTEÚDO NO MOBILE
+   ========================================== */
+@media (max-width: 768px) {
+  main {
+    padding: 1.5rem 0.8rem;
+  }
+}
+
+/* ==========================================
    5. BOTÃO FLUTUANTE (VOLTAR AO TOPO)
    ========================================== */
 .floating-container {
