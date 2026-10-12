@@ -1,20 +1,18 @@
-<!-- ESTILOS DO MAPA VISUAL INTERATIVO (DO UTOR IE / COMPACTO) -->
+<!-- ESTILOS AVANÇADOS DE FIAÇÃO ELETRÔNICA DINÂMICA -->
 <style>
-  .interactive-map-area {
+  .map-canvas-container {
     position: relative;
     max-width: 700px;
     margin: 20px auto;
-    background-color: #f8fafc;
-    border: 2px solid #cbd5e1;
+    background-color: #f1f5f9;
+    border: 3px double #1e293b;
     border-radius: 12px;
     overflow: hidden;
-    /* Ajuste a altura proporcional à sua imagem de fundo */
     height: 650px; 
-    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
   }
 
-  /* Imagem de Fundo com os Renders/Fotos dos Componentes */
-  .map-background-img {
+  .bg-static-render {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -22,106 +20,151 @@
     top: 0;
     left: 0;
     z-index: 1;
-    opacity: 0.95;
   }
 
-  /* ZONAS DE INTERAÇÃO (BOTÕES INVISÍVEIS SOBRE OS COMPONENTES) */
-  .component-hotspot {
+  /* MALHA ELÉTRICA (LINHAS DOS FIOS VIA DIVS ABSOLUTAS) */
+  .electrical-wire-line {
+    position: absolute;
+    z-index: 2;
+    transform-origin: left top;
+    transition: all 0.2s ease;
+    border: 1px solid #000000; /* Borda preta do contorno do fio */
+    height: 4px; /* Espessura padrão do fio no diagrama */
+  }
+
+  /* CORES REAIS E BI-COLORES DOS FIOS DO MARRUÁ (ANEXO F) */
+  .wire-pure-red { background-color: #dc2626; } /* 35,0VM Potência Bateria */
+  
+  /* Fio Azul com listra Amarela (0,5 AZ/AM - Sensor Temp Pág 21) */
+  .wire-split-az-am {
+    background: linear-gradient(90deg, #2563eb 40%, #eab308 40%, #eab308 60%, #2563eb 60%);
+    background-size: 15px 100%;
+  }
+
+  /* Fio Verde com listra Vermelha (0,5 VD/VM - Sensor Óleo Pág 20) */
+  .wire-split-vd-vm {
+    background: linear-gradient(90deg, #16a34a 40%, #dc2626 40%, #dc2626 60%, #16a34a 60%);
+    background-size: 15px 100%;
+  }
+
+  /* Fio Amarelo com listra Preta (0,60A - Nível Combustível Pág 21) */
+  .wire-split-am-pt {
+    background: linear-gradient(90deg, #eab308 40%, #1e293b 40%, #1e293b 60%, #eab308 60%);
+    background-size: 15px 100%;
+  }
+
+  /* EFEITO DE ACENDIMENTO (DIAGNOSTICO ATIVO) */
+  .electrical-wire-line.wire-active {
+    height: 6px;
+    box-shadow: 0 0 12px #38bdf8, 0 0 4px #ffffff;
+    border-color: #38bdf8;
+    z-index: 3;
+  }
+
+  /* HOTSPOTS INTERATIVOS (BOTÕES INVISÍVEIS) */
+  .map-hotspot {
     position: absolute;
     border: 2px dashed transparent;
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
-    z-index: 3;
-    transition: all 0.25s ease;
-  }
-  
-  /* Efeito Hover: destaca o componente físico */
-  .component-hotspot:hover {
-    border-color: #4f46e5;
-    background-color: rgba(79, 70, 229, 0.08);
-    box-shadow: 0 0 15px rgba(79, 70, 229, 0.2);
-  }
-
-  /* POSICIONAMENTO DA MAQUETE (Baseado na sua imagem de referência) */
-  .spot-bateria { top: 40px; left: 30px; width: 140px; height: 110px; }
-  .spot-painel  { top: 40px; left: 240px; width: 280px; height: 130px; }
-  .spot-ecu     { top: 230px; left: 130px; width: 150px; height: 140px; }
-  .spot-boia    { top: 420px; left: 40px; width: 150px; height: 160px; }
-  .spot-temp    { top: 250px; left: 490px; width: 160px; height: 140px; }
-  .spot-oleo    { top: 440px; left: 460px; width: 160px; height: 140px; }
-
-  /* JANELA FLUTUANTE DE DIAGNÓSTICO (TOOLTIP DE PINAGEM) */
-  .diag-hud-overlay {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 500px;
-    background: rgba(15, 23, 42, 0.95);
-    backdrop-filter: blur(4px);
-    color: #ffffff;
-    border-radius: 8px;
-    padding: 12px 18px;
     z-index: 4;
-    font-size: 12px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-    border: 1px solid #334155;
-    pointer-events: none;
-    display: none; /* Aparece via JS */
   }
-  .diag-hud-overlay strong { color: #38bdf8; font-size: 14px; display: block; margin-bottom: 2px; }
-  .diag-hud-overlay em { color: #fbbf24; font-style: normal; font-weight: bold; }
+  .map-hotspot:hover {
+    border-color: #38bdf8;
+    background-color: rgba(56, 189, 248, 0.08);
+  }
+
+  /* Coordenadas dos Componentes */
+  .geo-bateria { top: 40px; left: 30px; width: 140px; height: 110px; }
+  .geo-painel  { top: 40px; left: 240px; width: 280px; height: 130px; }
+  .geo-ecu     { top: 250px; left: 130px; width: 150px; height: 140px; }
+  .geo-boia    { top: 440px; left: 40px; width: 150px; height: 150px; }
+  .geo-temp    { top: 250px; left: 490px; width: 160px; height: 140px; }
+  .geo-oleo    { top: 440px; left: 460px; width: 160px; height: 140px; }
+
+  /* HUD INFOBAR */
+  .hud-panel {
+    position: absolute;
+    bottom: 15px;
+    left: 5%;
+    width: 90%;
+    background: rgba(15, 23, 42, 0.95);
+    color: #ffffff;
+    border-radius: 6px;
+    padding: 12px;
+    z-index: 5;
+    font-size: 12px;
+    border: 1px solid #334155;
+    display: none;
+    pointer-events: none;
+  }
+  .hud-panel strong { color: #38bdf8; display: block; font-size: 14px; margin-bottom: 2px; }
 </style>
 
-<p class="art-lead">Mapa técnico interativo. Passe o mouse ou toque sobre qualquer componente do motor ou cabine para rastrear a pinagem e as cores oficiais do chicote do Marruá.</p>
+<div class="map-canvas-container" id="canvasMarrua">
+  
+  <!-- Fundo com fotos realistas das peças -->
+  <img src="img/esquema_realista_fundo.png" alt="Esquema Realista" class="bg-static-render">
 
-<!-- CONTAINER DO MAPA GERAL -->
-<div class="interactive-map-area" id="marruaMap">
+  <!-- FIAÇÃO ELÉTRICA FÍSICA (Traçado de Linhas Ponto a Ponto) -->
   
-  <!-- Imagem realista de fundo com os componentes posicionados -->
-  <img src="img/esquema_realista_fundo.png" alt="Esquema Elétrico Ilustrado" class="map-background-img">
+  <!-- Fio 1: Bateria (+) para ECU (Potência Principal) -->
+  <div id="wire-bat-ecu" class="electrical-wire-line wire-pure-red" style="top: 150px; left: 100px; width: 120px; transform: rotate(65deg);"></div>
+  
+  <!-- Fio 2: Sensor de Temperatura para Painel (0,5 AZ/AM) -->
+  <div id="wire-temp-painel" class="electrical-wire-line wire-split-az-am" style="top: 250px; left: 490px; width: 160px; transform: rotate(-55deg);"></div>
+  
+  <!-- Fio 3: Sensor de Óleo para Painel (0,5 VD/VM) -->
+  <div id="wire-oleo-painel" class="electrical-wire-line wire-split-vd-vm" style="top: 440px; left: 460px; width: 330px; transform: rotate(-50deg);"></div>
 
-  <!-- CAPAS DE INTERAÇÃO (HOTSPOTS) -->
-  <div class="component-hotspot spot-bateria" data-name="Bateria de Alimentação (12V)" data-info="Linha de força primária (+30). Conecta ao interruptor da chave geral por meio do cabo grosso de bitola 35,0VM (Vermelho)."></div>
-  
-  <div class="component-hotspot spot-painel" data-name="Painel Central de Instrumentos" data-info="Recebe os sinais de monitoramento. Luz de carga ligada ao alternador pelo fio <em>A(625)0,75 AZ/VM</em>. Linha de combustível ligada à boia pelo fio <em>A(060)1,0</em> (Pág 21)."></div>
-  
-  <div class="component-hotspot spot-ecu" data-name="Unidade de Comando - ECU EDC16" data-info="Gerenciador eletrônico do motor MWM. Conector 'A' de 60 vias e conector 'K' de 91 vias recebem alimentação pós-chave (+15) protegida pelo <em>Fusível 25 (5A)</em>."></div>
-  
-  <div class="component-hotspot spot-boia" data-name="Sensor de Nível de Combustível (Boia)" data-info="Instalado no tanque traseiro. Envia sinal resistivo ao painel através do cabo <em>B(060)1,0</em>. Linha de massa ligada ao chassi pelo fio <em>B(110)1,0 MA</em> (Marrom)."></div>
-  
-  <div class="component-hotspot spot-temp" data-name="Sensor de Temperatura da Água (MWM)" data-info="Localizado no bloco do motor. Comunica-se diretamente com o indicador do painel através do cabo bicolor de código <em>C(38)0,75 AZ/AM</em> (Azul com listra Amarela)."></div>
-  
-  <div class="component-hotspot spot-oleo" data-name="Sensor de Pressão do Óleo" data-info="Monitora a lubrificação crítica do motor. Envia sinal para o manômetro e luz espia do painel através do fio elétrico <em>I(01)0,75 VD/VM</em> (Verde com listra Vermelha)."></div>
+  <!-- Fio 4: Boia de Combustível para Painel (A(060)1,0 AM/PT) -->
+  <div id="wire-boia-painel" class="electrical-wire-line wire-split-am-pt" style="top: 440px; left: 115px; width: 340px; transform: rotate(-58deg);"></div>
 
-  <!-- HUD FLUTUANTE QUE MOSTRA OS DADOS DO MANUAL -->
-  <div class="diag-hud-overlay" id="diagHud">
-    <strong id="hudTitle">Componente</strong>
-    <p id="hudDesc">Passe o mouse para ver os detalhes da fiação técnica do manual.</p>
+
+  <!-- HOTSPOTS DE INTERAÇÃO -->
+  <div class="map-hotspot geo-bateria" data-wire="wire-bat-ecu" data-title="Linha de Potência Geral da Bateria" data-desc="Cabo de bitola grossa 35,0VM (Vermelho) ligado diretamente ao interruptor geral para alimentação da central elétrica."></div>
+  
+  <div class="map-hotspot geo-temp" data-wire="wire-temp-painel" data-title="Circuito do Sensor de Temperatura da Água" data-desc="Mapeamento da Pág 21. Linha de sinal conectada ao pino G do indicador do painel através do cabo bicolor <strong>C(38)0,75 AZ/AM</strong>."></div>
+  
+  <div class="map-hotspot geo-oleo" data-wire="wire-oleo-painel" data-title="Circuito do Manômetro de Pressão de Óleo" data-desc="Mapeamento da Pág 20. Envia a leitura de resistência do bloco para o relógio do cluster usando o cabo <strong>I(01)0,75 VD/VM</strong>."></div>
+  
+  <div class="map-hotspot geo-boia" data-wire="wire-boia-painel" data-title="Circuito do Sensor de Nível de Combustível" data-desc="Mapeamento da Pág 21. Envia a variação de nível do tanque para o ponteiro do combustível através do cabo listrado <strong>A(060)1,0</strong>."></div>
+
+  <!-- HUD BAR -->
+  <div class="hud-panel" id="hudBar">
+    <strong id="hudTitleBar">Circuito Selecionado</strong>
+    <p id="hudDescBar">Passe o mouse sobre os componentes para acender os fios elétricos e ler a pinagem.</p>
   </div>
 
 </div>
 
-<!-- SCRIPT DE INTERAÇÃO DINÂMICA (COMPATÍVEL COM SEU GITHUB PAGES) -->
+<!-- LOGICA DE DIAGNÓSTICO ACESO (JAVASCRIPT) -->
 <script>
   (function() {
-    const mapContainer = document.getElementById('marruaMap');
-    const hud = document.getElementById('diagHud');
-    const hudTitle = document.getElementById('hudTitle');
-    const hudDesc = document.getElementById('hudDesc');
-    const hotspots = mapContainer.querySelectorAll('.component-hotspot');
+    const canvas = document.getElementById('canvasMarrua');
+    const hud = document.getElementById('hudBar');
+    const title = document.getElementById('hudTitleBar');
+    const desc = document.getElementById('hudDescBar');
+    const spots = canvas.querySelectorAll('.map-hotspot');
 
-    hotspots.forEach(spot => {
-      // Quando o mouse entra no componente
+    spots.forEach(spot => {
       spot.addEventListener('mouseenter', () => {
-        hudTitle.textContent = spot.getAttribute('data-name');
-        hudDesc.innerHTML = spot.getAttribute('data-info');
+        // 1. Acende o fio correspondente mudando a classe do CSS
+        const targetWireId = spot.getAttribute('data-wire');
+        const wire = document.getElementById(targetWireId);
+        if(wire) wire.classList.add('wire-active');
+
+        // 2. Atualiza os dados técnicos no painel inferior
+        title.textContent = spot.getAttribute('data-title');
+        desc.innerHTML = spot.getAttribute('data-desc');
         hud.style.display = 'block';
       });
 
-      // Quando o mouse sai do componente
       spot.addEventListener('mouseleave', () => {
+        // Apaga o fio e esconde o HUD ao remover o mouse
+        const targetWireId = spot.getAttribute('data-wire');
+        const wire = document.getElementById(targetWireId);
+        if(wire) wire.classList.remove('wire-active');
         hud.style.display = 'none';
       });
     });
