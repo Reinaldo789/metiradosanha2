@@ -102,7 +102,7 @@ async function abrirPagina() {
   window.scrollTo({ top: 0 });
 
   try {
-    // 🔥 AQUI: sempre busca o MESMO arquivo único
+    // Sempre busca o MESMO arquivo único
     const resp = await fetch('conteudo/sistema-eletrico.html');
     if (!resp.ok) throw new Error(`Arquivo não encontrado (${resp.status})`);
 
@@ -113,7 +113,7 @@ async function abrirPagina() {
     const temp = document.createElement('div');
     temp.innerHTML = corpo;
 
-    const alvo = path.split('/')[1]; // ex: "alternador"
+    const alvo = path.split('/')[1];
     const secao = temp.querySelector(`[data-circuito="${alvo}"]`);
 
     if (!secao) {
