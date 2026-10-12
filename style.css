@@ -747,3 +747,82 @@ header.scrolled .mobile-toggle { color: #fff; }
   text-align: center;
   width: 100%;
   max-width: 420px;
+
+   /* ==========================================
+   20. MENU NORMAL (dropdown simples)
+   ========================================== */
+@media (min-width: 961px) {
+  /* O painel do menu agora é uma caixinha estreita */
+  .mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 320px;
+    max-width: 90vw;
+    max-height: 70vh;
+    padding: 0.6rem;
+    display: block;
+    grid-template-columns: none;
+    border-radius: 14px;
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Cada categoria fica empilhada */
+  .mega-categories-container {
+    display: block;
+    gap: 0;
+  }
+
+  .category-group {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .category-group:last-child {
+    border-bottom: none;
+  }
+
+  /* Remove a linha decorativa do ::after */
+  .category-group::after {
+    display: none;
+  }
+
+  .category-title {
+    font-size: 0.7rem;
+    margin: 0 0 0.4rem 0.4rem;
+    padding: 0;
+    color: var(--text-muted);
+  }
+
+  /* Lista vertical de links */
+  .mega-links-grid {
+    display: block;
+    grid-template-columns: none;
+    gap: 0;
+  }
+
+  .mega-link-item {
+    display: block;
+    padding: 0.5rem 0.7rem;
+    font-size: 0.87rem;
+    border-radius: 8px;
+    white-space: normal;
+    line-height: 1.35;
+  }
+
+  .mega-link-item:hover {
+    transform: none;
+    padding-left: 0.9rem;
+  }
+
+  /* Some o painel lateral (explore) */
+  .mega-explore-side {
+    display: none;
+  }
+
+  /* Se o menu estiver nos últimos itens, alinha à direita */
+  .nav-item:nth-last-child(-n+2) .mega-menu {
+    left: auto;
+    right: 0;
+  }
+}
