@@ -74,7 +74,62 @@ const card = document.getElementById('page-card');
 
 async function abrirPagina() {
   const path = decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '');
-  document.querySelectorAll('.mega-link-item.active, .explore-link.active').forEach(a => a.classList.remove('active'));
+  document.querySelectorAll('.mega-link-item.active, .explore-link.active')
+    .forEach(a => a.classList.remove('active'));
+
+  // Sem rota válida = Home
+  if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
+    card.hidden = true;
+    home.hidden = false;
+    return;
+  }
+
+  const link = document.querySelector(`a[href="#${path}"]`);
+  if (link && link.classList.contains('mega-link-item')) link.classList.add('active');
+
+  const menu = link
+    ? link.closest('.nav-item').querySelector('.nav-btn span').textContent.trim()
+    : '';
+
+  const titulo = !link ? '' :
+    link.classList.contains('explore-link')
+      ? link.closest('.mega-explore-side').querySelector('h5').textContent.trim()
+      : link.textContent.trim();
+
+  home.hidden = true;
+  card.hidden = false;
+  card.innerHTML = '<p class="page-loading">Carregando...</p>';
+  window.scrollTo({ top: 0 });
+
+  try {
+    // 🔥 AQUI: sempre busca o MESMO arquivo único
+    const resp = await fetch('conteudo/sistema-eletrico.html');
+    if (!resp.ok) throw new Error(`Arquivo não encontrado (${resp.status})`);
+
+    const corpo = await resp.text();
+    if (decodeURIComponent(location.hash.slice(1)) !== path) return;
+
+    // Converte o texto em DOM e filtra a seção correta
+    const temp = document.createElement('div');
+    temp.innerHTML = corpo;
+
+    const alvo = path.split('/')[1]; // ex: "alternador"
+    const secao = temp.querySelector(`[data-circuito="${alvo}"]`);
+
+    if (!secao) {
+      card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div>
+        <h1>${titulo}</h1>
+        <p>Este circuito ainda não foi adicionado ao arquivo único.</p>`;
+      return;
+    }
+
+    card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div>${secao.outerHTML}`;
+    melhorarArtigo();
+
+  } catch (err) {
+    card.innerHTML = `<h1>Erro</h1><p>${err.message}. Verifique se o arquivo <code>conteudo/sistema-eletrico.html</code> existe.</p>`;
+  }
+}
   
   // sem rota válida = Home
   if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
