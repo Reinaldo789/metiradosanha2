@@ -853,22 +853,22 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
    17. TABELAS DE ARTIGOS — FONTE REDUZIDA
    ========================================== */
 .page-card table {
-  font-size: 0.78rem;
+  font-size: 0.9rem;
 }
 
 .page-card th {
-  font-size: 0.72rem;
+  font-size: 0.9rem;
   padding: 0.5rem 0.7rem;
 }
 
 .page-card td {
   padding: 0.5rem 0.7rem;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   line-height: 1.4;
 }
 
 @media (max-width: 768px) {
-  .page-card table { font-size: 0.72rem; }
-  .page-card th { font-size: 0.68rem; padding: 0.4rem 0.5rem; }
+  .page-card table { font-size: 0.76rem; }
+  .page-card th { font-size: 0.7rem; padding: 0.4rem 0.5rem; }
   .page-card td { padding: 0.4rem 0.5rem; font-size: 0.72rem; }
 }
