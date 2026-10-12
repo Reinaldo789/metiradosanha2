@@ -1,1 +1,451 @@
+<header class="art-head">
+  <h1>Sensor de Fase (CMP) Bosch 0281002667</h1>
+</header>
 
+<nav class="toc" aria-label="Neste artigo">
+  <strong>Neste artigo</strong>
+  <ul>
+    <li><a href="#" data-goto="identificacao">Identificação</a></li>
+    <li><a href="#" data-goto="dados">Dados técnicos</a></li>
+    <li><a href="#" data-goto="funcionamento">Funcionamento</a></li>
+    <li><a href="#" data-goto="circuito">Circuito elétrico e pinagem</a></li>
+    <li><a href="#" data-goto="diagnostico">Diagnóstico de ocorrências</a></li>
+    <li><a href="#" data-goto="limp-home">Comportamento do motor em caso de falha (Limp-Home)</a></li>
+    <li><a href="#" data-goto="codigos-de-falha">Códigos de falha</a></li>
+    <li><a href="#" data-goto="causas-comuns">Causas comuns</a></li>
+    <li><a href="#" data-goto="teste-multimetro">Teste com multímetro</a></li>
+    <li><a href="#" data-goto="teste-osciloscopio">Teste com osciloscópio</a></li>
+    <li><a href="#" data-goto="verificacao-circuito">Verificação do circuito</a></li>
+    <li><a href="#" data-goto="problemas-solucoes">Problemas e soluções</a></li>
+    <li><a href="#" data-goto="manutencao">Manutenção</a></li>
+  </ul>
+</nav>
+
+<h2 id="identificacao">Identificação</h2>
+<p>O sensor de fase Bosch <strong>0281002667</strong> é aplicado no motor MWM 2.8 Eletronic (Sprint Eletronic), utilizado em veículos como Chevrolet S10/Blazer, Nissan Frontier/Xterra, Agrale Marruá, Fiat Ducato, Iveco Daily e VW Delivery. Confira sempre o código antes de substituir a peça.</p>
+
+<table>
+  <tr><th>Fabricante / Montadora</th><th>Código</th></tr>
+  <tr><td><strong>Bosch</strong></td><td>0 281 002 667 / 0281002667</td></tr>
+  <tr><td><strong>Bosch (alternativo)</strong></td><td>0232103052</td></tr>
+  <tr><td><strong>GM / Chevrolet</strong></td><td>93347211 / 93.347.211</td></tr>
+  <tr><td><strong>Fiat</strong></td><td>504048261 / 55.187.973</td></tr>
+  <tr><td><strong>MWM</strong></td><td>9 4070 06 7 0074</td></tr>
+  <tr><td><strong>Iveco</strong></td><td>5802260743</td></tr>
+  <tr><td><strong>VW</strong></td><td>2P0133491</td></tr>
+  <tr><td><strong>Magneti Marelli</strong></td><td>SRM6210</td></tr>
+</table>
+
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Não remova nem destrua a identificação do sensor. A conferência do código evita a instalação de peça incorreta.</p>
+</div>
+
+<h2 id="dados">Dados técnicos</h2>
+<div class="specs">
+  <div class="spec"><b>Hall</b><span>Tecnologia</span></div>
+  <div class="spec"><b>3 pinos</b><span>Conector</span></div>
+  <div class="spec"><b>5 V</b><span>Alimentação</span></div>
+  <div class="spec"><b>Onda quadrada</b><span>Tipo de sinal</span></div>
+  <div class="spec"><b>&lt; 20 mA</b><span>Corrente nominal</span></div>
+  <div class="spec"><b>0,5 a 1,5 mm</b><span>Folga até o ressalto</span></div>
+</div>
+
+<h3>Lubrificação e vedação</h3>
+<ul>
+  <li>Substitua o anel de vedação sempre que remover o sensor;</li>
+  <li>Limpe a ponta magnética com pano limpo e álcool isopropílico;</li>
+  <li>Aperte o parafuso de fixação conforme especificação do fabricante do motor.</li>
+</ul>
+
+<div class="dica">
+  <strong>Ponta magnética</strong>
+  <p>Mantenha a ponta do sensor sempre limpa. Limalha de ferro acumulada causa leitura incorreta.</p>
+</div>
+
+<h2 id="funcionamento">Funcionamento</h2>
+<p>O sensor de fase tipo Hall opera captando a passagem dos <strong>ressaltos presentes na engrenagem ou eixo do comando de válvulas</strong> do motor MWM. O sensor é instalado na tampa de válvulas e trabalha com folga de <strong>0,5 a 1,5 mm</strong> em relação ao ressalto do comando.</p>
+<p>A função principal é informar à <strong>ECM (Unidade de Controle do Motor)</strong> em qual fase do ciclo de quatro tempos cada cilindro se encontra. Isso permite que o sistema de injeção determine:</p>
+<ul>
+  <li>A posição do comando de válvulas;</li>
+  <li>A posição do pistão no cilindro;</li>
+  <li>O cálculo do ângulo de início de injeção;</li>
+  <li>O sincronismo de sinais entre comando e árvore de manivelas.</li>
+</ul>
+
+<div class="dica">
+  <strong>Trabalho em conjunto com o CKP</strong>
+  <p>O CKP informa a posição do virabrequim; o CMP identifica qual cilindro está em final de compressão, permitindo a injeção sequencial e otimizada.</p>
+</div>
+
+<h2 id="circuito">Circuito elétrico e pinagem</h2>
+<p>O sensor de fase é ligado diretamente ao <strong>Conector A ("Motor")</strong> da ECM do motor Sprint Eletronic, conforme o Manual de Diagnóstico MWM.</p>
+
+<table>
+  <tr><th>Pino no sensor</th><th>Função</th><th>Pino na ECM</th></tr>
+  <tr><td><strong>1</strong></td><td>GND do Sensor</td><td>A20</td></tr>
+  <tr><td><strong>2</strong></td><td>Sinal do Sensor de Fase</td><td>A50</td></tr>
+  <tr><td><strong>3</strong></td><td>Alimentação +5 V</td><td>A11</td></tr>
+</table>
+
+<div class="dica">
+  <strong>Identificação dos terminais</strong>
+  <p>A leitura dos pinos segue a padronização OBD: a ordem é contada da direita para a esquerda, tomando como referência o pino-trava localizado na parte superior do conector.</p>
+</div>
+
+<h2 id="diagnostico">Diagnóstico de ocorrências</h2>
+<h3>Sintomas de sensor defeituoso</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Dificuldade de partida ou motor que não pega;</li>
+      <li>Marcha lenta instável;</li>
+      <li>Perda de potência;</li>
+      <li>Limitação de rotação em 2.500 rpm;</li>
+      <li>Aumento do consumo de combustível;</li>
+      <li>Luz de advertência (Check Engine) acesa;</li>
+      <li>Falhas e engasgos durante a aceleração.</li>
+    </ul>
+  </div>
+</div>
+
+<h2 id="limp-home">Comportamento do Motor em Caso de Falha (Limp-Home)</h2>
+
+<div class="trio">
+  <div>
+    <h4>Falha com motor em funcionamento</h4>
+    <ul>
+      <li>O motor <strong>NÃO desliga</strong>;</li>
+      <li>O ECM entra em modo de emergência (<em>Limp-Home</em>);</li>
+      <li>A luz amarela de advertência é acionada no painel;</li>
+      <li>A rotação máxima é <strong>limitada em 2.500 rpm</strong>;</li>
+      <li>Após desligar o motor, não será possível uma nova partida até que a falha seja corrigida.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Falha ao tentar dar partida</h4>
+    <ul>
+      <li>Se o sinal de fase for perdido com o motor desligado, o ECM <strong>impede a partida</strong>;</li>
+      <li>O motor gira no arranque, mas <strong>não pega</strong> por falta de sincronismo;</li>
+      <li>A luz amarela de advertência é acionada no painel;</li>
+      <li>É necessário corrigir a falha para que o motor volte a funcionar.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Se a falha ocorrer com o motor desligado, não será possível a partida. Caso a falha aconteça durante o funcionamento, não ocorrerá o desligamento imediato, mas a rotação será limitada em 2.500 rpm e não será possível uma nova partida após desligar o motor.</p>
+</div>
+
+<h2 id="codigos-de-falha">Códigos de falha</h2>
+<div class="codigos">
+  <div class="codigo"><span class="num">P0340</span><div>
+    <h4>Falha no circuito do sensor de fase do comando de válvulas</h4>
+    <p>Sinal do sensor de fase perdido. O ECM identificou a ausência do sinal do sensor de fase do comando de válvulas. Pode indicar:</p>
+    <ul>
+      <li>Conector desligado ou com mau contato;</li>
+      <li>Chicote interrompido entre sensor e ECM;</li>
+      <li>Sensor danificado;</li>
+      <li>Posicionamento fora do especificado (folga diferente de 0,5 a 1,5 mm);</li>
+      <li>Acúmulo de impurezas no ressalto do comando de válvulas.</li>
+    </ul>
+  </div></div>
+  <div class="codigo"><span class="num">P0336</span><div>
+    <h4>Falha no sensor de fase do comando de válvulas</h4>
+    <p>Sinal de posição do comando de válvulas não compatível com as condições de funcionamento do motor. É possível que o sensor esteja com defeito ou haja interferência no sinal. Verificar:</p>
+    <ul>
+      <li>Sensor com defeito interno;</li>
+      <li>Interferência eletromagnética no chicote;</li>
+      <li>Montagem incorreta do sensor na tampa de válvulas;</li>
+      <li>Amassamento na tampa de válvulas na região do sensor.</li>
+    </ul>
+  </div></div>
+  <div class="codigo"><span class="num">P0016</span><div>
+    <h4>Sinais diferentes entre sensor de fase e sensor de rotação</h4>
+    <p>O ECM identificou sinais incoerentes entre o sensor de fase (comando) e o sensor de rotação (árvore de manivelas). Verificar:</p>
+    <ul>
+      <li>Sincronismo entre comando de válvulas e árvore de manivelas;</li>
+      <li>Problemas de montagem ou impurezas nos sensores;</li>
+      <li>Distribuição mecânica do motor.</li>
+    </ul>
+  </div></div>
+  <div class="codigo"><span class="num">P0341</span><div>
+    <h4>Desempenho ou faixa do circuito do sensor "A" fora do esperado</h4>
+    <p>A ECM recebe sinal do sensor, mas fora do padrão. Causas comuns:</p>
+    <ul>
+      <li>Sujeira na ponta magnética do sensor;</li>
+      <li>Folga excessiva entre sensor e ressalto do comando;</li>
+      <li>Falha interna no circuito Hall.</li>
+    </ul>
+  </div></div>
+  <div class="codigo"><span class="num">P0342</span><div>
+    <h4>Tensão do circuito do sensor "A" abaixo do mínimo esperado</h4>
+    <p>A linha de sinal está com tensão baixa. Pode indicar:</p>
+    <ul>
+      <li>Curto-circuito à massa no chicote;</li>
+      <li>Sensor com defeito interno;</li>
+      <li>Conector com umidade ou oxidação.</li>
+    </ul>
+  </div></div>
+  <div class="codigo"><span class="num">P0343</span><div>
+    <h4>Tensão do circuito do sensor "A" acima do máximo esperado</h4>
+    <p>A linha de sinal está com tensão alta. Pode indicar:</p>
+    <ul>
+      <li>Curto-circuito ao positivo no chicote;</li>
+      <li>Falha interna no sensor;</li>
+      <li>Inversão de pinos no conector.</li>
+    </ul>
+  </div></div>
+  <div class="codigo"><span class="num">P0344</span><div>
+    <h4>Sinal do circuito do sensor "A" intermitente</h4>
+    <p>O sinal aparece e desaparece durante o funcionamento. Causas prováveis:</p>
+    <ul>
+      <li>Mau contato no conector ou chicote;</li>
+      <li>Sensor com desgaste interno;</li>
+      <li>Interferência elétrica próxima ao cabeamento.</li>
+    </ul>
+  </div></div>
+</div>
+
+<h2 id="causas-comuns">Causas comuns</h2>
+<table>
+  <tr><th>Causa</th><th>Detalhes</th></tr>
+  <tr><td><strong>Sujeira magnética</strong></td><td>Acúmulo de limalha de ferro na ponta do sensor ou no ressalto do comando</td></tr>
+  <tr><td><strong>Oxidação</strong></td><td>Corrosão nos pinos do conector do chicote</td></tr>
+  <tr><td><strong>Danos no chicote</strong></td><td>Fios rompidos ou com mau contato</td></tr>
+  <tr><td><strong>Falha interna</strong></td><td>Defeito no circuito Hall do sensor</td></tr>
+  <tr><td><strong>Desalinhamento</strong></td><td>Folga fora do especificado (0,5 a 1,5 mm) ou amassamento na tampa de válvulas</td></tr>
+  <tr><td><strong>Interferência eletromagnética</strong></td><td>Acessórios montados incorretamente no motor</td></tr>
+</table>
+
+<div class="aviso">
+  <strong>Importante</strong>
+  <p>Antes de substituir o sensor, verifique a limpeza da ponta magnética e o estado do conector. A contaminação por limalha metálica é uma causa frequente de leitura incorreta e pode ser resolvida com simples limpeza.</p>
+</div>
+
+<h2 id="teste-multimetro">Teste com multímetro</h2>
+
+<h3 id="teste-tensao-alimentacao">Teste de tensão de alimentação</h3>
+<p><strong>Condição:</strong> chave de ignição ligada, conector desconectado.</p>
+<ul>
+  <li>Identifique o pino negativo (pino 1) — verifique continuidade com o polo negativo da bateria;</li>
+  <li>Ajuste o multímetro para escala de tensão DC (20 V);</li>
+  <li>Coloque a ponta preta no pino negativo identificado;</li>
+  <li>Meça a tensão entre o pino 3 (alimentação) e o pino 1 (GND).</li>
+</ul>
+
+<div class="specs">
+  <div class="spec"><b>5 V</b><span>Alimentação (pino 3)</span></div>
+  <div class="spec"><b>0 V a 5 V</b><span>Sinal dinâmico (pino 2)</span></div>
+  <div class="spec"><b>0 V</b><span>Pino negativo (pino 1)</span></div>
+</div>
+
+<div class="dica">
+  <strong>Entenda o sinal Hall</strong>
+  <p>No sistema Bosch do MWM 2.8, a alimentação padrão do sensor é de <strong>5 V</strong>. O sinal comuta entre 0 V e 5 V em onda quadrada, com frequência proporcional à rotação do motor.</p>
+</div>
+
+<h3 id="teste-resistencia">Teste de resistência — NÃO APLICÁVEL</h3>
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>O sensor tipo Hall <strong>NÃO PODE</strong> ser testado por medição de resistência. Sensores Hall contêm circuitos eletrônicos internos e não apresentam valor ôhmico mensurável. Apenas sensores indutivos possuem resistência mensurável.</p>
+</div>
+
+<h3 id="teste-sinal-dinamico">Teste de sinal dinâmico</h3>
+<p><strong>Condição:</strong> sensor instalado, conector conectado, motor em funcionamento ou partida.</p>
+<ul>
+  <li>Multímetro em escala de tensão DC;</li>
+  <li>Meça entre o pino 2 (sinal) e o pino 1 (GND);</li>
+  <li>A tensão deve flutuar rapidamente entre valores baixos e altos.</li>
+</ul>
+
+<div class="dica">
+  <strong>Limitação</strong>
+  <p>A frequência de comutação do sinal Hall é muito alta para um multímetro comum acompanhar. O método preferencial é o osciloscópio.</p>
+</div>
+
+<h2 id="teste-osciloscopio">Teste com osciloscópio</h2>
+
+<h3 id="configuracao-osciloscopio">Configuração</h3>
+<ul>
+  <li><strong>Conexão:</strong> CA (AC);</li>
+  <li><strong>Escala:</strong> 5 V ou 10 V;</li>
+  <li><strong>Base de tempo:</strong> ajustar conforme a rotação do motor.</li>
+</ul>
+
+<h3 id="forma-onda">Forma de onda esperada</h3>
+<p>O sinal correto é uma <strong>onda quadrada</strong> limpa, com transições nítidas entre nível baixo e alto, sem ruídos ou falhas.</p>
+
+<table>
+  <tr><th>Observação</th><th>Diagnóstico</th></tr>
+  <tr><td>Onda quadrada regular</td><td>Sensor OK</td></tr>
+  <tr><td>Onda ausente</td><td>Sensor ou circuito com falha</td></tr>
+  <tr><td>Onda distorcida / quebrada</td><td>Sensor com defeito interno</td></tr>
+  <tr><td>Sinal intermitente</td><td>Mau contato no conector ou chicote</td></tr>
+</table>
+
+<h2 id="verificacao-circuito">Verificação do circuito</h2>
+<h3>Com multímetro (chave desligada)</h3>
+<ul>
+  <li>Verifique continuidade entre o pino 1 do sensor e o pino A20 da ECM;</li>
+  <li>Verifique continuidade entre o pino 2 do sensor e o pino A50 da ECM;</li>
+  <li>Verifique continuidade entre o pino 3 do sensor e o pino A11 da ECM;</li>
+  <li>Verifique isolamento (resistência entre fios e massa &gt; 10.000 Ω);</li>
+  <li>Verifique oxidação nos terminais do conector.</li>
+</ul>
+
+<h2 id="problemas-solucoes">Problemas e soluções</h2>
+
+<h3 id="motor-nao-parte">Motor não parte</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Motor dá partida, mas não pega;</li>
+      <li>Luz de injeção acesa no painel.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Sensor de fase sem sinal;</li>
+      <li>Chicote rompido ou conector oxidado;</li>
+      <li>Sensor danificado internamente.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Verificar tensão de alimentação (5 V);</li>
+      <li>Testar o sinal com osciloscópio;</li>
+      <li>Substituir o sensor se necessário.</li>
+    </ul>
+  </div>
+</div>
+
+<h3 id="marcha-lenta-irregular">Marcha lenta irregular</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Rotação oscila sem comando;</li>
+      <li>Falhas e engasgos em aceleração.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Sinal intermitente do sensor;</li>
+      <li>Mau contato no conector;</li>
+      <li>Ponta magnética suja.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Limpar o conector e a ponta do sensor;</li>
+      <li>Verificar o chicote;</li>
+      <li>Testar com osciloscópio e substituir se necessário.</li>
+    </ul>
+  </div>
+</div>
+
+<h3 id="perda-potencia">Perda de potência / limitação em 2.500 rpm</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Motor não desenvolve aceleração plena;</li>
+      <li>Rotação limitada em 2.500 rpm;</li>
+      <li>Aumento do consumo de combustível.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Sinal fora de sincronismo;</li>
+      <li>Sensor com desgaste interno;</li>
+      <li>Desalinhamento na instalação (folga fora de 0,5 a 1,5 mm).</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Testar com osciloscópio;</li>
+      <li>Verificar o alinhamento do sensor;</li>
+      <li>Substituir o sensor.</li>
+    </ul>
+  </div>
+</div>
+
+<h3 id="codigo-p0340-persistente">Código P0340 persistente</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Luz de injeção acesa;</li>
+      <li>Falha retorna após apagada.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Falha no circuito elétrico;</li>
+      <li>Conector oxidado;</li>
+      <li>Sensor com defeito interno.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Verificar a fiação entre sensor e ECM (pinos A20, A50 e A11);</li>
+      <li>Limpar ou substituir o sensor;</li>
+      <li>Verificar o sincronismo do motor (distribuição mecânica).</li>
+    </ul>
+  </div>
+</div>
+
+<h3 id="vazamento-oleo">Vazamento de óleo</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Óleo acumulado ao redor do sensor;</li>
+      <li>Sujeira excessiva na região.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Anel de vedação danificado;</li>
+      <li>Sensor mal apertado;</li>
+      <li>Rosca danificada no alojamento.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Substituir o anel de vedação;</li>
+      <li>Reapertar conforme especificação;</li>
+      <li>Verificar a rosca do alojamento.</li>
+    </ul>
+  </div>
+</div>
+
+<h2 id="manutencao">Manutenção</h2>
+<ul>
+  <li><strong>Limpeza:</strong> remova o sensor e limpe a ponta magnética com pano limpo e álcool isopropílico;</li>
+  <li><strong>Conector:</strong> verifique e limpe os contatos elétricos do conector;</li>
+  <li><strong>Anel de vedação:</strong> substitua sempre que remover o sensor;</li>
+  <li><strong>Instalação:</strong> certifique-se de que a área de montagem esteja limpa antes de instalar;</li>
+  <li><strong>Folga:</strong> verifique se a distância entre o sensor e o ressalto do comando está entre <strong>0,5 e 1,5 mm</strong>;</li>
+  <li><strong>Peça original:</strong> prefira sensores Bosch originais para garantir sinal preciso.</li>
+</ul>
+
+<div class="dica">
+  <strong>Conclusão</strong>
+  <p>O sensor de fase Bosch 0281002667 é um componente crítico para o sincronismo e funcionamento correto do motor MWM 2.8. Seu princípio de funcionamento baseado em efeito Hall exige procedimentos específicos de teste — não se aplica medição de resistência, apenas verificação de tensão de alimentação e análise de sinal.</p>
+  <p>Em caso de falha com o motor em funcionamento, o ECM entra em modo de emergência (Limp-Home), limitando a rotação a 2.500 rpm sem desligar o motor. Se a falha ocorrer com o motor desligado, a partida é impedida. A correta identificação de falhas, aliada ao uso de ferramentas adequadas (multímetro para tensões, osciloscópio para forma de onda), permite diagnósticos precisos e substituições assertivas, garantindo o desempenho e a durabilidade do motor diesel MWM.</p>
+</div>
