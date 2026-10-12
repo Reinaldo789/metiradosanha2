@@ -1,687 +1,377 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sensor de Fase (CMP) Bosch 0281002667 — Motor MWM 2.8</title>
-<style>
-  :root{
-    --bg:#f5f6f8;
-    --card:#ffffff;
-    --ink:#1f2733;
-    --muted:#5b6675;
-    --line:#e2e6ec;
-    --accent:#0b5ed7;
-    --accent-soft:#e8f0fe;
-    --warn:#b8860b;
-    --warn-soft:#fff8e1;
-    --danger:#c62828;
-    --danger-soft:#fdecec;
-    --ok:#1b7f3b;
-    --ok-soft:#e9f7ee;
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    line-height:1.65;
-    font-size:16px;
-  }
-
-  /* ---------- Header ---------- */
-  .art-head{
-    background:linear-gradient(135deg,#0d1b2a 0%,#13294b 60%,#0b5ed7 100%);
-    color:#fff;
-    padding:48px 24px 40px;
-    text-align:center;
-  }
-  .art-head h1{
-    margin:0 auto 12px;
-    font-size:clamp(1.5rem,3.5vw,2.4rem);
-    font-weight:700;
-    letter-spacing:.3px;
-    max-width:900px;
-  }
-  .art-head p{
-    margin:0 auto;
-    max-width:760px;
-    opacity:.9;
-    font-size:.98rem;
-  }
-  .badges{
-    display:flex;
-    gap:10px;
-    justify-content:center;
-    flex-wrap:wrap;
-    margin-top:20px;
-  }
-  .badge{
-    background:rgba(255,255,255,.14);
-    border:1px solid rgba(255,255,255,.25);
-    padding:5px 14px;
-    border-radius:999px;
-    font-size:.82rem;
-    letter-spacing:.4px;
-  }
-
-  /* ---------- Layout ---------- */
-  .wrap{
-    max-width:1080px;
-    margin:0 auto;
-    padding:0 20px 80px;
-  }
-
-  /* ---------- Índice ---------- */
-  .toc{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:14px;
-    padding:22px 26px;
-    margin:-28px auto 36px;
-    box-shadow:0 8px 24px rgba(15,27,42,.07);
-    position:relative;
-    z-index:2;
-  }
-  .toc h2{
-    margin:0 0 14px;
-    font-size:1.05rem;
-    text-transform:uppercase;
-    letter-spacing:1px;
-    color:var(--muted);
-  }
-  .toc ol{
-    margin:0;
-    padding-left:0;
-    list-style:none;
-    columns:2;
-    column-gap:32px;
-  }
-  .toc li{margin-bottom:6px;break-inside:avoid}
-  .toc a{
-    color:var(--ink);
-    text-decoration:none;
-    font-size:.94rem;
-    display:flex;
-    align-items:baseline;
-    gap:8px;
-  }
-  .toc a::before{
-    content:counter(item,decimal-leading-zero);
-    counter-increment:item;
-    color:var(--accent);
-    font-weight:700;
-    font-size:.78rem;
-    min-width:22px;
-  }
-  .toc ol{counter-reset:item}
-  .toc a:hover{color:var(--accent);text-decoration:underline}
-
-  /* ---------- Seções ---------- */
-  section{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:14px;
-    padding:28px 30px;
-    margin-bottom:26px;
-    box-shadow:0 2px 8px rgba(15,27,42,.04);
-  }
-  h2{
-    font-size:1.35rem;
-    margin:0 0 18px;
-    padding-bottom:10px;
-    border-bottom:2px solid var(--accent-soft);
-    color:#0d1b2a;
-  }
-  h2 .num{
-    display:inline-block;
-    background:var(--accent);
-    color:#fff;
-    font-size:.8rem;
-    width:26px;height:26px;
-    line-height:26px;
-    text-align:center;
-    border-radius:7px;
-    margin-right:10px;
-    vertical-align:2px;
-    font-weight:700;
-  }
-  h3{
-    font-size:1.05rem;
-    margin:24px 0 12px;
-    color:#13294b;
-  }
-  h3:first-of-type{margin-top:8px}
-  h4{
-    font-size:.98rem;
-    margin:16px 0 8px;
-    color:#13294b;
-  }
-  p{margin:0 0 12px}
-  ul,ol{margin:0 0 14px;padding-left:22px}
-  li{margin-bottom:6px}
-
-  /* ---------- Tabelas ---------- */
-  table{
-    width:100%;
-    border-collapse:collapse;
-    margin:12px 0 20px;
-    font-size:.92rem;
-  }
-  th,td{
-    border:1px solid var(--line);
-    padding:9px 12px;
-    text-align:left;
-    vertical-align:top;
-  }
-  th{
-    background:#f0f4fa;
-    font-weight:600;
-    color:#13294b;
-    font-size:.86rem;
-    text-transform:uppercase;
-    letter-spacing:.4px;
-  }
-  tbody tr:nth-child(even){background:#fafbfd}
-  table code{
-    background:#eef2f8;
-    padding:2px 6px;
-    border-radius:5px;
-    font-size:.86em;
-    color:#0b3d91;
-  }
-
-  /* ---------- Specs grid ---------- */
-  .specs{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-    gap:12px;
-    margin:16px 0 22px;
-  }
-  .spec{
-    background:linear-gradient(180deg,#f8fafd,#eef3fa);
-    border:1px solid var(--line);
-    border-radius:11px;
-    padding:14px 12px;
-    text-align:center;
-  }
-  .spec b{
-    display:block;
-    font-size:1.05rem;
-    color:#0b5ed7;
-    margin-bottom:3px;
-  }
-  .spec span{
-    font-size:.76rem;
-    text-transform:uppercase;
-    letter-spacing:.6px;
-    color:var(--muted);
-  }
-
-  /* ---------- Caixas de aviso ---------- */
-  .aviso,.dica,.nota{
-    border-radius:10px;
-    padding:14px 18px;
-    margin:16px 0;
-    border-left:4px solid;
-    font-size:.94rem;
-  }
-  .aviso{
-    background:var(--danger-soft);
-    border-color:var(--danger);
-  }
-  .aviso strong{color:var(--danger)}
-  .dica{
-    background:var(--warn-soft);
-    border-color:var(--warn);
-  }
-  .dica strong{color:var(--warn)}
-  .nota{
-    background:var(--ok-soft);
-    border-color:var(--ok);
-  }
-  .nota strong{color:var(--ok)}
-  .aviso p,.dica p,.nota p{margin:6px 0 0}
-
-  /* ---------- Códigos de falha ---------- */
-  .codigos{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-    gap:12px;
-    margin:16px 0;
-  }
-  .codigo{
-    background:#fafbfd;
-    border:1px solid var(--line);
-    border-left:4px solid var(--danger);
-    border-radius:10px;
-    padding:14px 16px;
-  }
-  .codigo .num{
-    display:inline-block;
-    background:var(--danger);
-    color:#fff;
-    font-size:.78rem;
-    font-weight:700;
-    padding:3px 10px;
-    border-radius:6px;
-    margin-bottom:8px;
-    letter-spacing:.5px;
-  }
-  .codigo h4{margin:0 0 6px;font-size:.98rem}
-  .codigo p{margin:0;font-size:.88rem;color:var(--muted)}
-
-  /* ---------- Lista de sintomas ---------- */
-  .sintomas{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:12px;
-    margin:16px 0;
-  }
-  .sintoma{
-    background:linear-gradient(180deg,#f8fafd,#eef3fa);
-    border:1px solid var(--line);
-    border-radius:11px;
-    padding:14px 16px;
-  }
-  .sintoma b{display:block;color:#0b5ed7;margin-bottom:5px;font-size:.95rem}
-  .sintoma span{font-size:.86rem;color:var(--muted)}
-
-  /* ---------- Forma de onda ---------- */
-  .wave-box{
-    background:#0d1b2a;
-    border-radius:12px;
-    padding:20px;
-    margin:16px 0;
-    overflow-x:auto;
-  }
-  .wave-box svg{display:block;margin:0 auto;max-width:100%;height:auto}
-  .wave-cap{
-    text-align:center;
-    color:#9fb3cc;
-    font-size:.82rem;
-    margin-top:10px;
-    letter-spacing:.4px;
-  }
-
-  /* ---------- Footer ---------- */
-  .foot{
-    text-align:center;
-    color:var(--muted);
-    font-size:.85rem;
-    padding:24px 0 0;
-    border-top:1px solid var(--line);
-    margin-top:36px;
-  }
-
-  /* ---------- Voltar ao topo ---------- */
-  .top{
-    position:fixed;
-    right:20px;
-    bottom:20px;
-    background:var(--accent);
-    color:#fff;
-    width:44px;height:44px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-decoration:none;
-    font-size:1.2rem;
-    box-shadow:0 6px 18px rgba(11,94,215,.35);
-    transition:transform .2s;
-    z-index:50;
-  }
-  .top:hover{transform:translateY(-3px)}
-
-  /* ---------- Responsivo ---------- */
-  @media (max-width:640px){
-    .toc ol{columns:1}
-    section{padding:22px 18px}
-    .art-head{padding:36px 18px 32px}
-    table{font-size:.85rem}
-    th,td{padding:7px 9px}
-  }
-</style>
-</head>
-<body>
-
-<!-- ================= HEADER ================= -->
 <header class="art-head">
   <h1>Sensor de Fase (CMP) Bosch 0281002667</h1>
-  <p>Componente essencial para o sincronismo do motor MWM 2.8 Eletronic — utilizado em Chevrolet S10/Blazer, Nissan Frontier/Xterra, Agrale Marruá, Fiat Ducato e Iveco Daily.</p>
-  <div class="badges">
-    <span class="badge">Efeito Hall</span>
-    <span class="badge">3 pinos</span>
-    <span class="badge">5V</span>
-    <span class="badge">Onda quadrada</span>
-  </div>
 </header>
 
-<div class="wrap">
+<nav class="toc" aria-label="Neste artigo">
+  <strong>Neste artigo</strong>
+  <ul>
+    <li><a href="#" data-goto="identificacao">Identificação</a></li>
+    <li><a href="#" data-goto="dados">Dados técnicos</a></li>
+    <li><a href="#" data-goto="funcionamento">Funcionamento</a></li>
+    <li><a href="#" data-goto="diagnostico">Diagnóstico de ocorrências</a></li>
+    <li><a href="#" data-goto="codigos-de-falha">Códigos de falha</a></li>
+    <li><a href="#" data-goto="causas-comuns">Causas comuns</a></li>
+    <li><a href="#" data-goto="teste-multimetro">Teste com multímetro</a></li>
+    <li><a href="#" data-goto="teste-osciloscopio">Teste com osciloscópio</a></li>
+    <li><a href="#" data-goto="verificacao-circuito">Verificação do circuito</a></li>
+    <li><a href="#" data-goto="problemas-solucoes">Problemas e soluções</a></li>
+    <li><a href="#" data-goto="manutencao">Manutenção</a></li>
+  </ul>
+</nav>
 
-  <!-- ================= ÍNDICE ================= -->
-  <nav class="toc">
-    <h2>Índice</h2>
-    <ol>
-      <li><a href="#identificacao">Identificação e Aplicação</a></li>
-      <li><a href="#dados">Dados Técnicos</a></li>
-      <li><a href="#funcionamento">Princípio de Funcionamento</a></li>
-      <li><a href="#diagnostico">Diagnóstico de Falhas</a></li>
-      <li><a href="#codigos">Códigos de Falha (DTC)</a></li>
-      <li><a href="#causas">Causas Comuns de Falha</a></li>
-      <li><a href="#teste-multimetro">Teste com Multímetro</a></li>
-      <li><a href="#teste-osciloscopio">Teste com Osciloscópio</a></li>
-      <li><a href="#circuito">Verificação do Circuito</a></li>
-      <li><a href="#problemas">Problemas Comuns e Soluções</a></li>
-      <li><a href="#manutencao">Dicas de Manutenção</a></li>
-    </ol>
-  </nav>
+<h2 id="identificacao">Identificação</h2>
+<p>O sensor de fase Bosch <strong>0281002667</strong> é aplicado no motor MWM 2.8 Eletronic, utilizado em veículos como Chevrolet S10/Blazer, Nissan Frontier/Xterra, Agrale Marruá, Fiat Ducato, Iveco Daily e VW Delivery. Confira sempre o código antes de substituir a peça.</p>
 
-  <!-- ================= 1. IDENTIFICAÇÃO ================= -->
-  <section id="identificacao">
-    <h2><span class="num">1</span>Identificação e Aplicação</h2>
+<table>
+  <tr><th>Fabricante / Montadora</th><th>Código</th></tr>
+  <tr><td><strong>Bosch</strong></td><td>0 281 002 667 / 0281002667</td></tr>
+  <tr><td><strong>Bosch (alternativo)</strong></td><td>0232103052</td></tr>
+  <tr><td><strong>GM / Chevrolet</strong></td><td>93347211 / 93.347.211</td></tr>
+  <tr><td><strong>Fiat</strong></td><td>504048261 / 55.187.973</td></tr>
+  <tr><td><strong>MWM</strong></td><td>9 4070 06 7 0074</td></tr>
+  <tr><td><strong>Iveco</strong></td><td>5802260743</td></tr>
+  <tr><td><strong>VW</strong></td><td>2P0133491</td></tr>
+  <tr><td><strong>Magneti Marelli</strong></td><td>SRM6210</td></tr>
+</table>
 
-    <h3>Códigos e Referências</h3>
-    <table>
-      <thead>
-        <tr><th>Fabricante / Montadora</th><th>Código</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Bosch</strong></td><td><code>0 281 002 667</code> / <code>0281002667</code></td></tr>
-        <tr><td><strong>Bosch (alternativo)</strong></td><td><code>0232103052</code></td></tr>
-        <tr><td><strong>GM / Chevrolet</strong></td><td><code>93347211</code> / <code>93.347.211</code></td></tr>
-        <tr><td><strong>Fiat</strong></td><td><code>504048261</code> / <code>55.187.973</code></td></tr>
-        <tr><td><strong>MWM</strong></td><td><code>9 4070 06 7 0074</code></td></tr>
-        <tr><td><strong>Iveco</strong></td><td><code>5802260743</code></td></tr>
-        <tr><td><strong>VW</strong></td><td><code>2P0133491</code></td></tr>
-        <tr><td><strong>Magneti Marelli</strong></td><td><code>SRM6210</code></td></tr>
-      </tbody>
-    </table>
-
-    <h3>Aplicações Principais</h3>
-    <table>
-      <thead>
-        <tr><th>Veículo</th><th>Motor</th><th>Ano</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Chevrolet S10</td><td>2.8 MWM Eletronic</td><td>2005–2012</td></tr>
-        <tr><td>Chevrolet Blazer</td><td>2.8 MWM Eletronic</td><td>2005–2009</td></tr>
-        <tr><td>Nissan Frontier</td><td>2.8 MWM Eletronic</td><td>2005–2008</td></tr>
-        <tr><td>Nissan Xterra</td><td>2.8 MWM Eletronic</td><td>2003–2008</td></tr>
-        <tr><td>Agrale Marruá</td><td>2.8 MWM</td><td>2005–2015</td></tr>
-        <tr><td>Agrale Furgovan 6000</td><td>2.8 MWM</td><td>2002–2011</td></tr>
-        <tr><td>Fiat Ducato</td><td>2.8 JTD</td><td>2005–2009</td></tr>
-        <tr><td>Iveco Daily</td><td>2.8 JTD</td><td>1999–2007</td></tr>
-        <tr><td>VW Delivery 5140/8150</td><td>MWM 407TCE/408TCE</td><td>2004–2012</td></tr>
-      </tbody>
-    </table>
-
-    <div class="nota">
-      <strong>Observação</strong>
-      <p>Este sensor é compartilhado entre diversos motores diesel MWM e também aplicado em motores de outras montadoras, incluindo Ford, Land Rover e Mahindra, demonstrando sua ampla compatibilidade no mercado de reposição.</p>
-    </div>
-  </section>
-
-  <!-- ================= 2. DADOS TÉCNICOS ================= -->
-  <section id="dados">
-    <h2><span class="num">2</span>Dados Técnicos</h2>
-
-    <div class="specs">
-      <div class="spec"><b>Hall</b><span>Tecnologia</span></div>
-      <div class="spec"><b>3 pinos</b><span>Conector</span></div>
-      <div class="spec"><b>5V</b><span>Alimentação</span></div>
-      <div class="spec"><b>Onda quadrada</b><span>Tipo de sinal</span></div>
-      <div class="spec"><b>&lt; 20 mA</b><span>Corrente nominal</span></div>
-      <div class="spec"><b>IP6K9K</b><span>Proteção</span></div>
-    </div>
-
-    <h3>Especificações do Sensor</h3>
-    <table>
-      <thead>
-        <tr><th>Item</th><th>Especificação</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Tecnologia</strong></td><td>Efeito Hall</td></tr>
-        <tr><td><strong>Tipo de Sinal</strong></td><td>Onda quadrada digital</td></tr>
-        <tr><td><strong>Conector</strong></td><td>3 pinos (padrão alemão)</td></tr>
-        <tr><td><strong>Tensão de Alimentação</strong></td><td>5V (sistema Bosch diesel)</td></tr>
-        <tr><td><strong>Corrente Nominal</strong></td><td>&lt; 20 mA</td></tr>
-        <tr><td><strong>Temperatura de Operação</strong></td><td>−40 °C a +130 °C</td></tr>
-        <tr><td><strong>Proteção</strong></td><td>IP6K9K (resistente a lavagem de alta pressão)</td></tr>
-        <tr><td><strong>Tipo de Fixação</strong></td><td>Flange com 1 parafuso</td></tr>
-        <tr><td><strong>Comprimento do Cabo</strong></td><td>Aprox. 150–200 mm (com conector)</td></tr>
-      </tbody>
-    </table>
-  </section>
-
-  <!-- ================= 3. FUNCIONAMENTO ================= -->
-  <section id="funcionamento">
-    <h2><span class="num">3</span>Princípio de Funcionamento</h2>
-
-    <p>O sensor de fase tipo Hall opera captando a passagem dos <strong>ressaltos presentes na engrenagem ou eixo do comando de válvulas</strong> do motor MWM. Diferente de alguns motores que utilizam cavidades, o MWM adota o sistema de ressaltos para gerar o sinal de fase.</p>
-
-    <p>A função principal é informar à <strong>ECM (Unidade de Controle do Motor)</strong> em qual fase do ciclo de quatro tempos cada cilindro se encontra. Isso permite que o sistema de injeção determine:</p>
-
-    <ul>
-      <li><strong>Sequência de injeção</strong> correta</li>
-      <li><strong>Momento preciso</strong> de pulverização do diesel</li>
-      <li><strong>Sincronização</strong> com o sensor de rotação (CKP)</li>
-    </ul>
-
-    <div class="dica">
-      <strong>Trabalho em conjunto com o CKP</strong>
-      <p>O sensor trabalha em conjunto com o sensor de rotação. Enquanto o CKP informa a posição do virabrequim, o CMP identifica qual cilindro está em final de compressão, permitindo a injeção sequencial e otimizada.</p>
-    </div>
-  </section>
-
-  <!-- ================= 4. DIAGNÓSTICO ================= -->
-  <section id="diagnostico">
-    <h2><span class="num">4</span>Diagnóstico de Falhas</h2>
-
-    <h3>Sintomas de Sensor Defeituoso</h3>
-    <div class="sintomas">
-      <div class="sintoma"><b>Dificuldade de partida</b><span>Motor demora a pegar ou não dá partida</span></div>
-      <div class="sintoma"><b>Marcha lenta instável</b><span>Rotação oscila sem comando</span></div>
-      <div class="sintoma"><b>Perda de potência</b><span>Motor não desenvolve aceleração plena</span></div>
-      <div class="sintoma"><b>Aumento de consumo</b><span>Injeção fora de sincronismo</span></div>
-      <div class="sintoma"><b>Luz de advertência</b><span>Check Engine acesa no painel</span></div>
-      <div class="sintoma"><b>Funcionamento irregular</b><span>Falhas e engasgos durante aceleração</span></div>
-    </div>
-  </section>
-
-  <!-- ================= 5. CÓDIGOS DE FALHA ================= -->
-  <section id="codigos">
-    <h2><span class="num">5</span>Códigos de Falha (DTC)</h2>
-
-    <div class="codigos">
-      <div class="codigo">
-        <span class="num">P0340</span>
-        <h4>Circuito do Sensor "A"</h4>
-        <p>Mau funcionamento do circuito do sensor de posição do comando de válvulas "A".</p>
-      </div>
-      <div class="codigo">
-        <span class="num">P0341</span>
-        <h4>Desempenho / Faixa</h4>
-        <p>Desempenho ou faixa do circuito do sensor "A" fora do esperado.</p>
-      </div>
-      <div class="codigo">
-        <span class="num">P0342</span>
-        <h4>Sinal Baixo</h4>
-        <p>Tensão do circuito do sensor "A" abaixo do mínimo esperado.</p>
-      </div>
-      <div class="codigo">
-        <span class="num">P0343</span>
-        <h4>Sinal Alto</h4>
-        <p>Tensão do circuito do sensor "A" acima do máximo esperado.</p>
-      </div>
-      <div class="codigo">
-        <span class="num">P0344</span>
-        <h4>Intermitente</h4>
-        <p>Sinal do circuito do sensor "A" intermitente.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= 6. CAUSAS ================= -->
-  <section id="causas">
-    <h2><span class="num">6</span>Causas Comuns de Falha</h2>
-
-    <table>
-      <thead>
-        <tr><th>Causa</th><th>Detalhes</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Sujeira magnética</strong></td><td>Acúmulo de limalha de ferro na ponta do sensor</td></tr>
-        <tr><td><strong>Oxidação</strong></td><td>Corrosão nos pinos do conector do chicote</td></tr>
-        <tr><td><strong>Danos no chicote</strong></td><td>Fios rompidos ou com mau contato</td></tr>
-        <tr><td><strong>Falha interna</strong></td><td>Defeito no circuito Hall do sensor</td></tr>
-        <tr><td><strong>Desalinhamento</strong></td><td>Folga excessiva ou instalação incorreta</td></tr>
-      </tbody>
-    </table>
-
-    <div class="aviso">
-      <strong>Importante</strong>
-      <p>Antes de substituir o sensor, verifique a limpeza da ponta magnética e o estado do conector. A contaminação por limalha metálica é uma causa frequente de leitura incorreta e pode ser resolvida com simples limpeza.</p>
-    </div>
-  </section>
-
-  <!-- ================= 7. TESTE MULTÍMETRO ================= -->
-  <section id="teste-multimetro">
-    <h2><span class="num">7</span>Teste com Multímetro</h2>
-
-    <h3>1. Teste de Tensão de Alimentação</h3>
-    <p><strong>Condição:</strong> Chave de ignição ligada, conector desconectado.</p>
-    <ol>
-      <li>Identifique o pino negativo (verifique continuidade com o polo negativo da bateria);</li>
-      <li>Ajuste o multímetro para escala de tensão DC (20V);</li>
-      <li>Coloque a ponta preta no pino negativo identificado;</li>
-      <li>Meça a tensão nos outros dois pinos.</li>
-    </ol>
-    <div class="nota">
-      <strong>Valor Esperado</strong>
-      <p><strong>5V</strong> no pino de alimentação. Sensores tipo Hall geralmente recebem alimentação de 5V ou 12V. No sistema Bosch do MWM 2.8, a tensão padrão é <strong>5V</strong>.</p>
-    </div>
-
-    <h3>2. Teste de Resistência — NÃO APLICÁVEL</h3>
-    <div class="aviso">
-      <strong>Atenção</strong>
-      <p>O sensor tipo Hall <strong>NÃO PODE</strong> ser testado por medição de resistência. Sensores Hall contêm circuitos eletrônicos internos e não apresentam valor ôhmico mensurável. Apenas sensores indutivos possuem resistência mensurável.</p>
-    </div>
-
-    <h3>3. Teste de Sinal Dinâmico</h3>
-    <p><strong>Condição:</strong> Sensor instalado, conector conectado, motor em funcionamento ou partida.</p>
-    <ol>
-      <li>Multímetro em escala de tensão DC;</li>
-      <li>Meça entre o pino de sinal e o pino negativo;</li>
-      <li>A tensão deve <strong>flutuar rapidamente</strong> entre valores baixos e altos.</li>
-    </ol>
-    <div class="dica">
-      <strong>Limitação</strong>
-      <p>A frequência de comutação do sinal Hall é muito alta para um multímetro comum acompanhar. O método preferencial é o <strong>osciloscópio</strong>.</p>
-    </div>
-  </section>
-
-  <!-- ================= 8. OSCILOSCÓPIO ================= -->
-  <section id="teste-osciloscopio">
-    <h2><span class="num">8</span>Teste com Osciloscópio (Método Preferencial)</h2>
-
-    <h3>Configuração</h3>
-    <ul>
-      <li><strong>Conexão:</strong> CA (AC)</li>
-      <li><strong>Escala:</strong> 5V ou 10V</li>
-      <li><strong>Base de tempo:</strong> Ajustar conforme rotação do motor</li>
-    </ul>
-
-    <h3>Forma de Onda Esperada</h3>
-    <div class="wave-box">
-      <svg viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Forma de onda quadrada do sensor Hall">
-        <line x1="40" y1="150" x2="580" y2="150" stroke="#3a5378" stroke-width="1.5"/>
-        <line x1="40" y1="20" x2="40" y2="150" stroke="#3a5378" stroke-width="1.5"/>
-        <text x="10" y="35" fill="#9fb3cc" font-size="11" font-family="monospace">5V</text>
-        <text x="10" y="148" fill="#9fb3cc" font-size="11" font-family="monospace">0V</text>
-        <text x="300" y="172" fill="#9fb3cc" font-size="11" font-family="monospace" text-anchor="middle">tempo →</text>
-        <polyline points="40,150 90,150 90,30 140,30 140,150 190,150 190,30 240,30 240,150 290,150 290,30 340,30 340,150 390,150 390,30 440,30 440,150 490,150 490,30 540,30 540,150 580,150"
-          fill="none" stroke="#4da3ff" stroke-width="2.5" stroke-linejoin="round"/>
-        <circle cx="90" cy="30" r="3" fill="#4da3ff"/>
-        <circle cx="140" cy="30" r="3" fill="#4da3ff"/>
-      </svg>
-      <div class="wave-cap">Sinal Hall — onda quadrada com transições nítidas entre nível baixo e alto</div>
-    </div>
-
-    <h3>Interpretação</h3>
-    <table>
-      <thead>
-        <tr><th>Observação</th><th>Diagnóstico</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Onda quadrada regular</td><td>Sensor OK</td></tr>
-        <tr><td>Onda ausente</td><td>Sensor ou circuito com falha</td></tr>
-        <tr><td>Onda distorcida / quebrada</td><td>Sensor com defeito interno</td></tr>
-        <tr><td>Sinal intermitente</td><td>Mau contato no conector ou chicote</td></tr>
-      </tbody>
-    </table>
-  </section>
-
-  <!-- ================= 9. CIRCUITO ================= -->
-  <section id="circuito">
-    <h2><span class="num">9</span>Verificação do Circuito</h2>
-
-    <h3>Com multímetro (chave desligada)</h3>
-    <ol>
-      <li>Verifique continuidade dos fios entre sensor e ECM;</li>
-      <li>Verifique isolamento (resistência entre fios e massa &gt; 10.000 ohms);</li>
-      <li>Verifique oxidação nos terminais do conector.</li>
-    </ol>
-  </section>
-
-  <!-- ================= 10. PROBLEMAS ================= -->
-  <section id="problemas">
-    <h2><span class="num">10</span>Problemas Comuns e Soluções</h2>
-
-    <table>
-      <thead>
-        <tr><th>Problema</th><th>Causa Provável</th><th>Solução</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Motor não parte</td><td>Sensor sem sinal</td><td>Verificar alimentação, substituir sensor</td></tr>
-        <tr><td>Marcha lenta irregular</td><td>Sinal intermitente</td><td>Limpar conector, verificar chicote</td></tr>
-        <tr><td>Perda de potência</td><td>Sinal fora de sincronismo</td><td>Testar com osciloscópio, substituir</td></tr>
-        <tr><td>Código P0340 persistente</td><td>Falha no circuito</td><td>Verificar fiação, limpar ou substituir sensor</td></tr>
-        <tr><td>Leitura incorreta</td><td>Ponta magnética suja</td><td>Limpar ponta com pano e álcool</td></tr>
-        <tr><td>Vazamento de óleo</td><td>Anel de vedação danificado</td><td>Substituir anel de vedação</td></tr>
-      </tbody>
-    </table>
-  </section>
-
-  <!-- ================= 11. MANUTENÇÃO ================= -->
-  <section id="manutencao">
-    <h2><span class="num">11</span>Dicas de Manutenção</h2>
-
-    <ol>
-      <li><strong>Limpeza:</strong> Periodicamente, remova o sensor e limpe a ponta magnética com pano limpo e álcool isopropílico;</li>
-      <li><strong>Conector:</strong> Verifique e limpe os contatos elétricos do conector;</li>
-      <li><strong>Anel de vedação:</strong> Substitua sempre que remover o sensor;</li>
-      <li><strong>Instalação:</strong> Certifique-se de que a área de montagem esteja limpa antes de instalar;</li>
-      <li><strong>Peça original:</strong> Prefira sensores Bosch originais para garantir sinal preciso.</li>
-    </ol>
-
-    <div class="nota">
-      <strong>Conclusão</strong>
-      <p>O sensor de fase Bosch 0281002667 é um componente crítico para o sincronismo e funcionamento correto do motor MWM 2.8. Seu princípio de funcionamento baseado em <strong>efeito Hall</strong> exige procedimentos específicos de teste — <strong>não se aplica medição de resistência</strong>, apenas verificação de tensão de alimentação e análise de sinal.</p>
-      <p>A correta identificação de falhas, aliada ao uso de ferramentas adequadas (multímetro para tensões, osciloscópio para forma de onda), permite diagnósticos precisos e substituições assertivas, garantindo o desempenho e a durabilidade do motor diesel MWM.</p>
-    </div>
-  </section>
-
-  <div class="foot">
-    Documento técnico — Sensor de Fase Bosch 0281002667 · Motor MWM 2.8 Eletronic
-  </div>
-
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Não remova nem destrua a identificação do sensor. A conferência do código evita a instalação de peça incorreta.</p>
 </div>
 
-<a href="#" class="top" aria-label="Voltar ao topo">↑</a>
+<h2 id="dados">Dados técnicos</h2>
+<div class="specs">
+  <div class="spec"><b>Hall</b><span>Tecnologia</span></div>
+  <div class="spec"><b>3 pinos</b><span>Conector</span></div>
+  <div class="spec"><b>5 V</b><span>Alimentação</span></div>
+  <div class="spec"><b>Onda quadrada</b><span>Tipo de sinal</span></div>
+  <div class="spec"><b>&lt; 20 mA</b><span>Corrente nominal</span></div>
+  <div class="spec"><b>IP6K9K</b><span>Proteção</span></div>
+</div>
 
-</body>
-</html>
+<h3>Lubrificação e vedação</h3>
+<ul>
+  <li>Substitua o anel de vedação sempre que remover o sensor;</li>
+  <li>Limpe a ponta magnética com pano limpo e álcool isopropílico;</li>
+  <li>Aperte o parafuso de fixação conforme especificação do fabricante do motor.</li>
+</ul>
+
+<div class="dica">
+  <strong>Ponta magnética</strong>
+  <p>Mantenha a ponta do sensor sempre limpa. Limalha de ferro acumulada causa leitura incorreta.</p>
+</div>
+
+<h2 id="funcionamento">Funcionamento</h2>
+<p>O sensor de fase tipo Hall opera captando a passagem dos <strong>ressaltos presentes na engrenagem ou eixo do comando de válvulas</strong> do motor MWM.</p>
+<p>A função principal é informar à <strong>ECM (Unidade de Controle do Motor)</strong> em qual fase do ciclo de quatro tempos cada cilindro se encontra. Isso permite que o sistema de injeção determine:</p>
+<ul>
+  <li>A sequência de injeção correta;</li>
+  <li>O momento preciso de pulverização do diesel;</li>
+  <li>A sincronização com o sensor de rotação (CKP).</li>
+</ul>
+
+<div class="dica">
+  <strong>Trabalho em conjunto com o CKP</strong>
+  <p>O CKP informa a posição do virabrequim; o CMP identifica qual cilindro está em final de compressão, permitindo a injeção sequencial e otimizada.</p>
+</div>
+
+<h2 id="diagnostico">Diagnóstico de ocorrências</h2>
+<h3>Sintomas de sensor defeituoso</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Dificuldade de partida ou motor que não pega;</li>
+      <li>Marcha lenta instável;</li>
+      <li>Perda de potência;</li>
+      <li>Aumento do consumo de combustível;</li>
+      <li>Luz de advertência (Check Engine) acesa;</li>
+      <li>Falhas e engasgos durante a aceleração.</li>
+    </ul>
+  </div>
+</div>
+
+<h2 id="codigos-de-falha">Códigos de falha</h2>
+<div class="codigos">
+  <div class="codigo"><span class="num">P0340</span><div>
+    <h4>Mau funcionamento do circuito do sensor de posição do comando de válvulas "A"</h4>
+    <p>Não há comunicação elétrica adequada entre a ECM e o sensor. Pode indicar:</p>
+    <ul>
+      <li>Chicote rompido ou com mau contato;</li>
+      <li>Conector mal encaixado ou oxidado;</li>
+      <li>Sensor aberto (sem continuidade) ou em curto.</li>
+    </ul>
+  </div></div>
+  <div class="codigo"><span class="num">P0341</span><div>
+    <h4>Desempenho ou faixa do circuito do sensor "A" fora do esperado</h4>
+    <p>A ECM recebe sinal do sensor, mas fora do padrão. Causas comuns:</p>
+    <ul>
+      <li>Sujeira na ponta magnética do sensor;</li>
+      <li>Folga excessiva entre sensor e roda fônica do comando;</li>
+      <li>Falha interna no circuito Hall.</li>
+    </ul>
+  </div></div>
+  <div class="codigo"><span class="num">P0342</span><div>
+    <h4>Tensão do circuito do sensor "A" abaixo do mínimo esperado</h4>
+    <p>A linha de sinal está com tensão baixa. Pode indicar:</p>
+    <ul>
+      <li>Curto-circuito à massa no chicote;</li>
+      <li>Sensor com defeito interno;</li>
+      <li>Conector com umidade ou oxidação.</li>
+    </ul>
+  </div></div>
+  <div class="codigo"><span class="num">P0343</span><div>
+    <h4>Tensão do circuito do sensor "A" acima do máximo esperado</h4>
+    <p>A linha de sinal está com tensão alta. Pode indicar:</p>
+    <ul>
+      <li>Curto-circuito ao positivo no chicote;</li>
+      <li>Falha interna no sensor;</li>
+      <li>Inversão de pinos no conector.</li>
+    </ul>
+  </div></div>
+  <div class="codigo"><span class="num">P0344</span><div>
+    <h4>Sinal do circuito do sensor "A" intermitente</h4>
+    <p>O sinal aparece e desaparece durante o funcionamento. Causas prováveis:</p>
+    <ul>
+      <li>Mau contato no conector ou chicote;</li>
+      <li>Sensor com desgaste interno;</li>
+      <li>Interferência elétrica próxima ao cabeamento.</li>
+    </ul>
+  </div></div>
+</div>
+
+<h2 id="causas-comuns">Causas comuns</h2>
+<table>
+  <tr><th>Causa</th><th>Detalhes</th></tr>
+  <tr><td><strong>Sujeira magnética</strong></td><td>Acúmulo de limalha de ferro na ponta do sensor</td></tr>
+  <tr><td><strong>Oxidação</strong></td><td>Corrosão nos pinos do conector do chicote</td></tr>
+  <tr><td><strong>Danos no chicote</strong></td><td>Fios rompidos ou com mau contato</td></tr>
+  <tr><td><strong>Falha interna</strong></td><td>Defeito no circuito Hall do sensor</td></tr>
+  <tr><td><strong>Desalinhamento</strong></td><td>Folga excessiva ou instalação incorreta</td></tr>
+</table>
+
+<div class="aviso">
+  <strong>Importante</strong>
+  <p>Antes de substituir o sensor, verifique a limpeza da ponta magnética e o estado do conector. A contaminação por limalha metálica é uma causa frequente de leitura incorreta e pode ser resolvida com simples limpeza.</p>
+</div>
+
+<h2 id="teste-multimetro">Teste com multímetro</h2>
+
+<h3 id="teste-tensao-alimentacao">Teste de tensão de alimentação</h3>
+<p><strong>Condição:</strong> chave de ignição ligada, conector desconectado.</p>
+<ul>
+  <li>Identifique o pino negativo (verifique continuidade com o polo negativo da bateria);</li>
+  <li>Ajuste o multímetro para escala de tensão DC (20 V);</li>
+  <li>Coloque a ponta preta no pino negativo identificado;</li>
+  <li>Meça a tensão nos outros dois pinos.</li>
+</ul>
+
+<div class="specs">
+  <div class="spec"><b>5 V</b><span>Alimentação</span></div>
+  <div class="spec"><b>0 V a 5 V</b><span>Sinal dinâmico</span></div>
+  <div class="spec"><b>0 V</b><span>Pino negativo</span></div>
+</div>
+
+<div class="dica">
+  <strong>Entenda o sinal Hall</strong>
+  <p>No sistema Bosch do MWM 2.8, a alimentação padrão do sensor é de <strong>5 V</strong>. O sinal comuta entre 0 V e 5 V em onda quadrada, com frequência proporcional à rotação do motor.</p>
+</div>
+
+<h3 id="teste-resistencia">Teste de resistência — NÃO APLICÁVEL</h3>
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>O sensor tipo Hall <strong>NÃO PODE</strong> ser testado por medição de resistência. Sensores Hall contêm circuitos eletrônicos internos e não apresentam valor ôhmico mensurável. Apenas sensores indutivos possuem resistência mensurável.</p>
+</div>
+
+<h3 id="teste-sinal-dinamico">Teste de sinal dinâmico</h3>
+<p><strong>Condição:</strong> sensor instalado, conector conectado, motor em funcionamento ou partida.</p>
+<ul>
+  <li>Multímetro em escala de tensão DC;</li>
+  <li>Meça entre o pino de sinal e o pino negativo;</li>
+  <li>A tensão deve flutuar rapidamente entre valores baixos e altos.</li>
+</ul>
+
+<div class="dica">
+  <strong>Limitação</strong>
+  <p>A frequência de comutação do sinal Hall é muito alta para um multímetro comum acompanhar. O método preferencial é o osciloscópio.</p>
+</div>
+
+<h2 id="teste-osciloscopio">Teste com osciloscópio</h2>
+
+<h3 id="configuracao-osciloscopio">Configuração</h3>
+<ul>
+  <li><strong>Conexão:</strong> CA (AC);</li>
+  <li><strong>Escala:</strong> 5 V ou 10 V;</li>
+  <li><strong>Base de tempo:</strong> ajustar conforme a rotação do motor.</li>
+</ul>
+
+<h3 id="forma-onda">Forma de onda esperada</h3>
+<p>O sinal correto é uma <strong>onda quadrada</strong> limpa, com transições nítidas entre nível baixo e alto, sem ruídos ou falhas.</p>
+
+<table>
+  <tr><th>Observação</th><th>Diagnóstico</th></tr>
+  <tr><td>Onda quadrada regular</td><td>Sensor OK</td></tr>
+  <tr><td>Onda ausente</td><td>Sensor ou circuito com falha</td></tr>
+  <tr><td>Onda distorcida / quebrada</td><td>Sensor com defeito interno</td></tr>
+  <tr><td>Sinal intermitente</td><td>Mau contato no conector ou chicote</td></tr>
+</table>
+
+<h2 id="verificacao-circuito">Verificação do circuito</h2>
+<h3>Com multímetro (chave desligada)</h3>
+<ul>
+  <li>Verifique continuidade dos fios entre sensor e ECM;</li>
+  <li>Verifique isolamento (resistência entre fios e massa &gt; 10.000 Ω);</li>
+  <li>Verifique oxidação nos terminais do conector.</li>
+</ul>
+
+<h2 id="problemas-solucoes">Problemas e soluções</h2>
+
+<h3 id="motor-nao-parte">Motor não parte</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Motor dá partida, mas não pega;</li>
+      <li>Luz de injeção acesa no painel.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Sensor de fase sem sinal;</li>
+      <li>Chicote rompido ou conector oxidado;</li>
+      <li>Sensor danificado internamente.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Verificar tensão de alimentação (5 V);</li>
+      <li>Testar o sinal com osciloscópio;</li>
+      <li>Substituir o sensor se necessário.</li>
+    </ul>
+  </div>
+</div>
+
+<h3 id="marcha-lenta-irregular">Marcha lenta irregular</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Rotação oscila sem comando;</li>
+      <li>Falhas e engasgos em aceleração.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Sinal intermitente do sensor;</li>
+      <li>Mau contato no conector;</li>
+      <li>Ponta magnética suja.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Limpar o conector e a ponta do sensor;</li>
+      <li>Verificar o chicote;</li>
+      <li>Testar com osciloscópio e substituir se necessário.</li>
+    </ul>
+  </div>
+</div>
+
+<h3 id="perda-potencia">Perda de potência</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Motor não desenvolve aceleração plena;</li>
+      <li>Aumento do consumo de combustível.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Sinal fora de sincronismo;</li>
+      <li>Sensor com desgaste interno;</li>
+      <li>Desalinhamento na instalação.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Testar com osciloscópio;</li>
+      <li>Verificar o alinhamento do sensor;</li>
+      <li>Substituir o sensor.</li>
+    </ul>
+  </div>
+</div>
+
+<h3 id="codigo-p0340-persistente">Código P0340 persistente</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Luz de injeção acesa;</li>
+      <li>Falha retorna após apagada.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Falha no circuito elétrico;</li>
+      <li>Conector oxidado;</li>
+      <li>Sensor com defeito interno.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Verificar a fiação entre sensor e ECM;</li>
+      <li>Limpar ou substituir o sensor;</li>
+      <li>Verificar o sincronismo do motor.</li>
+    </ul>
+  </div>
+</div>
+
+<h3 id="vazamento-oleo">Vazamento de óleo</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Óleo acumulado ao redor do sensor;</li>
+      <li>Sujeira excessiva na região.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Anel de vedação danificado;</li>
+      <li>Sensor mal apertado;</li>
+      <li>Rosca danificada no alojamento.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Substituir o anel de vedação;</li>
+      <li>Reapertar conforme especificação;</li>
+      <li>Verificar a rosca do alojamento.</li>
+    </ul>
+  </div>
+</div>
+
+<h2 id="manutencao">Manutenção</h2>
+<ul>
+  <li><strong>Limpeza:</strong> remova o sensor e limpe a ponta magnética com pano limpo e álcool isopropílico;</li>
+  <li><strong>Conector:</strong> verifique e limpe os contatos elétricos do conector;</li>
+  <li><strong>Anel de vedação:</strong> substitua sempre que remover o sensor;</li>
+  <li><strong>Instalação:</strong> certifique-se de que a área de montagem esteja limpa antes de instalar;</li>
+  <li><strong>Peça original:</strong> prefira sensores Bosch originais para garantir sinal preciso.</li>
+</ul>
+
+<div class="dica">
+  <strong>Conclusão</strong>
+  <p>O sensor de fase Bosch 0281002667 é um componente crítico para o sincronismo e funcionamento correto do motor MWM 2.8. Seu princípio de funcionamento baseado em efeito Hall exige procedimentos específicos de teste — não se aplica medição de resistência, apenas verificação de tensão de alimentação e análise de sinal.</p>
+  <p>A correta identificação de falhas, aliada ao uso de ferramentas adequadas (multímetro para tensões, osciloscópio para forma de onda), permite diagnósticos precisos e substituições assertivas, garantindo o desempenho e a durabilidade do motor diesel MWM.</p>
+</div>
