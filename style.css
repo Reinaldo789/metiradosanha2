@@ -1,5 +1,5 @@
 /* ==========================================
-   1. ESTILOS BASE E CORES (MELHORADO)
+   1. ESTILOS BASE E CORES
    ========================================== */
 :root {
   --bg-page: #f8fafc;
@@ -40,7 +40,7 @@ html, body {
 }
 
 /* ==========================================
-   2. CABEÇALHO SUPERIOR (NAVBAR) - MELHORADO
+   2. NAVBAR
    ========================================== */
 .site-wrapper > header {
   background: rgba(255, 255, 255, 0.85);
@@ -74,9 +74,7 @@ html, body {
   letter-spacing: -0.02em;
 }
 
-.logo i {
-  font-size: 1.3rem;
-}
+.logo i { font-size: 1.3rem; }
 
 .main-nav {
   display: flex;
@@ -141,7 +139,7 @@ html, body {
 }
 
 /* ==========================================
-   3. MEGA MENU DROPDOWN (DESKTOP) - MELHORADO
+   3. MEGA MENU
    ========================================== */
 .mega-menu {
   position: absolute;
@@ -240,17 +238,6 @@ html, body {
   transform: translateX(3px);
 }
 
-.mega-link-item i {
-  font-size: 0.7rem;
-  color: var(--text-muted);
-  transition: var(--transition);
-}
-
-.mega-link-item:hover i {
-  color: var(--primary);
-  transform: translateX(2px);
-}
-
 .mega-link-item.active {
   background-color: var(--primary-light);
   color: var(--primary);
@@ -315,7 +302,7 @@ html, body {
 .explore-link:hover { gap: 0.7rem; color: var(--primary-hover); }
 
 /* ==========================================
-   4. CONTEÚDO DA PÁGINA
+   4. CONTEÚDO
    ========================================== */
 main {
   flex-grow: 1;
@@ -325,52 +312,12 @@ main {
   width: 100%;
 }
 
-.hero-box {
-  text-align: center;
-  padding: 3.5rem 1.5rem;
-  background: white;
-  border-radius: 20px;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-color);
-}
-
-.hero-title-bg {
-  font-size: clamp(2rem, 6vw, 4.5rem);
-  font-weight: 900;
-  color: rgba(79, 70, 229, 0.12);
-  margin: 0;
-  line-height: 1;
-  text-transform: uppercase;
-  letter-spacing: -0.03em;
-}
-
-.hero-title-main {
-  font-size: clamp(1.5rem, 4vw, 2.2rem);
-  color: var(--text-main);
-  margin-top: -1rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-}
-
-.hero-sub {
-  color: var(--text-muted);
-  font-size: 0.95rem;
-  max-width: 600px;
-  margin: 0.8rem auto 0 auto;
-  line-height: 1.6;
-}
-
-/* ==========================================
-   18. PADDING DO CONTEÚDO NO MOBILE
-   ========================================== */
 @media (max-width: 768px) {
-  main {
-    padding: 1.5rem 0.8rem;
-  }
+  main { padding: 1.5rem 0.8rem; }
 }
 
 /* ==========================================
-   5. BOTÃO FLUTUANTE (VOLTAR AO TOPO)
+   5. BOTÃO FLUTUANTE
    ========================================== */
 .floating-container {
   position: fixed;
@@ -405,7 +352,7 @@ main {
 .float-btn.visible { opacity: 1; pointer-events: auto; }
 
 /* ==========================================
-   6. ESTILOS MOBILE - MELHORADO
+   6. MOBILE
    ========================================== */
 @media (max-width: 960px) {
   .mobile-toggle { display: block; }
@@ -504,7 +451,7 @@ main {
 }
 
 /* ==========================================
-   7. PÁGINAS CARREGADAS DE conteudo/
+   7. PAGE CARD
    ========================================== */
 .page-card {
   background: var(--card-bg);
@@ -516,7 +463,7 @@ main {
   margin: 0 auto;
   line-height: 1.7;
 }
-.page-card[hidden], .hero-box[hidden] { display: none; }
+.page-card[hidden], .home[hidden] { display: none; }
 .page-crumb { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.4rem; }
 .page-crumb a { color: var(--primary); text-decoration: none; }
 .page-card h1 { margin: 0 0 1rem; font-size: clamp(1.5rem, 4vw, 2rem); }
@@ -543,7 +490,7 @@ main {
 .aviso p { margin: 0.3rem 0 0; }
 
 /* ==========================================
-   8. MEGA MENU COMPACTO (somente desktop)
+   8. MEGA MENU COMPACTO (desktop)
    ========================================== */
 @media (min-width: 961px) {
   .mega-menu {
@@ -565,7 +512,7 @@ main {
 }
 
 /* ==========================================
-   9. MENUS ELEGANTES (sem mega menu)
+   9. MENUS ELEGANTES (override)
    ========================================== */
 .explore-header-title, .explore-banner { display: none; }
 .mega-link-item i { display: none; }
@@ -688,7 +635,7 @@ main {
 }
 
 /* ==========================================
-   11. ARTIGOS (abas, caixas, diálogo)
+   11. ARTIGOS
    ========================================== */
 .page-card .art-head {
   background: linear-gradient(135deg, #312e81 0%, #4f46e5 100%); color: #fff;
@@ -791,7 +738,7 @@ a.img-link::after { content: "\f03e"; font-family: "Font Awesome 6 Free"; font-w
 .page-card li { margin: 0.35rem 0; }
 
 /* ==========================================
-   13. BARRA ESCURA AO ROLAR A PÁGINA
+   13. BARRA ESCURA AO ROLAR
    ========================================== */
 .site-wrapper > header { transition: background 0.3s ease, border-color 0.3s ease; }
 .site-wrapper > header.scrolled { background: rgba(79, 70, 229, 0.95); border-bottom-color: #6366f1; }
@@ -820,7 +767,7 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 }
 
 /* ==========================================
-   15. FLUXOGRAMA INTERATIVO (Sim / Não)
+   15. FLUXOGRAMA INTERATIVO
    ========================================== */
 .fluxo { margin: 1rem 0; }
 .passo { display: none; background: #fff; border: 1px solid var(--border-color); border-left: 5px solid var(--primary); border-radius: 14px; padding: 1.1rem 1.2rem; box-shadow: var(--shadow-sm); }
@@ -845,7 +792,7 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 .fluxo > .passo:first-child [data-voltar] { visibility: hidden; }
 
 /* ==========================================
-   16. ESCOLHA DE SENSOR / ATUADOR
+   16. HUB CARDS
    ========================================== */
 .hub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.8rem; margin: 1rem 0 1.5rem; }
 .page-card .hub-card { display: flex; gap: 0.9rem; align-items: flex-start; padding: 1rem; background: #fff; border: 1px solid var(--border-color); border-radius: 14px; text-decoration: none; color: var(--text-main); transition: var(--transition); }
@@ -859,25 +806,150 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 .lightbox img.zoom { max-height: none; width: min(94vw, 1000px); cursor: zoom-out; }
 
 /* ==========================================
-   17. TABELAS DE ARTIGOS — TAMANHO DA FONTE
+   17. TABELAS
    ========================================== */
-.page-card table {
-  font-size: 1.2rem;
-}
-
-.page-card th {
-  font-size: 1rem;
-  padding: 0.6rem 0.8rem;
-}
-
-.page-card td {
-  padding: 0.4rem 0.7rem;
-  font-size: 1rem;
-  line-height: 1.4;
-}
+.page-card table { font-size: 1.2rem; }
+.page-card th { font-size: 1rem; padding: 0.6rem 0.8rem; }
+.page-card td { padding: 0.4rem 0.7rem; font-size: 1rem; line-height: 1.4; }
 
 @media (max-width: 768px) {
   .page-card table { font-size: 0.76rem; }
   .page-card th { font-size: 0.7rem; padding: 0.4rem 0.5rem; }
   .page-card td { padding: 0.4rem 0.5rem; font-size: 0.72rem; }
-} 
+}
+
+/* ==========================================
+   18. FLUXO DE CORRENTE (circuitos)
+   ========================================== */
+.page-card .pagina-ref {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: -0.3rem 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.page-card .circuito-bloco {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin: 1rem 0 1.8rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.fluxo-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.etapa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.3rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.92rem;
+  text-align: center;
+  width: 100%;
+  max-width: 420px;
+  border: 2px solid;
+  transition: var(--transition);
+  background: #fff;
+}
+
+.etapa i { font-size: 1.1rem; }
+.etapa:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+.etapa-bateria { border-color: #dc2626; color: #991b1b; background: #fef2f2; }
+.etapa-fusivel { border-color: #f59e0b; color: #92400e; background: #fffbeb; }
+.etapa-componente { border-color: #ea580c; color: #9a3412; background: #fff7ed; }
+.etapa-rele { border-color: var(--primary); color: var(--primary-hover); background: var(--primary-light); }
+.etapa-uce { border-color: #16a34a; color: #166534; background: #f0fdf4; }
+.etapa-terra { border-color: #64748b; color: #334155; background: #f1f5f9; }
+
+.fio-conexao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+  padding: 0.6rem 0;
+}
+
+.fio-conexao::before {
+  content: "";
+  display: block;
+  width: 4px;
+  height: 32px;
+  background: var(--cor-fio, #94a3b8);
+  border-radius: 2px;
+  margin-bottom: 0.4rem;
+}
+
+.fio-conexao::after {
+  content: "";
+  position: absolute;
+  top: 34px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 9px solid var(--cor-fio, #94a3b8);
+}
+
+.fio-badge {
+  display: inline-block;
+  background: #0f172a;
+  color: #e2e8f0;
+  border-radius: 99px;
+  padding: 0.3rem 0.9rem;
+  font-family: "Consolas", monospace;
+  font-size: 0.78rem;
+  white-space: nowrap;
+  box-shadow: var(--shadow-sm);
+}
+.fio-badge b { color: #fbbf24; font-weight: 700; }
+.fio-badge em { color: #94a3b8; font-style: normal; }
+
+.fio-amarelo { --cor-fio: #eab308; }
+.fio-violeta { --cor-fio: #7c3aed; }
+.fio-preto { --cor-fio: #1e293b; }
+.fio-vermelho { --cor-fio: #dc2626; }
+.fio-azul { --cor-fio: #2563eb; }
+.fio-verde { --cor-fio: #16a34a; }
+.fio-marrom { --cor-fio: #78350f; }
+.fio-branco { --cor-fio: #cbd5e1; }
+.fio-rosa { --cor-fio: #db2777; }
+.fio-laranja { --cor-fio: #ea580c; }
+
+.pino-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: #92400e;
+  background: #fffbeb;
+  border: 1px dashed #f59e0b;
+  border-radius: 8px;
+  padding: 0.5rem 0.9rem;
+  margin: 0.4rem 0;
+  max-width: 420px;
+  text-align: center;
+}
+.pino-info i { color: #f59e0b; }
+
+@media (max-width: 768px) {
+  .page-card .circuito-bloco { padding: 1.1rem; }
+  .etapa { font-size: 0.82rem; padding: 0.7rem 0.9rem; }
+  .fio-badge { font-size: 0.7rem; padding: 0.25rem 0.7rem; }
+  .pino-info { font-size: 0.72rem; }
+}
