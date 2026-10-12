@@ -1,203 +1,129 @@
-<!-- ESTILOS EXCLUSIVOS PARA COMPATIBILIDADE COM O DESIGN DO SEU SITE -->
+<!-- ESTILOS DO MAPA VISUAL INTERATIVO (DO UTOR IE / COMPACTO) -->
 <style>
-  .diagram-master-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 100%;
-    background: #ffffff;
+  .interactive-map-area {
+    position: relative;
+    max-width: 700px;
+    margin: 20px auto;
+    background-color: #f8fafc;
     border: 2px solid #cbd5e1;
     border-radius: 12px;
-    padding: 20px;
-    margin: 20px 0;
-    box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05));
+    overflow: hidden;
+    /* Ajuste a altura proporcional à sua imagem de fundo */
+    height: 650px; 
+    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
   }
 
-  /* Molduras Laterais Fixas (Componente e Módulo) */
-  .diagram-frame-box {
-    border: 3px solid #0f172a;
-    background: #ffffff;
-    padding: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 190px;
-    text-align: center;
-  }
-  .frame-left-side { width: 140px; }
-  .frame-right-side { width: 165px; }
-
-  .diagram-frame-box img {
-    max-width: 100%;
-    height: auto;
-    object-fit: contain;
-  }
-  
-  .diagram-frame-box span {
-    font-size: 11px;
-    font-weight: bold;
-    color: #475569;
-    margin-top: 8px;
-  }
-
-  /* Área Central do Chicote de Fios (Construção Rígida em Tabela) */
-  .diagram-harness-table-wrapper {
-    flex: 1;
-    padding: 0 15px;
-  }
-
-  .harness-wire-table {
+  /* Imagem de Fundo com os Renders/Fotos dos Componentes */
+  .map-background-img {
     width: 100%;
-    border-collapse: collapse;
-  }
-
-  .harness-wire-table td {
-    padding: 0;
-    vertical-align: middle;
-    height: 44px; /* Altura fixa para manter linhas paralelas simétricas */
-  }
-
-  /* Células das Tags de Pinagem Redondas/Quadradas */
-  .cell-pin-sensor { width: 32px; }
-  .cell-pin-ecu { width: 45px; }
-
-  .pin-tag-style {
-    font-size: 11px;
-    font-weight: bold;
-    color: #0f172a;
-    background: #ffffff;
-    border: 2px solid #0f172a;
-    width: 26px;
-    height: 26px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    margin: 0 auto;
-  }
-
-  /* Canal Elétrico Central (O Fio Físico) */
-  .cell-wire-conduit {
-    position: relative;
-    padding: 0 4px;
-  }
-  
-  .wire-line-body {
-    height: 4px;
-    width: 100%;
-    border-radius: 2px;
-    border: 1px solid #1e293b;
-  }
-
-  .wire-text-overlay {
+    height: 100%;
+    object-fit: cover;
     position: absolute;
-    top: -10px;
-    left: 15px;
-    font-size: 10px;
-    font-weight: 800;
-    color: #1e293b;
-    background: #ffffff;
-    padding: 0 6px;
-    white-space: nowrap;
-    border-radius: 2px;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    opacity: 0.95;
   }
 
-  /* MODELAGEM DE CORES E ZEBRADOS EM CSS PURO */
-  .color-ll { background-color: #d8b4fe; } /* Lilás / Roxo */
+  /* ZONAS DE INTERAÇÃO (BOTÕES INVISÍVEIS SOBRE OS COMPONENTES) */
+  .component-hotspot {
+    position: absolute;
+    border: 2px dashed transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 3;
+    transition: all 0.25s ease;
+  }
   
-  /* Fio listrado Verde e Amarelo (0,5 VD/AM) */
-  .color-vd-am {
-    background: linear-gradient(90deg, #22c55e 35%, #eab308 35%, #eab308 50%, #22c55e 50%, #22c55e 85%, #eab308 85%);
-    background-size: 20px 100%;
+  /* Efeito Hover: destaca o componente físico */
+  .component-hotspot:hover {
+    border-color: #4f46e5;
+    background-color: rgba(79, 70, 229, 0.08);
+    box-shadow: 0 0 15px rgba(79, 70, 229, 0.2);
   }
 
-  /* Fio listrado Branco e Preto (0,5 BR/PR) */
-  .color-br-pr {
-    background: linear-gradient(90deg, #ffffff 35%, #000000 35%, #000000 50%, #ffffff 50%, #ffffff 85%, #000000 85%);
-    background-size: 20px 100%;
-  }
+  /* POSICIONAMENTO DA MAQUETE (Baseado na sua imagem de referência) */
+  .spot-bateria { top: 40px; left: 30px; width: 140px; height: 110px; }
+  .spot-painel  { top: 40px; left: 240px; width: 280px; height: 130px; }
+  .spot-ecu     { top: 230px; left: 130px; width: 150px; height: 140px; }
+  .spot-boia    { top: 420px; left: 40px; width: 150px; height: 160px; }
+  .spot-temp    { top: 250px; left: 490px; width: 160px; height: 140px; }
+  .spot-oleo    { top: 440px; left: 460px; width: 160px; height: 140px; }
 
-  /* Responsividade para Dispositivos Móveis */
-  @media (max-width: 768px) {
-    .diagram-master-container { flex-direction: column; gap: 15px; }
-    .frame-left-side, .frame-right-side { width: 100%; min-height: auto; }
-    .diagram-harness-table-wrapper { width: 100%; padding: 0; }
-    .harness-wire-table td { height: auto; display: block; width: 100%; text-align: center; }
-    .harness-wire-table tr { display: flex; flex-direction: column; gap: 4px; margin-bottom: 15px; border-bottom: 1px dashed #cbd5e1; padding-bottom: 10px; }
-    .wire-line-body { height: 6px; margin: 4px 0; }
-    .wire-text-overlay { position: static; display: inline-block; padding: 0; }
+  /* JANELA FLUTUANTE DE DIAGNÓSTICO (TOOLTIP DE PINAGEM) */
+  .diag-hud-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 500px;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(4px);
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 12px 18px;
+    z-index: 4;
+    font-size: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    border: 1px solid #334155;
+    pointer-events: none;
+    display: none; /* Aparece via JS */
   }
+  .diag-hud-overlay strong { color: #38bdf8; font-size: 14px; display: block; margin-bottom: 2px; }
+  .diag-hud-overlay em { color: #fbbf24; font-style: normal; font-weight: bold; }
 </style>
 
-<div class="aviso">
-  <strong>Mapeamento do Sensor CKP:</strong> Estrutura estável travada por tabela de alinhamento rígido. Assegura a leitura sem distorções no monitor do computador ou celular.
-</div>
+<p class="art-lead">Mapa técnico interativo. Passe o mouse ou toque sobre qualquer componente do motor ou cabine para rastrear a pinagem e as cores oficiais do chicote do Marruá.</p>
 
-<!-- CONTAINER PRINCIPAL DO CIRCUITO DO SENSOR DE ROTAÇÃO (CKP) -->
-<div class="diagram-master-container">
+<!-- CONTAINER DO MAPA GERAL -->
+<div class="interactive-map-area" id="marruaMap">
   
-  <!-- LADO ESQUERDO: SENSOR DO VEÍCULO -->
-  <div class="diagram-frame-box frame-left-side">
-    <img src="img/sensor_rotacao.png" alt="Sensor CKP">
-    <span>Sensor CKP</span>
-  </div>
+  <!-- Imagem realista de fundo com os componentes posicionados -->
+  <img src="img/esquema_realista_fundo.png" alt="Esquema Elétrico Ilustrado" class="map-background-img">
 
-  <!-- CENTRO: CHICOTE COM FIOS PARALELOS CONECTADOS -->
-  <div class="diagram-harness-table-wrapper">
-    <table class="harness-wire-table">
-      <tbody>
-        
-        <!-- LINHA DO FIO 1 (SINAL) -->
-        <tr>
-          <td class="cell-pin-sensor">
-            <div class="pin-tag-style">1</div>
-          </td>
-          <td class="cell-wire-conduit">
-            <span class="wire-text-overlay">Sinal de Rotação — 0,5 VD/AM</span>
-            <div class="wire-line-body color-vd-am"></div>
-          </td>
-          <td class="cell-pin-ecu">
-            <div class="pin-tag-style">A12</div>
-          </td>
-        </tr>
+  <!-- CAPAS DE INTERAÇÃO (HOTSPOTS) -->
+  <div class="component-hotspot spot-bateria" data-name="Bateria de Alimentação (12V)" data-info="Linha de força primária (+30). Conecta ao interruptor da chave geral por meio do cabo grosso de bitola 35,0VM (Vermelho)."></div>
+  
+  <div class="component-hotspot spot-painel" data-name="Painel Central de Instrumentos" data-info="Recebe os sinais de monitoramento. Luz de carga ligada ao alternador pelo fio <em>A(625)0,75 AZ/VM</em>. Linha de combustível ligada à boia pelo fio <em>A(060)1,0</em> (Pág 21)."></div>
+  
+  <div class="component-hotspot spot-ecu" data-name="Unidade de Comando - ECU EDC16" data-info="Gerenciador eletrônico do motor MWM. Conector 'A' de 60 vias e conector 'K' de 91 vias recebem alimentação pós-chave (+15) protegida pelo <em>Fusível 25 (5A)</em>."></div>
+  
+  <div class="component-hotspot spot-boia" data-name="Sensor de Nível de Combustível (Boia)" data-info="Instalado no tanque traseiro. Envia sinal resistivo ao painel através do cabo <em>B(060)1,0</em>. Linha de massa ligada ao chassi pelo fio <em>B(110)1,0 MA</em> (Marrom)."></div>
+  
+  <div class="component-hotspot spot-temp" data-name="Sensor de Temperatura da Água (MWM)" data-info="Localizado no bloco do motor. Comunica-se diretamente com o indicador do painel através do cabo bicolor de código <em>C(38)0,75 AZ/AM</em> (Azul com listra Amarela)."></div>
+  
+  <div class="component-hotspot spot-oleo" data-name="Sensor de Pressão do Óleo" data-info="Monitora a lubrificação crítica do motor. Envia sinal para o manômetro e luz espia do painel através do fio elétrico <em>I(01)0,75 VD/VM</em> (Verde com listra Vermelha)."></div>
 
-        <!-- LINHA DO FIO 2 (RETORNO) -->
-        <tr>
-          <td class="cell-pin-sensor">
-            <div class="pin-tag-style">2</div>
-          </td>
-          <td class="cell-wire-conduit">
-            <span class="wire-text-overlay">Retorno de Sinal — 0,5 LL</span>
-            <div class="wire-line-body color-ll"></div>
-          </td>
-          <td class="cell-pin-ecu">
-            <div class="pin-tag-style">A13</div>
-          </td>
-        </tr>
-
-        <!-- LINHA DO FIO 3 (BLINDAGEM) -->
-        <tr>
-          <td class="cell-pin-sensor">
-            <div class="pin-tag-style">3</div>
-          </td>
-          <td class="cell-wire-conduit">
-            <span class="wire-text-overlay">Malha de Blindagem — 0,5 BR/PR</span>
-            <div class="wire-line-body color-br-pr"></div>
-          </td>
-          <td class="cell-pin-ecu">
-            <div class="pin-tag-style">A23</div>
-          </td>
-        </tr>
-
-      </tbody>
-    </table>
-  </div>
-
-  <!-- LADO DIREITO: ECU DO MARRUÁ -->
-  <div class="diagram-frame-box frame-right-side">
-    <img src="img/ecu_marrua.png" alt="ECU EDC16">
-    <span>Conector A (60 Vias)</span>
+  <!-- HUD FLUTUANTE QUE MOSTRA OS DADOS DO MANUAL -->
+  <div class="diag-hud-overlay" id="diagHud">
+    <strong id="hudTitle">Componente</strong>
+    <p id="hudDesc">Passe o mouse para ver os detalhes da fiação técnica do manual.</p>
   </div>
 
 </div>
+
+<!-- SCRIPT DE INTERAÇÃO DINÂMICA (COMPATÍVEL COM SEU GITHUB PAGES) -->
+<script>
+  (function() {
+    const mapContainer = document.getElementById('marruaMap');
+    const hud = document.getElementById('diagHud');
+    const hudTitle = document.getElementById('hudTitle');
+    const hudDesc = document.getElementById('hudDesc');
+    const hotspots = mapContainer.querySelectorAll('.component-hotspot');
+
+    hotspots.forEach(spot => {
+      // Quando o mouse entra no componente
+      spot.addEventListener('mouseenter', () => {
+        hudTitle.textContent = spot.getAttribute('data-name');
+        hudDesc.innerHTML = spot.getAttribute('data-info');
+        hud.style.display = 'block';
+      });
+
+      // Quando o mouse sai do componente
+      spot.addEventListener('mouseleave', () => {
+        hud.style.display = 'none';
+      });
+    });
+  })();
+</script>
