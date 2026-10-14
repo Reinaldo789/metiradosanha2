@@ -1,0 +1,73 @@
+<!-- Motor não responde ao acelerador (luz amarela apagada) - MWM Sprint 2.8 -->
+<header class="art-head">
+  <span class="art-kicker">Sistema de Injeção · Diagnóstico</span>
+  <h1>Motor Não Responde ao Acelerador</h1>
+  <p class="art-lead">Fluxograma de diagnóstico com a luz amarela de advertência apagada: responda Sim ou Não em cada passo até chegar à solução.</p>
+  <div class="chips"><span>MWM Sprint 2.8</span><span>S10 até 2011</span><span>Sensor do pedal</span></div>
+</header>
+
+<p>Use este roteiro quando o motor não acelera e a luz amarela de advertência não acende. Você precisa de um multímetro e de uma ferramenta de diagnose que mostre a tensão do acelerador 1 e do acelerador 2.</p>
+
+<h2 id="fluxo">Fluxograma</h2>
+<div class="fluxo">
+  <div class="passo" id="p1"><span class="passo-n">Passo 1</span><p><strong>O conector do sensor do pedal do acelerador está ligado adequadamente?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p2">Sim</button><button type="button" class="nao" data-ir="r1">Não</button></div></div>
+  <div class="passo fim acao" id="r1"><span class="passo-n">Ação</span><p>Ligue o conector e continue o teste.</p><div class="resp"><button type="button" class="sim" data-ir="p2">Continuar</button></div></div>
+  <div class="passo" id="p2"><span class="passo-n">Passo 2</span><p>Ligue a ferramenta de diagnose e verifique os códigos. <strong>Há alguma falha apresentada?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r2">Sim</button><button type="button" class="nao" data-ir="p3">Não</button></div></div>
+  <div class="passo fim acao" id="r2"><span class="passo-n">Falha registrada</span><p>Siga o fluxograma do respectivo código de falha. Consulte a lista de <a href="#sistema-de-injecao/codigos-de-falha">Códigos de Falha</a>.</p></div>
+  <div class="passo" id="p3"><span class="passo-n">Passo 3</span><p>Desligue o conector do sensor do pedal. Ligue o contato, sem dar partida, e meça a tensão entre os pinos <strong>2-3</strong> e <strong>1-5</strong>. <strong>O valor é 5 V?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p4">Sim</button><button type="button" class="nao" data-ir="p3b">Não</button></div></div>
+  <div class="passo" id="p3b"><span class="passo-n">Passo 3A</span><p>Verifique a continuidade entre os pinos do conector do sensor e do ECM (lado K): <strong>2 ↔ K45</strong>, <strong>3 ↔ K30</strong>, <strong>1 ↔ K46</strong> e <strong>5 ↔ K08</strong>. <strong>O valor é menor que 1 Ω?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r4">Sim</button><button type="button" class="nao" data-ir="r3">Não</button></div></div>
+  <div class="passo fim erro" id="r3"><span class="passo-n">Chicote</span><ul><li>Verifique mau contato ou interrupções no chicote e nos conectores;</li><li>Repare ou substitua o chicote;</li><li>Apague os códigos de falha e repita o teste.</li></ul></div>
+  <div class="passo fim acao" id="r4"><span class="passo-n">Alimentação do ECM</span><ul><li>Verifique a alimentação positiva e o aterramento do ECM;</li><li>Verifique se há defeito no ECM;</li><li>Apague os códigos de falha e repita o teste.</li></ul></div>
+  <div class="passo" id="p4"><span class="passo-n">Passo 4</span><p>Ligue o conector do sensor do pedal. Com o contato ligado, sem dar partida, veja a tensão do <strong>acelerador 1</strong> na tela de status da diagnose. <strong>O valor é de aproximadamente 0,7 V?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p5">Sim</button><button type="button" class="nao" data-ir="p4b">Não</button></div></div>
+  <div class="passo" id="p4b"><span class="passo-n">Passo 4A</span><p>Verifique curto-circuito no conector do sensor. Desconecte o conector e meça a resistência entre os pinos <strong>3 e 4</strong> do pedal (lado do sensor). <strong>O valor está entre 0,9 kΩ e 1,2 kΩ?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r5">Sim</button><button type="button" class="nao" data-ir="r6">Não</button></div></div>
+  <div class="passo fim acao" id="r5"><span class="passo-n">Resistência normal</span><p>O sensor está bom. Corrija o curto ou o mau contato no conector e no chicote e repita a leitura da tensão do acelerador 1.</p><div class="resp"><button type="button" class="sim" data-ir="p4">Repetir o passo 4</button></div></div>
+  <div class="passo" id="p5"><span class="passo-n">Passo 5</span><p>Movimente o pedal lentamente até o fim do curso. <strong>A tensão variou gradativamente de aproximadamente 0,7 V a 4,1 V?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p6">Sim</button><button type="button" class="nao" data-ir="r6">Não</button></div></div>
+  <div class="passo" id="p6"><span class="passo-n">Passo 6</span><p>Com o conector ligado, veja a tensão do <strong>acelerador 2</strong> na tela de status. <strong>O valor é de aproximadamente 0,3 V?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p7">Sim</button><button type="button" class="nao" data-ir="p6b">Não</button></div></div>
+  <div class="passo" id="p6b"><span class="passo-n">Passo 6A</span><p>Verifique curto-circuito no conector. Desconecte e meça a resistência entre os pinos <strong>5 e 6</strong> do pedal (lado do sensor). <strong>O valor está entre 0,9 kΩ e 1,2 kΩ?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r7">Sim</button><button type="button" class="nao" data-ir="r6">Não</button></div></div>
+  <div class="passo fim acao" id="r7"><span class="passo-n">Resistência normal</span><p>O sensor está bom. Corrija o curto ou o mau contato no conector e no chicote e repita a leitura da tensão do acelerador 2.</p><div class="resp"><button type="button" class="sim" data-ir="p6">Repetir o passo 6</button></div></div>
+  <div class="passo" id="p7"><span class="passo-n">Passo 7</span><p>Movimente o pedal lentamente até o fim do curso. <strong>A tensão do acelerador 2 variou gradativamente de aproximadamente 0,3 V a 2,0 V?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p8">Sim</button><button type="button" class="nao" data-ir="r6">Não</button></div></div>
+  <div class="passo fim erro" id="r6"><span class="passo-n">Substituir o sensor</span><ul><li>Substitua o sensor do pedal do acelerador;</li><li>Apague os códigos de falha e refaça o teste.</li></ul></div>
+  <div class="passo" id="p8"><span class="passo-n">Passo 8</span><p>O sensor do pedal está OK. Verifique a fixação dos conectores do sensor e do ECM e a oxidação nos contatos. Apague os códigos de falha e verifique de novo. <strong>Alguma falha apareceu?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r2">Sim</button><button type="button" class="nao" data-ir="r8">Não</button></div></div>
+  <div class="passo fim ok" id="r8"><span class="passo-n">Resolvido</span><p>✔ Nenhuma falha. Libere o veículo.</p></div>
+</div>
+
+<h2 id="valores">Valores e pinos</h2>
+<table><tr><th>Teste</th><th>Valor esperado</th></tr>
+<tr><td>Alimentação do sensor (pinos 2-3 e 1-5, conector desligado)</td><td>5 V</td></tr>
+<tr><td>Acelerador 1, pedal em repouso</td><td>≈ 0,7 V</td></tr>
+<tr><td>Acelerador 1, pedal até o fim</td><td>≈ 4,1 V (variação gradativa)</td></tr>
+<tr><td>Acelerador 2, pedal em repouso</td><td>≈ 0,3 V</td></tr>
+<tr><td>Acelerador 2, pedal até o fim</td><td>≈ 2,0 V (variação gradativa)</td></tr>
+<tr><td>Resistência pinos 3-4 e 5-6 (lado do sensor)</td><td>0,9 kΩ a 1,2 kΩ</td></tr>
+<tr><td>Continuidade sensor ↔ ECM</td><td>menor que 1 Ω</td></tr></table>
+<h3>Pinos do sensor e do ECM (lado K)</h3>
+<table><tr><th>Pino do sensor</th><th>Pino do ECM</th></tr>
+<tr><td>2</td><td>K45</td></tr><tr><td>3</td><td>K30</td></tr><tr><td>1</td><td>K46</td></tr><tr><td>5</td><td>K08</td></tr></table>
+<div class="dica"><strong>Dois canais</strong><p>O sensor do pedal tem dois potenciômetros (acelerador 1 e acelerador 2), que o ECM compara entre si. Se os dois sinais não combinarem, o motor pode ficar na marcha lenta ou em rotação limitada.</p></div>
+
+<h2 id="solucoes">Soluções comuns</h2>
+<p>Relatos de mecânicos e proprietários de S10 2.8 MWM e de outros motores Sprint eletrônicos. São pistas para investigar, não um diagnóstico. Sempre confirme com medição.</p>
+<ul>
+<li><strong>Terminal solto ou mau contato no conector:</strong> o scanner pode apontar um sensor sem que ele esteja com defeito. Em um caso, um fio solto no conector do sensor de pressão do turbo deixava o motor em modo de segurança (sem passar de 1800 rpm). Reapertar o terminal resolveu. Revise os terminais antes de trocar a peça;</li>
+<li><strong>Relé da injeção com mau contato:</strong> a rotação cai de uma vez, fica em torno de 750 rpm sem responder ao pedal e volta ao normal depois de alguns segundos;</li>
+<li><strong>Fio do solenoide da bomba rompido:</strong> em uma S10 2.8 com bomba injetora, o motor pegava mas ficava na marcha lenta, mesmo com o pedal no fundo. A causa foi o fio que sai da central e alimenta o solenoide;</li>
+<li><strong>Entrada de ar ou filtro de combustível obstruído:</strong> com o carro parado o diesel retorna aos poucos ao tanque e esvazia o filtro, o que dificulta a partida e causa falta de aceleração. Troque o filtro, verifique as mangueiras e sangre o sistema;</li>
+<li><strong>Turbo e admissão:</strong> mangueira da turbina rasgada, modulador da turbina, sensor de pressão e temperatura do coletor de admissão e bomba de alta pressão aparecem nos relatos de falta de potência. Comece pelo mais simples;</li>
+<li><strong>Peças:</strong> ao trocar sensor ou relé, prefira peça original MWM ou GM.</li>
+</ul>
+<div class="aviso"><strong>Atenção</strong><p>Antes de qualquer teste elétrico, confira a bateria, os bornes e o alternador. Tensão baixa ou instável causa falhas em vários sensores ao mesmo tempo.</p></div>
+
+<h2 id="codigos">Códigos relacionados</h2>
+<p>Se a diagnose registrar um destes códigos do sensor do pedal, siga o fluxograma do próprio código em <a href="#sistema-de-injecao/codigos-de-falha">Códigos de Falha</a>:</p>
+<ul><li><strong>P0121</strong>: Não plausibilidade entre os sinais do acelerador 1, com o acelerador 2, ou o sinal foi interrompido</li><li><strong>P0123</strong>: Sinal de tensão elevada no acelerador 1</li><li><strong>P0221</strong>: Não plausibilidade entre os sinais do acelerador 2, com o acelerador 1</li><li><strong>P0223</strong>: Sinal de tensão alta no acelerador 2</li></ul>

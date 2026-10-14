@@ -1,0 +1,80 @@
+<!-- Bicos Injetores com falha (luz acesa) - MWM Sprint 2.8 -->
+<header class="art-head">
+  <span class="art-kicker">Sistema de Injeção · Diagnóstico</span>
+  <h1>Bicos Injetores (Common Rail)</h1>
+  <p class="art-lead">Fluxograma de diagnóstico com a luz amarela acesa: responda Sim ou Não em cada passo até chegar à solução.</p>
+  <div class="chips"><span>MWM Sprint 2.8</span><span>S10 até 2011</span><span>P0201 a P0204 · P0261 a P0270</span></div>
+</header>
+
+<p>Use este roteiro quando a diagnose registrar falhas de conexão (P0201 a P0204) ou curto-circuito nos injetores (P0261 a P0270). O motor pode falhar, perder potência ou desligar.</p>
+
+<h2 id="fluxo">Fluxograma</h2>
+<div class="fluxo">
+  <div class="passo" id="p1"><span class="passo-n">Passo 1</span><p><strong>Qual código foi registrado?</strong></p>
+    <ul>
+      <li>P0201 a P0204 → injetor não conectado</li>
+      <li>P0261 a P0270 → curto-circuito no injetor</li>
+    </ul>
+    <div class="resp"><button type="button" class="sim" data-ir="p2">Não conectado (P020x)</button><button type="button" class="nao" data-ir="p5">Curto-circuito (P026x/P027x)</button></div></div>
+
+  <div class="passo" id="p2"><span class="passo-n">Passo 2</span><p>Verifique a conexão do chicote no injetor indicado pelo código. <strong>O chicote está ligado adequadamente?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p3">Sim</button><button type="button" class="nao" data-ir="r1">Não</button></div></div>
+  <div class="passo fim acao" id="r1"><span class="passo-n">Ligar conector</span><ul><li>Ligue o conector do injetor;</li><li>Verifique se o código foi apagado;</li><li>Se persistir, siga para o passo 3.</li></ul></div>
+
+  <div class="passo" id="p3"><span class="passo-n">Passo 3</span><p>Desligue o conector do injetor. Meça a continuidade entre os pinos 1 e 2 do conector do injetor e os pinos correspondentes no ECM. <strong>O valor é menor que 1 Ω?</strong></p>
+    <ul>
+      <li>Cil. 1 → A47 e A16</li>
+      <li>Cil. 2 → A31 e A02</li>
+      <li>Cil. 3 → A46 e A01</li>
+      <li>Cil. 4 → A33 e A17</li>
+    </ul>
+    <div class="resp"><button type="button" class="sim" data-ir="p4">Sim</button><button type="button" class="nao" data-ir="r2">Não</button></div></div>
+  <div class="passo fim erro" id="r2"><span class="passo-n">Chicote interrompido</span><ul><li>Verifique mau contato no conector do ECM;</li><li>Repare ou substitua o chicote;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+
+  <div class="passo" id="p4"><span class="passo-n">Passo 4</span><p>Chicote OK. Meça a resistência entre os terminais da bobina do injetor. <strong>O valor é menor ou igual a 0,8 Ω?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r3">Sim</button><button type="button" class="nao" data-ir="r4">Não</button></div></div>
+  <div class="passo fim ok" id="r3"><span class="passo-n">Injetor OK</span><ul><li>Verifique oxidações ou mau contato no conector do injetor;</li><li>Ligue o chicote, apague os códigos e funcione o motor;</li><li>Se não houver mais falhas, libere o veículo.</li></ul></div>
+  <div class="passo fim erro" id="r4"><span class="passo-n">Substituir injetor</span><ul><li>Substitua o injetor com defeito;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+
+  <div class="passo" id="p5"><span class="passo-n">Passo 5 (curto)</span><p>Identifique o injetor do código. Desligue o conector do injetor e do ECM. Meça a continuidade entre os pinos do injetor e o terra/positivo da bateria. <strong>Existe curto-circuito?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r5">Sim</button><button type="button" class="nao" data-ir="p6">Não</button></div></div>
+  <div class="passo fim erro" id="r5"><span class="passo-n">Chicote em curto</span><ul><li>Verifique curto-circuito no chicote do injetor;</li><li>Repare o trecho danificado;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+
+  <div class="passo" id="p6"><span class="passo-n">Passo 6</span><p>Verifique a bobina do injetor em relação à carcaça do mesmo. <strong>Existe curto-circuito?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r6">Sim</button><button type="button" class="nao" data-ir="r7">Não</button></div></div>
+  <div class="passo fim erro" id="r6"><span class="passo-n">Injetor em curto</span><ul><li>Substitua o injetor;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+  <div class="passo fim erro" id="r7"><span class="passo-n">Suspeita de ECM</span><ul><li>Se chicote e injetor estiverem OK, o problema está no ECM;</li><li>Substitua o ECM e refaça o teste.</li></ul></div>
+</div>
+
+<h2 id="valores">Valores e pinos</h2>
+<table><tr><th>Teste</th><th>Valor esperado</th></tr>
+<tr><td>Resistência da bobina do injetor</td><td>≤ 0,8 Ω</td></tr>
+<tr><td>Continuidade chicote ↔ ECM</td><td>menor que 1 Ω</td></tr>
+<tr><td>Curto com terra/positivo</td><td>não deve haver</td></tr></table>
+
+<h3>Pinos do injetor e do ECM</h3>
+<table><tr><th>Cilindro</th><th>Acionador</th><th>Retorno</th></tr>
+<tr><td>1</td><td>A47</td><td>A16</td></tr>
+<tr><td>2</td><td>A31</td><td>A02</td></tr>
+<tr><td>3</td><td>A46</td><td>A01</td></tr>
+<tr><td>4</td><td>A33</td><td>A17</td></tr></table>
+
+<div class="dica"><strong>Banco de injetores</strong><p>Os injetores 1 e 4 formam o Banco 1 (P0261 / P0262 / P0270). Os injetores 2 e 3 formam o Banco 2 (P0263 / P0264 / P0267). Curto em um banco afeta os dois injetores.</p></div>
+
+<h2 id="solucoes">Soluções comuns</h2>
+<ul>
+<li><strong>Conector do injetor solto:</strong> reaperte até o encaixe;</li>
+<li><strong>Chicote rompido:</strong> repare o trecho danificado;</li>
+<li><strong>Curto-circuito no chicote:</strong> identifique o ponto e isole;</li>
+<li><strong>Bobina do injetor com resistência alta:</strong> substitua o injetor;</li>
+<li><strong>Bobina em curto com a carcaça:</strong> substitua o injetor;</li>
+<li><strong>Suspeita de ECM:</strong> se chicote e injetores estiverem OK, substitua o ECM.</li>
+</ul>
+
+<h2 id="codigos">Códigos relacionados</h2>
+<ul>
+<li><strong>P0201 a P0204</strong>: Bico injetor 1 a 4 não conectado — débito limitado e rotação a 2000 rpm;</li>
+<li><strong>P0261</strong>: Curto-circuito no banco 1 dos injetores — desliga o motor;</li>
+<li><strong>P0262 / P0264 / P0267 / P0270</strong>: Curto-circuito em injetor específico — desliga o motor;</li>
+<li><strong>P0263</strong>: Curto-circuito no banco 2 dos injetores — desliga o motor.</li>
+</ul>
