@@ -4,14 +4,17 @@ const mainNav = document.getElementById('main-nav');
 const toggleIcon = mobileToggleBtn.querySelector('i');
 
 // ==========================================
-// MENU MOBILE
+// LÓGICA DO MENU MOBILE (SEM SANFONA)
+// Cada item abre/fecha independentemente
 // ==========================================
 navItems.forEach(item => {
   const btn = item.querySelector('.nav-btn');
-
+  
   btn.addEventListener('click', (e) => {
     if (window.innerWidth <= 960) {
       e.preventDefault();
+      
+      // Sanfona: ao abrir um item, fecha os outros
       const abrir = !item.classList.contains('active');
       navItems.forEach(i => i.classList.remove('active'));
       if (abrir) {
@@ -22,10 +25,12 @@ navItems.forEach(item => {
   });
 });
 
+// Toggle Menu Hamburguer Mobile
 mobileToggleBtn.addEventListener('click', (e) => {
   e.stopPropagation();
   const isOpen = mainNav.classList.toggle('active');
-
+  
+  // Bloqueia a rolagem do fundo do site quando o menu está aberto no celular
   if (isOpen) {
     document.body.style.overflow = 'hidden';
   } else {
@@ -38,6 +43,7 @@ mobileToggleBtn.addEventListener('click', (e) => {
   } else {
     toggleIcon.classList.remove('fa-xmark');
     toggleIcon.classList.add('fa-bars');
+    // Fecha todos os itens ao fechar o menu hambúrguer
     navItems.forEach(item => item.classList.remove('active'));
   }
 });
@@ -61,57 +67,46 @@ btnTop.addEventListener('click', () => {
 });
 
 // ==========================================
-// CARREGAR PÁGINAS: conteudo/<menu>/<item>.html
+// CARREGAR PÁGINAS DE conteudo/<menu>/<item>.html
 // ==========================================
 const home = document.getElementById('home-box');
 const card = document.getElementById('page-card');
 
 async function abrirPagina() {
   const path = decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '');
-  document.querySelectorAll('.mega-link-item.active, .explore-link.active')
-    .forEach(a => a.classList.remove('active'));
+  document.querySelectorAll('.mega-link-item.active').forEach(a => a.classList.remove('active'));
 
-  // Sem rota válida = Home
+  // sem rota válida = Home
   if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
-    card.hidden = true;
-    home.hidden = false;
+    card.hidden = true; home.hidden = false;
     return;
   }
 
   const link = document.querySelector(`a[href="#${path}"]`);
   if (link && link.classList.contains('mega-link-item')) link.classList.add('active');
-
-  const menu = link
-    ? link.closest('.nav-item').querySelector('.nav-btn span').textContent.trim()
-    : '';
-
+  const menu = link ? link.closest('.nav-item').querySelector('.nav-btn span').textContent.trim() : '';
   const titulo = !link ? '' :
     link.classList.contains('explore-link')
       ? link.closest('.mega-explore-side').querySelector('h5').textContent.trim()
       : link.textContent.trim();
 
-  home.hidden = true;
-  card.hidden = false;
+  home.hidden = true; card.hidden = false;
   card.innerHTML = '<p class="page-loading">Carregando...</p>';
   window.scrollTo({ top: 0 });
 
   try {
-    // 🔥 Busca por pasta: conteudo/sistema-eletrico/farios.html
     const resp = await fetch(`conteudo/${path}.html`);
     if (!resp.ok) throw new Error(`Página não encontrada (${resp.status})`);
-
     const corpo = await resp.text();
     if (decodeURIComponent(location.hash.slice(1)) !== path) return;
-
     card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div><h1>${titulo}</h1>${corpo}`;
     melhorarArtigo();
-
   } catch (err) {
-    card.innerHTML = `<h1>Erro</h1><p>${err.message}. Verifique se o arquivo <code>conteudo/${path}.html</code> existe.</p>`;
+    card.innerHTML = `<h1>Erro</h1><p>${err.message}. Se estiver abrindo o arquivo direto no computador, use um servidor (GitHub Pages ou <code>python -m http.server</code>).</p>`;
   }
 }
 
-// Fecha menu ao clicar num item
+// clicou num item: fecha o menu (celular) ou o painel (desktop)
 document.querySelectorAll('.mega-menu a').forEach(a => {
   a.addEventListener('click', () => {
     if (window.innerWidth <= 960) {
@@ -127,7 +122,7 @@ document.querySelectorAll('.mega-menu a').forEach(a => {
 window.addEventListener('hashchange', abrirPagina);
 abrirPagina();
 
-// Índice interno
+// índice interno dos artigos: <a data-goto="id"> rola até o título
 card.addEventListener('click', (e) => {
   const alvo = e.target.closest('[data-goto]');
   if (!alvo) return;
@@ -137,7 +132,7 @@ card.addEventListener('click', (e) => {
 });
 
 // ==========================================
-// BUSCA DA PÁGINA INICIAL
+// BUSCA DA PÁGINA INICIAL (usa os links do menu)
 // ==========================================
 const busca = document.getElementById('home-search');
 const resultados = document.getElementById('home-results');
@@ -162,7 +157,7 @@ if (busca) {
 }
 
 // ==========================================
-// ARTIGOS: abas, acordeão, imagens
+// ARTIGOS: abas, acordeão, imagens e caixa de diálogo
 // ==========================================
 const lb = document.createElement('dialog');
 lb.className = 'lightbox';
@@ -200,8 +195,10 @@ function ativarAba(bar, panels, i) {
 }
 
 function melhorarArtigo() {
+  // o artigo já traz o próprio título
   if (card.querySelector('.art-head')) card.querySelector(':scope > h1')?.remove();
 
+  // imagem que não existe vira uma caixa com a legenda
   card.querySelectorAll('img').forEach(img => {
     img.addEventListener('error', () => {
       const d = document.createElement('div');
@@ -212,6 +209,7 @@ function melhorarArtigo() {
     }, { once: true });
   });
 
+  // blocos de 2-3 colunas viram mini abas
   card.querySelectorAll('.trio').forEach(trio => {
     const cols = [...trio.children];
     const bar = document.createElement('div');
@@ -230,6 +228,7 @@ function melhorarArtigo() {
     ativarAba(bar, cols, 0);
   });
 
+  // fluxogramas de diagnóstico (Sim / Não)
   card.querySelectorAll('.fluxo').forEach(f => {
     f._hist = [];
     f.querySelectorAll('.passo').forEach(p => {
@@ -241,8 +240,10 @@ function melhorarArtigo() {
     mostrarPasso(f, f.querySelector('.passo').id, false);
   });
 
+  // códigos de falha em acordeão
   card.querySelectorAll('.codigos').forEach(c => c.classList.add('enh'));
 
+  // cada título h2 vira uma aba
   const h2s = [...card.querySelectorAll(':scope > h2')];
   if (h2s.length >= 3) {
     const bar = document.createElement('div');
