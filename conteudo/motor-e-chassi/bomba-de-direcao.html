@@ -1,154 +1,99 @@
-<header class="art-head">
-  <h1>Sensor de Fase (CMP) Bosch 0281002667</h1>
-</header>
+<!-- Página Técnica: Válvula MProp -->
+<main class="guia-tecnico-conteudo">
+    <header class="componente-header">
+        <h1>📘 Válvula MProp (Válvula Reguladora de Vazão / Unidade de Medição)</h1>
+        <p class="introducao">
+            A válvula <strong>MProp</strong> (também conhecida pela sigla <strong>ZME</strong> no sistema Bosch) é o atuador mais crítico para o controle de pressão de combustível no sistema Common Rail do motor MWM 2.8 (Bosch EDC16C8). Qualquer falha nela impede o motor de funcionar corretamente. Se estiver desplugada ou com o chicote partido, o motor <strong>NÃO LIGA</strong> por estratégia de segurança da central (ECM).
+        </p>
+    </header>
 
-<nav class="toc" aria-label="Neste artigo">
-  <strong>Neste artigo</strong>
-  <ul>
-    <li><a href="#" data-goto="identificacao">Identificação</a></li>
-    <li><a href="#" data-goto="dados">Dados técnicos</a></li>
-    <li><a href="#" data-goto="funcionamento">Funcionamento</a></li>
-    <li><a href="#" data-goto="esquema">Esquema Elétrico e Pinagem</a></li>
-    <li><a href="#" data-goto="diagnostico">Diagnóstico e Limp-Home</a></li>
-    <li><a href="#" data-goto="codigos-de-falha">Códigos de falha</a></li>
-    <li><a href="#" data-goto="teste-multimetro">Teste com multímetro</a></li>
-    <li><a href="#" data-goto="teste-osciloscopio">Teste com osciloscópio</a></li>
-    <li><a href="#" data-goto="manutencao">Manutenção e Montagem</a></li>
-  </ul>
-</nav>
+    <hr>
 
-<h2 id="identificacao">Identificação</h2>
-<p>O sensor de fase Bosch <strong>0281002667</strong> é aplicado no motor <strong>MWM 2.8 Sprint Eletrônico (4.07TCE)</strong>, utilizado em veículos como Chevrolet S10/Blazer, Nissan Frontier/Xterra, Agrale Marruá, Fiat Ducato, Iveco Daily e VW Delivery. Confira sempre a codificação antes da substituição.</p>
+    <!-- 1. Identificação e Localização -->
+    <section class="topico-manual">
+        <h2>📍 1. Identificação e Localização</h2>
+        <ul>
+            <li><strong>Nome Técnico e Sigla:</strong> Válvula Reguladora de Vazão de Combustível – MProp.</li>
+            <li><strong>Onde fica instalada:</strong> Fixada diretamente no corpo da bomba de alta pressão de combustível (CP3), na parte frontal/lateral do motor.</li>
+            <li><strong>Tipo de Atuador:</strong> Solenoide eletromagnético controlado por modulação de pulso (<strong>PWM</strong>). Neste sistema, ela é do tipo <strong>Normalmente Aberta (NA)</strong> — ou seja, sem energia elétrica, sua mola interna a mantém totalmente aberta, liberando vazão máxima.</li>
+        </ul>
+    </section>
 
-<table>
-  <tr><th>Fabricante / Montadora</th><th>Código</th></tr>
-  <tr><td><strong>Bosch</strong></td><td>0 281 002 667 / 0281002667</td></tr>
-  <tr><td><strong>Bosch (alternativo)</strong></td><td>0232103052</td></tr>
-  <tr><td><strong>MWM</strong></td><td>9 4070 06 7 0074 / 940700670074</td></tr>
-  <tr><td><strong>GM / Chevrolet</strong></td><td>93347211 / 93.347.211</td></tr>
-  <tr><td><strong>Fiat</strong></td><td>504048261 / 55.187.973</td></tr>
-  <tr><td><strong>Iveco</strong></td><td>5802260743</td></tr>
-  <tr><td><strong>VW</strong></td><td>2P0133491</td></tr>
-  <tr><td><strong>Magneti Marelli</strong></td><td>SRM6210</td></tr>
-</table>
+    <!-- 2. Funcionamento Elétrico -->
+    <section class="topico-manual">
+        <h2>⚡ 2. Funcionamento Elétrico e Sinais Fantasmas</h2>
+        <ul>
+            <li><strong>Como funciona:</strong> Para diminuir a pressão no Rail (como na marcha lenta), a central envia pulsos elétricos para fechar parcialmente a MProp. Para subir a pressão (aceleração), a central diminui a energia, deixando a válvula abrir.</li>
+            <li><strong>O Mistério dos 5V / 12V:</strong>
+                <ul>
+                    <li>Se você medir o <strong>Pino 2 contra a massa com o conector DESPLUGADO</strong>, achará <strong>5V</strong>. Esta é uma <em>tensão de retorno (pull-up)</em> que a central manda apenas para testar se o fio está inteiro. Não é a tensão de trabalho.</li>
+                    <li>Se você medir com tudo <strong>PLUGADO</strong>, achará <strong>12V</strong> nos dois pinos (com o motor parado), pois a energia entra pelo Pino 1, passa pela bobina e sai no Pino 2 aguardando o comando da central.</li>
+                </ul>
+            </li>
+            <li><strong>Quantidade de fios e terminais:</strong> Possui <strong>2 fios</strong> no conector.
+                <ul>
+                    <li><strong>Pino 1:</strong> Alimentação positiva (<strong>+12V DC</strong> vinda do relé principal da injeção).</li>
+                    <li><strong>Pino 2:</strong> Linha de comando negativo pulsado (<strong>PWM</strong>), chaveado direto pela ECM.</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
 
-<div class="aviso">
-  <strong>Atenção</strong>
-  <p>Não remova a identificação do sensor. A conferência do código evita a instalação de peças incompatíveis com a curva de resposta do ECM Bosch EDC16.</p>
-</div>
+    <!-- 3. Testes Práticos com Multímetro -->
+    <section class="topico-manual">
+        <h2>📐 3. Testes Práticos com Multímetro</h2>
+        
+        <h3>Passo 1: Teste de Resistência da Bobina (Motor Desligado)</h3>
+        <ul>
+            <li><strong>Condição:</strong> Chave desligada, tomada da válvula <strong>DESCONECTADA</strong>.</li>
+            <li><strong>Multímetro:</strong> Escala de <strong>Resistência Ohmica (Ω) em 200 Ω</strong>.</li>
+            <li><strong>Onde medir:</strong> Diretamente nos dois pinos metálicos da própria válvula MProp.</li>
+            <li><strong>Valores esperados:</strong> Deve registrar entre <strong>2,1 Ω e 3,5 Ω</strong> (~20°C). Se marcar circuito aberto (<em>OL</em>), a bobina rompeu. Se marcar <em>0 Ω</em>, há curto-circuito interno.</li>
+        </ul>
 
-<h2 id="dados">Dados técnicos</h2>
-<div class="specs">
-  <div class="spec"><b>Bosch</b><span>Fabricante</span></div>
-  <div class="spec"><b>Efeito Hall</b><span>Tecnologia</span></div>
-  <div class="spec"><b>3 pinos</b><span>Conector</span></div>
-  <div class="spec"><b>5,0 V DC</b><span>Alimentação ECM</span></div>
-  <div class="spec"><b>0,5 a 1,5 mm</b><span>Entreferro (Air Gap)</span></div>
-  <div class="spec"><b>2.500 rpm</b><span>Limite Limp-Home</span></div>
-</div>
+        <h3>Passo 2: Teste de Alimentação Positiva</h3>
+        <ul>
+            <li><strong>Condição:</strong> Chave ligada, tomada da válvula <strong>DESCONECTADA</strong>.</li>
+            <li><strong>Multímetro:</strong> Escala de <strong>Tensão Contínua (V DC)</strong>.</li>
+            <li><strong>Onde medir:</strong> Ponta vermelha no <strong>Pino 1 do chicote</strong> e ponta preta no <strong>Polo Negativo (-) da Bateria</strong>.</li>
+            <li><strong>Valor esperado:</strong> Deve registrar a <strong>tensão de bateria (~12,0V a 12,6V DC)</strong>.</li>
+        </ul>
 
-<h2 id="funcionamento">Funcionamento</h2>
-<p>O sensor de fase opera por <strong>Efeito Hall</strong> captando a passagem do ressalto da engrenagem da árvore de comando de válvulas na tampa superior do motor MWM 4.07TCE.</p>
-<p>Sua função é informar à central eletrônica (ECM Bosch EDC16) o ciclo exato de combustão (qual cilindro está em fase de compressão). O sinal é cruzado continuamente com o sensor de rotação (CKP) para determinar:</p>
-<ul>
-  <li>O sincronismo mecânico/eletrônico do motor;</li>
-  <li>O ângulo e a sequência exata do início de injeção de combustível;</li>
-  <li>O cálculo de posição do pistão no Ponto Morto Superior (PMS).</li>
-</ul>
+        <h3>Passo 3: Teste Dinâmico do Sinal PWM (O Teste Definitivo)</h3>
+        <ul>
+            <li><strong>Condição:</strong> Tomada <strong>CONECTADA</strong> e <strong>motor funcionando em marcha lenta</strong>.</li>
+            <li><strong>Como conectar:</strong> Insira duas agulhas por trás do conector (<em>backprobing</em>). Conecte a <strong>ponta preta no Pino 2 (Sinal)</strong> e a <strong>ponta vermelha no Polo Positivo (+) da Bateria</strong> (ou no Pino 1).</li>
+            <li><strong>Multímetro:</strong> Escala de <strong>Ciclo de Trabalho (% / Duty Cycle)</strong> ou <strong>Frequência (Hz)</strong>.</li>
+            <li><strong>Valores esperados na tela:</strong>
+                <ul>
+                    <li><strong>Em Frequência (Hz):</strong> Deve registrar um valor fixo e estável <strong>entre 160 Hz e 180 Hz</strong>.</li>
+                    <li><strong>Em Ciclo de Trabalho (%):</strong> Na marcha lenta deve marcar de <strong>30% a 40%</strong> (força para fechar a válvula). Ao dar uma aceleração forte, o valor deve <strong>cair para a faixa de 18% a 25%</strong> (central solta a válvula para ela abrir e gerar pressão).</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
 
-<h2 id="esquema">Esquema Elétrico e Pinagem</h2>
-<p>As conexões do sensor são ligadas diretamente ao <strong>Conector A ("Motor")</strong> do ECM Bosch EDC16:</p>
+    <!-- 4. Principais Defeitos e Códigos de Falha -->
+    <section class="topico-manual">
+        <h2>❌ 4. Principais Defeitos e Códigos de Falha</h2>
+        <ul>
+            <li><strong>Motor Oscilando na Marcha Lenta ("Galopando"):</strong> Ocorre quando há desgaste mecânico ou travamento da agulha interna da MProp devido ao uso de diesel contaminado com água ou sujeira.</li>
+            <li><strong>Bloqueio Total de Partida (Motor não liga):</strong> Se o chicote da MProp for desconectado ou partir, a central identifica o circuito aberto e, para evitar que a pressão suba descontroladamente no arranque, ela entra em <strong>Modo de Emergência Crítico e corta o pulso dos bicos injetores</strong>. O motor gira, mas não pega.</li>
+            <li><strong>Códigos de Falha na ECM (Scanner):</strong>
+                <ul>
+                    <li><strong>P0087:</strong> Pressão do Rail muito baixa.</li>
+                    <li><strong>P0088:</strong> Pressão do Rail muito alta (MProp travada aberta).</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
 
-<table>
-  <tr><th>Pino do Sensor</th><th>Função do Circuito</th><th>Conexão no ECM (Conector A)</th></tr>
-  <tr><td><strong>Pino 1</strong></td><td>Sinal de Fase (Onda Quadrada)</td><td><strong>Pino A20</strong></td></tr>
-  <tr><td><strong>Pino 2</strong></td><td>Massa / GND do Sensor</td><td><strong>Pino A50</strong></td></tr>
-  <tr><td><strong>Pino 3</strong></td><td>Aterramento da Malha de Blindagem</td><td><strong>Pino A11</strong></td></tr>
-</table>
-
-<h2 id="diagnostico">Diagnóstico e Estratégia de Emergência</h2>
-<div class="dica">
-  <strong>Comportamento do Motor em Caso de Falha (Limp-Home)</strong>
-  <ul>
-    <li><strong>Falha com motor em funcionamento:</strong> O motor <strong>NÃO desliga</strong>. O ECM entra em modo de emergência, acende a luz de advertência no painel e limita a rotação máxima em <strong>2.500 rpm</strong>.</li>
-    <li><strong>Falha ao tentar dar partida:</strong> Se o sinal de fase for perdido com o motor desligado, o ECM <strong>impede a partida</strong> (o motor gira no arranque, mas não pega por falta de sincronismo).</li>
-  </ul>
-</div>
-
-<h2 id="codigos-de-falha">Códigos de Falha Registrados (DTC)</h2>
-<div class="codigos">
-  <div class="codigo"><span class="num">P0016</span><div>
-    <h4>Incoerência de Sincronismo (Fase x Rotação)</h4>
-    <p>Divergência entre o sinal do sensor de fase (comando) e do sensor de rotação (virabrequim). Causas:</p>
-    <ul>
-      <li>Motor fora de ponto de distribuição;</li>
-      <li>Sensor folgado na montagem ou com folga excessiva no entreferro;</li>
-      <li>Acúmulo de impurezas magnéticas na ponta do sensor.</li>
-    </ul>
-  </div></div>
-
-  <div class="codigo"><span class="num">P0340</span><div>
-    <h4>Ausência do Sinal do Sensor de Fase</h4>
-    <p>O ECM não detecta comunicação elétrica com o sensor. Causas:</p>
-    <ul>
-      <li>Chicote interrompido (pinos A20, A50 ou A11);</li>
-      <li>Conector do sensor desconectado, torto ou oxidado;</li>
-      <li>Sensor com avaria interna no elemento Hall.</li>
-    </ul>
-  </div></div>
-
-  <div class="codigo"><span class="num">P0341</span><div>
-    <h4>Sinal do Sensor de Fase Incoerente ou com Ruído</h4>
-    <p>O sinal enviado possui interferências ou picos fora da curva. Causas:</p>
-    <ul>
-      <li>Falta de blindagem no pino A11 do chicote;</li>
-      <li>Empenamento/amassamento na tampa de válvulas alterando a distância do sensor;</li>
-      <li>Interferência eletromagnética externa no cabeamento.</li>
-    </ul>
-  </div></div>
-</div>
-
-<h2 id="teste-multimetro">Teste com Multímetro</h2>
-
-<h3>1. Teste de Continuidade e Chicote (Chave Desligada)</h3>
-<p>Com o conector do sensor e o Conector A do ECM desligados:</p>
-<ul>
-  <li>Meça a resistência entre o Pino 1 do sensor e o Pino A20 do ECM: deve ser <strong>menor que 1 Ω</strong>.</li>
-  <li>Meça a resistência entre o Pino 2 do sensor e o Pino A50 do ECM: deve ser <strong>menor que 1 Ω</strong>.</li>
-  <li>Meça a resistência entre o Pino 3 do sensor e o Pino A11 do ECM: deve ser <strong>menor que 1 Ω</strong>.</li>
-</ul>
-
-<h3>2. Teste de Tensão de Alimentação (Chave Ligada)</h3>
-<p>Com a chave de ignição ligada (Linha 15) e o conector do sensor desconectado:</p>
-<ul>
-  <li><strong>Linha de Sinal (Pino 1 e Negativo da Bateria):</strong> Medir a tensão <em>Pull-Up</em> do ECM $\rightarrow$ Valor esperado: <strong>~5,0 V DC</strong>.</li>
-  <li><strong>Linha de Massa (Positivo da Bateria e Pino 2):</strong> Medir o aterramento do ECM $\rightarrow$ Valor esperado: <strong>~12,6 V DC</strong> (Tensão de bateria).</li>
-</ul>
-
-<h3>3. Teste de Sinal Dinâmico em AC (Motor em Partida/Lenta)</h3>
-<p>Com o sensor conectado (utilizando agulhas de teste pelos pinos 1 e 2):</p>
-<ul>
-  <li>Ajuste o multímetro na escala de <strong>Tensão Alternada (V AC)</strong>.</li>
-  <li>Dê a partida no motor ou mantenha em marcha-lenta.</li>
-  <li><strong>Valor esperado:</strong> Leitura oscilante entre <strong>2,0 V e 2,5 V AC</strong>, confirmando a comutação da onda quadrada do circuito Hall.</li>
-</ul>
-
-<div class="aviso">
-  <strong>Atenção: Teste de Resistência Interdito</strong>
-  <p>Sensores com tecnologia Efeito Hall contêm um circuito integrado interno. <strong>Não é possível medir resistência ôhmica</strong> no sensor desconectado (o multímetro indicará circuito aberto / infinito).</p>
-</div>
-
-<h2 id="teste-osciloscopio">Teste com Osciloscópio</h2>
-<ul>
-  <li><strong>Canal 1:</strong> Pino 1 do sensor (Sinal).</li>
-  <li><strong>Ajuste:</strong> 2 V/Divisão, escala de tempo ajustada conforme a rotação (ex: 10 ms/div).</li>
-  <li><strong>Forma de onda esperada:</strong> Onda quadrada limpa, com bordas de subida e descida bem definidas, variando de <strong>0 V (nível baixo)</strong> a <strong>5 V (nível alto)</strong> sem serrilhados ou falhas de ciclo.</li>
-</ul>
-
-<h2 id="manutencao">Manutenção e Montagem</h2>
-<ul>
-  <li><strong>Entreferro:</strong> Certifique-se de que a folga de montagem entre a ponta do sensor e o ressalto permaneça entre <strong>0,5 mm e 1,5 mm</strong>.</li>
-  <li><strong>Tampa de Válvulas:</strong> Verifique se a região de assentamento não apresenta amassamentos que aproximem ou afastem demais o sensor.</li>
-  <li><strong>Limpeza:</strong> Remova qualquer acúmulo de partículas magnéticas ou limalha da ponta do sensor antes da instalação.</li>
-  <li><strong>Vedação:</strong> Substitua o anel O-ring de vedação para evitar vazamentos de óleo lubrificante.</li>
-</ul>
+    <!-- 5. Diagnóstico de Campo -->
+    <section class="topico-manual">
+        <h2>🧠 5. Diagnóstico de Campo (Gabarito de Oficina)</h2>
+        <ol>
+            <li><strong>Inspeção de Contaminação:</strong> Remova a MProp (3 parafusos Torx) e olhe as telas de filtro. Se houver partículas brilhantes (limalha de ferro), a bomba de alta está se destruindo por dentro e vai travar qualquer válvula nova que você colocar ali.</li>
+            <li><strong>Teste da Válvula Mecânica KUV para isolar o defeito:</strong> Se o carro acusa pressão alta e não acelera, tire a mangueira de retorno da válvula mecânica KUV (na ponta do tubo Rail) e ligue o carro. Se estiver jorrando diesel por ali em marcha lenta, a MProp está realmente travada aberta. Se estiver seco, o Sensor do Rail é quem está "mentindo" a pressão alta.</li>
+        </ol>
+    </section>
+</main>
