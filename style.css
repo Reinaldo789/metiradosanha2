@@ -938,3 +938,13 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 .lightbox { max-height: 94vh; overflow: auto; }
 .lightbox img { cursor: zoom-in; }
 .lightbox img.zoom { max-height: none; width: min(94vw, 1000px); cursor: zoom-out; }
+
+/* ==========================================
+   17. BOTÃO DO MENU DESTACADO NA PÁGINA ABERTA
+   (o JavaScript põe a classe "atual" no botão do menu
+   que contém o item da página que está aberta)
+   ========================================== */
+.nav-btn.atual { color: var(--primary); background-color: var(--primary-light); }
+@media (min-width: 961px) {
+  header.scrolled .nav-btn.atual { background: rgba(255,255,255,0.18); color: #fff; }
+}
