@@ -75,6 +75,7 @@ const card = document.getElementById('page-card');
 async function abrirPagina() {
   const path = decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '');
   document.querySelectorAll('.mega-link-item.active').forEach(a => a.classList.remove('active'));
+  document.querySelectorAll('.nav-btn.atual').forEach(b => b.classList.remove('atual'));
 
   // sem rota válida = Home
   if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
@@ -82,8 +83,15 @@ async function abrirPagina() {
     return;
   }
 
-  const link = document.querySelector(`a[href="#${path}"]`);
-  if (link && link.classList.contains('mega-link-item')) link.classList.add('active');
+  // o mesmo endereço pode existir em mais de um menu: marca todos
+  const links = document.querySelectorAll(`a[href="#${path}"]`);
+  const link = links[0];
+  links.forEach(a => {
+    if (a.classList.contains('mega-link-item')) {
+      a.classList.add('active');
+      a.closest('.nav-item')?.querySelector('.nav-btn')?.classList.add('atual');
+    }
+  });
   const menu = link ? link.closest('.nav-item').querySelector('.nav-btn span').textContent.trim() : '';
   const titulo = !link ? '' :
     link.classList.contains('explore-link')
