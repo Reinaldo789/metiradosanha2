@@ -991,3 +991,7 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 .descricao-acao { background: var(--primary-light); border-left: 4px solid var(--primary); border-radius: 8px; padding: 0.8rem 1rem; margin-top: 0.9rem; font-size: 0.92rem; line-height: 1.6; }
 .destaque { margin-top: 1rem; padding: 0.8rem 1rem; background: #f8fafc; border: 1px solid var(--border-color); border-radius: 10px; overflow-x: auto; }
 @media (max-width: 640px) { .page-card .componente { padding: 0.8rem; } .fio { align-items: flex-start; } }
+
+/* Navegação entre as páginas do esquema do Marruá */
+.aba-nav a { font-size: 0.85rem; font-weight: 600; padding: 0.5rem 0.9rem; border-radius: 10px; border: 1px solid var(--border-color); background: #fff; color: var(--primary); text-decoration: none; transition: var(--transition); }
+.aba-nav a:hover { background: var(--primary-light); }
