@@ -80,6 +80,7 @@ async function abrirPagina() {
   // sem rota válida = Home
   if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
     card.hidden = true; home.hidden = false;
+    card.classList.remove('wide');
     return;
   }
 
@@ -107,9 +108,33 @@ async function abrirPagina() {
     if (!resp.ok) throw new Error(`Página não encontrada (${resp.status})`);
     const corpo = await resp.text();
     if (decodeURIComponent(location.hash.slice(1)) !== path) return;
+
+    // ============================================================
+    // PÁGINA AUTOCONTIDA (tem <!DOCTYPE> ou <html> próprio)
+    // → carrega em <iframe> para isolar o CSS/JS do site
+    // ============================================================
+    const inicio = corpo.trim().slice(0, 200).toLowerCase();
+    const ehAutocontida = inicio.startsWith('<!doctype') || inicio.includes('<html');
+
+    if (ehAutocontida) {
+      card.classList.add('wide');
+      card.innerHTML = `
+        <div class="page-crumb"><a href="#">Início</a> › ${menu}</div>
+        <iframe
+          src="conteudo/${path}.html"
+          class="pagina-iframe"
+          title="${titulo}"
+          loading="lazy">
+        </iframe>`;
+      return;
+    }
+
+    // Fragmento HTML normal: injeta no card
+    card.classList.remove('wide');
     card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div><h1>${titulo}</h1>${corpo}`;
     melhorarArtigo();
   } catch (err) {
+    card.classList.remove('wide');
     card.innerHTML = `<h1>Erro</h1><p>${err.message}. Se estiver abrindo o arquivo direto no computador, use um servidor (GitHub Pages ou <code>python -m http.server</code>).</p>`;
   }
 }
