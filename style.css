@@ -585,7 +585,7 @@ main {
 .page-card h1 { margin: 0 0 1rem; font-size: clamp(1.5rem, 4vw, 2rem); }
 .page-card h2 { margin: 1.8rem 0 0.4rem; font-size: 1.2rem; color: var(--primary); }
 .page-card img { max-width: 100%; height: auto; border-radius: 10px; }
-.page-card table { border-collapse: collapse; width: 100%; display: block; overflow-x: auto; }
+.page-card table { border-collapse: collapse; width: 100%; }
 .page-card td, .page-card th { border: 1px solid var(--border-color); padding: 0.4rem 0.7rem; }
 .page-loading { color: var(--text-muted); }
 /* depois de clicar num item, o painel fecha até o mouse sair e voltar */
@@ -957,9 +957,12 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
    ========================================== */
 .page-card th { background: var(--primary-light); color: var(--primary); font-size: 0.9rem; text-align: left; }
 .page-card tbody tr:nth-child(odd) td { background: #f8fafc; }
-.page-card table { margin: 1rem 0; -webkit-overflow-scrolling: touch; }
+/* ocupa a largura inteira do artigo */
+.page-card table { display: table !important; width: 100% !important; max-width: 100%; margin: 1rem 0; table-layout: auto; }
 
 @media (max-width: 640px) {
+  /* 4 ou mais colunas: rola para o lado dentro da própria tabela */
+  .page-card table:has(tr > :nth-child(4)) { display: block !important; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .page-card table:not(:has(tr > :nth-child(4))) thead { position: absolute !important; left: -9999px !important; }
   .page-card table:not(:has(tr > :nth-child(4))),
   .page-card table:not(:has(tr > :nth-child(4))) tbody,
