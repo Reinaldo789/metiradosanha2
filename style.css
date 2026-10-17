@@ -941,6 +941,8 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 
 /* ==========================================
    17. BOTÃO DO MENU DESTACADO NA PÁGINA ABERTA
+   (o JavaScript põe a classe "atual" no botão do menu
+   que contém o item da página que está aberta)
    ========================================== */
 .nav-btn.atual { color: var(--primary); background-color: var(--primary-light); }
 @media (min-width: 961px) {
@@ -949,6 +951,9 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 
 /* ==========================================
    18. TABELAS RESPONSIVAS
+   - ocupam a largura inteira do artigo
+   - no celular continuam tabelas, só mais compactas (menos espaço interno, fonte menor, texto quebrando)
+   - tabelas com 4 ou mais colunas rolam para o lado
    ========================================== */
 .page-card th { background: var(--primary-light); color: var(--primary); font-size: 0.9rem; text-align: left; }
 .page-card tbody tr:nth-child(odd) td { background: #f8fafc; }
@@ -960,33 +965,47 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
   .page-card th { font-size: 0.8rem; }
 }
 
+
 /* ==========================================
-   19. PÁGINAS AUTOCONTIDAS EM IFRAME
-   (ex: marrua-mwm.html — tema escuro próprio,
-   isolado em <iframe> para não vazar CSS)
+   19. ESQUEMA ELÉTRICO (fios, pinos, tensões)
    ========================================== */
-.page-card.wide {
-  max-width: 1200px;
-  padding: 1.2rem;
-}
+.page-card .componente { border: 1px solid var(--border-color); border-radius: 14px; padding: 1.1rem 1.2rem; margin: 1.2rem 0; background: #fff; box-shadow: var(--shadow-sm); }
+.page-card .componente h3 { margin: 0 0 0.2rem; font-size: 1.05rem; color: var(--primary); }
+.page-card .ref { margin: 0 0 0.8rem; font-size: 0.78rem; color: var(--text-muted); }
+.tabela-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.pino { display: inline-block; background: #eef2ff; color: #3730a3; border: 1px solid #c7d2fe; padding: 0.05rem 0.5rem; border-radius: 6px; font-family: Consolas, 'Courier New', monospace; font-weight: 700; font-size: 0.8rem; white-space: nowrap; }
+.fio { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; }
+.fio-cor { width: 14px; height: 14px; border-radius: 3px; border: 1px solid #94a3b8; flex: none; display: inline-block; }
+.destino { color: #0f766e; font-weight: 600; }
+.page-card tr.conexao-critica td { background: #fef2f2 !important; color: #b91c1c; }
+.comportamento, .tensao { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 0.1rem 0.5rem; border-radius: 6px; white-space: nowrap; }
+.comportamento.com { background: #fef3c7; color: #92400e; }
+.comportamento.na { background: #dcfce7; color: #166534; }
+.comportamento.nf { background: #fee2e2; color: #991b1b; }
+.tensao.t30 { background: #fee2e2; color: #991b1b; }
+.tensao.t15 { background: #fef3c7; color: #92400e; }
+.tensao.t50 { background: #dcfce7; color: #166534; }
+.tensao.ttr { background: #e2e8f0; color: #334155; }
+.tensao.t58 { background: #ede9fe; color: #5b21b6; }
+.tensao.tac { background: #ccfbf1; color: #115e59; }
+.descricao-acao { background: var(--primary-light); border-left: 4px solid var(--primary); border-radius: 8px; padding: 0.8rem 1rem; margin-top: 0.9rem; font-size: 0.92rem; line-height: 1.6; }
+.destaque { margin-top: 1rem; padding: 0.8rem 1rem; background: #f8fafc; border: 1px solid var(--border-color); border-radius: 10px; overflow-x: auto; }
+@media (max-width: 640px) { .page-card .componente { padding: 0.8rem; } .fio { align-items: flex-start; } }
 
-.pagina-iframe {
-  display: block;
-  width: 100%;
-  height: calc(100vh - 220px);
-  min-height: 600px;
-  border: 1px solid var(--border-color);
-  border-radius: 14px;
-  background: #fff;
-  box-shadow: var(--shadow-sm);
-  margin-top: 0.8rem;
-}
+/* Navegação entre as páginas do esquema do Marruá */
+.aba-nav a { font-size: 0.85rem; font-weight: 600; padding: 0.5rem 0.9rem; border-radius: 10px; border: 1px solid var(--border-color); background: #fff; color: var(--primary); text-decoration: none; transition: var(--transition); }
+.aba-nav a:hover { background: var(--primary-light); }
 
-@media (max-width: 960px) {
-  .page-card.wide { padding: 0.8rem; }
-  .pagina-iframe {
-    height: calc(100vh - 160px);
-    min-height: 500px;
-    border-radius: 12px;
-  }
+/* ==========================================
+   20. FONTE MENOR NAS TABELAS
+   Para mudar o tamanho, altere os valores abaixo (rem)
+   ========================================== */
+.page-card table { font-size: 0.8rem; }
+.page-card th { font-size: 0.72rem; }
+.page-card td, .page-card th { padding: 0.3rem 0.55rem; line-height: 1.4; }
+.page-card table .pino { font-size: 0.72rem; }
+.page-card table .fio, .page-card table .comportamento, .page-card table .tensao { font-size: 0.72rem; }
+@media (max-width: 640px) {
+  .page-card table { font-size: 0.74rem; }
+  .page-card td, .page-card th { padding: 0.25rem 0.4rem; }
 }
