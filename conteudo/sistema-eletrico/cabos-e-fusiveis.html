@@ -1,0 +1,257 @@
+<!-- Esquema elétrico Agrale Marruá AM21 - Cabos e Fusíveis (página 1 de 7) -->
+<header class="art-head">
+  <span class="art-kicker">Sistema Elétrico · Marruá AM21 · 1 de 7</span>
+  <h1>Cabos e Fusíveis</h1>
+  <p class="art-lead">AM21 VTNE 3/4t — 12V Euro III MWM 4.07 TCE | Código DE 611.001 Rev.2</p>
+  <div class="chips"><span>3 componentes</span><span>Agrale Marruá AM21</span><span>DE 611.001 Rev. 2</span></div>
+</header>
+
+<div class="dica"><strong>Como ler</strong><p>Os terminais <strong>30</strong>, <strong>15</strong> e <strong>50</strong> são o positivo direto da bateria, a ignição e a partida. <strong>COM</strong>, <strong>NA</strong> e <strong>NF</strong> indicam o contato comum, o normalmente aberto e o normalmente fechado. As linhas em vermelho são conexões críticas.</p></div>
+<div class="toc"><strong>Neste circuito</strong><ul><li><a href="#" data-goto="legenda-cores">🎨 Legenda de Cores dos Cabos</a></li><li><a href="#" data-goto="tabela-cabos">📖 Tabela de Cabos — Numeração e Função</a></li><li><a href="#" data-goto="fusiveis">🔶 Tabela Geral de Fusíveis</a></li></ul></div>
+<div class="componente" id="legenda-cores">
+<h3>🎨 Legenda de Cores dos Cabos</h3>
+<p class="ref">📄 Página 8 do PDF | Código de cores dos fios</p>
+<div class="tabela-wrapper">
+<table class="tabela-pinagem">
+<thead>
+<tr>
+<th>Código</th>
+<th>Cor</th>
+<th>Sigla</th>
+<th>Aplicação Típica</th>
+</tr>
+</thead>
+<tbody>
+<tr><td><span class="pino">0</span></td><td><span class="fio"><span class="fio-cor" style="background:#000;"></span><strong>Preto</strong></span></td><td><strong>PT</strong></td><td>Terra / Chassi / Comandos de relé</td></tr>
+<tr><td><span class="pino">1</span></td><td><span class="fio"><span class="fio-cor" style="background:#8B4513;"></span><strong>Marrom</strong></span></td><td><strong>MA</strong></td><td>Terra de sensores / Instrumentos</td></tr>
+<tr><td><span class="pino">2</span></td><td><span class="fio"><span class="fio-cor" style="background:#f00;"></span><strong>Vermelho</strong></span></td><td><strong>VM</strong></td><td>Alimentação direta da bateria (+30 / B+)</td></tr>
+<tr><td><span class="pino">3</span></td><td><span class="fio"><span class="fio-cor" style="background:#FF8C00;"></span><strong>Laranja</strong></span></td><td><strong>LR</strong></td><td>Sinais especiais / Sinal analógico</td></tr>
+<tr><td><span class="pino">4</span></td><td><span class="fio"><span class="fio-cor" style="background:#f9e2af;"></span><strong>Amarelo</strong></span></td><td><strong>AM</strong></td><td>Ignição (+15) / Sinal analógico</td></tr>
+<tr><td><span class="pino">5</span></td><td><span class="fio"><span class="fio-cor" style="background:#0a0;"></span><strong>Verde</strong></span></td><td><strong>VD</strong></td><td>Comandos / Sinais de relé</td></tr>
+<tr><td><span class="pino">6</span></td><td><span class="fio"><span class="fio-cor" style="background:#00f;"></span><strong>Azul</strong></span></td><td><strong>AZ</strong></td><td>D+ / W / Sinais de sensores</td></tr>
+<tr><td><span class="pino">7</span></td><td><span class="fio"><span class="fio-cor" style="background:#8A2BE2;"></span><strong>Violeta</strong></span></td><td><strong>VL</strong></td><td>Sinais de comandos / Atuadores</td></tr>
+<tr><td><span class="pino">8</span></td><td><span class="fio"><span class="fio-cor" style="background:#888;"></span><strong>Cinza</strong></span></td><td><strong>CZ</strong></td><td>Iluminação / Sinais de sensores</td></tr>
+<tr><td><span class="pino">9</span></td><td><span class="fio"><span class="fio-cor" style="background:#fff; border:1px solid #666;"></span><strong>Branco</strong></span></td><td><strong>BR</strong></td><td>Sinais especiais</td></tr>
+</tbody>
+</table>
+</div>
+<div class="destaque">
+<strong style="color: #89b4fa;">📌 Abreviações de Cores (conforme PDF Pág. 8):</strong>
+<table>
+<thead><tr><th>Abrev.</th><th>Cor</th><th>Abrev.</th><th>Cor</th></tr></thead>
+<tbody>
+<tr><td><strong>AM</strong></td><td>Amarelo</td><td><strong>RS</strong></td><td>Rosa</td></tr>
+<tr><td><strong>AZ</strong></td><td>Azul</td><td><strong>LL</strong></td><td>Lilás</td></tr>
+<tr><td><strong>VD</strong></td><td>Verde</td><td><strong>VL</strong></td><td>Violeta</td></tr>
+<tr><td><strong>CZ</strong></td><td>Cinza</td><td><strong>MA</strong></td><td>Marrom</td></tr>
+<tr><td><strong>PT</strong></td><td>Preto</td><td><strong>VM</strong></td><td>Vermelho</td></tr>
+<tr><td><strong>BR</strong></td><td>Branco</td><td><strong>LR</strong></td><td>Laranja</td></tr>
+</tbody>
+</table>
+</div>
+<div class="descricao-acao">
+<strong>Como ler a identificação do cabo:</strong><br/><br/>
+<code style="background:#313244; padding:6px 10px; border-radius:4px; display:inline-block; font-family:Consolas, monospace; color:#f9e2af;">
+        B(33)0,5VM
+      </code><br/><br/>
+      • <strong>B</strong> = chicote ao qual pertence (A, B, C, D...)<br/>
+      • <strong>(33)</strong> = número da função (consultar Tabela de Cabos)<br/>
+      • <strong>0,5</strong> = bitola (seção transversal em mm²)<br/>
+      • <strong>VM</strong> = cor do cabo (Vermelho)
+    </div>
+</div>
+<div class="componente" id="tabela-cabos">
+<h3>📖 Tabela de Cabos — Numeração e Função</h3>
+<p class="ref">📄 Página 4 do PDF | Referência completa dos fios do veículo</p>
+<div style="background:#1e1e2e; border-left:3px solid #89b4fa; padding:12px 15px; margin-bottom:15px; border-radius:4px; font-size:12px; color:#cdd6f4; line-height:1.6;">
+<strong style="color:#89b4fa;">Como usar:</strong> Quando você vir no esquema um fio com um número (ex: <span class="pino">245</span>), consulte esta tabela para saber sua função. A coluna <strong>Tipo</strong> indica o tipo de tensão/função (ex: +30 = positivo direto da bateria, +15 = positivo pós-ignição, Terra = negativo).
+    </div>
+<div class="tabela-wrapper">
+<table class="tabela-pinagem">
+<thead>
+<tr>
+<th>Nº</th>
+<th>Função</th>
+<th>Tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr><td><span class="pino">001</span></td><td>Pedal Acelerador Eletrônico</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">015</span></td><td>Luz de Ré (central - interruptor)</td><td><span class="tensao t15">+15</span></td></tr>
+<tr><td><span class="pino">020</span></td><td>Luz de Ré (pós interruptor)</td><td><span class="tensao t15">+15</span></td></tr>
+<tr><td><span class="pino">051</span></td><td>+50 Pós Interruptor Embreagem</td><td><span class="tensao t50">+50</span></td></tr>
+<tr><td><span class="pino">060</span></td><td>Nível Combustível</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">110</span></td><td>KI 31 (Terra)</td><td><span class="tensao ttr">Terra</span></td></tr>
+<tr><td><span class="pino">112</span></td><td>(−) Sinalizador Sonoro</td><td><span class="tensao ttr">Terra</span></td></tr>
+<tr><td><span class="pino">165</span></td><td>Terra para ECU do Motor</td><td><span class="tensao ttr">Terra</span></td></tr>
+<tr><td><span class="pino">170</span></td><td>31 Sistema de Injeção Eletrônica</td><td><span class="tensao ttr">Terra</span></td></tr>
+<tr><td><span class="pino">177</span></td><td>Pedal Acelerador (Terra Digital)</td><td><span class="tensao ttr">Terra</span></td></tr>
+<tr><td><span class="pino">210</span></td><td>+B Alternador</td><td><span class="tensao t30">B+</span></td></tr>
+<tr><td><span class="pino">215</span></td><td>+12 Solenoide Bomba Injetora</td><td><span class="tensao t15">+15</span></td></tr>
+<tr><td><span class="pino">220</span></td><td>+30 Antes Chave Geral</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">222</span></td><td>+30 Pisca Alerta</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">224</span></td><td>+30 Ventilação Forçada</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">226</span></td><td>+30 Interruptor Freio</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">230</span></td><td>+30 Antes de Fusíveis</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">232</span></td><td>86 Relé Chave NATO</td><td><span class="tensao t15">+15</span></td></tr>
+<tr><td><span class="pino">234</span></td><td>Luz de Mapa</td><td><span class="tensao t15">+15</span></td></tr>
+<tr><td><span class="pino">235</span></td><td>+30 Pisca Alerta (Inter. PARK / OFF)</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">245</span></td><td>54 Luz de Freio</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">247</span></td><td>Freio Civil (Marruá)</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">249</span></td><td>Freio Militar (Marruá)</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">250</span></td><td>+15 Antes de Fusíveis</td><td><span class="tensao t15">+15</span></td></tr>
+<tr><td><span class="pino">251</span></td><td>+15 53a Motor Limpador Para Brisa</td><td><span class="tensao t15">+15</span></td></tr>
+<tr><td><span class="pino">252</span></td><td>+15 53a Motor Limp. Chave Coluna</td><td><span class="tensao t15">+15</span></td></tr>
+<tr><td><span class="pino">253</span></td><td>+15 Buzina</td><td><span class="tensao t15">+15</span></td></tr>
+<tr><td><span class="pino">254</span></td><td>+15 Interruptor Pisca Alerta</td><td><span class="tensao t15">+15</span></td></tr>
+<tr><td><span class="pino">256</span></td><td>+15 Painel de Instrumentos F6</td><td><span class="tensao t15">+15</span></td></tr>
+<tr><td><span class="pino">258</span></td><td>+15 Sinalizador Sonoro</td><td><span class="tensao t15">+15</span></td></tr>
+<tr><td><span class="pino">260</span></td><td>Luz de Mapa</td><td><span class="tensao t15">+15</span></td></tr>
+<tr><td><span class="pino">277</span></td><td>+30 p/ ECU Antes Fusível</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">278</span></td><td>+30 ECU F26</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">279</span></td><td>+30 ECU F27</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">284</span></td><td>Pedal Acelerador (5V digital)</td><td><span class="tensao tac">+5V</span></td></tr>
+<tr><td><span class="pino">285</span></td><td>+15 Sistema Injeção Eletrônica F25</td><td><span class="tensao t15">+15</span></td></tr>
+<tr><td><span class="pino">286</span></td><td>+30 F28</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">287</span></td><td>+30 Bomba Elétrica F29</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">288</span></td><td>+30 Sensor de Velocidade F30</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">299</span></td><td>Alimentação dif. da Tensão da Bateria</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">330</span></td><td>Pedal Acelerador (Marcha Lenta OFF)</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">363</span></td><td>49a Relé Pisca</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">402</span></td><td>53M Relé Temporizador</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">410</span></td><td>86 Relé Farol Baixo</td><td><span class="tensao t15">+15</span></td></tr>
+<tr><td><span class="pino">415</span></td><td>Farol Baixo Esquerdo</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">420</span></td><td>Farol Baixo Direito</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">422</span></td><td>Nível de Água</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">422a</span></td><td>87 Relé Filtro 10S</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">425</span></td><td>Lâmpada Sinalizador Sonoro</td><td><span class="tensao t15">+15</span></td></tr>
+<tr><td><span class="pino">435</span></td><td>53 - 1V Motor Limpador</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">440</span></td><td>Espia Indicadora Diagnose</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">445</span></td><td>Sinal Freio Redundante p/ Sist. Injeção</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">460</span></td><td>Farol de Aproximação (Marruá)</td><td><span class="tensao t15">+15</span></td></tr>
+<tr><td><span class="pino">461</span></td><td>Farol de Aproximação (Marruá)</td><td><span class="tensao t15">+15</span></td></tr>
+<tr><td><span class="pino">505</span></td><td>86 Relé Temp. Limpador e Esguicho</td><td><span class="tensao t15">+15</span></td></tr>
+<tr><td><span class="pino">511</span></td><td>Sensor Pressão de Óleo</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">512</span></td><td>Ho Chave Coluna (− Buzina)</td><td><span class="tensao ttr">Terra</span></td></tr>
+<tr><td><span class="pino">515</span></td><td>+ Lança Fumígeno</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">520</span></td><td>W Alternador (Tacômetro)</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">540</span></td><td>Sinal Freio p/ Sistema Injeção</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">545</span></td><td>Sinal de Velocidade</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">545b</span></td><td>Sinal de Velocidade</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">553</span></td><td>Luz Militar Esquerda (Marruá)</td><td><span class="tensao t58">+58</span></td></tr>
+<tr><td><span class="pino">555</span></td><td>Luz Militar (Marruá)</td><td><span class="tensao t58">+58</span></td></tr>
+<tr><td><span class="pino">558</span></td><td>Luz Militar Direita (Marruá)</td><td><span class="tensao t58">+58</span></td></tr>
+<tr><td><span class="pino">560</span></td><td>49 Relé Pisca</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">564</span></td><td>C Relé Pisca</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">570</span></td><td>Pisca Direito</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">605</span></td><td>53e Relé Temporizador Limpador</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">625</span></td><td>61 Lâmpada Alternador</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">635</span></td><td>Ventilação Forçada Velocidade 1</td><td><span class="tensao t15">+15</span></td></tr>
+<tr><td><span class="pino">640</span></td><td>Pisca Esquerdo</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">656</span></td><td>56 Interruptor Faróis</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">656a</span></td><td>Faróis (Interruptor PARK / OFF)</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">656b</span></td><td>Faróis (Interruptor PARK / OFF)</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">670</span></td><td>Pedal Acelerador (Marcha Lenta ON)</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">675</span></td><td>Sensor Temperatura</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">680</span></td><td>K-Line Motor</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">706</span></td><td>Espia Indicadora Água Combustível</td><td><span class="tensao t15">+15</span></td></tr>
+<tr><td><span class="pino">730</span></td><td>AC Relé Bomba Elétrica</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">731</span></td><td>Bomba Elétrica</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">799</span></td><td>Jump Imobilizer</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">805</span></td><td>58 Interruptor Faróis</td><td><span class="tensao t58">+58</span></td></tr>
+<tr><td><span class="pino">810</span></td><td>Interruptor Pressão Óleo</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">830</span></td><td>58 Lanternas Dianteira e Traseira</td><td><span class="tensao t58">+58</span></td></tr>
+<tr><td><span class="pino">833</span></td><td>58e Militar (Marruá)</td><td><span class="tensao t58">+58</span></td></tr>
+<tr><td><span class="pino">842</span></td><td>58 Reostato</td><td><span class="tensao t58">+58</span></td></tr>
+<tr><td><span class="pino">844</span></td><td>86 - Relé Alimentação Freio</td><td><span class="tensao t15">+15</span></td></tr>
+<tr><td><span class="pino">860</span></td><td>Interruptor Embreagem</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">895</span></td><td>AC Main Relay Sprint</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">905</span></td><td>I Relé Temporizador Limpador</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">910</span></td><td>86 Relé Farol Alto</td><td><span class="tensao t15">+15</span></td></tr>
+<tr><td><span class="pino">915</span></td><td>Farol Alto Esquerdo</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">920</span></td><td>Farol Alto Direito</td><td><span class="tensao t30">+30</span></td></tr>
+<tr><td><span class="pino">922</span></td><td>FA Lâmpada Indicadora</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">928</span></td><td>RF Lâmpada Indicadora</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">944</span></td><td>4x4 Interruptor</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">953</span></td><td>Lâmpada Freio Estacionamento</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">954</span></td><td>Nível Líquido Freio Embreagem</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">955</span></td><td>Check Control F. Estac. / Liq. Freio</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">960</span></td><td>Pedal Acelerador (Sinal Potenciômetro)</td><td><span class="tensao tac">Sinal</span></td></tr>
+<tr><td><span class="pino">970</span></td><td>53b - 2V Motor Limpador</td><td><span class="tensao tac">Sinal</span></td></tr>
+</tbody>
+</table>
+</div>
+<div class="destaque">
+<strong style="color:#89b4fa;">📌 Legenda das Siglas dos Chicotes (prefixos dos fios):</strong>
+<table>
+<thead>
+<tr><th>Sigla</th><th>Chicote</th><th>Descrição</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>A</strong></td><td>Chicote Elétrico Dianteiro</td><td>Fios da parte frontal do veículo</td></tr>
+<tr><td><strong>B</strong></td><td>Chicote Elétrico Traseiro</td><td>Fios da traseira do veículo</td></tr>
+<tr><td><strong>C</strong></td><td>Cabo Ligação Painel Instrumentos</td><td>Fios do painel de instrumentos</td></tr>
+<tr><td><strong>D</strong></td><td>Cabo Ligação Motor 4.07 TCE</td><td>Fios do sistema de injeção eletrônica</td></tr>
+<tr><td><strong>E</strong></td><td>Cabo Ligação Lâmpadas</td><td>Fios das lâmpadas indicadoras</td></tr>
+<tr><td><strong>F</strong></td><td>Cabo Ligação Tomada 12P</td><td>Fios da tomada de reboque 12 polos</td></tr>
+<tr><td><strong>G</strong></td><td>Cabo Ligação Velocímetro</td><td>Fios do velocímetro</td></tr>
+<tr><td><strong>H</strong></td><td>Cabo Adaptador Tomadas</td><td>Fios do adaptador</td></tr>
+<tr><td><strong>I</strong></td><td>Cabo Ligação Sensor Óleo</td><td>Fios do sensor de óleo</td></tr>
+<tr><td><strong>J</strong></td><td>Cabo Ligação Ventilador</td><td>Fios do ventilador</td></tr>
+<tr><td><strong>K</strong></td><td>Cabo Lig. Faróis e Lanternas</td><td>Fios dos faróis e lanternas</td></tr>
+<tr><td><strong>L</strong></td><td>Cabo Lig. Relé 10S</td><td>Fios do sistema de verificação</td></tr>
+<tr><td><strong>M</strong></td><td>Cabo Lig. Sinal Velocidade</td><td>Fios do sinal de velocidade</td></tr>
+<tr><td><strong>N</strong></td><td>Cabo Lig. Elevador Tensão</td><td>Fios do sistema de 24V (militar)</td></tr>
+<tr><td><strong>O</strong></td><td>Conjunto de Ligação</td><td>Fios diversos</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="componente" id="fusiveis">
+<h3>🔶 Tabela Geral de Fusíveis</h3>
+<p class="ref">📄 Página 5 do PDF | Com indicação da página do manual</p>
+<div class="tabela-wrapper">
+<table class="tabela-pinagem">
+<thead>
+<tr>
+<th>Nº</th>
+<th>Pág.</th>
+<th>Função</th>
+<th>Amp.</th>
+</tr>
+</thead>
+<tbody>
+<tr><td><span class="pino">1</span></td><td>10</td><td>Limpador de para-brisa; Lavador de para-brisa e Relé Temporizador</td><td><strong style="color:#f9e2af;">15A</strong></td></tr>
+<tr><td><span class="pino">2</span></td><td>14</td><td>Pisca-Pisca</td><td><strong style="color:#f9e2af;">15A</strong></td></tr>
+<tr><td><span class="pino">3</span></td><td>14</td><td>Pisca Alerta</td><td><strong style="color:#f9e2af;">15A</strong></td></tr>
+<tr><td><span class="pino">4</span></td><td>15</td><td>Farol de Ré</td><td><strong style="color:#f9e2af;">7,5A</strong></td></tr>
+<tr><td><span class="pino">5</span></td><td>12</td><td>Farol alto direito e lâmpada indic. de luz alta</td><td><strong style="color:#f9e2af;">15A</strong></td></tr>
+<tr><td><span class="pino">6</span></td><td>12</td><td>Farol alto esquerdo</td><td><strong style="color:#f9e2af;">15A</strong></td></tr>
+<tr><td><span class="pino">7</span></td><td>9</td><td>Lâmpada indic. Carga Bateria; Pressão Óleo; Restrição Filtro; Freio Estacionário e Nível Líquido Freio; 4x4; Diagnose Motor; Água no Combustível e Nível de Água. Relé Filtro 10S; Ind. Temperatura do Motor; Ind. Nível Combustível; Ind. Pressão óleo; Velocímetro; Tacômetro e Voltímetro.</td><td><strong style="color:#f9e2af;">7,5A</strong></td></tr>
+<tr><td><span class="pino">8</span></td><td>15</td><td>Ilumin. interruptor pisca alerta; Inclinômetro; Tacômetro; Indic. Pressão óleo; Voltímetro; Indic. Temperatura; Indic. Combustível e Velocímetro.</td><td><strong style="color:#f9e2af;">7,5A</strong></td></tr>
+<tr><td><span class="pino">9</span></td><td>16</td><td>Luz militar lado direito</td><td><strong style="color:#f9e2af;">7,5A</strong></td></tr>
+<tr><td><span class="pino">10</span></td><td>16</td><td>Luz militar lado esquerdo</td><td><strong style="color:#f9e2af;">7,5A</strong></td></tr>
+<tr><td><span class="pino">11</span></td><td>12</td><td>Farol luz baixa direito</td><td><strong style="color:#f9e2af;">15A</strong></td></tr>
+<tr><td><span class="pino">12</span></td><td>12</td><td>Farol luz baixa esquerda</td><td><strong style="color:#f9e2af;">15A</strong></td></tr>
+<tr><td><span class="pino">13</span></td><td>18</td><td>Ventilação forçada</td><td><strong style="color:#f9e2af;">15A</strong></td></tr>
+<tr><td><span class="pino">14</span></td><td>17</td><td>Farol de aproximação</td><td><strong style="color:#f9e2af;">7,5A</strong></td></tr>
+<tr><td><span class="pino">15</span></td><td>17</td><td>Buzina</td><td><strong style="color:#f9e2af;">15A</strong></td></tr>
+<tr><td><span class="pino">16</span></td><td>15</td><td>Luz de freio civil e militar</td><td><strong style="color:#f9e2af;">10A</strong></td></tr>
+<tr><td><span class="pino">17</span></td><td>13</td><td>Luz civil lado direito</td><td><strong style="color:#f9e2af;">7,5A</strong></td></tr>
+<tr><td><span class="pino">18</span></td><td>13</td><td>Luz civil lado esquerdo</td><td><strong style="color:#f9e2af;">7,5A</strong></td></tr>
+<tr><td><span class="pino">19</span></td><td>16</td><td>Luz de Mapa</td><td><strong style="color:#f9e2af;">7,5A</strong></td></tr>
+<tr><td><span class="pino">25</span></td><td>25</td><td>ECU Motor +15</td><td><strong style="color:#f9e2af;">5A</strong></td></tr>
+<tr><td><span class="pino">26</span></td><td>25</td><td>ECU Motor +30</td><td><strong style="color:#f9e2af;">10A</strong></td></tr>
+<tr><td><span class="pino">27</span></td><td>25</td><td>ECU Motor +30</td><td><strong style="color:#f9e2af;">15A</strong></td></tr>
+<tr><td><span class="pino">28</span></td><td>28</td><td>Interruptores dos Pedais; Conector Diagnose; Válvula de Vácuo e Relé Bomba Elétrica</td><td><strong style="color:#f9e2af;">15A</strong></td></tr>
+<tr><td><span class="pino">29</span></td><td>28</td><td>Relé Bomba Elétrica</td><td><strong style="color:#f9e2af;">10A</strong></td></tr>
+<tr><td><span class="pino">30</span></td><td>24</td><td>Sensor Água Combustível</td><td><strong style="color:#f9e2af;">5A</strong></td></tr>
+</tbody>
+</table>
+</div>
+<div class="descricao-acao">
+<strong>Importante:</strong> Nunca substitua um fusível por outro de amperagem maior. Se um fusível queima frequentemente, há um problema no circuito que deve ser investigado.
+    </div>
+</div>
+
+<div class="aba-nav"><span></span><a href="#sistema-eletrico/marrua-partida-carga">Partida e Carga →</a></div>
