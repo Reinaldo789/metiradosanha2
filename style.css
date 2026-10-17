@@ -951,26 +951,16 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 
 /* ==========================================
    18. TABELAS RESPONSIVAS
-   - tabelas com até 3 colunas viram cartões no celular, sem precisar mudar o HTML
+   - ocupam a largura inteira do artigo
+   - no celular continuam tabelas, só mais compactas (menos espaço interno, fonte menor, texto quebrando)
    - tabelas com 4 ou mais colunas rolam para o lado
-   - se as células tiverem data-label="Nome da coluna", o nome aparece em cada linha do cartão
    ========================================== */
 .page-card th { background: var(--primary-light); color: var(--primary); font-size: 0.9rem; text-align: left; }
 .page-card tbody tr:nth-child(odd) td { background: #f8fafc; }
-/* ocupa a largura inteira do artigo */
 .page-card table { display: table !important; width: 100% !important; max-width: 100%; margin: 1rem 0; table-layout: auto; }
 
 @media (max-width: 640px) {
-  /* 4 ou mais colunas: rola para o lado dentro da própria tabela */
   .page-card table:has(tr > :nth-child(4)) { display: block !important; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .page-card table:not(:has(tr > :nth-child(4))) thead { position: absolute !important; left: -9999px !important; }
-  .page-card table:not(:has(tr > :nth-child(4))),
-  .page-card table:not(:has(tr > :nth-child(4))) tbody,
-  .page-card table:not(:has(tr > :nth-child(4))) tr,
-  .page-card table:not(:has(tr > :nth-child(4))) td { display: block !important; width: 100% !important; }
-  .page-card table:not(:has(tr > :nth-child(4))) tr { border: 1px solid var(--border-color); border-radius: 10px; margin-bottom: 0.7rem; overflow: hidden; background: #fff; }
-  .page-card table:not(:has(tr > :nth-child(4))) td { border: 0; border-bottom: 1px solid var(--border-color); padding: 0.55rem 0.9rem; background: #fff !important; }
-  .page-card table:not(:has(tr > :nth-child(4))) td:first-child { font-weight: 700; background: var(--primary-light) !important; }
-  .page-card table:not(:has(tr > :nth-child(4))) td:last-child { border-bottom: 0; }
-  .page-card table td[data-label]::before { content: attr(data-label) ": "; font-weight: 700; font-size: 0.8rem; color: var(--primary); }
+  .page-card th, .page-card td { padding: 0.5rem 0.55rem; font-size: 0.88rem; line-height: 1.4; overflow-wrap: break-word; vertical-align: top; }
+  .page-card th { font-size: 0.8rem; }
 }
