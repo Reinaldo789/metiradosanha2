@@ -951,22 +951,23 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 
 /* ==========================================
    18. TABELAS RESPONSIVAS
-   - qualquer tabela do artigo ganha o visual padrão e rola para o lado se não couber
-   - com class="tabela-resp" + data-label nas células, vira uma lista de cartões no celular
+   - tabelas com até 3 colunas viram cartões no celular, sem precisar mudar o HTML
+   - tabelas com 4 ou mais colunas rolam para o lado
+   - se as células tiverem data-label="Nome da coluna", o nome aparece em cada linha do cartão
    ========================================== */
 .page-card th { background: var(--primary-light); color: var(--primary); font-size: 0.9rem; text-align: left; }
 .page-card tbody tr:nth-child(odd) td { background: #f8fafc; }
-.page-card table { margin: 1rem 0; }
-.page-card table.tabela-resp { display: table; overflow: visible; }
+.page-card table { margin: 1rem 0; -webkit-overflow-scrolling: touch; }
 
 @media (max-width: 640px) {
-  .page-card .tabela-resp thead { position: absolute; left: -9999px; }   /* some visualmente, continua acessível */
-  .page-card .tabela-resp,
-  .page-card .tabela-resp tbody,
-  .page-card .tabela-resp tr,
-  .page-card .tabela-resp td { display: block; width: 100%; }
-  .page-card .tabela-resp tr { border: 1px solid var(--border-color); border-radius: 10px; margin-bottom: 0.7rem; overflow: hidden; background: #fff; }
-  .page-card .tabela-resp td { display: flex; justify-content: space-between; align-items: baseline; gap: 0.8rem; border: 0; border-bottom: 1px solid var(--border-color); padding: 0.6rem 0.9rem; text-align: right; }
-  .page-card .tabela-resp td:last-child { border-bottom: 0; }
-  .page-card .tabela-resp td::before { content: attr(data-label); flex: none; max-width: 45%; font-weight: 700; font-size: 0.8rem; color: var(--primary); text-align: left; }
+  .page-card table:not(:has(tr > :nth-child(4))) thead { position: absolute !important; left: -9999px !important; }
+  .page-card table:not(:has(tr > :nth-child(4))),
+  .page-card table:not(:has(tr > :nth-child(4))) tbody,
+  .page-card table:not(:has(tr > :nth-child(4))) tr,
+  .page-card table:not(:has(tr > :nth-child(4))) td { display: block !important; width: 100% !important; }
+  .page-card table:not(:has(tr > :nth-child(4))) tr { border: 1px solid var(--border-color); border-radius: 10px; margin-bottom: 0.7rem; overflow: hidden; background: #fff; }
+  .page-card table:not(:has(tr > :nth-child(4))) td { border: 0; border-bottom: 1px solid var(--border-color); padding: 0.55rem 0.9rem; background: #fff !important; }
+  .page-card table:not(:has(tr > :nth-child(4))) td:first-child { font-weight: 700; background: var(--primary-light) !important; }
+  .page-card table:not(:has(tr > :nth-child(4))) td:last-child { border-bottom: 0; }
+  .page-card table td[data-label]::before { content: attr(data-label) ": "; font-weight: 700; font-size: 0.8rem; color: var(--primary); }
 }
