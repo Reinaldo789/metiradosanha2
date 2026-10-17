@@ -1,165 +1,75 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sensor de Pressão do Rail</title>
-<style>
-:root{--ac:#4338ca;--bg:#fff;--tx:#1f2937;--mu:#6b7280;--ln:#e5e7eb;--so:#f5f6ff;--wa:#fff7ed;--wb:#f59e0b;--okbg:#ecfdf5;--okbd:#10b981;--erbg:#fef2f2;--erbd:#ef4444}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.65 system-ui,Segoe UI,Roboto,sans-serif}
-main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
-h1{font-size:2rem;margin:.2em 0;color:var(--ac)}
-h2{font-size:1.4rem;margin:2.2em 0 .6em;padding-bottom:.3em;border-bottom:2px solid var(--ln);scroll-margin-top:16px}
-h3{font-size:1.1rem;margin:1.8em 0 .4em;color:var(--ac);scroll-margin-top:16px}
-h4{margin:1.2em 0 .2em;font-size:1rem}
-nav.idx{background:var(--so);border:1px solid var(--ln);border-radius:12px;padding:12px 16px;margin:16px 0}
-nav.idx a{display:inline-block;margin:2px 10px 2px 0;color:var(--ac);text-decoration:none;font-size:.92rem}
-nav.idx a:hover{text-decoration:underline}
-a{color:var(--ac)}
-.box{border-left:4px solid var(--ac);background:var(--so);padding:10px 14px;border-radius:0 8px 8px 0;margin:14px 0}
-.warn{border-left-color:var(--wb);background:var(--wa)}
-.cod{border:1px solid var(--ln);border-radius:10px;padding:4px 16px 8px;margin:12px 0}
-.cod h4{color:var(--ac);margin-top:.6em}
-.chips{margin:12px 0}
-.chips span{display:inline-block;background:var(--so);border:1px solid var(--ln);border-radius:999px;padding:3px 12px;font-size:.82rem;color:var(--mu);margin:2px 6px 2px 0}
-.lead{font-size:1.05rem;color:var(--mu);margin:.4em 0 1em}
-table{border-collapse:collapse;width:100%;margin:14px 0;font-size:.95rem}
-th,td{border:1px solid var(--ln);padding:8px 12px;text-align:left;vertical-align:top}
-th{background:var(--so);font-weight:600}
-.fluxo{display:flex;flex-direction:column;gap:12px;margin:20px 0}
-.passo{border:1px solid var(--ln);border-left:4px solid var(--ac);border-radius:0 10px 10px 0;padding:12px 16px;background:#fff}
-.passo-n{display:inline-block;background:var(--ac);color:#fff;font-size:.78rem;font-weight:600;padding:2px 10px;border-radius:999px;margin-bottom:8px;letter-spacing:.03em;text-transform:uppercase}
-.passo p{margin:0 0 10px}
-.passo p:last-child{margin-bottom:0}
-.resp{display:flex;gap:8px;margin-top:4px}
-.resp button{border:none;padding:6px 20px;border-radius:8px;font-weight:600;cursor:pointer;font-size:.95rem;font-family:inherit;transition:filter .15s}
-.resp button:hover{filter:brightness(.92)}
-.resp .sim{background:var(--ac);color:#fff}
-.resp .nao{background:var(--ln);color:var(--tx)}
-.passo.fim .passo-n{color:#fff}
-.passo.fim.erro{border-left-color:var(--erbd);background:var(--erbg)}
-.passo.fim.erro .passo-n{background:var(--erbd)}
-.passo.fim.ok{border-left-color:var(--okbd);background:var(--okbg)}
-.passo.fim.ok .passo-n{background:var(--okbd)}
-.passo.fim.acao{border-left-color:var(--mu);background:#f9fafb}
-.passo.fim.acao .passo-n{background:var(--mu)}
-.passo ul{margin:6px 0 0;padding-left:20px}
-.passo ul li{margin:4px 0}
-</style>
-</head>
-<body>
-<main>
-<h1>Sensor de Pressão do Rail (Common Rail)</h1>
-<p class="lead">Fluxograma de diagnóstico com a luz amarela acesa: responda Sim ou Não em cada passo até chegar à solução.</p>
-<div class="chips"><span>MWM Sprint 2.8</span><span>S10 até 2011</span><span>P0192 · P0193 · P1090 · P1091</span></div>
+<!-- Sensor de Pressão do Rail com falha (luz acesa) - MWM Sprint 2.8 -->
+<header class="art-head">
+  <span class="art-kicker">Sistema de Injeção · Diagnóstico</span>
+  <h1>Sensor de Pressão do Rail (Common Rail)</h1>
+  <p class="art-lead">Fluxograma de diagnóstico com a luz amarela de advertência acesa: responda Sim ou Não em cada passo até chegar à solução.</p>
+  <div class="chips"><span>MWM Sprint 2.8</span><span>S10 até 2011</span><span>P0192 · P0193 · P1090 · P1091</span></div>
+</header>
 
-<nav class="idx">
-<a href="#fluxo">Fluxograma</a>
-<a href="#valores">Valores e pinos</a>
-<a href="#funcao">Função do sensor</a>
-<a href="#solucoes">Soluções comuns</a>
-<a href="#codigos">Códigos relacionados</a>
-</nav>
+<p>Use este roteiro quando a ferramenta de diagnose registrar <strong>P0192</strong> (tensão baixa), <strong>P0193</strong> (tensão alta), <strong>P1090</strong> (desvio acima) ou <strong>P1091</strong> (desvio abaixo). O motor pode desligar ou perder potência. Você precisa de um multímetro e da ferramenta de diagnose MWM.</p>
+
+<div class="aviso"><strong>Atenção</strong><p>Antes de qualquer teste elétrico, confira a bateria, os bornes e o alternador. Tensão baixa ou instável gera leituras falsas no sensor de pressão do Rail e mascara o diagnóstico real.</p></div>
 
 <h2 id="fluxo">Fluxograma</h2>
-<p>Use este roteiro quando a diagnose registrar <strong>P0192</strong> (tensão baixa), <strong>P0193</strong> (tensão alta), <strong>P1090</strong> (desvio acima) ou <strong>P1091</strong> (desvio abaixo). O motor pode desligar ou perder potência.</p>
-
 <div class="fluxo">
   <div class="passo" id="p1"><span class="passo-n">Passo 1</span><p><strong>A ferramenta registrou P0192, P0193, P1090 ou P1091?</strong></p>
     <div class="resp"><button type="button" class="sim" data-ir="p2">Sim</button><button type="button" class="nao" data-ir="r1">Não</button></div></div>
-
-  <div class="passo fim acao" id="r1"><span class="passo-n">Outro código</span><p>Siga o fluxograma do código apresentado.</p></div>
-
+  <div class="passo fim acao" id="r1"><span class="passo-n">Outro código</span><p>Nenhuma falha relacionada ao sensor de pressão do Rail foi registrada. Siga o fluxograma do código apresentado ou faça as verificações preliminares (bateria, aterramento, conectores) antes de prosseguir.</p></div>
   <div class="passo" id="p2"><span class="passo-n">Passo 2</span><p>Desligue o conector do sensor do Rail. Ligue o contato, sem dar partida, e meça a tensão entre os pinos <strong>1 e 3</strong>. <strong>O valor é 5 V?</strong></p>
     <div class="resp"><button type="button" class="sim" data-ir="p3">Sim</button><button type="button" class="nao" data-ir="r2">Não</button></div></div>
-
-  <div class="passo fim erro" id="r2"><span class="passo-n">Alimentação incorreta</span><ul><li>Verifique a alimentação elétrica do ECM;</li><li>Verifique fusíveis F25 e F26;</li><li>Providencie os reparos e refaça o teste.</li></ul></div>
-
+  <div class="passo fim erro" id="r2"><span class="passo-n">Alimentação incorreta</span><ul><li>Verifique a alimentação elétrica do ECM;</li><li>Verifique a continuidade dos fusíveis F25 e F26;</li><li>Verifique problemas no ECM;</li><li>Providencie os reparos necessários e refaça os testes.</li></ul></div>
   <div class="passo" id="p3"><span class="passo-n">Passo 3</span><p>Meça a continuidade entre o pino <strong>3</strong> do sensor e o pino <strong>A28</strong> do ECM, e entre o pino <strong>1</strong> do sensor e o pino <strong>A08</strong> do ECM. <strong>O valor é menor que 1 Ω?</strong></p>
     <div class="resp"><button type="button" class="sim" data-ir="p4">Sim</button><button type="button" class="nao" data-ir="r3">Não</button></div></div>
-
-  <div class="passo fim erro" id="r3"><span class="passo-n">Chicote interrompido</span><ul><li>Verifique mau contato nos conectores do sensor e do ECM;</li><li>Repare o chicote;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
-
+  <div class="passo fim erro" id="r3"><span class="passo-n">Chicote interrompido</span><ul><li>Verifique mau contato nos conectores do sensor e do ECM;</li><li>Verifique interrupções no chicote;</li><li>Repare a falha encontrada e refaça o teste.</li></ul></div>
   <div class="passo" id="p4"><span class="passo-n">Passo 4</span><p>Ligue o conector do sensor. Instale o voltímetro na parte traseira do conector entre os pinos <strong>1 e 2</strong>. Ligue o contato, sem dar partida. <strong>O valor é aproximadamente 0,5 V?</strong></p>
     <div class="resp"><button type="button" class="sim" data-ir="p5">Sim</button><button type="button" class="nao" data-ir="r4">Não</button></div></div>
-
-  <div class="passo fim erro" id="r4"><span class="passo-n">Verificar conector/sensor</span><ul><li>Verifique mau contato nos conectores;</li><li>Verifique se há curto-circuito no chicote;</li><li>Se necessário, substitua o sensor de pressão do Rail.</li></ul></div>
-
-  <div class="passo" id="p5"><span class="passo-n">Passo 5</span><p>Ligue o motor em marcha-lenta. Meça a tensão do sensor. <strong>O valor está entre 1,4 V e 1,7 V?</strong></p>
+  <div class="passo fim erro" id="r4"><span class="passo-n">Verificar conector/sensor</span><ul><li>Verifique mau contato nos conectores do sensor e do ECM;</li><li>Verifique se há curto-circuito no chicote;</li><li>Se o chicote estiver OK, substitua o sensor de pressão do Rail.</li></ul></div>
+  <div class="passo" id="p5"><span class="passo-n">Passo 5</span><p>Ligue o motor em marcha-lenta. Meça a tensão do sensor entre os pinos <strong>1 e 2</strong>. <strong>O valor está entre 1,4 V e 1,7 V?</strong></p>
     <div class="resp"><button type="button" class="sim" data-ir="p6">Sim</button><button type="button" class="nao" data-ir="r5">Não</button></div></div>
-
   <div class="passo fim erro" id="r5"><span class="passo-n">Verificar pressão real do sistema</span><ul><li>Verifique se há falta de combustível no Common Rail;</li><li>Verifique a válvula reguladora de pressão da bomba CP3;</li><li>Verifique obstruções na tubulação de retorno do Rail;</li><li>Se o sistema estiver OK, substitua o sensor.</li></ul></div>
-
   <div class="passo" id="p6"><span class="passo-n">Passo 6</span><p>Acelere o motor até 2000 rpm. <strong>A tensão está entre 2,7 V e 2,9 V?</strong></p>
     <div class="resp"><button type="button" class="sim" data-ir="p7">Sim</button><button type="button" class="nao" data-ir="r6">Não</button></div></div>
-
   <div class="passo fim erro" id="r6"><span class="passo-n">Falha na pressão</span><ul><li>Verifique a bomba de alta pressão (CP3);</li><li>Verifique a válvula de segurança do Rail;</li><li>Verifique estanqueidade dos injetores.</li></ul></div>
-
   <div class="passo" id="p7"><span class="passo-n">Passo 7</span><p>Acelere o motor até 3000 rpm. <strong>A tensão está entre 3,0 V e 3,2 V?</strong></p>
     <div class="resp"><button type="button" class="sim" data-ir="r7">Sim</button><button type="button" class="nao" data-ir="r8">Não</button></div></div>
-
   <div class="passo fim ok" id="r7"><span class="passo-n">Sensor OK</span><ul><li>Apague os códigos de falha;</li><li>Se não houver mais falhas registradas, libere o veículo.</li></ul></div>
-
   <div class="passo fim erro" id="r8"><span class="passo-n">Substituir sensor</span><ul><li>Substitua o sensor de pressão do Rail;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
 </div>
 
 <h2 id="valores">Valores e pinos</h2>
-
-<h3>Valores esperados</h3>
-<table>
-<tr><th>Teste</th><th>Valor esperado</th></tr>
-<tr><td>Alimentação do sensor (pinos 1-3)</td><td>5 V</td></tr>
+<table><tr><th>Teste</th><th>Valor esperado</th></tr>
+<tr><td>Alimentação do sensor (pinos 1-3, conector desligado)</td><td>5 V</td></tr>
 <tr><td>Tensão em marcha-lenta</td><td>1,4 V a 1,7 V</td></tr>
 <tr><td>Tensão a 2000 rpm</td><td>2,7 V a 2,9 V</td></tr>
 <tr><td>Tensão a 3000 rpm</td><td>3,0 V a 3,2 V</td></tr>
-<tr><td>Continuidade chicote ↔ ECM</td><td>menor que 1 Ω</td></tr>
-</table>
+<tr><td>Continuidade chicote ↔ ECM</td><td>menor que 1 Ω</td></tr></table>
 
 <h3>Pinos do sensor e do ECM</h3>
-<table>
-<tr><th>Pino do sensor</th><th>Pino do ECM</th><th>Função</th></tr>
+<table><tr><th>Pino do sensor</th><th>Pino do ECM</th><th>Função</th></tr>
 <tr><td>1</td><td>A08</td><td>GND do sensor de pressão</td></tr>
 <tr><td>2</td><td>A43</td><td>Sinal de pressão do Common Rail</td></tr>
-<tr><td>3</td><td>A28</td><td>Alimentação de 5 V</td></tr>
-</table>
+<tr><td>3</td><td>A28</td><td>Alimentação de 5 V</td></tr></table>
 
-<h2 id="funcao">Função do sensor</h2>
-<div class="box"><b>Função do sensor</b>
-<p>Monitora a pressão do combustível no tubo Rail. É um elemento piezo-resistivo com circuito integrado de compensação de temperatura. O ECM usa o sinal para calcular o volume de combustível a ser injetado.</p>
-</div>
+<div class="dica"><strong>Função do sensor</strong><p>Monitora a pressão do combustível no tubo Rail. É um elemento piezo-resistivo com circuito integrado de compensação de temperatura. O ECM usa o sinal para calcular o volume de combustível a ser injetado.</p></div>
 
 <h2 id="solucoes">Soluções comuns</h2>
+<p>Baseado em manuais MWM, fóruns de reparadores e casos reais documentados. São pistas para investigar, não um diagnóstico. Sempre confirme com medição.</p>
 <ul>
-<li><strong>Mau contato ou oxidação no conector:</strong> limpe e reapente os terminais;</li>
-<li><strong>Chicote rompido:</strong> repare ou substitua o trecho danificado;</li>
-<li><strong>Falta de combustível no Rail:</strong> verifique filtros, bomba elétrica e pressão antes da CP3;</li>
-<li><strong>Válvula reguladora da CP3 com desgaste:</strong> teste em 100, 200 e 400 bar;</li>
-<li><strong>Obstrução na linha de retorno:</strong> verifique tubulações amassadas;</li>
-<li><strong>Sensor com defeito:</strong> substitua o sensor de pressão do Rail.</li>
+<li><strong>Mau contato ou oxidação no conector:</strong> limpe os terminais e reapente os contatos. O scanner pode acusar falha no sensor apenas por terminal folgado;</li>
+<li><strong>Chicote rompido ou em curto:</strong> verifique o chicote entre os pinos 1, 2 e 3 do sensor e os pinos A08, A43 e A28 do ECM. Repare ou substitua o trecho danificado;</li>
+<li><strong>Falta de combustível no Rail:</strong> verifique filtros, pescador, bomba elétrica e pressão antes da CP3;</li>
+<li><strong>Válvula reguladora da CP3 com desgaste:</strong> teste em 100 bar (mínimo 80 bar), 200 bar (mínimo 180 bar) e 400 bar (mínimo 380 bar);</li>
+<li><strong>Obstrução na linha de retorno:</strong> verifique tubulações amassadas ou com borra acumulada;</li>
+<li><strong>Sensor com defeito:</strong> se todos os testes anteriores estiverem OK e a tensão continuar fora da faixa, substitua o sensor de pressão do Rail.</li>
 </ul>
 
+<div class="aviso"><strong>Atenção</strong><p>Problemas no sensor de pressão do Rail e na válvula MProp se confundem com frequência, pois são dependentes um do outro. Se houver excesso de fumaça preta no escapamento, investigue primeiro a MProp — é sinal de excesso de combustível por falha da válvula.</p></div>
+
 <h2 id="codigos">Códigos relacionados</h2>
-<div class="cod"><h4>P0192 – Tensão baixa no sensor de pressão do Rail</h4>
-<p>O ECM identifica tensão abaixo do esperado no sinal do sensor. Como medida de proteção, reduz a pressão de operação para 1150/400 bar.</p></div>
-
-<div class="cod"><h4>P0193 – Tensão alta no sensor de pressão do Rail</h4>
-<p>O ECM identifica tensão acima do esperado no sinal do sensor. Mesmo comportamento do P0192: reduz a pressão de operação para 1150/400 bar.</p></div>
-
-<div class="cod"><h4>P1090 – Desvio de pressão acima do esperado</h4>
-<p>A pressão real no Rail está acima do valor alvo por um tempo prolongado. O ECM limita o débito e a rotação a 2000 rpm.</p></div>
-
-<div class="cod"><h4>P1091 – Desvio de pressão abaixo do esperado</h4>
-<p>A pressão real no Rail está abaixo do valor alvo por um tempo prolongado. O ECM limita o débito e a rotação a 2000 rpm.</p></div>
-
-</main>
-<script>
-document.querySelectorAll('.resp button[data-ir]').forEach(function(btn){
-  btn.addEventListener('click', function(){
-    var el = document.getElementById(this.dataset.ir);
-    if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
-  });
-});
-</script>
-</body>
-</html>
+<p>Se a diagnose registrar um destes códigos, siga o fluxograma acima:</p>
+<ul>
+<li><strong>P0192</strong>: Tensão baixa no sensor de pressão do Rail — o ECM reduz a pressão de operação para 1150/400 bar;</li>
+<li><strong>P0193</strong>: Tensão alta no sensor de pressão do Rail — mesmo comportamento do P0192, reduz a pressão para 1150/400 bar;</li>
+<li><strong>P1090</strong>: Desvio de pressão acima do esperado — o ECM limita o débito e a rotação a 2000 rpm;</li>
+<li><strong>P1091</strong>: Desvio de pressão abaixo do esperado — o ECM limita o débito e a rotação a 2000 rpm.</li>
+</ul>
