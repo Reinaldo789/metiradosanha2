@@ -75,24 +75,15 @@ const card = document.getElementById('page-card');
 async function abrirPagina() {
   const path = decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '');
   document.querySelectorAll('.mega-link-item.active').forEach(a => a.classList.remove('active'));
-  document.querySelectorAll('.nav-btn.atual').forEach(b => b.classList.remove('atual'));
 
   // sem rota válida = Home
   if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
     card.hidden = true; home.hidden = false;
-    card.classList.remove('wide');
     return;
   }
 
-  // o mesmo endereço pode existir em mais de um menu: marca todos
-  const links = document.querySelectorAll(`a[href="#${path}"]`);
-  const link = links[0];
-  links.forEach(a => {
-    if (a.classList.contains('mega-link-item')) {
-      a.classList.add('active');
-      a.closest('.nav-item')?.querySelector('.nav-btn')?.classList.add('atual');
-    }
-  });
+  const link = document.querySelector(`a[href="#${path}"]`);
+  if (link && link.classList.contains('mega-link-item')) link.classList.add('active');
   const menu = link ? link.closest('.nav-item').querySelector('.nav-btn span').textContent.trim() : '';
   const titulo = !link ? '' :
     link.classList.contains('explore-link')
@@ -108,33 +99,9 @@ async function abrirPagina() {
     if (!resp.ok) throw new Error(`Página não encontrada (${resp.status})`);
     const corpo = await resp.text();
     if (decodeURIComponent(location.hash.slice(1)) !== path) return;
-
-    // ============================================================
-    // PÁGINA AUTOCONTIDA (tem <!DOCTYPE> ou <html> próprio)
-    // → carrega em <iframe> para isolar o CSS/JS do site
-    // ============================================================
-    const inicio = corpo.trim().slice(0, 200).toLowerCase();
-    const ehAutocontida = inicio.startsWith('<!doctype') || inicio.includes('<html');
-
-    if (ehAutocontida) {
-      card.classList.add('wide');
-      card.innerHTML = `
-        <div class="page-crumb"><a href="#">Início</a> › ${menu}</div>
-        <iframe
-          src="conteudo/${path}.html"
-          class="pagina-iframe"
-          title="${titulo}"
-          loading="lazy">
-        </iframe>`;
-      return;
-    }
-
-    // Fragmento HTML normal: injeta no card
-    card.classList.remove('wide');
     card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div><h1>${titulo}</h1>${corpo}`;
     melhorarArtigo();
   } catch (err) {
-    card.classList.remove('wide');
     card.innerHTML = `<h1>Erro</h1><p>${err.message}. Se estiver abrindo o arquivo direto no computador, use um servidor (GitHub Pages ou <code>python -m http.server</code>).</p>`;
   }
 }
@@ -228,6 +195,7 @@ function ativarAba(bar, panels, i) {
 }
 
 function melhorarArtigo() {
+  card.classList.remove('buscando');
   // o artigo já traz o próprio título
   if (card.querySelector('.art-head')) card.querySelector(':scope > h1')?.remove();
 
@@ -352,3 +320,20 @@ card.addEventListener('click', e => {
 cabecalho.classList.toggle('scrolled', window.scrollY > 20);
 
 lbImg.addEventListener('click', () => lbImg.classList.toggle('zoom'));
+
+// busca dentro das tabelas (páginas com campo .busca)
+card.addEventListener('input', e => {
+  const q = e.target.closest('.busca');
+  if (!q) return;
+  const t = q.value.trim().toLowerCase();
+  card.classList.toggle('buscando', !!t);
+  card.querySelectorAll('.componente[id]').forEach(c => {
+    let v = 0;
+    c.querySelectorAll('tbody tr').forEach(r => {
+      const ok = !t || r.textContent.toLowerCase().includes(t);
+      r.classList.toggle('oculto', !ok);
+      if (ok) v++;
+    });
+    c.classList.toggle('oculto', !!t && !v);
+  });
+});
