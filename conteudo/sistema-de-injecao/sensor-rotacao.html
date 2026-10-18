@@ -1,688 +1,229 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sensor de Rotação (CKP) - Guia Técnico</title>
-    <!-- Fontes e Ícones -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Sensor de Rotação (CKP). Imagens: salve em conteudo/imagens/sensor-ckp/ -->
+<header class="art-head">
+  <h1>Sensor de Rotação (CKP)</h1>
+</header>
+
+<nav class="toc" aria-label="Neste artigo">
+  <strong>Neste artigo</strong>
+  <ul>
+    <li><a href="#funcionamento">Funcionamento</a></li>
+    <li><a href="#valores-pinos">Valores e pinos</a></li>
+    <li><a href="#testes-multimetro">Testes com multímetro</a></li>
+    <li><a href="#problemas-comuns">Problemas comuns</a></li>
+    <li><a href="#fluxograma">Fluxograma</a></li>
+    <li><a href="#codigos-de-falha">Código de falha</a></li>
+  </ul>
+</nav>
+
+<h2 id="funcionamento">Funcionamento</h2>
+<ul>
+  <li>Sensor <b>magnético indutivo</b> — funciona como um mini gerador;</li>
+  <li>Não recebe alimentação da ECM: gera sua própria energia;</li>
+  <li>Possui ímã permanente + bobina de fios de cobre;</li>
+  <li>Ao passar pelos dentes da roda fônica (60-2), o campo magnético varia e induz uma corrente alternada;</li>
+  <li>A falha de dois dentes na roda serve como <b>ponto de referência</b> do pistão;</li>
+  <li>Frequência e amplitude aumentam proporcionalmente à rotação.</li>
+</ul>
+<figure>
+  <img src="conteudo/imagens/sensor-ckp/02-funcionamento.jpg" alt="Funcionamento do sensor indutivo" loading="lazy">
+</figure>
+<p>O sinal chega à ECM em forma de <b>onda senoidal</b> (V AC). Esse é o único sensor do motor que o mecânico <b>precisa obrigatoriamente</b> mudar o multímetro para a escala de alternada (V AC) para ler o sinal real.</p>
+
+<div class="aviso">
+  <strong>Atenção (Estratégia do ECM)</strong>
+  <p>Se o sinal do sensor de rotação for perdido com o motor funcionando, a ECM desliga o motor imediatamente e não permite nova partida até a falha ser corrigida.</p>
+</div>
+
+<h2 id="valores-pinos">Valores e pinos</h2>
+<p>O conector tem 3 fios (padrão OBD). A pinagem e os valores de referência estão descritos abaixo:</p>
+
+<h3>Pinagem do Sensor e ECM</h3>
+<div class="specs">
+  <div class="spec"><b>A27</b><span>Pino 1 (Sinal de rotação)</span></div>
+  <div class="spec"><b>A12</b><span>Pino 2 (GND do sensor)</span></div>
+  <div class="spec"><b>A21</b><span>Pino 3 (Aterramento da blindagem)</span></div>
+</div>
+
+<h3>Valores de Resistência</h3>
+<div class="specs">
+  <div class="spec"><b>860 Ω a 1.060 Ω</b><span>Frio (20°C)</span></div>
+  <div class="spec"><b>1.100 Ω a 1.250 Ω</b><span>Quente (80°C)</span></div>
+  <div class="spec"><b>0,5 a 1,5 mm</b><span>Folga (Gap)</span></div>
+</div>
+
+<h2 id="testes-multimetro">Testes com multímetro</h2>
+
+<h3>Teste de resistência (motor desligado)</h3>
+<ul>
+  <li>Tomada <b>DESCONECTADA</b> e chave desligada;</li>
+  <li>Multímetro na escala de Resistência <b>Ω em 2k</b>;</li>
+  <li>Meça entre os <b>pinos 1 e 2 do próprio sensor</b>.</li>
+</ul>
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Se a resistência passar de 1.300 Ω ou der circuito aberto (OL) com o motor quente, o motor apaga sozinho e só volta a pegar quando esfriar. É o defeito térmico clássico.</p>
+</div>
+
+<h3>Testes em corrente alternada (V AC)</h3>
+<p>Aqui você <b>DEVE</b> mudar o multímetro para <b>Tensão Alternada (V AC / V~)</b>. Insira duas agulhas por trás do conector (backprobing) nos fios dos pinos 1 e 2 — a cor das pontas não importa, pois a corrente alternada não tem polaridade fixa.</p>
+<div class="specs">
+  <div class="spec"><b>1,0 a 2,5 V AC</b><span>Arranque (~200 RPM)</span></div>
+  <div class="spec"><b>4,0 a 6,0 V AC</b><span>Marcha lenta (~800 RPM)</span></div>
+  <div class="spec"><b>15 a 20 V AC</b><span>Alta rotação (~3000 RPM)</span></div>
+</div>
+<div class="dica">
+  <strong>Regra de ouro na oficina</strong>
+  <p>Se marcar <b>menos de 1,0 V AC</b> durante o arranque, a ECM não reconhece que o motor está girando e bloqueia o pulso dos bicos injetores. O motor gira no arranque, mas não liga.</p>
+</div>
+
+<h3>Diagnóstico de chicote vs. componente</h3>
+<ul>
+  <li><b>Isolamento:</b> com o sensor desconectado, meça continuidade entre os pinos do chicote e a carcaça do motor (massa). Não deve haver continuidade;</li>
+  <li><b>Integridade:</b> meça continuidade dos fios do plugue até os pinos A27 e A12 do conector da ECM para descartar fios partidos.</li>
+</ul>
+
+<h2 id="problemas-comuns">Problemas comuns</h2>
+
+<h3>Motor gira mas não pega</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Motor de partida gira normal;</li>
+      <li>Conta-giros marca 0;</li>
+      <li>Sem pulso nos bicos injetores.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Sensor com defeito ou desplugado;</li>
+      <li>Limalha de ferro na ponta magnética;</li>
+      <li>Chicote partido ou com mau contato;</li>
+      <li>Roda fônica com dentes amassados.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Testar resistência (860–1.060 Ω);</li>
+      <li>Testar V AC no arranque (mín. 1,0 V AC);</li>
+      <li>Limpar a ponta magnética;</li>
+      <li>Verificar o gap e a roda fônica.</li>
+    </ul>
+  </div>
+</div>
+
+<h3>Motor apaga quando aquece</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Motor funciona por 20 min e apaga;</li>
+      <li>Só volta a pegar depois de esfriar;</li>
+      <li>Defeito intermitente.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Bobina interna dilata e abre circuito quando quente (OL);</li>
+      <li>Sensor de origem duvidosa.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Medir resistência <b>imediatamente</b> após o carro apagar;</li>
+      <li>Substituir o sensor por peça original.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Nunca injete 12 V nos fios de sinal do CKP conectados à ECM nem use lâmpada de teste comum — queima o circuito integrado de entrada do módulo.</p>
+</div>
+
+<h2 id="fluxograma">Fluxograma</h2>
+<div class="fluxo">
+  <div class="passo ativo" id="p1"><span class="passo-n">Passo 1</span><p><strong>A ferramenta registrou P0335 ou P0336?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p2">Sim</button><button type="button" class="nao" data-ir="r1">Não</button></div>
+  </div>
+  
+  <div class="passo fim acao" id="r1"><span class="passo-n">Outro código</span><p>Siga o fluxograma do código apresentado.</p></div>
+  
+  <div class="passo" id="p2"><span class="passo-n">Passo 2</span><p>Verifique visualmente o conector do sensor e o chicote. Há <strong>oxidação, umidade, terminais tortos ou chicote interrompido</strong>?</p>
+    <div class="resp"><button type="button" class="sim" data-ir="r2">Sim</button><button type="button" class="nao" data-ir="p3">Não</button></div>
+  </div>
+  
+  <div class="passo fim erro" id="r2"><span class="passo-n">Corrigir conector/chicote</span><ul><li>Limpe e reapente os terminais;</li><li>Repare ou substitua o chicote;</li><li>Apague os códigos de falha e repita o teste.</li></ul></div>
+  
+  <div class="passo" id="p3"><span class="passo-n">Passo 3</span><p>Meça a <strong>resistência</strong> do sensor de rotação entre os terminais 1 e 2. <strong>O valor está entre 860 Ω e 1.060 Ω?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p4">Sim</button><button type="button" class="nao" data-ir="r3">Não</button></div>
+  </div>
+  
+  <div class="passo fim erro" id="r3"><span class="passo-n">Sensor com defeito</span><ul><li>Substitua o sensor de rotação;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+  
+  <div class="passo" id="p4"><span class="passo-n">Passo 4</span><p>Verifique a <strong>continuidade</strong> do chicote entre os terminais 1 e 3 do sensor e os pinos <strong>A27</strong> e <strong>A21</strong> do ECM. <strong>O valor é menor que 1 Ω?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p5">Sim</button><button type="button" class="nao" data-ir="r4">Não</button></div>
+  </div>
+  
+  <div class="passo fim erro" id="r4"><span class="passo-n">Chicote interrompido</span><ul><li>Repare ou substitua o chicote;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+  
+  <div class="passo" id="p5"><span class="passo-n">Passo 5</span><p>Verifique a <strong>folga</strong> entre o sensor e a roda dentada. <strong>Está entre 0,5 mm e 1,5 mm?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r6">Sim</button><button type="button" class="nao" data-ir="r5">Não</button></div>
+  </div>
+  
+  <div class="passo fim erro" id="r5"><span class="passo-n">Folga fora do especificado</span><ul><li>Reposicione o sensor;</li><li>Verifique amassamento na carcaça de montagem;</li><li>Verifique impurezas (limalha) na roda de pulso;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+  
+  <div class="passo fim ok" id="r6"><span class="passo-n">Sensor OK</span><ul><li>Apague os códigos de falha e funcione o motor;</li><li>Se a falha persistir, substitua o sensor de rotação;</li><li>Se não houver mais falhas, libere o veículo.</li></ul></div>
+</div>
+
+<h2 id="codigos-de-falha">Códigos de falha</h2>
+<div class="codigos">
+  <div class="codigo"><span class="num">P0335</span><div>
+    <h4>Falha no circuito do sensor de posição do virabrequim</h4>
+    <p>Não há sinal elétrico adequado chegando à ECM. Causas:</p>
+    <ul>
+      <li>Sensor desconectado ou queimado;</li>
+      <li>Chicote rompido;</li>
+      <li>Blindagem em curto.</li>
+    </ul>
+  </div></div>
+  <div class="codigo"><span class="num">P0336</span><div>
+    <h4>Sinal incorreto/fora de faixa do sensor de rotação</h4>
+    <p>O sinal existe, mas está irregular. Causas:</p>
+    <ul>
+      <li>Limalha de ferro na ponta magnética;</li>
+      <li>Dentes da roda fônica amassados/quebrados;</li>
+      <li>Folga excessiva no virabrequim alterando o gap;</li>
+      <li>Ruído de interferência (blindagem ruim).</li>
+    </ul>
+  </div></div>
+</div>
+
+<!-- Script necessário para o fluxograma funcionar -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const botoes = document.querySelectorAll('.resp button');
     
-    <style>
-        /* ================= RESET E BASE ================= */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc;
-            color: #334155;
-            line-height: 1.6;
-        }
-
-        /* ================= NAVBAR ================= */
-        .navbar {
-            background-color: #ffffff;
-            padding: 15px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #4f46e5;
-        }
-        .logo i { font-size: 1.4rem; }
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: #1e293b;
-            font-weight: 500;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .nav-links a i { color: #4f46e5; }
-        .nav-links a .fa-chevron-down { font-size: 0.7rem; margin-left: 5px; color: #94a3b8; }
-
-        /* ================= CONTAINER PRINCIPAL ================= */
-        .main-container {
-            max-width: 1000px;
-            margin: 30px auto;
-            background: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
-            padding: 30px;
-        }
-
-        /* Breadcrumb */
-        .breadcrumb {
-            font-size: 0.9rem;
-            color: #6366f1;
-            margin-bottom: 20px;
-        }
-        .breadcrumb span { color: #94a3b8; margin: 0 5px; }
-
-        /* ================= BANNER (HERO) ================= */
-        .hero {
-            background: linear-gradient(135deg, #3730a3 0%, #4f46e5 100%);
-            border-radius: 12px;
-            padding: 40px;
-            color: #ffffff;
-            margin-bottom: 30px;
-        }
-        .hero h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-        }
-
-        /* ================= ÍNDICE (TOC) ================= */
-        .toc-section {
-            margin-bottom: 40px;
-        }
-        .toc-title {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 15px;
-        }
-        .toc-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .toc-btn {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background-color: #ffffff;
-            border: 1px solid #e2e8f0;
-            padding: 8px 20px 8px 8px;
-            border-radius: 30px;
-            text-decoration: none;
-            color: #475569;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.2s ease;
-        }
-        .toc-btn:hover {
-            border-color: #cbd5e1;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-        .toc-btn.active {
-            background: linear-gradient(135deg, #4f46e5, #6366f1);
-            color: #ffffff;
-            border: none;
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
-        }
-        .toc-num {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background-color: #f1f5f9;
-            color: #4f46e5;
-            font-weight: 700;
-            font-size: 0.85rem;
-        }
-        .toc-btn.active .toc-num {
-            background-color: rgba(255,255,255,0.2);
-            color: #ffffff;
-        }
-
-        /* ================= CONTEÚDO ================= */
-        h2 {
-            font-size: 1.5rem;
-            color: #4f46e5;
-            margin: 40px 0 20px 0;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #f1f5f9;
-        }
-        h3 {
-            font-size: 1.1rem;
-            color: #1e293b;
-            margin: 25px 0 15px 0;
-        }
-        p, ul, ol { margin-bottom: 15px; color: #475569; }
-        ul { padding-left: 20px; }
-        li { margin-bottom: 8px; }
-
-        /* Placeholder de Imagem (como na sua foto) */
-        .image-placeholder {
-            width: 100%;
-            height: 200px;
-            background-color: #f8fafc;
-            border: 2px dashed #cbd5e1;
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #94a3b8;
-            margin-bottom: 10px;
-        }
-        .image-placeholder i { font-size: 2rem; margin-bottom: 10px; }
-        .image-caption { font-size: 0.85rem; color: #64748b; margin-bottom: 20px; display: flex; align-items: center; gap: 5px;}
-
-        /* Tabelas e Cards de Valores */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        th, td {
-            padding: 12px 16px;
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        th { background-color: #f8fafc; font-weight: 600; color: #1e293b; }
-        td { color: #475569; }
-
-        .specs-grid {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-        .spec-card {
-            flex: 1;
-            min-width: 150px;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-        }
-        .spec-card b { display: block; font-size: 1.2rem; color: #4f46e5; margin-bottom: 5px; }
-        .spec-card span { font-size: 0.85rem; color: #64748b; }
-
-        /* Avisos e Dicas */
-        .alert {
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            display: flex;
-            gap: 15px;
-        }
-        .alert-icon { font-size: 1.2rem; }
-        .alert-warning { background: #fffbeb; color: #92400e; border-left: 4px solid #f59e0b; }
-        .alert-info { background: #eff6ff; color: #1e40af; border-left: 4px solid #3b82f6; }
-        .alert-error { background: #fef2f2; color: #991b1b; border-left: 4px solid #ef4444; }
-
-        /* ================= FLUXOGRAMA INTERATIVO ================= */
-        .flow-container { display: flex; flex-direction: column; gap: 15px; }
-        .step {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 20px;
-            display: none;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-        }
-        .step.active { display: block; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .step-header {
-            display: inline-block;
-            background: #e0e7ff;
-            color: #4338ca;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-        .step p { margin-bottom: 15px; font-weight: 500; color: #1e293b; }
-        
-        .step-actions { display: flex; gap: 10px; }
-        .btn {
-            padding: 10px 24px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: 0.2s;
-            color: #ffffff;
-        }
-        .btn-yes { background-color: #10b981; }
-        .btn-yes:hover { background-color: #059669; }
-        .btn-no { background-color: #ef4444; }
-        .btn-no:hover { background-color: #dc2626; }
-
-        .step.result { border-left: 4px solid; }
-        .step.result.ok { border-color: #10b981; background: #f0fdf4; }
-        .step.result.error { border-color: #ef4444; background: #fef2f2; }
-        .step.result.info { border-color: #3b82f6; background: #eff6ff; }
-        .step.result h4 { margin-bottom: 10px; color: #1e293b; }
-        .step.result ul { margin-bottom: 0; }
-
-        /* ================= CÓDIGOS DE FALHA ================= */
-        .code-card {
-            display: flex;
-            gap: 20px;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-        }
-        .code-badge {
-            background: #fef2f2;
-            color: #dc2626;
-            font-weight: 700;
-            font-size: 1.1rem;
-            padding: 5px 15px;
-            border-radius: 8px;
-            border: 1px solid #fecaca;
-            height: fit-content;
-        }
-        .code-content h4 { margin-bottom: 8px; font-size: 1.05rem; color: #1e293b; }
-        .code-content p { font-size: 0.9rem; margin-bottom: 10px; }
-
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .main-container { margin: 15px; padding: 20px; }
-            .hero h1 { font-size: 1.5rem; }
-            .code-card { flex-direction: column; gap: 10px; }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- NAVBAR -->
-    <nav class="navbar">
-        <div class="logo">
-            <i class="fa-solid fa-gears"></i>
-            Guia Técnico
-        </div>
-        <div class="nav-links">
-            <a href="#"><i class="fa-solid fa-bolt"></i> Sistema Elétrico <i class="fa-solid fa-chevron-down"></i></a>
-            <a href="#"><i class="fa-solid fa-gas-pump"></i> Linha de Combustível <i class="fa-solid fa-chevron-down"></i></a>
-            <a href="#" style="color: #4f46e5;"><i class="fa-solid fa-microchip"></i> Sistema de Injeção <i class="fa-solid fa-chevron-down"></i></a>
-            <a href="#"><i class="fa-solid fa-wrench"></i> Motor e Chassi <i class="fa-solid fa-chevron-down"></i></a>
-            <a href="#"><i class="fa-solid fa-stethoscope"></i> Diagnóstico <i class="fa-solid fa-chevron-down"></i></a>
-        </div>
-    </nav>
-
-    <!-- CONTEÚDO PRINCIPAL -->
-    <main class="main-container">
-        
-        <!-- Breadcrumb -->
-        <div class="breadcrumb">
-            Início <span>></span> Sistema de Injeção
-        </div>
-
-        <!-- Banner -->
-        <div class="hero">
-            <h1>Sensor de Rotação (CKP)</h1>
-        </div>
-
-        <!-- Índice (TOC) -->
-        <div class="toc-section">
-            <div class="toc-title">Neste Artigo — Toque numa seção</div>
-            <div class="toc-buttons">
-                <a href="#funcionamento" class="toc-btn active">
-                    <span class="toc-num">1</span> Funcionamento
-                </a>
-                <a href="#valores-pinos" class="toc-btn">
-                    <span class="toc-num">2</span> Valores e pinos
-                </a>
-                <a href="#testes" class="toc-btn">
-                    <span class="toc-num">3</span> Testes com multímetro
-                </a>
-                <a href="#problemas" class="toc-btn">
-                    <span class="toc-num">4</span> Problemas comuns
-                </a>
-                <a href="#fluxograma" class="toc-btn">
-                    <span class="toc-num">5</span> Fluxograma
-                </a>
-                <a href="#codigos" class="toc-btn">
-                    <span class="toc-num">6</span> Código de falha
-                </a>
-            </div>
-        </div>
-
-        <!-- 1. FUNCIONAMENTO -->
-        <section id="funcionamento">
-            <h2>Funcionamento</h2>
-            
-            <div class="image-placeholder">
-                <i class="fa-regular fa-image"></i>
-                <span>Funcionamento do Sensor Indutivo</span>
-            </div>
-            <div class="image-caption"><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</div>
-
-            <ul>
-                <li>Sensor <b>magnético indutivo</b> — funciona como um mini gerador;</li>
-                <li>Não recebe alimentação da ECM: gera sua própria energia;</li>
-                <li>Possui ímã permanente + bobina de fios de cobre;</li>
-                <li>Ao passar pelos dentes da roda fônica (60-2), o campo magnético varia e induz uma corrente alternada;</li>
-                <li>A falha de dois dentes na roda serve como <b>ponto de referência</b> do pistão;</li>
-                <li>Frequência e amplitude aumentam proporcionalmente à rotação.</li>
-            </ul>
-            
-            <p>O sinal chega à ECM em forma de <b>onda senoidal</b> (V AC). É o único sensor do motor que o mecânico <b>precisa obrigatoriamente</b> mudar o multímetro para a escala de alternada (V AC) para ler o sinal real.</p>
-
-            <div class="alert alert-warning">
-                <i class="fa-solid fa-triangle-exclamation alert-icon"></i>
-                <div>
-                    <strong>Atenção (Estratégia do ECM)</strong><br>
-                    Se o sinal do sensor de rotação for perdido com o motor funcionando, o ECM desliga o motor e <b>não permite nova partida</b> até a falha ser corrigida.
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. VALORES E PINOS -->
-        <section id="valores-pinos">
-            <h2>Valores e pinos</h2>
-            
-            <h3>Pinagem do Sensor e do ECM</h3>
-            <table>
-                <tr>
-                    <th>Terminal do sensor</th>
-                    <th>Pino do ECM</th>
-                    <th>Função</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>A27</td>
-                    <td>Sinal de rotação do motor</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>A12</td>
-                    <td>GND do sensor</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>A21</td>
-                    <td>Aterramento da malha do cabo</td>
-                </tr>
-            </table>
-
-            <h3>Valores de Referência</h3>
-            <div class="specs-grid">
-                <div class="spec-card">
-                    <b>860 Ω a 1.060 Ω</b>
-                    <span>Frio (20°C)</span>
-                </div>
-                <div class="spec-card">
-                    <b>1.100 Ω a 1.250 Ω</b>
-                    <span>Quente (80°C)</span>
-                </div>
-                <div class="spec-card">
-                    <b>0,5 a 1,5 mm</b>
-                    <span>Folga do sensor (Gap)</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. TESTES -->
-        <section id="testes">
-            <h2>Testes com multímetro</h2>
-            
-            <h3>Teste de resistência (motor desligado)</h3>
-            <ul>
-                <li>Tomada <b>DESCONECTADA</b> e chave desligada;</li>
-                <li>Multímetro na escala de Resistência <b>Ω em 2k</b>;</li>
-                <li>Meça entre os <b>pinos 1 e 2 do próprio sensor</b>.</li>
-            </ul>
-            <div class="alert alert-warning">
-                <i class="fa-solid fa-triangle-exclamation alert-icon"></i>
-                <div>
-                    <strong>Atenção:</strong> Se a resistência passar de 1.300 Ω ou der circuito aberto (OL) com o motor quente, o motor apaga sozinho e só volta a pegar quando esfriar. É o defeito térmico clássico.
-                </div>
-            </div>
-
-            <h3>Testes em corrente alternada</h3>
-            <p>Mude o multímetro para <b>Tensão Alternada (V AC)</b>. Insira duas agulhas por trás do conector (backprobing) nos fios dos pinos 1 e 2 — a cor das pontas não importa.</p>
-            
-            <div class="specs-grid">
-                <div class="spec-card">
-                    <b>1,0 a 2,5 V AC</b>
-                    <span>Arranque (~200 RPM)</span>
-                </div>
-                <div class="spec-card">
-                    <b>4,0 a 6,0 V AC</b>
-                    <span>Marcha lenta (~800 RPM)</span>
-                </div>
-                <div class="spec-card">
-                    <b>15 a 20 V AC</b>
-                    <span>Alta rotação (~3000 RPM)</span>
-                </div>
-            </div>
-
-            <div class="alert alert-info">
-                <i class="fa-solid fa-lightbulb alert-icon"></i>
-                <div>
-                    <strong>Regra de ouro na oficina:</strong> Se marcar <b>menos de 1,0 V AC</b> durante o arranque, a ECM não reconhece que o motor está girando e bloqueia o pulso dos bicos injetores. O motor gira, mas não liga.
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. PROBLEMAS COMUNS -->
-        <section id="problemas">
-            <h2>Problemas comuns</h2>
-            
-            <div class="code-card" style="margin-bottom: 20px; border-left: 4px solid #4f46e5;">
-                <div style="flex: 1;">
-                    <h4 style="color:#4f46e5;"><i class="fa-solid fa-engine"></i> Motor gira mas não pega</h4>
-                    <p><b>Causas:</b> Sensor com defeito/desplugado, limalha de ferro na ponta, chicote partido ou roda fônica com dentes amassados.</p>
-                    <p><b>Soluções:</b> Testar resistência (860–1.060 Ω) e V AC no arranque (mín. 1,0 V AC). Limpar a ponta e verificar o gap.</p>
-                </div>
-            </div>
-
-            <div class="code-card" style="border-left: 4px solid #ef4444;">
-                <div style="flex: 1;">
-                    <h4 style="color:#ef4444;"><i class="fa-solid fa-temperature-high"></i> Motor apaga quando aquece</h4>
-                    <p><b>Causas:</b> Bobina interna dilata e abre circuito quando quente (OL).</p>
-                    <p><b>Soluções:</b> Medir resistência imediatamente após o carro apagar e substituir o sensor por peça original.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. FLUXOGRAMA -->
-        <section id="fluxograma">
-            <h2>Fluxograma</h2>
-            <p>Use este roteiro quando a luz amarela permanecer acesa e a diagnose registrar P0335 ou P0336.</p>
-
-            <div class="flow-container">
-                <!-- Passo 1 -->
-                <div class="step active" id="p1">
-                    <span class="step-header">Passo 1</span>
-                    <p><strong>A ferramenta registrou P0335 ou P0336?</strong></p>
-                    <div class="step-actions">
-                        <button type="button" class="btn btn-yes" data-ir="p2">Sim</button>
-                        <button type="button" class="btn btn-no" data-ir="r1">Não</button>
-                    </div>
-                </div>
-
-                <!-- Resultado Outro Código -->
-                <div class="step result info" id="r1">
-                    <span class="step-header" style="background:#dbeafe; color:#1e40af;">Outro código</span>
-                    <p>Siga o fluxograma do código apresentado.</p>
-                </div>
-
-                <!-- Passo 2 -->
-                <div class="step" id="p2">
-                    <span class="step-header">Passo 2</span>
-                    <p>Verifique visualmente o conector do sensor e o chicote. Há <strong>oxidação, umidade, terminais tortos ou chicote interrompido</strong>?</p>
-                    <div class="step-actions">
-                        <button type="button" class="btn btn-yes" data-ir="r2">Sim</button>
-                        <button type="button" class="btn btn-no" data-ir="p3">Não</button>
-                    </div>
-                </div>
-
-                <!-- Resultado Erro Conector -->
-                <div class="step result error" id="r2">
-                    <span class="step-header" style="background:#fee2e2; color:#b91c1c;">Corrigir conector/chicote</span>
-                    <ul>
-                        <li>Limpe e reapente os terminais;</li>
-                        <li>Repare ou substitua o chicote;</li>
-                        <li>Apague os códigos e repita o teste.</li>
-                    </ul>
-                </div>
-
-                <!-- Passo 3 -->
-                <div class="step" id="p3">
-                    <span class="step-header">Passo 3</span>
-                    <p>Meça a <strong>resistência</strong> do sensor entre os terminais 1 e 2. <strong>O valor está entre 860 Ω e 1.060 Ω?</strong></p>
-                    <div class="step-actions">
-                        <button type="button" class="btn btn-yes" data-ir="p4">Sim</button>
-                        <button type="button" class="btn btn-no" data-ir="r3">Não</button>
-                    </div>
-                </div>
-
-                <!-- Resultado Erro Sensor -->
-                <div class="step result error" id="r3">
-                    <span class="step-header" style="background:#fee2e2; color:#b91c1c;">Sensor com defeito</span>
-                    <ul>
-                        <li>Substitua o sensor de rotação;</li>
-                        <li>Apague os códigos e refaça o teste.</li>
-                    </ul>
-                </div>
-
-                <!-- Passo 4 -->
-                <div class="step" id="p4">
-                    <span class="step-header">Passo 4</span>
-                    <p>Verifique a <strong>continuidade</strong> do chicote entre os terminais 1 e 3 do sensor e os pinos <strong>A27</strong> e <strong>A21</strong> do ECM. <strong>O valor é menor que 1 Ω?</strong></p>
-                    <div class="step-actions">
-                        <button type="button" class="btn btn-yes" data-ir="p5">Sim</button>
-                        <button type="button" class="btn btn-no" data-ir="r4">Não</button>
-                    </div>
-                </div>
-
-                <!-- Resultado Erro Chicote -->
-                <div class="step result error" id="r4">
-                    <span class="step-header" style="background:#fee2e2; color:#b91c1c;">Chicote interrompido</span>
-                    <ul>
-                        <li>Repare ou substitua o chicote;</li>
-                        <li>Apague os códigos e refaça o teste.</li>
-                    </ul>
-                </div>
-
-                <!-- Passo 5 -->
-                <div class="step" id="p5">
-                    <span class="step-header">Passo 5</span>
-                    <p>Verifique a <strong>folga (gap)</strong> entre o sensor e a roda dentada. <strong>Está entre 0,5 mm e 1,5 mm?</strong></p>
-                    <div class="step-actions">
-                        <button type="button" class="btn btn-yes" data-ir="r6">Sim</button>
-                        <button type="button" class="btn btn-no" data-ir="r5">Não</button>
-                    </div>
-                </div>
-
-                <!-- Resultado Erro Folga -->
-                <div class="step result error" id="r5">
-                    <span class="step-header" style="background:#fee2e2; color:#b91c1c;">Folga fora do especificado</span>
-                    <ul>
-                        <li>Reposicione o sensor;</li>
-                        <li>Verifique amassamento na carcaça de montagem;</li>
-                        <li>Verifique impurezas (limalha) na roda de pulso;</li>
-                        <li>Apague os códigos e refaça o teste.</li>
-                    </ul>
-                </div>
-
-                <!-- Resultado OK -->
-                <div class="step result ok" id="r6">
-                    <span class="step-header" style="background:#d1fae5; color:#065f46;">Sensor OK</span>
-                    <ul>
-                        <li>Verifique o aperto dos parafusos da roda de pulso;</li>
-                        <li>Apague os códigos de falha e funcione o motor;</li>
-                        <li>Se não houver mais falhas, libere o veículo.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- 6. CÓDIGOS DE FALHA -->
-        <section id="codigos">
-            <h2>Códigos de falha</h2>
-            
-            <div class="code-card">
-                <div class="code-badge">P0335</div>
-                <div class="code-content">
-                    <h4>Sinal do sensor de rotação perdido</h4>
-                    <p><b>Comportamento:</b> O motor desliga assim que a falha é detectada e não será possível nova partida até a correção.</p>
-                    <p><b>Causas prováveis:</b></p>
-                    <ul>
-                        <li>Sensor desconectado ou queimado;</li>
-                        <li>Chicote rompido;</li>
-                        <li>Blindagem em curto;</li>
-                        <li>Presença de impurezas na ponta (corrigir).</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="code-card">
-                <div class="code-badge">P0336</div>
-                <div class="code-content">
-                    <h4>Sinal incorreto/fora de faixa do sensor de rotação</h4>
-                    <p><b>Comportamento:</b> O sinal existe, mas está irregular. O motor pode desligar.</p>
-                    <p><b>Causas prováveis:</b></p>
-                    <ul>
-                        <li>Limalha de ferro na ponta magnética;</li>
-                        <li>Dentes da roda fônica amassados/quebrados;</li>
-                        <li>Folga excessiva no virabrequim alterando o gap;</li>
-                        <li>Ruído de interferência (blindagem ruim).</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Script do Fluxograma e TOC -->
-    <script>
-        // Fluxograma Interativo
-        document.addEventListener('DOMContentLoaded', () => {
-            const botoes = document.querySelectorAll('.step-actions button');
-            
-            botoes.forEach(botao => {
-                botao.addEventListener('click', function() {
-                    document.querySelectorAll('.step').forEach(passo => {
-                        passo.classList.remove('active');
-                    });
-
-                    const proximoId = this.getAttribute('data-ir');
-                    const proximoPasso = document.getElementById(proximoId);
-                    if(proximoPasso) {
-                        proximoPasso.classList.add('active');
-                        proximoPasso.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                });
-            });
-
-            // Efeito visual do TOC ativo
-            const tocBtns = document.querySelectorAll('.toc-btn');
-            tocBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    tocBtns.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
+    botoes.forEach(botao => {
+      botao.addEventListener('click', function() {
+        // Esconde todos os passos
+        document.querySelectorAll('.passo').forEach(passo => {
+          passo.classList.remove('ativo');
         });
-    </script>
-</body>
-</html>
+
+        // Pega o ID do próximo passo e mostra
+        const proximoId = this.getAttribute('data-ir');
+        const proximoPasso = document.getElementById(proximoId);
+        if(proximoPasso) {
+          proximoPasso.classList.add('ativo');
+          // Rola a tela suavemente para o próximo passo
+          proximoPasso.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+  });
+</script>
