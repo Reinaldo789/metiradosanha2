@@ -363,7 +363,7 @@ html, body {
    ========================================== */
 main {
   flex-grow: 1;
-  padding: 3rem 1rem;
+  padding: 3rem 1.5rem;
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
@@ -590,14 +590,7 @@ main {
 .page-loading { color: var(--text-muted); }
 /* depois de clicar num item, o painel fecha até o mouse sair e voltar */
 .nav-item.closed .mega-menu { opacity: 0 !important; visibility: hidden !important; }
-/*@media (max-width: 960px) { .page-card { padding: 0.8rem; border-radius: 14px; } }*/
-@media (max-width: 960px) {
-  main {
-    width: 100%;
-    max-width: 100vw; /* Garante que não passe da tela do celular */
-    overflow-x: hidden; /* Esconde qualquer rolagem horizontal indesejada */
-  }
-}
+@media (max-width: 960px) { .page-card { padding: 1.2rem; border-radius: 14px; } }
 
 /* Índice interno, avisos e listas dos artigos */
 .page-card [id] { scroll-margin-top: 80px; }
@@ -972,7 +965,6 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
   .page-card th { font-size: 0.8rem; }
 }
 
-
 /* ==========================================
    19. ESQUEMA ELÉTRICO (fios, pinos, tensões)
    ========================================== */
@@ -1016,3 +1008,9 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
   .page-card table { font-size: 0.74rem; }
   .page-card td, .page-card th { padding: 0.25rem 0.4rem; }
 }
+
+/* Índice de componentes dentro de cada aba */
+.indice-grupo { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.8rem 0 1.2rem; }
+.page-card .indice-grupo a { font-size: 0.8rem; padding: 0.3rem 0.7rem; border-radius: 99px; background: var(--primary-light); color: var(--primary); text-decoration: none; font-weight: 600; }
+.page-card .indice-grupo a:hover { background: var(--primary); color: #fff; }
+.page-card code { background: #f1f5f9; border: 1px solid var(--border-color); border-radius: 6px; padding: 0.05rem 0.4rem; font-size: 0.85em; }
