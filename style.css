@@ -1027,3 +1027,7 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 tr.oculto, .componente.oculto { display: none !important; }
 .page-card.buscando .art-panel { display: block; }
 .page-card.buscando .art-tabs, .page-card.buscando .art-index-title, .page-card.buscando .aba-nav, .page-card.buscando .indice-grupo { display: none; }
+
+/* Página sem abas: todas as seções visíveis em uma rolagem só */
+.page-card h3.ir-para { margin: 1.2rem 0 0.2rem; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); }
+.page-card h2[id^="app"], .page-card h2#din { margin-top: 2.4rem; padding-bottom: 0.4rem; border-bottom: 2px solid var(--primary-light); }
