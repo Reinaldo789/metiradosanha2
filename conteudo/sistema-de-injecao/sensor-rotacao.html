@@ -35,21 +35,67 @@
 </div>
 
 <h2 id="valores-pinos">Valores e pinos</h2>
-<p>O conector tem 3 fios (padrão OBD). A pinagem e os valores de referência estão descritos abaixo:</p>
+<p>O conector do sensor possui 3 fios. A identificação dos terminais segue o padrão OBD (pino trava na parte superior).</p>
 
-<h3>Pinagem do Sensor e ECM</h3>
-<div class="specs">
-  <div class="spec"><b>A27</b><span>Pino 1 (Sinal de rotação)</span></div>
-  <div class="spec"><b>A12</b><span>Pino 2 (GND do sensor)</span></div>
-  <div class="spec"><b>A21</b><span>Pino 3 (Aterramento da blindagem)</span></div>
-</div>
+<h3>Pinos do sensor e do ECM</h3>
+<table>
+  <tr>
+    <th>Terminal do Sensor</th>
+    <th>Pino do ECM (Conector A)</th>
+    <th>Função</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>A27</td>
+    <td>Sinal de rotação do motor</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>A12</td>
+    <td>GND do sensor</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>A21</td>
+    <td>Aterramento da malha do cabo</td>
+  </tr>
+</table>
 
-<h3>Valores de Resistência</h3>
-<div class="specs">
-  <div class="spec"><b>860 Ω a 1.060 Ω</b><span>Frio (20°C)</span></div>
-  <div class="spec"><b>1.100 Ω a 1.250 Ω</b><span>Quente (80°C)</span></div>
-  <div class="spec"><b>0,5 a 1,5 mm</b><span>Folga (Gap)</span></div>
-</div>
+<h3>Valores e Voltagens Esperadas</h3>
+<table>
+  <tr>
+    <th>Teste / Condição</th>
+    <th>Valor Esperado</th>
+  </tr>
+  <tr>
+    <td>Resistência do sensor (terminais 1-2) - Frio (20°C)</td>
+    <td>860 Ω a 1.060 Ω</td>
+  </tr>
+  <tr>
+    <td>Resistência do sensor (terminais 1-2) - Quente (80°C)</td>
+    <td>1.100 Ω a 1.250 Ω</td>
+  </tr>
+  <tr>
+    <td>Continuidade chicote ↔ ECM (pinos A27 / A12)</td>
+    <td>Menor que 1 Ω</td>
+  </tr>
+  <tr>
+    <td>Folga entre sensor e roda dentada (Gap)</td>
+    <td>0,5 mm a 1,5 mm</td>
+  </tr>
+  <tr>
+    <td>Tensão CA no arranque (~200 RPM)</td>
+    <td>1,0 a 2,5 V AC</td>
+  </tr>
+  <tr>
+    <td>Tensão CA em marcha lenta (~800 RPM)</td>
+    <td>4,0 a 6,0 V AC</td>
+  </tr>
+  <tr>
+    <td>Tensão CA em alta rotação (~3000 RPM)</td>
+    <td>15 a 20 V AC</td>
+  </tr>
+</table>
 
 <h2 id="testes-multimetro">Testes com multímetro</h2>
 
@@ -59,18 +105,21 @@
   <li>Multímetro na escala de Resistência <b>Ω em 2k</b>;</li>
   <li>Meça entre os <b>pinos 1 e 2 do próprio sensor</b>.</li>
 </ul>
-<div class="aviso">
-  <strong>Atenção</strong>
-  <p>Se a resistência passar de 1.300 Ω ou der circuito aberto (OL) com o motor quente, o motor apaga sozinho e só volta a pegar quando esfriar. É o defeito térmico clássico.</p>
-</div>
 
 <h3>Testes em corrente alternada (V AC)</h3>
-<p>Aqui você <b>DEVE</b> mudar o multímetro para <b>Tensão Alternada (V AC / V~)</b>. Insira duas agulhas por trás do conector (backprobing) nos fios dos pinos 1 e 2 — a cor das pontas não importa, pois a corrente alternada não tem polaridade fixa.</p>
+<p>Mude o multímetro para <b>Tensão Alternada (V AC / V~)</b>. Insira duas agulhas por trás do conector (backprobing) nos fios dos pinos 1 e 2 — a cor das pontas não importa, pois a corrente alternada não tem polaridade fixa.</p>
+
 <div class="specs">
   <div class="spec"><b>1,0 a 2,5 V AC</b><span>Arranque (~200 RPM)</span></div>
   <div class="spec"><b>4,0 a 6,0 V AC</b><span>Marcha lenta (~800 RPM)</span></div>
   <div class="spec"><b>15 a 20 V AC</b><span>Alta rotação (~3000 RPM)</span></div>
 </div>
+
+<div class="aviso">
+  <strong>Atenção (Defeito Térmico)</strong>
+  <p>Se a resistência passar de 1.300 Ω ou der circuito aberto (OL) com o motor quente, o motor apaga sozinho e só volta a pegar quando esfriar. É o defeito térmico clássico.</p>
+</div>
+
 <div class="dica">
   <strong>Regra de ouro na oficina</strong>
   <p>Se marcar <b>menos de 1,0 V AC</b> durante o arranque, a ECM não reconhece que o motor está girando e bloqueia o pulso dos bicos injetores. O motor gira no arranque, mas não liga.</p>
