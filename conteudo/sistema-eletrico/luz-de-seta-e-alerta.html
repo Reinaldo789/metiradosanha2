@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Sensores e Atuadores do Motor - Agrale Marruá AM11</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #1e1e2e;
+    color: #e0e0e0;
+    display: flex;
+    min-height: 100vh;
+  }
+  nav {
+    width: 260px;
+    background: #181825;
+    padding: 20px 10px;
+    overflow-y: auto;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    border-right: 2px solid #313244;
+  }
+  nav h2 {
+    font-size: 13px;
+    color: #89b4fa;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    padding-left: 10px;
+    letter-spacing: 1px;
+  }
+  nav a {
+    display: block;
+    color: #cdd6f4;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+  nav a:hover { background: #313244; color: #89b4fa; }
+  main {
+    flex: 1;
+    padding: 30px 40px;
+    max-width: 1200px;
+  }
+  h1 {
+    color: #89b4fa;
+    font-size: 24px;
+    margin-bottom: 5px;
+    border-bottom: 2px solid #313244;
+    padding-bottom: 10px;
+  }
+  .sub { color: #a6adc8; font-size: 12px; margin-bottom: 30px; }
+  .circuito {
+    background: #181825;
+    border: 1px solid #313244;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 35px;
+    page-break-inside: avoid;
+  }
+  .circuito h2 {
+    color: #f9e2af;
+    font-size: 17px;
+    margin-bottom: 5px;
+  }
+  .circuito .ref {
+    font-size: 11px;
+    color: #6c7086;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .fluxo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 20px;
+  }
+  .bloco {
+    background: #1e1e2e;
+    border: 1px solid #45475a;
+    border-radius: 6px;
+    padding: 8px 14px;
+    color: #cdd6f4;
+    font-family: 'Consolas', monospace;
+    font-size: 13px;
+  }
+  .bloco.bateria { border-color: #f38ba8; color: #f38ba8; }
+  .bloco.chave { border-color: #fab387; color: #fab387; }
+  .bloco.fusivel { border-color: #f9e2af; color: #f9e2af; }
+  .bloco.rele { border-color: #a6e3a1; color: #a6e3a1; }
+  .bloco.interruptor { border-color: #89b4fa; color: #89b4fa; }
+  .bloco.lampada { border-color: #cba6f7; color: #cba6f7; }
+  .bloco.terra { border-color: #6c7086; color: #6c7086; }
+  .bloco.ecu { border-color: #94e2d5; color: #94e2d5; }
+  .bloco.sensor { border-color: #f5c2e7; color: #f5c2e7; }
+  .bloco.motor { border-color: #eba0ac; color: #eba0ac; }
+  .bloco.atuador { border-color: #fab387; color: #fab387; }
+
+  .fio-container {
+    display: flex;
+    align-items: center;
+    margin-left: 25px;
+    height: 30px;
+  }
+  .fio-linha {
+    height: 100%;
+    border-radius: 2px;
+  }
+  .fio-linha.grossa { width: 8px; }
+  .fio-linha.media { width: 5px; }
+  .fio-linha.fina { width: 3px; }
+  .fio-linha.muito-fina { width: 2px; }
+
+  .fio-label {
+    font-size: 10px;
+    font-family: 'Consolas', monospace;
+    margin-left: 8px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background: #313244;
+    color: #cdd6f4;
+    white-space: nowrap;
+  }
+  .ramo {
+    margin-left: 30px;
+    border-left: 2px dashed #45475a;
+    padding-left: 20px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+  .ramo .bloco { font-size: 12px; padding: 5px 10px; }
+  .ramo .fio-container { margin-left: 15px; height: 26px; }
+
+  .legenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+    padding: 15px;
+    background: #181825;
+    border-radius: 8px;
+    font-size: 12px;
+  }
+  .legenda span { display: flex; align-items: center; gap: 6px; }
+  .cor { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+  .btn-print {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #89b4fa;
+    color: #1e1e2e;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 4px 15px rgba(137,180,250,0.3);
+    z-index: 100;
+  }
+  .btn-print:hover { background: #b4befe; }
+
+  @media print {
+    nav, .btn-print { display: none; }
+    body { background: white; color: black; display: block; }
+    main { max-width: 100%; padding: 10px; }
+    .circuito { background: white; border: 1px solid #ccc; }
+    .bloco { background: #f5f5f5; color: #000; border-color: #999; }
+    h1, .circuito h2 { color: #000; }
+    .fio-label { background: #eee; color: #000; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <h2>🔧 Sensores e Atuadores</h2>
+  <a href="#mprop">⚙️ Válvula MProp</a>
+  <a href="#atuador_bomba">⛽ Atuador Bomba Alta Pressão</a>
+  <a href="#sensor_temp_ar">🌡️ Sensor Temp. Ar / Pressão</a>
+  <a href="#sensor_temp_agua">🌡️ Sensor Temp. Água Motor</a>
+  <a href="#sensor_pressao_rail">📊 Sensor Pressão do Rail</a>
+  <a href="#sensor_posicao">🔄 Sensor Posição do Motor</a>
+  <a href="#sensor_rotacao">⚙️ Sensor Rotação do Motor</a>
+  <a href="#valvula_vacuo">🔧 Válvula Atuadora de Vácuo</a>
+  <a href="#pedal_acelerador">🦶 Pedal Acelerador Eletrônico</a>
+  <a href="#sensor_velocidade">🏁 Sensor de Velocidade</a>
+  <a href="#sensor_agua_comb">💧 Sensor Água no Combustível</a>
+  <a href="#interruptor_embreagem">🦶 Interruptor da Embreagem</a>
+  <a href="#interruptor_freio">🛑 Interruptor Redundante de Freio</a>
+  <a href="#bomba_eletrica">⛽ Bomba Elétrica</a>
+  <a href="#bicos_injetores">💦 Bicos Injetores</a>
+</nav>
+
+<main>
+  <h1>Sensores e Atuadores do Motor - Separados Individualmente</h1>
+  <p class="sub">Agrale Marruá AM11 VTL REC — Motor MWM 4.07 TCE | ECU Bosch EDC16</p>
+
+  <!-- ============ VÁLVULA MPROP ============ -->
+  <div class="circuito" id="mprop">
+    <h2>⚙️ Válvula MProp (Reguladora de Pressão)</h2>
+    <span class="ref">📄 Página 30 do PDF — Atuador da Bomba de Alta Pressão</span>
+    <div class="fluxo">
+      <div class="bloco bateria">🔋 BATERIA (+30)</div>
+      <div class="fio-container">
+        <div class="fio-linha media" style="background:#f00"></div>
+        <span class="fio-label">D(30)2,5VM — Vermelho 2,5mm²</span>
+      </div>
+      <div class="bloco rele">⚙️ RELÉ PRINCIPAL Y9</div>
+      <div class="fio-container">
+        <div class="fio-linha media" style="background:#f00"></div>
+        <span class="fio-label">D(30)2,5VM — Vermelho 2,5mm²</span>
+      </div>
+      <div class="bloco fusivel">🔶 FUSÍVEL 25, 26, 27, 28</div>
+      <div class="fio-container">
+        <div class="fio-linha fina" style="background:#00f"></div>
+        <span class="fio-label">D(278)1,0AZ — Azul 1,0mm²</span>
+      </div>
+      <div class="bloco ecu">🧠 ECU MOTOR EDC16 (Conector A - 60 vias)</div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#8A2BE2"></div>
+        <span class="fio-label">Sinal PWM — Controle da Válvula</span>
+      </div>
+      <div class="bloco atuador">⚙️ VÁLVULA MPROP (Atuador da Bomba CP3.3)</div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#000"></div>
+        <span class="fio-label">D(31)0,75PT — Preto 0,75mm² (Terra)</span>
+      </div>
+      <div class="bloco terra">⏚ TERRA (CHASSI)</div>
+    </div>
+  </div>
+
+  <!-- ============ ATUADOR BOMBA ALTA PRESSÃO ============ -->
+  <div class="circuito" id="atuador_bomba">
+    <h2>⛽ Atuador da Bomba de Alta Pressão (CP3.3)</h2>
+    <span class="ref">📄 Página 30 do PDF</span>
+    <div class="fluxo">
+      <div class="bloco bateria">🔋 BATERIA (+30)</div>
+      <div class="fio-container">
+        <div class="fio-linha media" style="background:#f00"></div>
+        <span class="fio-label">D(30)2,5VM — Vermelho 2,5mm²</span>
+      </div>
+      <div class="bloco rele">⚙️ RELÉ PRINCIPAL Y9</div>
+      <div class="fio-container">
+        <div class="fio-linha fina" style="background:#f00"></div>
+        <span class="fio-label">D(30)1,0VM — Vermelho 1,0mm²</span>
+      </div>
+      <div class="bloco atuador">⛽ BOMBA DE ALTA PRESSÃO CP3.3</div>
+      <div class="ramo">
+        <div class="fio-container">
+          <div class="fio-linha muito-fina" style="background:#8A2BE2"></div>
+          <span class="fio-label">Sinal de Controle da MProp</span>
+        </div>
+        <div class="bloco atuador">⚙️ VÁLVULA MPROP</div>
+      </div>
+      <div class="ramo">
+        <div class="fio-container">
+          <div class="fio-linha muito-fina" style="background:#FF8C00"></div>
+          <span class="fio-label">Sinal do Sensor de Pressão</span>
+        </div>
+        <div class="bloco sensor">📊 SENSOR PRESSÃO DO RAIL</div>
+      </div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#000"></div>
+        <span class="fio-label">D(31)0,75PT — Preto 0,75mm² (Terra)</span>
+      </div>
+      <div class="bloco terra">⏚ TERRA (CHASSI)</div>
+    </div>
+  </div>
+
+  <!-- ============ SENSOR TEMP AR / PRESSÃO ============ -->
+  <div class="circuito" id="sensor_temp_ar">
+    <h2>🌡️ Sensor de Temperatura e Pressão do Ar (Coletor de Admissão)</h2>
+    <span class="ref">📄 Página 30 do PDF</span>
+    <div class="fluxo">
+      <div class="bloco ecu">🧠 ECU MOTOR EDC16 (Conector A - 60 vias)</div>
+      <div class="ramo">
+        <div class="fio-container">
+          <div class="fio-linha muito-fina" style="background:#00f"></div>
+          <span class="fio-label">Sinal de Temperatura — Azul</span>
+        </div>
+        <div class="bloco sensor">🌡️ SENSOR TEMP. AR (Termistor NTC)</div>
+      </div>
+      <div class="ramo">
+        <div class="fio-container">
+          <div class="fio-linha muito-fina" style="background:#FF8C00"></div>
+          <span class="fio-label">Sinal de Pressão — Laranja</span>
+        </div>
+        <div class="bloco sensor">📊 SENSOR PRESSÃO DO AR (MAP)</div>
+      </div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#000"></div>
+        <span class="fio-label">D(31)0,5PT — Preto 0,5mm² (Terra)</span>
+      </div>
+      <div class="bloco terra">⏚ TERRA (CHASSI)</div>
+    </div>
+  </div>
+
+  <!-- ============ SENSOR TEMP ÁGUA ============ -->
+  <div class="circuito" id="sensor_temp_agua">
+    <h2>🌡️ Sensor de Temperatura da Água do Motor</h2>
+    <span class="ref">📄 Páginas 21 e 30 do PDF</span>
+    <div class="fluxo">
+      <div class="bloco ecu">🧠 ECU MOTOR EDC16 (Conector A - 60 vias)</div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#00f"></div>
+        <span class="fio-label">Sinal NTC — Azul</span>
+      </div>
+      <div class="bloco sensor">🌡️ SENSOR TEMP. ÁGUA (NTC)</div>
+      <div class="ramo">
+        <div class="fio-container">
+          <div class="fio-linha muito-fina" style="background:#888"></div>
+          <span class="fio-label">C(26)0,75CZ — Cinza 0,75mm²</span>
+        </div>
+        <div class="bloco temp">📊 INDICADOR DE TEMPERATURA (Painel)</div>
+      </div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#000"></div>
+        <span class="fio-label">D(31)0,5PT — Preto 0,5mm² (Terra)</span>
+      </div>
+      <div class="bloco terra">⏚ TERRA (CHASSI)</div>
+    </div>
+  </div>
+
+  <!-- ============ SENSOR PRESSÃO RAIL ============ -->
+  <div class="circuito" id="sensor_pressao_rail">
+    <h2>📊 Sensor de Pressão do Rail (Pressão do Combustível)</h2>
+    <span class="ref">📄 Página 30 do PDF</span>
+    <div class="fluxo">
+      <div class="bloco ecu">🧠 ECU MOTOR EDC16 (Conector A - 60 vias)</div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#FF8C00"></div>
+        <span class="fio-label">Sinal Analógico — Laranja</span>
+      </div>
+      <div class="bloco sensor">📊 SENSOR PRESSÃO DO RAIL (0-1800 bar)</div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#000"></div>
+        <span class="fio-label">D(31)0,5PT — Preto 0,5mm² (Terra)</span>
+      </div>
+      <div class="bloco terra">⏚ TERRA (CHASSI)</div>
+    </div>
+  </div>
+
+  <!-- ============ SENSOR POSIÇÃO MOTOR ============ -->
+  <div class="circuito" id="sensor_posicao">
+    <h2>🔄 Sensor de Posição do Motor (Fase / Comando)</h2>
+    <span class="ref">📄 Página 30 do PDF</span>
+    <div class="fluxo">
+      <div class="bloco ecu">🧠 ECU MOTOR EDC16 (Conector A - 60 vias)</div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#0a0"></div>
+        <span class="fio-label">Sinal Digital — Verde</span>
+      </div>
+      <div class="bloco sensor">🔄 SENSOR POSIÇÃO DO MOTOR (Fase)</div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#000"></div>
+        <span class="fio-label">D(31)0,5PT — Preto 0,5mm² (Terra)</span>
+      </div>
+      <div class="bloco terra">⏚ TERRA (CHASSI)</div>
+    </div>
+  </div>
+
+  <!-- ============ SENSOR ROTAÇÃO ============ -->
+  <div class="circuito" id="sensor_rotacao">
+    <h2>⚙️ Sensor de Rotação do Motor (Virabrequim)</h2>
+    <span class="ref">📄 Página 30 do PDF</span>
+    <div class="fluxo">
+      <div class="bloco ecu">🧠 ECU MOTOR EDC16 (Conector A - 60 vias)</div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#8A2BE2"></div>
+        <span class="fio-label">Sinal Indutivo — Violeta</span>
+      </div>
+      <div class="bloco sensor">⚙️ SENSOR ROTAÇÃO DO MOTOR (RPM)</div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#000"></div>
+        <span class="fio-label">D(31)0,5PT — Preto 0,5mm² (Terra)</span>
+      </div>
+      <div class="bloco terra">⏚ TERRA (CHASSI)</div>
+    </div>
+  </div>
+
+  <!-- ============ VÁLVULA VÁCUO ============ -->
+  <div class="circuito" id="valvula_vacuo">
+    <h2>🔧 Válvula Atuadora de Vácuo</h2>
+    <span class="ref">📄 Páginas 28 e 30 do PDF</span>
+    <div class="fluxo">
+      <div class="bloco bateria">🔋 BATERIA (+30)</div>
+      <div class="fio-container">
+        <div class="fio-linha fina" style="background:#f9e2af"></div>
+        <span class="fio-label">D(30)1,0AM — Amarelo 1,0mm²</span>
+      </div>
+      <div class="bloco fusivel">🔶 FUSÍVEL 28 (15A)</div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#8A2BE2"></div>
+        <span class="fio-label">D(288)1,0VD — Violeta 1,0mm²</span>
+      </div>
+      <div class="bloco atuador">🔧 VÁLVULA ATUADORA DE VÁCUO</div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#000"></div>
+        <span class="fio-label">D(31)0,75PT — Preto 0,75mm² (Terra)</span>
+      </div>
+      <div class="bloco terra">⏚ TERRA (CHASSI)</div>
+    </div>
+  </div>
+
+  <!-- ============ PEDAL ACELERADOR ============ -->
+  <div class="circuito" id="pedal_acelerador">
+    <h2>🦶 Pedal Acelerador Eletrônico</h2>
+    <span class="ref">📄 Páginas 26 e 30 do PDF</span>
+    <div class="fluxo">
+      <div class="bloco ecu">🧠 ECU MOTOR EDC16 (Conector A - 60 vias)</div>
+      <div class="ramo">
+        <div class="fio-container">
+          <div class="fio-linha muito-fina" style="background:#00f"></div>
+          <span class="fio-label">D(284)0,5AZ — Azul 0,5mm² (5V Digital)</span>
+        </div>
+        <div class="bloco sensor">🦶 PEDAL ACELERADOR (Potenciômetro 1)</div>
+      </div>
+      <div class="ramo">
+        <div class="fio-container">
+          <div class="fio-linha muito-fina" style="background:#0a0"></div>
+          <span class="fio-label">D(960)0,5VD — Verde 0,5mm² (Sinal Potenciômetro)</span>
+        </div>
+        <div class="bloco sensor">🦶 PEDAL ACELERADOR (Potenciômetro 2)</div>
+      </div>
+      <div class="ramo">
+        <div class="fio-container">
+          <div class="fio-linha muito-fina" style="background:#FF8C00"></div>
+          <span class="fio-label">D(330)0,5LR — Laranja 0,5mm² (Marcha Lenta OFF)</span>
+        </div>
+        <div class="bloco interruptor">🎛️ INTERRUPTOR MARCHA LENTA OFF</div>
+      </div>
+      <div class="ramo">
+        <div class="fio-container">
+          <div class="fio-linha muito-fina" style="background:#8A2BE2"></div>
+          <span class="fio-label">D(670)0,5VD — Violeta 0,5mm² (Marcha Lenta ON)</span>
+        </div>
+        <div class="bloco interruptor">🎛️ INTERRUPTOR MARCHA LENTA ON</div>
+      </div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#000"></div>
+        <span class="fio-label">D(177)0,5PT — Preto 0,5mm² (Terra Digital)</span>
+      </div>
+      <div class="bloco terra">⏚ TERRA (CHASSI)</div>
+    </div>
+  </div>
+
+  <!-- ============ SENSOR VELOCIDADE ============ -->
+  <div class="circuito" id="sensor_velocidade">
+    <h2>🏁 Sensor de Velocidade Hall</h2>
+    <span class="ref">📄 Página 24 do PDF</span>
+    <div class="fluxo">
+      <div class="bloco bateria">🔋 BATERIA (+15)</div>
+      <div class="fio-container">
+        <div class="fio-linha fina" style="background:#f9e2af"></div>
+        <span class="fio-label">D(15)1,0AM — Amarelo 1,0mm²</span>
+      </div>
+      <div class="bloco fusivel">🔶 FUSÍVEL 8 (7,5A)</div>
+      <div class="fio-container">
+        <div class="fio-linha fina" style="background:#0a0"></div>
+        <span class="fio-label">D(288)1,0VD — Verde 1,0mm²</span>
+      </div>
+      <div class="bloco sensor">🏁 SENSOR DE VELOCIDADE HALL</div>
+      <div class="ramo">
+        <div class="fio-container">
+          <div class="fio-linha muito-fina" style="background:#888"></div>
+          <span class="fio-label">C(06)0,75CZ — Cinza 0,75mm²</span>
+        </div>
+        <div class="bloco temp">📊 VELOCÍMETRO</div>
+      </div>
+      <div class="ramo">
+        <div class="fio-container">
+          <div class="fio-linha fina" style="background:#0a0"></div>
+          <span class="fio-label">D(288)1,0VD — Verde 1,0mm²</span>
+        </div>
+        <div class="bloco ecu">🧠 ECU MOTOR EDC16 (Conector K)</div>
+      </div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#000"></div>
+        <span class="fio-label">D(31)0,5PT — Preto 0,5mm² (Terra)</span>
+      </div>
+      <div class="bloco terra">⏚ TERRA (CHASSI)</div>
+    </div>
+  </div>
+
+  <!-- ============ SENSOR ÁGUA COMBUSTÍVEL ============ -->
+  <div class="circuito" id="sensor_agua_comb">
+    <h2>💧 Sensor de Água no Combustível</h2>
+    <span class="ref">📄 Página 29 do PDF</span>
+    <div class="fluxo">
+      <div class="bloco bateria">🔋 BATERIA (+15)</div>
+      <div class="fio-container">
+        <div class="fio-linha fina" style="background:#f9e2af"></div>
+        <span class="fio-label">D(15)1,0AM — Amarelo 1,0mm²</span>
+      </div>
+      <div class="bloco fusivel">🔶 FUSÍVEL 30 (5A)</div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#00f"></div>
+        <span class="fio-label">D(701)0,5AZ — Azul 0,5mm²</span>
+      </div>
+      <div class="bloco sensor">💧 SENSOR DE ÁGUA NO COMBUSTÍVEL</div>
+      <div class="ramo">
+        <div class="fio-container">
+          <div class="fio-linha muito-fina" style="background:#8A2BE2"></div>
+          <span class="fio-label">D(701)0,5VD — Violeta 0,5mm²</span>
+        </div>
+        <div class="bloco ecu">🧠 ECU MOTOR EDC16 (Conector K)</div>
+      </div>
+      <div class="ramo">
+        <div class="fio-container">
+          <div class="fio-linha muito-fina" style="background:#f9e2af"></div>
+          <span class="fio-label">E(256)0,75AM — Amarelo 0,75mm²</span>
+        </div>
+        <div class="bloco lampada">💡 LUZ INDIC. ÁGUA NO COMBUSTÍVEL</div>
+      </div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#000"></div>
+        <span class="fio-label">D(31)0,5PT — Preto 0,5mm² (Terra)</span>
+      </div>
+      <div class="bloco terra">⏚ TERRA (CHASSI)</div>
+    </div>
+  </div>
+
+  <!-- ============ INTERRUPTOR EMBREAGEM ============ -->
+  <div class="circuito" id="interruptor_embreagem">
+    <h2>🦶 Interruptor da Embreagem</h2>
+    <span class="ref">📄 Página 27 do PDF</span>
+    <div class="fluxo">
+      <div class="bloco bateria">🔋 BATERIA (+30)</div>
+      <div class="fio-container">
+        <div class="fio-linha fina" style="background:#f9e2af"></div>
+        <span class="fio-label">D(30)1,0AM — Amarelo 1,0mm²</span>
+      </div>
+      <div class="bloco fusivel">🔶 FUSÍVEL 28 (15A)</div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#00f"></div>
+        <span class="fio-label">D(860)0,5AZ — Azul 0,5mm²</span>
+      </div>
+      <div class="bloco interruptor">🦶 INTERRUPTOR DA EMBREAGEM</div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#8A2BE2"></div>
+        <span class="fio-label">D(860)0,5VD — Violeta 0,5mm²</span>
+      </div>
+      <div class="bloco ecu">🧠 ECU MOTOR EDC16 (Conector K)</div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#000"></div>
+        <span class="fio-label">D(31)0,5PT — Preto 0,5mm² (Terra)</span>
+      </div>
+      <div class="bloco terra">⏚ TERRA (CHASSI)</div>
+    </div>
+  </div>
+
+  <!-- ============ INTERRUPTOR FREIO ============ -->
+  <div class="circuito" id="interruptor_freio">
+    <h2>🛑 Interruptor Redundante de Freio</h2>
+    <span class="ref">📄 Página 27 do PDF</span>
+    <div class="fluxo">
+      <div class="bloco bateria">🔋 BATERIA (+30)</div>
+      <div class="fio-container">
+        <div class="fio-linha fina" style="background:#f9e2af"></div>
+        <span class="fio-label">D(30)1,0AM — Amarelo 1,0mm²</span>
+      </div>
+      <div class="bloco fusivel">🔶 FUSÍVEL 28 (15A)</div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#f00"></div>
+        <span class="fio-label">D(540)0,5VM — Vermelho 0,5mm²</span>
+      </div>
+      <div class="bloco interruptor">🛑 INTERRUPTOR REDUNDANTE DE FREIO</div>
+      <div class="ramo">
+        <div class="fio-container">
+          <div class="fio-linha muito-fina" style="background:#00f"></div>
+          <span class="fio-label">D(540)0,5AZ — Azul 0,5mm²</span>
+        </div>
+        <div class="bloco ecu">🧠 ECU MOTOR EDC16 (Conector K)</div>
+      </div>
+      <div class="ramo">
+        <div class="fio-container">
+          <div class="fio-linha muito-fina" style="background:#0a0"></div>
+          <span class="fio-label">D(445)0,5VD — Verde 0,5mm²</span>
+        </div>
+        <div class="bloco lampada">💡 LUZ DE FREIO</div>
+      </div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#000"></div>
+        <span class="fio-label">D(31)0,5PT — Preto 0,5mm² (Terra)</span>
+      </div>
+      <div class="bloco terra">⏚ TERRA (CHASSI)</div>
+    </div>
+  </div>
+
+  <!-- ============ BOMBA ELÉTRICA ============ -->
+  <div class="circuito" id="bomba_eletrica">
+    <h2>⛽ Bomba Elétrica</h2>
+    <span class="ref">📄 Página 28 do PDF</span>
+    <div class="fluxo">
+      <div class="bloco bateria">🔋 BATERIA (+30)</div>
+      <div class="fio-container">
+        <div class="fio-linha fina" style="background:#f9e2af"></div>
+        <span class="fio-label">D(30)1,0AM — Amarelo 1,0mm²</span>
+      </div>
+      <div class="bloco fusivel">🔶 FUSÍVEL 29 (10A)</div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#f00"></div>
+        <span class="fio-label">D(287)0,5VM — Vermelho 0,5mm²</span>
+      </div>
+      <div class="bloco rele">⚙️ RELÉ BOMBA ELÉTRICA Y11</div>
+      <div class="fio-container">
+        <div class="fio-linha fina" style="background:#8A2BE2"></div>
+        <span class="fio-label">D(731)1,0VD — Violeta 1,0mm²</span>
+      </div>
+      <div class="bloco motor">⛽ BOMBA ELÉTRICA</div>
+      <div class="ramo">
+        <div class="fio-container">
+          <div class="fio-linha muito-fina" style="background:#00f"></div>
+          <span class="fio-label">D(730)0,5AZ — Azul 0,5mm² (AC Relé)</span>
+        </div>
+        <div class="bloco ecu">🧠 ECU MOTOR EDC16 (Conector K)</div>
+      </div>
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#000"></div>
+        <span class="fio-label">D(31)0,5PT — Preto 0,5mm² (Terra)</span>
+      </div>
+      <div class="bloco terra">⏚ TERRA (CHASSI)</div>
+    </div>
+  </div>
+
+  <!-- ============ BICOS INJETORES ============ -->
+  <div class="circuito" id="bicos_injetores">
+    <h2>💦 Bicos Injetores</h2>
+    <span class="ref">📄 Página 31 do PDF</span>
+    <div class="fluxo">
+      <div class="bloco bateria">🔋 BATERIA (+30)</div>
+      <div class="fio-container">
+        <div class="fio-linha media" style="background:#f00"></div>
+        <span class="fio-label">D(30)2,5VM — Vermelho 2,5mm²</span>
+      </div>
+      <div class="bloco rele">⚙️ RELÉ PRINCIPAL Y9</div>
+      <div class="fio-container">
+        <div class="fio-linha media" style="background:#f00"></div>
+        <span class="fio-label">D(30)2,5VM — Vermelho 2,5mm²</span>
+      </div>
+      <div class="bloco ecu">🧠 ECU MOTOR EDC16 (Conector A - 60 vias)</div>
+
+      <div class="ramo">
+        <div class="fio-container">
+          <div class="fio-linha muito-fina" style="background:#00f"></div>
+          <span class="fio-label">Sinal de Injeção Cilindro 1 — Azul</span>
+        </div>
+        <div class="bloco motor">💦 BICO INJETOR 1</div>
+      </div>
+      <div class="ramo">
+        <div class="fio-container">
+          <div class="fio-linha muito-fina" style="background:#0a0"></div>
+          <span class="fio-label">Sinal de Injeção Cilindro 2 — Verde</span>
+        </div>
+        <div class="bloco motor">💦 BICO INJETOR 2</div>
+      </div>
+      <div class="ramo">
+        <div class="fio-container">
+          <div class="fio-linha muito-fina" style="background:#8A2BE2"></div>
+          <span class="fio-label">Sinal de Injeção Cilindro 3 — Violeta</span>
+        </div>
+        <div class="bloco motor">💦 BICO INJETOR 3</div>
+      </div>
+      <div class="ramo">
+        <div class="fio-container">
+          <div class="fio-linha muito-fina" style="background:#FF8C00"></div>
+          <span class="fio-label">Sinal de Injeção Cilindro 4 — Laranja</span>
+        </div>
+        <div class="bloco motor">💦 BICO INJETOR 4</div>
+      </div>
+
+      <div class="fio-container">
+        <div class="fio-linha muito-fina" style="background:#000"></div>
+        <span class="fio-label">D(31)0,5PT — Preto 0,5mm² (Terra)</span>
+      </div>
+      <div class="bloco terra">⏚ TERRA (CHASSI)</div>
+    </div>
+  </div>
+
+  <!-- LEGENDA -->
+  <div class="legenda">
+    <strong style="width:100%;color:#89b4fa;margin-bottom:8px;">🎨 Legenda de Cores (Anexo E)</strong>
+    <span><span class="cor" style="background:#000"></span> 0 - Preto (PT)</span>
+    <span><span class="cor" style="background:#8B4513"></span> 1 - Marrom (MA)</span>
+    <span><span class="cor" style="background:#f00"></span> 2 - Vermelho (VM)</span>
+    <span><span class="cor" style="background:#FF8C00"></span> 3 - Laranja (LR)</span>
+    <span><span class="cor" style="background:#FFD700"></span> 4 - Amarelo (AM)</span>
+    <span><span class="cor" style="background:#0a0"></span> 5 - Verde (VD)</span>
+    <span><span class="cor" style="background:#00f"></span> 6 - Azul (AZ)</span>
+    <span><span class="cor" style="background:#8A2BE2"></span> 7 - Violeta (VD)</span>
+    <span><span class="cor" style="background:#888"></span> 8 - Cinza (CZ)</span>
+    <span><span class="cor" style="background:#fff;border:1px solid #666"></span> 9 - Branco (BR)</span>
+    <span style="width:100%;margin-top:12px;color:#a6adc8;font-size:11px;">
+      <strong>📏 Espessura da linha = bitola do fio:</strong><br>
+      ▬▬▬ 6,0mm² (grossa) | ▬▬ 2,5mm² (média) | ▬ 1,0mm² (fina) | ▬ 0,75mm² (muito fina)
+    </span>
+  </div>
+</main>
+
+<button class="btn-print" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
+
+</body>
+</html>

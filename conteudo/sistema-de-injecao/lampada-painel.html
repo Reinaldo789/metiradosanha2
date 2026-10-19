@@ -1,0 +1,63 @@
+<!-- Luz Amarela de Advertência com falha (luz acesa) - MWM Sprint 2.8 -->
+<header class="art-head">
+  <span class="art-kicker">Sistema Elétrico · Diagnóstico</span>
+  <h1>Luz Amarela de Advertência (Painel)</h1>
+  <p class="art-lead">Fluxograma de diagnóstico com a luz amarela acesa: responda Sim ou Não em cada passo até chegar à solução.</p>
+  <div class="chips"><span>MWM Sprint 2.8</span><span>S10 até 2011</span><span>P1650 · P1651 · P1652 · P1653</span></div>
+</header>
+
+<p>Use este roteiro quando a diagnose registrar falha no circuito da luz amarela de advertência do painel. Essas falhas não reduzem a potência do motor, mas indicam problema no circuito de sinalização.</p>
+
+<div class="aviso"><strong>Atenção</strong><p>Se a lâmpada está queimada ou o circuito interrompido, o motorista pode não ser avisado de outras falhas do sistema. Sempre corrija este circuito antes de liberar o veículo.</p></div>
+
+<h2 id="fluxo">Fluxograma</h2>
+<div class="fluxo">
+  <div class="passo" id="p1"><span class="passo-n">Passo 1</span><p><strong>A ferramenta registrou P1650, P1651, P1652 ou P1653?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p2">Sim</button><button type="button" class="nao" data-ir="r1">Não</button></div></div>
+  <div class="passo fim acao" id="r1"><span class="passo-n">Outro código</span><p>Siga o fluxograma do código apresentado.</p></div>
+  <div class="passo" id="p2"><span class="passo-n">Passo 2</span><p>Ligue o contato. A lâmpada amarela deve acender por alguns segundos e apagar. <strong>A lâmpada acende?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p3">Sim</button><button type="button" class="nao" data-ir="r2">Não</button></div></div>
+  <div class="passo fim erro" id="r2"><span class="passo-n">Lâmpada não acende</span><ul><li>Verifique o estado da lâmpada. Substitua se necessário;</li><li>Apague todos os códigos de falha presentes;</li><li>Verifique se o conector está devidamente montado;</li><li>Repita o teste. Se persistir, vá para o passo 4.</li></ul></div>
+  <div class="passo" id="p3"><span class="passo-n">Passo 3</span><p>Provocar uma falha conhecida para verificar se a lâmpada funciona corretamente. <strong>O circuito funciona corretamente?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r3">Sim</button><button type="button" class="nao" data-ir="p4">Não</button></div></div>
+  <div class="passo fim ok" id="r3"><span class="passo-n">Circuito OK</span><ul><li>Apague os códigos de falha;</li><li>Se não houver mais falhas, libere o veículo.</li></ul></div>
+  <div class="passo" id="p4"><span class="passo-n">Passo 4</span><p>Desligue o conector do ECM. Meça a continuidade entre o pino <strong>K71</strong> do conector do ECM e o pino <strong>87</strong> do relé principal. <strong>O valor é menor que 1 Ω?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p5">Sim</button><button type="button" class="nao" data-ir="r4">Não</button></div></div>
+  <div class="passo fim erro" id="r4"><span class="passo-n">Chicote interrompido</span><ul><li>Verifique interrupções ou mau contato nos conectores e chicote;</li><li>Efetue os reparos e substituições necessárias;</li><li>Apague os códigos de falha e refaça o teste.</li></ul></div>
+  <div class="passo" id="p5"><span class="passo-n">Passo 5</span><p>Verifique possível <strong>mau contato</strong> ou oxidações na central elétrica, fusível F28, soquete da lâmpada e conector do ECM. <strong>Existe algum desses problemas?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r5">Sim</button><button type="button" class="nao" data-ir="r6">Não</button></div></div>
+  <div class="passo fim erro" id="r5"><span class="passo-n">Corrigir contatos</span><ul><li>Limpe e reapente os terminais;</li><li>Substitua o fusível F28 se necessário;</li><li>Apague os códigos de falha e refaça o teste.</li></ul></div>
+  <div class="passo fim erro" id="r6"><span class="passo-n">Suspeita de ECM</span><ul><li>Verifique se a potência da lâmpada está conforme o especificado;</li><li>Verifique curto-circuito no soquete da lâmpada ou no chicote em relação ao terra;</li><li>Utilize as informações referentes ao PCode P1650;</li><li>Se a falha persistir, substitua o ECM.</li></ul></div>
+</div>
+
+<h2 id="valores">Valores e pinos</h2>
+<table><tr><th>Teste</th><th>Valor esperado</th></tr>
+<tr><td>Continuidade K71 ↔ pino 87 do relé principal</td><td>menor que 1 Ω</td></tr>
+<tr><td>Fusível F28</td><td>continuidade e sem oxidação</td></tr>
+<tr><td>Potência da lâmpada</td><td>conforme especificação</td></tr>
+<tr><td>Curto-circuito no soquete</td><td>não deve haver</td></tr></table>
+
+<h3>Pinos do relé e do ECM</h3>
+<table><tr><th>Pino</th><th>Ligação</th><th>Função</th></tr>
+<tr><td>K71</td><td>Conector da lâmpada (via F28)</td><td>Sinal de alimentação da luz amarela</td></tr>
+<tr><td>87</td><td>Relé principal</td><td>Alimentação positiva</td></tr></table>
+
+<h2 id="solucoes">Soluções comuns</h2>
+<ul>
+<li><strong>Lâmpada queimada:</strong> substitua por outra de mesma potência;</li>
+<li><strong>Fusível F28 queimado:</strong> substitua por um de mesma amperagem;</li>
+<li><strong>Conector com oxidação:</strong> limpe e reapente os terminais;</li>
+<li><strong>Soquete da lâmpada em curto:</strong> substitua o soquete;</li>
+<li><strong>Chicote rompido:</strong> repare o trecho danificado;</li>
+<li><strong>Suspeita de ECM:</strong> se o circuito estiver OK e a falha persistir, substitua o ECM.</li>
+</ul>
+
+<div class="dica"><strong>Teste rápido</strong><p>Provocar uma falha conhecida (ex.: desconectar um sensor) deve acender a lâmpada amarela. Se não acender, o circuito de sinalização está com problema.</p></div>
+
+<h2 id="codigos">Códigos relacionados</h2>
+<ul>
+<li><strong>P1650</strong>: Sinal de alimentação da luz amarela perdido — lâmpada não é acionada;</li>
+<li><strong>P1651</strong>: Tensão elevada no circuito da luz de advertência — lâmpada não é acionada;</li>
+<li><strong>P1652</strong>: Tensão baixa na lâmpada de aviso — lâmpada não é acionada;</li>
+<li><strong>P1653</strong>: Temperatura excessiva no CI de controle da luz — lâmpada não é acionada.</li>
+</ul>

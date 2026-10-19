@@ -1,0 +1,65 @@
+<!-- Sensor de Pressão/Temperatura do Ar de Admissão com falha - MWM Sprint 2.8 -->
+<header class="art-head">
+  <span class="art-kicker">Sistema de Injeção · Diagnóstico</span>
+  <h1>Sensor de Pressão/Temperatura do Ar de Admissão</h1>
+  <p class="art-lead">Fluxograma de diagnóstico com a luz amarela acesa: responda Sim ou Não em cada passo até chegar à solução.</p>
+  <div class="chips"><span>MWM Sprint 2.8</span><span>S10 até 2011</span><span>P0112 · P0113 · P0237 · P0238</span></div>
+</header>
+
+<p>Use este roteiro quando a diagnose registrar falhas de tensão baixa/alta nos circuitos de pressão ou temperatura do ar. O ECM assume valor substituto quando o sinal falha.</p>
+
+<h2 id="fluxo">Fluxograma</h2>
+<div class="fluxo">
+  <div class="passo" id="p1"><span class="passo-n">Passo 1</span><p><strong>A ferramenta registrou P0112, P0113, P0237 ou P0238?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p2">Sim</button><button type="button" class="nao" data-ir="r1">Não</button></div></div>
+  <div class="passo fim acao" id="r1"><span class="passo-n">Outro código</span><p>Siga o fluxograma do código apresentado.</p></div>
+  <div class="passo" id="p2"><span class="passo-n">Passo 2</span><p>Verifique visualmente o conector do sensor na curva de admissão. Há <strong>oxidação, umidade ou terminais tortos</strong>?</p>
+    <div class="resp"><button type="button" class="sim" data-ir="r2">Sim</button><button type="button" class="nao" data-ir="p3">Não</button></div></div>
+  <div class="passo fim erro" id="r2"><span class="passo-n">Corrigir conector</span><ul><li>Limpe e reapente os terminais;</li><li>Apague os códigos e repita o teste.</li></ul></div>
+  <div class="passo" id="p3"><span class="passo-n">Passo 3</span><p>Desligue o conector do sensor. Ligue o contato, sem dar partida, e meça a tensão entre os pinos <strong>1 e 3</strong>. <strong>O valor é 5 V?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p4">Sim</button><button type="button" class="nao" data-ir="r3">Não</button></div></div>
+  <div class="passo fim erro" id="r3"><span class="passo-n">Alimentação incorreta</span><ul><li>Verifique continuidade entre pino 3 do sensor e pino A13 do ECM;</li><li>Verifique continuidade entre pino 1 do sensor e pino A23 do ECM;</li><li>Providencie os reparos necessários.</li></ul></div>
+  <div class="passo" id="p4"><span class="passo-n">Passo 4</span><p>Verifique a continuidade do chicote entre os pinos <strong>2 e 4</strong> do sensor e os pinos <strong>A40 e A53</strong> do ECM. <strong>O valor é menor que 1 Ω?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p5">Sim</button><button type="button" class="nao" data-ir="r4">Não</button></div></div>
+  <div class="passo fim erro" id="r4"><span class="passo-n">Chicote interrompido</span><ul><li>Repare ou substitua o chicote;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+  <div class="passo" id="p5"><span class="passo-n">Passo 5</span><p>Verifique o <strong>curto-circuito</strong> entre os pinos 2 e 4 do sensor e o terra. <strong>Existe continuidade?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r5">Sim</button><button type="button" class="nao" data-ir="p6">Não</button></div></div>
+  <div class="passo fim erro" id="r5"><span class="passo-n">Curto-circuito</span><ul><li>Repare o chicote;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+  <div class="passo" id="p6"><span class="passo-n">Passo 6</span><p>Ligue o motor em marcha-lenta. Leia a <strong>pressão do coletor</strong> na tela "Status do Motor". <strong>O valor está entre 0,8 e 1,0 bar?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p7">Sim</button><button type="button" class="nao" data-ir="r6">Não</button></div></div>
+  <div class="passo fim erro" id="r6"><span class="passo-n">Pressão fora do esperado</span><ul><li>Substitua o sensor de pressão/temperatura do ar;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+  <div class="passo" id="p7"><span class="passo-n">Passo 7</span><p>Compare os valores de pressão do coletor com a pressão atmosférica (motor parado, chave ligada). <strong>Estão próximos?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r7">Sim</button><button type="button" class="nao" data-ir="r8">Não</button></div></div>
+  <div class="passo fim ok" id="r7"><span class="passo-n">Sensor OK</span><ul><li>Apague os códigos de falha;</li><li>Se não houver mais falhas, libere o veículo.</li></ul></div>
+  <div class="passo fim erro" id="r8"><span class="passo-n">Verificar ECM</span><ul><li>Se a leitura de pressão atmosférica estiver incoerente, substitua o ECM;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+</div>
+
+<h2 id="valores">Valores e pinos</h2>
+<table><tr><th>Teste</th><th>Valor esperado</th></tr>
+<tr><td>Alimentação do sensor (pinos 1-3)</td><td>5 V</td></tr>
+<tr><td>Pressão do coletor em marcha-lenta</td><td>0,8 bar a 1,0 bar</td></tr>
+<tr><td>Continuidade chicote ↔ ECM</td><td>menor que 1 Ω</td></tr></table>
+
+<h3>Pinos do sensor e do ECM</h3>
+<table><tr><th>Pino do sensor</th><th>Pino do ECM</th><th>Função</th></tr>
+<tr><td>1</td><td>A23</td><td>GND da pressão/temperatura</td></tr>
+<tr><td>2</td><td>A53</td><td>Sinal de temperatura do ar (NTC)</td></tr>
+<tr><td>3</td><td>A13</td><td>Alimentação de 5 V</td></tr>
+<tr><td>4</td><td>A40</td><td>Sinal de pressão do coletor</td></tr></table>
+
+<h2 id="solucoes">Soluções comuns</h2>
+<ul>
+<li><strong>Conector com oxidação:</strong> limpe e reapente os terminais;</li>
+<li><strong>Chicote rompido ou em curto:</strong> repare o trecho danificado;</li>
+<li><strong>Sensor com leitura incoerente:</strong> substitua o sensor;</li>
+<li><strong>Vazamento de ar na admissão:</strong> verifique mangueiras e abraçadeiras;</li>
+<li><strong>Turbina ou modulador com falha:</strong> verifique pressão real do turbo.</li>
+</ul>
+
+<h2 id="codigos">Códigos relacionados</h2>
+<ul>
+<li><strong>P0112</strong>: Tensão baixa no sensor de temperatura do ar — ECM assume 40 °C;</li>
+<li><strong>P0113</strong>: Tensão alta no sensor de temperatura do ar — ECM assume 40 °C;</li>
+<li><strong>P0237</strong>: Tensão baixa no sensor de pressão do coletor — valor padrão 1000 hPa;</li>
+<li><strong>P0238</strong>: Tensão alta no sensor de pressão do coletor — valor padrão 1000 hPa.</li>
+</ul>

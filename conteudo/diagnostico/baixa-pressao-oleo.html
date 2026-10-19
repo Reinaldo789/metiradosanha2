@@ -1,0 +1,64 @@
+<!-- Baixa pressão de óleo no motor - MWM Sprint 2.8 -->
+<header class="art-head">
+  <span class="art-kicker">Motor · Diagnóstico</span>
+  <h1>Baixa Pressão de Óleo</h1>
+  <p class="art-lead">Fluxograma de diagnóstico: responda Sim ou Não em cada passo até chegar à solução.</p>
+  <div class="chips"><span>MWM Sprint 2.8</span><span>S10 até 2011</span><span>Pressão de óleo</span></div>
+</header>
+
+<p>Use este roteiro quando a luz de pressão de óleo acende ou o manômetro indica pressão baixa. As causas mais comuns são: nível baixo, óleo incorreto, bomba desgastada, válvula de alívio travada ou sensor com defeito.</p>
+
+<div class="aviso"><strong>Atenção</strong><p>Não funcione o motor com luz de óleo acesa. Pode causar danos graves ao motor em poucos segundos.</p></div>
+
+<h2 id="fluxo">Fluxograma</h2>
+<div class="fluxo">
+  <div class="passo" id="p1"><span class="passo-n">Passo 1</span><p>Verifique o <strong>nível de óleo</strong> na vareta. <strong>Está dentro do nível?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p2">Sim</button><button type="button" class="nao" data-ir="r1">Não</button></div></div>
+  <div class="passo fim erro" id="r1"><span class="passo-n">Nível baixo</span><ul><li>Complete o nível com óleo recomendado;</li><li>Verifique se há vazamentos;</li><li>Verifique se o motor está queimando óleo;</li><li>Refaça o teste.</li></ul></div>
+  <div class="passo" id="p2"><span class="passo-n">Passo 2</span><p>Verifique o <strong>tipo de óleo</strong> utilizado. <strong>É o especificado pelo fabricante (SAE 15W40 - API CH-4 ou superior)?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p3">Sim</button><button type="button" class="nao" data-ir="r2">Não</button></div></div>
+  <div class="passo fim erro" id="r2"><span class="passo-n">Óleo inadequado</span><ul><li>Substitua o óleo pelo recomendado;</li><li>Substitua o filtro de óleo;</li><li>Refaça o teste.</li></ul></div>
+  <div class="passo" id="p3"><span class="passo-n">Passo 3</span><p>Verifique se a <strong>luz de óleo</strong> acende com o motor em marcha-lenta. <strong>A luz permanece acesa?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p4">Sim</button><button type="button" class="nao" data-ir="r3">Não</button></div></div>
+  <div class="passo fim ok" id="r3"><span class="passo-n">Intermitente</span><ul><li>Verifique o sensor de pressão de óleo;</li><li>Verifique o chicote do sensor;</li><li>Verifique se há mau contato no painel;</li><li>Refaça o teste.</li></ul></div>
+  <div class="passo" id="p4"><span class="passo-n">Passo 4</span><p>Instale um <strong>manômetro mecânico</strong> no lugar do sensor e meça a pressão real. <strong>A pressão está dentro do especificado?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r4">Sim</button><button type="button" class="nao" data-ir="p5">Não</button></div></div>
+  <div class="passo fim erro" id="r4"><span class="passo-n">Sensor com defeito</span><ul><li>Substitua o sensor de pressão de óleo;</li><li>Verifique o chicote do sensor;</li><li>Refaça o teste.</li></ul></div>
+  <div class="passo" id="p5"><span class="passo-n">Passo 5</span><p>Verifique o <strong>filtro de óleo</strong> — pode estar entupido ou com bypass travado aberto. <strong>Está OK?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p6">Sim</button><button type="button" class="nao" data-ir="r5">Não</button></div></div>
+  <div class="passo fim erro" id="r5"><span class="passo-n">Filtro com defeito</span><ul><li>Substitua o filtro de óleo;</li><li>Use filtro original MWM;</li><li>Refaça o teste.</li></ul></div>
+  <div class="passo" id="p6"><span class="passo-n">Passo 6</span><p>Verifique se há <strong>vazamentos internos</strong> no motor (mancais, tubo de sucção da bomba). <strong>Existe vazamento?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r6">Sim</button><button type="button" class="nao" data-ir="p7">Não</button></div></div>
+  <div class="passo fim erro" id="r6"><span class="passo-n">Vazamento interno</span><ul><li>Verifique o tubo de sucção da bomba de óleo;</li><li>Verifique os mancais e bronzinas;</li><li>Retífica do motor se necessário;</li><li>Refaça o teste.</li></ul></div>
+  <div class="passo" id="p7"><span class="passo-n">Passo 7</span><p>Verifique a <strong>válvula de alívio da bomba de óleo</strong>. <strong>Está travada aberta?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r7">Sim</button><button type="button" class="nao" data-ir="p8">Não</button></div></div>
+  <div class="passo fim erro" id="r7"><span class="passo-n">Válvula travada</span><ul><li>Libere ou substitua a válvula de alívio;</li><li>Verifique a mola da válvula;</li><li>Refaça o teste.</li></ul></div>
+  <div class="passo" id="p8"><span class="passo-n">Passo 8</span><p>Verifique o <strong>desgaste interno da bomba de óleo</strong> (medir folgas). <strong>Está dentro do especificado?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r8">Sim</button><button type="button" class="nao" data-ir="r9">Não</button></div></div>
+  <div class="passo fim erro" id="r9"><span class="passo-n">Bomba de óleo</span><ul><li>Substitua a bomba de óleo;</li><li>Verifique o tubo de sucção e o pescador;</li><li>Refaça o teste.</li></ul></div>
+  <div class="passo fim ok" id="r8"><span class="passo-n">Verificações finais</span><ul><li>Verifique se o motor não está sobrecarregado;</li><li>Verifique a temperatura do motor;</li><li>Se todos os testes estiverem OK, consulte o manual do veículo.</li></ul></div>
+</div>
+
+<h2 id="valores">Valores de referência</h2>
+<table><tr><th>Item</th><th>Valor esperado</th></tr>
+<tr><td>Pressão em marcha-lenta (motor quente)</td><td>conforme especificação MWM</td></tr>
+<tr><td>Pressão em alta rotação</td><td>conforme especificação MWM</td></tr>
+<tr><td>Óleo recomendado</td><td>SAE 15W40 - API CH-4 ou superior</td></tr>
+<tr><td>Troca de óleo</td><td>a cada 10.000 km ou 6 meses</td></tr></table>
+
+<h2 id="solucoes">Causas comuns</h2>
+<ul>
+<li><strong>Nível baixo:</strong> complete e verifique vazamentos;</li>
+<li><strong>Óleo incorreto:</strong> substitua pelo recomendado;</li>
+<li><strong>Filtro de óleo entupido:</strong> substitua;</li>
+<li><strong>Sensor com defeito:</strong> substitua o sensor de pressão;</li>
+<li><strong>Válvula de alívio travada:</strong> libere ou substitua;</li>
+<li><strong>Bomba de óleo desgastada:</strong> substitua a bomba;</li>
+<li><strong>Mancais desgastados:</strong> retífica do motor.</li>
+</ul>
+
+<h2 id="codigos">Códigos relacionados</h2>
+<ul>
+<li><strong>Não há P-Code específico</strong> — a luz de pressão de óleo é um circuito independente, com sensor próprio;</li>
+<li><strong>Verifique sempre</strong> antes de ligar o motor, sob risco de danos graves.</li>
+</ul>

@@ -1,0 +1,65 @@
+<!-- Relé da Bomba de Combustível com falha (luz acesa) - MWM Sprint 2.8 -->
+<header class="art-head">
+  <span class="art-kicker">Sistema de Injeção · Diagnóstico</span>
+  <h1>Relé da Bomba de Combustível</h1>
+  <p class="art-lead">Fluxograma de diagnóstico com a luz amarela acesa: responda Sim ou Não em cada passo até chegar à solução.</p>
+  <div class="chips"><span>MWM Sprint 2.8</span><span>S10 até 2011</span><span>P0627 · P0628 · P0629</span></div>
+</header>
+
+<p>Use este roteiro quando a diagnose registrar P0627 (sinal perdido), P0628 (curto ao terra) ou P0629 (curto ao positivo). Sem a bomba elétrica, o motor pode não partir, principalmente em dia frio ou com filtro sujo.</p>
+
+<h2 id="fluxo">Fluxograma</h2>
+<div class="fluxo">
+  <div class="passo" id="p1"><span class="passo-n">Passo 1</span><p><strong>A ferramenta registrou P0627, P0628 ou P0629?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p2">Sim</button><button type="button" class="nao" data-ir="r1">Não</button></div></div>
+  <div class="passo fim acao" id="r1"><span class="passo-n">Outro código</span><p>Siga o fluxograma do código apresentado.</p></div>
+  <div class="passo" id="p2"><span class="passo-n">Passo 2</span><p>Verifique visualmente o relé da bomba na caixa de fusíveis. <strong>Há sinais de queimado, terminal solto ou oxidação?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r2">Sim</button><button type="button" class="nao" data-ir="p3">Não</button></div></div>
+  <div class="passo fim erro" id="r2"><span class="passo-n">Substituir relé</span><ul><li>Substitua o relé por um novo (mesma amperagem);</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+  <div class="passo" id="p3"><span class="passo-n">Passo 3</span><p>Verifique a continuidade do chicote entre o pino <strong>K91</strong> do ECM e o pino <strong>85</strong> do relé da bomba. <strong>O valor é menor que 1 Ω?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p4">Sim</button><button type="button" class="nao" data-ir="r3">Não</button></div></div>
+  <div class="passo fim erro" id="r3"><span class="passo-n">Chicote interrompido</span><ul><li>Verifique mau contato no conector do relé e do ECM;</li><li>Repare o chicote;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+  <div class="passo" id="p4"><span class="passo-n">Passo 4</span><p>Verifique o <strong>curto-circuito</strong> entre o pino K91 do ECM e o terra, e entre o pino K91 e o positivo da bateria. <strong>Existe curto?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r4">Sim</button><button type="button" class="nao" data-ir="p5">Não</button></div></div>
+  <div class="passo fim erro" id="r4"><span class="passo-n">Chicote em curto</span><ul><li>Verifique o isolamento do chicote entre o ECM (K91) e o relé da bomba;</li><li>Repare o trecho danificado;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+  <div class="passo" id="p5"><span class="passo-n">Passo 5</span><p>Com o contato ligado, meça a tensão no pino <strong>86</strong> do relé (bobina). <strong>Existe tensão próxima da bateria?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p6">Sim</button><button type="button" class="nao" data-ir="r5">Não</button></div></div>
+  <div class="passo fim erro" id="r5"><span class="passo-n">Alimentação do relé</span><ul><li>Verifique o fusível F29 (10 A);</li><li>Verifique o pino 87 do relé principal;</li><li>Providencie os reparos necessários.</li></ul></div>
+  <div class="passo" id="p6"><span class="passo-n">Passo 6</span><p>Ligue a ignição. A bomba elétrica deve ser acionada por 2 a 3 segundos. <strong>A bomba elétrica é ouvida (zumbido)?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r6">Sim</button><button type="button" class="nao" data-ir="r7">Não</button></div></div>
+  <div class="passo fim ok" id="r6"><span class="passo-n">Bomba OK</span><ul><li>Apague os códigos de falha;</li><li>Verifique mau contato ou oxidações nos conectores do relé e da bomba;</li><li>Se não houver mais falhas, libere o veículo.</li></ul></div>
+  <div class="passo fim erro" id="r7"><span class="passo-n">Verificar bomba elétrica</span><ul><li>Meça a tensão no conector da bomba elétrica;</li><li>Se houver tensão, substitua a bomba elétrica;</li><li>Se não houver, verifique o chicote entre relé e bomba.</li></ul></div>
+</div>
+
+<h2 id="valores">Valores e pinos</h2>
+<table><tr><th>Teste</th><th>Valor esperado</th></tr>
+<tr><td>Fusível F29</td><td>10 A, continuidade menor que 1 Ω</td></tr>
+<tr><td>Continuidade K91 ↔ pino 85 do relé</td><td>menor que 1 Ω</td></tr>
+<tr><td>Tensão no pino 86 do relé (contato ligado)</td><td>tensão da bateria</td></tr>
+<tr><td>Acionamento da bomba ao ligar ignição</td><td>2 a 3 segundos de zumbido</td></tr></table>
+
+<h3>Pinos do relé e do ECM</h3>
+<table><tr><th>Pino do relé</th><th>Ligação</th><th>Função</th></tr>
+<tr><td>85</td><td>K91 do ECM</td><td>Comando da bobina</td></tr>
+<tr><td>86</td><td>Positivo (via F29)</td><td>Alimentação da bobina</td></tr>
+<tr><td>30</td><td>Positivo direto</td><td>Alimentação da bomba</td></tr>
+<tr><td>87</td><td>Bomba elétrica</td><td>Saída para bomba</td></tr></table>
+
+<h2 id="solucoes">Soluções comuns</h2>
+<ul>
+<li><strong>Relé queimado:</strong> substitua por um novo com a mesma amperagem;</li>
+<li><strong>Fusível F29 queimado:</strong> substitua e refaça o teste;</li>
+<li><strong>Chicote rompido ou em curto:</strong> repare o trecho danificado;</li>
+<li><strong>Conector com oxidação:</strong> limpe e reapente os terminais;</li>
+<li><strong>Bomba elétrica com defeito:</strong> substitua a bomba;</li>
+<li><strong>Suspeita de falha no ECM:</strong> se todo o circuito estiver OK, substitua o ECM.</li>
+</ul>
+
+<div class="aviso"><strong>Atenção</strong><p>Se a bomba elétrica não funciona em dia frio ou com filtro sujo, o motor pode não partir. Verifique sempre o circuito antes de substituir a bomba.</p></div>
+
+<h2 id="codigos">Códigos relacionados</h2>
+<ul>
+<li><strong>P0627</strong>: Sinal do relé da bomba elétrica perdido — bomba não é acionada;</li>
+<li><strong>P0628</strong>: Curto-circuito ao terra no relé — bomba não é acionada;</li>
+<li><strong>P0629</strong>: Curto-circuito ao positivo no relé — bomba não é acionada.</li>
+</ul>

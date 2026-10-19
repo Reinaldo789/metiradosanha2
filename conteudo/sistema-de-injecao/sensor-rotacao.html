@@ -1,0 +1,168 @@
+<!-- Sensor de Rotação (CKP). Imagens: salve em conteudo/imagens/sensor-ckp/ -->
+<header class="art-head">
+  <h1>Sensor de Rotação (CKP)</h1>
+</header>
+
+<nav class="toc" aria-label="Neste artigo">
+  <strong>Neste artigo</strong>
+  <ul>
+    <li><a href="#" data-goto="localizacao">Localização</a></li>
+    <li><a href="#" data-goto="funcionamento">Funcionamento</a></li>
+    <li><a href="#" data-goto="parte-eletrica">Parte elétrica e testes</a></li>
+    <li><a href="#" data-goto="testes-ac">Testes em corrente alternada</a></li>
+    <li><a href="#" data-goto="problemas-comuns">Problemas comuns</a></li>
+    <li><a href="#" data-goto="codigos-de-falha">Códigos de falha</a></li>
+  </ul>
+</nav>
+
+<h2 id="localizacao">Localização</h2>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/sensor-ckp/01-localizacao.jpg" alt="Localização do sensor de rotação CKP" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<p>Fica no bloco do motor, na parte traseira inferior esquerda (lado do motorista), posicionado em frente à roda fônica integrada ao volante do motor. É o sensor mais crítico do sistema — sem ele a ECM não reconhece que o motor está girando e bloqueia tudo.</p>
+
+<h2 id="funcionamento">Funcionamento</h2>
+<ul>
+  <li>Sensor <b>magnético indutivo</b> — funciona como um mini gerador;</li>
+  <li>Não recebe alimentação da ECM: gera sua própria energia;</li>
+  <li>Possui ímã permanente + bobina de fios de cobre;</li>
+  <li>Ao passar pelos dentes da roda fônica (60-2), o campo magnético varia e induz uma corrente alternada;</li>
+  <li>A falha de dois dentes na roda serve como <b>ponto de referência</b> do pistão;</li>
+  <li>Frequência e amplitude aumentam proporcionalmente à rotação.</li>
+</ul>
+<figure>
+  <img src="conteudo/imagens/sensor-ckp/02-funcionamento.jpg" alt="Funcionamento do sensor indutivo" loading="lazy">
+</figure>
+<p>O sinal chega à ECM em forma de <b>onda senoidal</b> (V AC). Esse é o único sensor do motor que o mecânico <b>precisa obrigatoriamente</b> mudar o multímetro para a escala de alternada (V AC) para ler o sinal real.</p>
+
+<h2 id="parte-eletrica">Parte elétrica e testes</h2>
+<p>O conector tem 3 fios:</p>
+<ul>
+  <li><b>Pino 1:</b> Sinal (+) enviado à ECM;</li>
+  <li><b>Pino 2:</b> Sinal (-) de retorno/referência;</li>
+  <li><b>Pino 3:</b> Blindagem de aterramento (massa, contra interferências do alternador e motor de partida).</li>
+</ul>
+
+<h3 id="teste-resistencia">Teste de resistência (motor desligado)</h3>
+<ul>
+  <li>Tomada <b>DESCONECTADA</b> e chave desligada;</li>
+  <li>Multímetro na escala de Resistência <b>Ω em 2k</b>;</li>
+  <li>Meça entre os <b>pinos 1 e 2 do próprio sensor</b>.</li>
+</ul>
+
+<div class="specs">
+  <div class="spec"><b>860 Ω a 1.060 Ω</b><span>Frio (20°C)</span></div>
+  <div class="spec"><b>1.100 Ω a 1.250 Ω</b><span>Quente (80°C)</span></div>
+</div>
+
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Se a resistência passar de 1.300 Ω ou der circuito aberto (OL) com o motor quente, o motor apaga sozinho e só volta a pegar quando esfriar. É o defeito térmico clássico.</p>
+</div>
+
+<h2 id="testes-ac">Testes em corrente alternada</h2>
+<p>Aqui você <b>DEVE</b> mudar o multímetro para <b>Tensão Alternada (V AC / V~)</b>. Insira duas agulhas por trás do conector (backprobing) nos fios dos pinos 1 e 2 — a cor das pontas não importa, pois a corrente alternada não tem polaridade fixa.</p>
+
+<div class="specs">
+  <div class="spec"><b>1,0 a 2,5 V AC</b><span>Arranque (~200 RPM)</span></div>
+  <div class="spec"><b>4,0 a 6,0 V AC</b><span>Marcha lenta (~800 RPM)</span></div>
+  <div class="spec"><b>15 a 20 V AC</b><span>Alta rotação (~3000 RPM)</span></div>
+</div>
+
+<div class="dica">
+  <strong>Regra de ouro na oficina</strong>
+  <p>Se marcar <b>menos de 1,0 V AC</b> durante o arranque, a ECM não reconhece que o motor está girando e bloqueia o pulso dos bicos injetores. O motor gira no arranque, mas não liga.</p>
+</div>
+
+<h3 id="diagnostico-chicote">Diagnóstico de chicote vs. componente</h3>
+<ul>
+  <li><b>Isolamento:</b> com o sensor desconectado, meça continuidade entre os pinos do chicote e a carcaça do motor (massa). Não deve haver continuidade;</li>
+  <li><b>Integridade:</b> meça continuidade dos fios do plugue até o conector da ECM para descartar fios partidos.</li>
+</ul>
+
+<h2 id="problemas-comuns">Problemas comuns</h2>
+
+<h3>Motor gira mas não pega</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Motor de partida gira normal;</li>
+      <li>Conta-giros marca 0;</li>
+      <li>Sem pulso nos bicos injetores.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Sensor com defeito ou desplugado;</li>
+      <li>Limalha de ferro na ponta magnética;</li>
+      <li>Chicote partido ou com mau contato;</li>
+      <li>Roda fônica com dentes amassados.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Testar resistência (860–1.060 Ω);</li>
+      <li>Testar V AC no arranque (mín. 1,0 V AC);</li>
+      <li>Limpar a ponta magnética;</li>
+      <li>Verificar o gap e a roda fônica.</li>
+    </ul>
+  </div>
+</div>
+
+<h3>Motor apaga quando aquece</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Motor funciona por 20 min e apaga;</li>
+      <li>Só volta a pegar depois de esfriar;</li>
+      <li>Defeito intermitente.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Bobina interna dilata e abre circuito quando quente (OL);</li>
+      <li>Sensor de origem duvidosa.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Medir resistência <b>imediatamente</b> após o carro apagar;</li>
+      <li>Substituir o sensor por peça original.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Nunca injete 12 V nos fios de sinal do CKP conectados à ECM nem use lâmpada de teste comum — queima o circuito integrado de entrada do módulo.</p>
+</div>
+
+<h2 id="codigos-de-falha">Códigos de falha</h2>
+<div class="codigos">
+  <div class="codigo"><span class="num">P0335</span><div>
+    <h4>Falha no circuito do sensor de posição do virabrequim</h4>
+    <p>Não há sinal elétrico adequado chegando à ECM. Causas:</p>
+    <ul>
+      <li>Sensor desconectado ou queimado;</li>
+      <li>Chicote rompido;</li>
+      <li>Blindagem em curto.</li>
+    </ul>
+  </div></div>
+  <div class="codigo"><span class="num">P0336</span><div>
+    <h4>Sinal incorreto/fora de faixa do sensor de rotação</h4>
+    <p>O sinal existe, mas está irregular. Causas:</p>
+    <ul>
+      <li>Limalha de ferro na ponta magnética;</li>
+      <li>Dentes da roda fônica amassados/quebrados;</li>
+      <li>Folga excessiva no virabrequim alterando o gap;</li>
+      <li>Ruído de interferência (blindagem ruim).</li>
+    </ul>
+  </div></div>
+</div>

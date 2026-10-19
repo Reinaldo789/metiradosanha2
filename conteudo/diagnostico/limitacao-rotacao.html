@@ -1,0 +1,234 @@
+<!-- Casos de limitação da rotação (luz acesa) - MWM Sprint 2.8 -->
+<header class="art-head">
+  <span class="art-kicker">Sistema de Injeção · Diagnóstico</span>
+  <h1>Casos de Limitação da Rotação</h1>
+  <p class="art-lead">Tabela completa dos P-Codes que fazem o ECM limitar a rotação do motor: 1000 rpm, 1500 rpm, 2000 rpm e 2500 rpm.</p>
+  <div class="chips"><span>MWM Sprint 2.8</span><span>S10 até 2011</span><span>15 P-Codes</span><span>4 níveis de limitação</span></div>
+</header>
+
+<p>Quando o ECM identifica uma falha em algum sensor, atuador ou componente do sistema de injeção, ele adota uma estratégia de segurança chamada <strong>"modo de emergência"</strong> — que limita a rotação e o débito de combustível para proteger o motor. Use esta tabela para identificar rapidamente qual componente está causando a limitação.</p>
+
+<div class="aviso"><strong>Atenção</strong><p>Sempre leia o P-Code com a ferramenta de diagnose MWM antes de substituir qualquer peça. A limitação de rotação pode ser causada por mais de um fator ao mesmo tempo.</p></div>
+
+<h2 id="1000">Rotação aumentada para 1000 rpm</h2>
+<p>O ECM <strong>aumenta a rotação</strong> de marcha-lenta para 1000 rpm como proteção, até que a tensão do sistema fique acima de 11 volts.</p>
+
+<table>
+  <tr>
+    <th>P-Code</th>
+    <th>Componente</th>
+    <th>Estratégia</th>
+  </tr>
+  <tr>
+    <td><strong>P0562</strong></td>
+    <td>Tensão de alimentação abaixo do mínimo</td>
+    <td>Aumenta rotação para <strong>1000 rpm</strong> até a tensão ficar acima de 11 V</td>
+  </tr>
+</table>
+
+<div class="dica"><strong>Dica</strong><p>Se o motor está sempre em 1000 rpm e não baixa, verifique bateria, alternador e regulador de voltagem. Também confira os cabos de alimentação e aterramento do ECM.</p></div>
+
+<h2 id="1500">Marcha-lenta fixada em 1500 rpm</h2>
+<p>O ECM aumenta a marcha-lenta e <strong>limita a rotação máxima em 1500 rpm</strong>. O pedal do acelerador pode perder a funcionalidade (0%).</p>
+
+<table>
+  <tr>
+    <th>P-Code</th>
+    <th>Componente</th>
+    <th>Estratégia</th>
+  </tr>
+  <tr>
+    <td><strong>P0120</strong></td>
+    <td>Não plausibilidade entre acelerador 1 e 2</td>
+    <td>Marcha-lenta aumentada, limitada a <strong>1500 rpm</strong></td>
+  </tr>
+  <tr>
+    <td><strong>P0122</strong></td>
+    <td>Tensão baixa no acelerador 1</td>
+    <td>Marcha-lenta aumentada, limitada a <strong>1500 rpm</strong></td>
+  </tr>
+  <tr>
+    <td><strong>P0123</strong></td>
+    <td>Tensão alta no acelerador 1</td>
+    <td>Marcha-lenta aumentada, limitada a <strong>1500 rpm</strong></td>
+  </tr>
+  <tr>
+    <td><strong>P0222</strong></td>
+    <td>Tensão baixa no acelerador 2</td>
+    <td>Marcha-lenta aumentada, limitada a <strong>1500 rpm</strong></td>
+  </tr>
+  <tr>
+    <td><strong>P0223</strong></td>
+    <td>Tensão alta no acelerador 2</td>
+    <td>Marcha-lenta aumentada, limitada a <strong>1500 rpm</strong></td>
+  </tr>
+  <tr>
+    <td><strong>P0641</strong></td>
+    <td>Tensão de alimentação dos sensores baixa</td>
+    <td>Pedal inativo e marcha-lenta fixada em <strong>1500 rpm</strong></td>
+  </tr>
+  <tr>
+    <td><strong>P0642</strong></td>
+    <td>Tensão de alimentação dos sensores alta</td>
+    <td>Pedal inativo e marcha-lenta fixada em <strong>1500 rpm</strong></td>
+  </tr>
+  <tr>
+    <td><strong>P0608</strong></td>
+    <td>Tensão de referência alta no conversor A/D</td>
+    <td>Reinício do ECM e marcha-lenta limitada a <strong>1500 rpm</strong></td>
+  </tr>
+  <tr>
+    <td><strong>P0609</strong></td>
+    <td>Tensão de referência baixa no conversor A/D</td>
+    <td>Reinício do ECM e marcha-lenta limitada a <strong>1500 rpm</strong></td>
+  </tr>
+  <tr>
+    <td><strong>P0610</strong></td>
+    <td>Erro no teste de excitação do conversor A/D</td>
+    <td>Reinício do ECM e marcha-lenta limitada a <strong>1500 rpm</strong></td>
+  </tr>
+  <tr>
+    <td><strong>P0611</strong></td>
+    <td>Sequência de erros no conversor A/D</td>
+    <td>Reinício do ECM e marcha-lenta limitada a <strong>1500 rpm</strong></td>
+  </tr>
+</table>
+
+<div class="dica"><strong>Dica</strong><p>Marcha-lenta em 1500 rpm quase sempre aponta para o <strong>sensor do pedal do acelerador</strong> ou para o <strong>circuito de alimentação de 5 V dos sensores</strong>. Comece medindo a tensão de alimentação dos sensores (deve ser 5 V) e a resistência do pedal (0,9 kΩ a 1,2 kΩ).</p></div>
+
+<h2 id="2000">Rotação limitada a 2000 rpm</h2>
+<p>O ECM <strong>limita o débito e a rotação máxima em 2000 rpm</strong> como proteção do sistema de injeção.</p>
+
+<table>
+  <tr>
+    <th>P-Code</th>
+    <th>Componente</th>
+    <th>Estratégia</th>
+  </tr>
+  <tr>
+    <td><strong>P0201</strong></td>
+    <td>Bico injetor cilindro 1 não conectado</td>
+    <td>Débito limitado e rotação a <strong>2000 rpm</strong></td>
+  </tr>
+  <tr>
+    <td><strong>P0202</strong></td>
+    <td>Bico injetor cilindro 2 não conectado</td>
+    <td>Débito limitado e rotação a <strong>2000 rpm</strong></td>
+  </tr>
+  <tr>
+    <td><strong>P0203</strong></td>
+    <td>Bico injetor cilindro 3 não conectado</td>
+    <td>Débito limitado e rotação a <strong>2000 rpm</strong></td>
+  </tr>
+  <tr>
+    <td><strong>P0204</strong></td>
+    <td>Bico injetor cilindro 4 não conectado</td>
+    <td>Débito limitado e rotação a <strong>2000 rpm</strong></td>
+  </tr>
+  <tr>
+    <td><strong>P1090</strong></td>
+    <td>Desvio de pressão no Rail acima do especificado</td>
+    <td>Limita o débito e a rotação a <strong>2000 rpm</strong></td>
+  </tr>
+  <tr>
+    <td><strong>P1091</strong></td>
+    <td>Desvio de pressão no Rail abaixo do especificado</td>
+    <td>Inibe o débito e a rotação a <strong>2000 rpm</strong></td>
+  </tr>
+</table>
+
+<div class="dica"><strong>Dica</strong><p>Se o motor não passa de 2000 rpm, verifique:</p><ul><li><strong>Injetores:</strong> chicote, conexão e resistência da bobina (≤ 0,8 Ω);</li><li><strong>Pressão do Rail:</strong> sensor de pressão, válvula reguladora MProp e bomba de alta pressão (CP3).</li></ul></div>
+
+<h2 id="2500">Rotação limitada a 2500 rpm</h2>
+<p>O ECM permite o funcionamento do motor, mas <strong>limita a rotação máxima em 2500 rpm</strong>. Após desligar o motor, não será possível nova partida até corrigir a falha.</p>
+
+<table>
+  <tr>
+    <th>P-Code</th>
+    <th>Componente</th>
+    <th>Estratégia</th>
+  </tr>
+  <tr>
+    <td><strong>P0340</strong></td>
+    <td>Sinal do sensor de fase do comando de válvulas perdido</td>
+    <td>Motor continua funcionando, rotação limitada a <strong>2500 rpm</strong></td>
+  </tr>
+  <tr>
+    <td><strong>P0341</strong></td>
+    <td>Falha no sensor de fase do comando de válvulas</td>
+    <td>Motor continua funcionando, rotação limitada a <strong>2500 rpm</strong></td>
+  </tr>
+</table>
+
+<div class="aviso"><strong>Atenção</strong><p>Se o sensor de fase falhar com o motor desligado, o motor <strong>não entrará em funcionamento</strong> até a falha ser corrigida. Se a falha ocorrer com o motor funcionando, ele continua rodando (limitado a 2500 rpm), mas <strong>não permite nova partida após desligar</strong>.</p></div>
+
+<h2 id="desligado">Casos em que o motor é DESLIGADO (não é limitação)</h2>
+<p>Nestes P-Codes, o ECM <strong>desliga o motor</strong> — não é apenas limitação de rotação:</p>
+
+<table>
+  <tr>
+    <th>P-Code</th>
+    <th>Componente</th>
+  </tr>
+  <tr><td><strong>P0001</strong></td><td>Sinal da válvula reguladora de pressão de combustível perdido</td></tr>
+  <tr><td><strong>P0002</strong></td><td>Temperatura elevada no CI da válvula reguladora</td></tr>
+  <tr><td><strong>P0003</strong></td><td>Curto-circuito ao terra na válvula reguladora</td></tr>
+  <tr><td><strong>P0004</strong></td><td>Curto-circuito ao positivo na válvula reguladora</td></tr>
+  <tr><td><strong>P0087</strong></td><td>Pressão de combustível no Rail abaixo do especificado</td></tr>
+  <tr><td><strong>P0088</strong></td><td>Pressão de combustível no Rail acima do especificado</td></tr>
+  <tr><td><strong>P0192</strong></td><td>Tensão baixa no sensor de pressão do Rail</td></tr>
+  <tr><td><strong>P0193</strong></td><td>Tensão alta no sensor de pressão do Rail</td></tr>
+  <tr><td><strong>P0234</strong></td><td>Pressão no coletor de admissão acima do solicitado</td></tr>
+  <tr><td><strong>P0299</strong></td><td>Pressão no coletor de admissão abaixo do solicitado</td></tr>
+  <tr><td><strong>P0335</strong></td><td>Sinal do sensor de rotação perdido</td></tr>
+  <tr><td><strong>P0336</strong></td><td>Falha no sensor de rotação</td></tr>
+  <tr><td><strong>P0261 a P0270</strong></td><td>Curto-circuito nos injetores (banco 1, banco 2, injetores 1 a 4)</td></tr>
+  <tr><td><strong>P0651</strong></td><td>Tensão de alimentação dos sensores baixa</td></tr>
+  <tr><td><strong>P0652</strong></td><td>Tensão de alimentação dos sensores alta</td></tr>
+  <tr><td><strong>P1655</strong></td><td>Erro no clock do microcontrolador</td></tr>
+  <tr><td><strong>P1656</strong></td><td>Falha na checagem após desligamento (Overrun)</td></tr>
+</table>
+
+<h2 id="resumo">Resumo prático</h2>
+
+<table>
+  <tr>
+    <th>Rotação Observada</th>
+    <th>Onde Procurar</th>
+    <th>P-Codes</th>
+  </tr>
+  <tr>
+    <td><strong>1000 rpm fixo</strong></td>
+    <td>Bateria, alternador, tensão de alimentação do ECM</td>
+    <td>P0562</td>
+  </tr>
+  <tr>
+    <td><strong>1500 rpm fixo</strong></td>
+    <td>Sensor do pedal, alimentação de 5 V dos sensores, conversor A/D</td>
+    <td>P0120, P0122, P0123, P0222, P0223, P0608, P0609, P0610, P0611, P0641, P0642</td>
+  </tr>
+  <tr>
+    <td><strong>2000 rpm máximo</strong></td>
+    <td>Injetores, pressão do Rail, bomba CP3</td>
+    <td>P0201, P0202, P0203, P0204, P1090, P1091</td>
+  </tr>
+  <tr>
+    <td><strong>2500 rpm máximo</strong></td>
+    <td>Sensor de fase do comando de válvulas</td>
+    <td>P0340, P0341</td>
+  </tr>
+</table>
+
+<h2 id="codigos">Códigos relacionados</h2>
+<p>Cada um dos P-Codes listados acima tem um fluxograma interativo específico. Consulte o artigo do respectivo código para seguir o roteiro passo a passo até a solução:</p>
+
+<ul>
+  <li><strong>P0201 a P0204</strong> — Bicos injetores não conectados</li>
+  <li><strong>P0340 / P0341</strong> — Sensor de fase do comando de válvulas</li>
+  <li><strong>P0562 / P0563</strong> — Tensão da bateria</li>
+  <li><strong>P0120 a P0123 / P0220 a P0223</strong> — Sensor do pedal do acelerador</li>
+  <li><strong>P0641 / P0642 / P0651 / P0652</strong> — Tensão de alimentação dos sensores</li>
+  <li><strong>P1090 / P1091</strong> — Desvio de pressão no Rail</li>
+</ul>
+
+<div class="dica"><strong>Resumo final</strong><p>A limitação de rotação é uma <strong>estratégia de proteção</strong> do ECM. O motor não é desligado — ele continua funcionando, mas limitado, para que o motorista possa chegar até uma oficina. Nunca ignore o P-Code: a limitação de rotação indica que há uma falha real no sistema que deve ser corrigida.</p></div>

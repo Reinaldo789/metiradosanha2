@@ -1,0 +1,99 @@
+<!-- Página Técnica: Válvula MProp -->
+<main class="guia-tecnico-conteudo">
+    <header class="componente-header">
+        <h1>📘 Válvula MProp (Válvula Reguladora de Vazão / Unidade de Medição)</h1>
+        <p class="introducao">
+            A válvula <strong>MProp</strong> (também conhecida pela sigla <strong>ZME</strong> no sistema Bosch) é o atuador mais crítico para o controle de pressão de combustível no sistema Common Rail do motor MWM 2.8 (Bosch EDC16C8). Qualquer falha nela impede o motor de funcionar corretamente. Se estiver desplugada ou com o chicote partido, o motor <strong>NÃO LIGA</strong> por estratégia de segurança da central (ECM).
+        </p>
+    </header>
+
+    <hr>
+
+    <!-- 1. Identificação e Localização -->
+    <section class="topico-manual">
+        <h2>📍 1. Identificação e Localização</h2>
+        <ul>
+            <li><strong>Nome Técnico e Sigla:</strong> Válvula Reguladora de Vazão de Combustível – MProp.</li>
+            <li><strong>Onde fica instalada:</strong> Fixada diretamente no corpo da bomba de alta pressão de combustível (CP3), na parte frontal/lateral do motor.</li>
+            <li><strong>Tipo de Atuador:</strong> Solenoide eletromagnético controlado por modulação de pulso (<strong>PWM</strong>). Neste sistema, ela é do tipo <strong>Normalmente Aberta (NA)</strong> — ou seja, sem energia elétrica, sua mola interna a mantém totalmente aberta, liberando vazão máxima.</li>
+        </ul>
+    </section>
+
+    <!-- 2. Funcionamento Elétrico -->
+    <section class="topico-manual">
+        <h2>⚡ 2. Funcionamento Elétrico e Sinais Fantasmas</h2>
+        <ul>
+            <li><strong>Como funciona:</strong> Para diminuir a pressão no Rail (como na marcha lenta), a central envia pulsos elétricos para fechar parcialmente a MProp. Para subir a pressão (aceleração), a central diminui a energia, deixando a válvula abrir.</li>
+            <li><strong>O Mistério dos 5V / 12V:</strong>
+                <ul>
+                    <li>Se você medir o <strong>Pino 2 contra a massa com o conector DESPLUGADO</strong>, achará <strong>5V</strong>. Esta é uma <em>tensão de retorno (pull-up)</em> que a central manda apenas para testar se o fio está inteiro. Não é a tensão de trabalho.</li>
+                    <li>Se você medir com tudo <strong>PLUGADO</strong>, achará <strong>12V</strong> nos dois pinos (com o motor parado), pois a energia entra pelo Pino 1, passa pela bobina e sai no Pino 2 aguardando o comando da central.</li>
+                </ul>
+            </li>
+            <li><strong>Quantidade de fios e terminais:</strong> Possui <strong>2 fios</strong> no conector.
+                <ul>
+                    <li><strong>Pino 1:</strong> Alimentação positiva (<strong>+12V DC</strong> vinda do relé principal da injeção).</li>
+                    <li><strong>Pino 2:</strong> Linha de comando negativo pulsado (<strong>PWM</strong>), chaveado direto pela ECM.</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <!-- 3. Testes Práticos com Multímetro -->
+    <section class="topico-manual">
+        <h2>📐 3. Testes Práticos com Multímetro</h2>
+        
+        <h3>Passo 1: Teste de Resistência da Bobina (Motor Desligado)</h3>
+        <ul>
+            <li><strong>Condição:</strong> Chave desligada, tomada da válvula <strong>DESCONECTADA</strong>.</li>
+            <li><strong>Multímetro:</strong> Escala de <strong>Resistência Ohmica (Ω) em 200 Ω</strong>.</li>
+            <li><strong>Onde medir:</strong> Diretamente nos dois pinos metálicos da própria válvula MProp.</li>
+            <li><strong>Valores esperados:</strong> Deve registrar entre <strong>2,1 Ω e 3,5 Ω</strong> (~20°C). Se marcar circuito aberto (<em>OL</em>), a bobina rompeu. Se marcar <em>0 Ω</em>, há curto-circuito interno.</li>
+        </ul>
+
+        <h3>Passo 2: Teste de Alimentação Positiva</h3>
+        <ul>
+            <li><strong>Condição:</strong> Chave ligada, tomada da válvula <strong>DESCONECTADA</strong>.</li>
+            <li><strong>Multímetro:</strong> Escala de <strong>Tensão Contínua (V DC)</strong>.</li>
+            <li><strong>Onde medir:</strong> Ponta vermelha no <strong>Pino 1 do chicote</strong> e ponta preta no <strong>Polo Negativo (-) da Bateria</strong>.</li>
+            <li><strong>Valor esperado:</strong> Deve registrar a <strong>tensão de bateria (~12,0V a 12,6V DC)</strong>.</li>
+        </ul>
+
+        <h3>Passo 3: Teste Dinâmico do Sinal PWM (O Teste Definitivo)</h3>
+        <ul>
+            <li><strong>Condição:</strong> Tomada <strong>CONECTADA</strong> e <strong>motor funcionando em marcha lenta</strong>.</li>
+            <li><strong>Como conectar:</strong> Insira duas agulhas por trás do conector (<em>backprobing</em>). Conecte a <strong>ponta preta no Pino 2 (Sinal)</strong> e a <strong>ponta vermelha no Polo Positivo (+) da Bateria</strong> (ou no Pino 1).</li>
+            <li><strong>Multímetro:</strong> Escala de <strong>Ciclo de Trabalho (% / Duty Cycle)</strong> ou <strong>Frequência (Hz)</strong>.</li>
+            <li><strong>Valores esperados na tela:</strong>
+                <ul>
+                    <li><strong>Em Frequência (Hz):</strong> Deve registrar um valor fixo e estável <strong>entre 160 Hz e 180 Hz</strong>.</li>
+                    <li><strong>Em Ciclo de Trabalho (%):</strong> Na marcha lenta deve marcar de <strong>30% a 40%</strong> (força para fechar a válvula). Ao dar uma aceleração forte, o valor deve <strong>cair para a faixa de 18% a 25%</strong> (central solta a válvula para ela abrir e gerar pressão).</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <!-- 4. Principais Defeitos e Códigos de Falha -->
+    <section class="topico-manual">
+        <h2>❌ 4. Principais Defeitos e Códigos de Falha</h2>
+        <ul>
+            <li><strong>Motor Oscilando na Marcha Lenta ("Galopando"):</strong> Ocorre quando há desgaste mecânico ou travamento da agulha interna da MProp devido ao uso de diesel contaminado com água ou sujeira.</li>
+            <li><strong>Bloqueio Total de Partida (Motor não liga):</strong> Se o chicote da MProp for desconectado ou partir, a central identifica o circuito aberto e, para evitar que a pressão suba descontroladamente no arranque, ela entra em <strong>Modo de Emergência Crítico e corta o pulso dos bicos injetores</strong>. O motor gira, mas não pega.</li>
+            <li><strong>Códigos de Falha na ECM (Scanner):</strong>
+                <ul>
+                    <li><strong>P0087:</strong> Pressão do Rail muito baixa.</li>
+                    <li><strong>P0088:</strong> Pressão do Rail muito alta (MProp travada aberta).</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <!-- 5. Diagnóstico de Campo -->
+    <section class="topico-manual">
+        <h2>🧠 5. Diagnóstico de Campo (Gabarito de Oficina)</h2>
+        <ol>
+            <li><strong>Inspeção de Contaminação:</strong> Remova a MProp (3 parafusos Torx) e olhe as telas de filtro. Se houver partículas brilhantes (limalha de ferro), a bomba de alta está se destruindo por dentro e vai travar qualquer válvula nova que você colocar ali.</li>
+            <li><strong>Teste da Válvula Mecânica KUV para isolar o defeito:</strong> Se o carro acusa pressão alta e não acelera, tire a mangueira de retorno da válvula mecânica KUV (na ponta do tubo Rail) e ligue o carro. Se estiver jorrando diesel por ali em marcha lenta, a MProp está realmente travada aberta. Se estiver seco, o Sensor do Rail é quem está "mentindo" a pressão alta.</li>
+        </ol>
+    </section>
+</main>
