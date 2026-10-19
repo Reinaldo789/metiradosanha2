@@ -60,8 +60,32 @@
 
 <div class="aviso"><strong>Atenção</strong><p>Antes de qualquer teste elétrico, confira a bateria e o alternador. Tensão instável gera falhas em vários sensores ao mesmo tempo.</p></div>
 
+<!--
 <h2 id="codigos">Códigos relacionados</h2>
 <ul>
 <li><strong>P0340</strong>: Sinal do sensor de fase perdido — rotação limitada a 2500 rpm;</li>
 <li><strong>P0341</strong>: Falha no sinal do sensor de fase — mesmo comportamento do P0340.</li>
 </ul>
+-->
+
+<h2 id="codigos-de-falha">Códigos de falha</h2>
+<div class="codigos">
+  <div class="codigo"><span class="num">P0340</span><div>
+    <h4>Falha no circuito do sensor de fase</h4>
+    <p>Sem sinal da árvore de comando chegando à ECM. Causas:</p>
+    <ul>
+      <li>Sensor desconectado/queimado;</li>
+      <li>Chicote rompido;</li>
+      <li>Alimentação 5 V ausente.</li>
+    </ul>
+  </div></div>
+  <div class="codigo"><span class="num">P0341</span><div>
+    <h4>Sinal incorreto ou fora de faixa do CMP</h4>
+    <p>O sinal existe, mas está com ruído ou fora de sincronismo. Causas:</p>
+    <ul>
+      <li>Sensor perdendo referência;</li>
+      <li>Folga mecânica no comando;</li>
+      <li>Motor fora de ponto.</li>
+    </ul>
+  </div></div>
+</div>
