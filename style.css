@@ -822,9 +822,20 @@ a.img-link::after { content: "\f03e"; font-family: "Font Awesome 6 Free"; font-w
 .codigos { display: grid; gap: 0.6rem; margin-top: 1rem; }
 .codigo { display: flex; gap: 0.9rem; align-items: flex-start; border: 1px solid var(--border-color); border-radius: 14px; padding: 0.9rem 1rem; background: #fff; transition: var(--transition); }
 .codigo .num { flex: none; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--primary); border-radius: 10px; padding: 0.4rem 0.7rem; }
+
+/* CORREÇÃO AQUI: Alinhamento à esquerda e flex para ocupar o espaço */
+.codigo > div { 
+  flex: 1; 
+  min-width: 0; 
+  text-align: left; 
+}
+
 .codigo h4 { margin: 0.25rem 0 0; font-size: 0.95rem; }
 .codigo p { margin: 0.5rem 0 0; font-size: 0.92rem; }
-.codigo ul { margin: 0.4rem 0 0; }
+
+/* CORREÇÃO AQUI: Recuo da lista */
+.codigo ul { margin: 0.4rem 0 0; padding-left: 1.2rem; }
+
 .codigos.enh .codigo { cursor: pointer; }
 .codigos.enh .codigo:hover { border-color: #c7d2fe; box-shadow: var(--shadow-sm); }
 .codigos.enh .codigo > div > :not(h4) { display: none; }
