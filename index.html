@@ -433,36 +433,27 @@
     </button>
   </div>
 
-  <!-- ========================================== -->
-  <!-- BIBLIOTECA MERMAID (NECESSÁRIA PARA OS DIAGRAMAS) -->
-  <!-- ========================================== -->
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-
-  <!-- JAVASCRIPT DO SEU SITE -->
-  <script src="menu.js"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 <script>
+  // Inicializa o Mermaid
   mermaid.initialize({ startOnLoad: false });
 
-  // Função para renderizar
-  function renderMermaid() {
-    const elements = document.querySelectorAll('.mermaid');
-    if (elements.length > 0) {
-      mermaid.run({ nodes: elements });
+  // Função que desenha
+  function desenhar() {
+    const elementos = document.querySelectorAll('.mermaid:not([data-processed="true"])');
+    if (elementos.length > 0) {
+      mermaid.run({ nodes: elementos });
     }
   }
 
-  // Observa cliques em qualquer lugar (captura as abas)
-  document.body.addEventListener('click', (e) => {
-    // Se clicar em um botão de aba, espera um pouquinho e desenha
-    if (e.target.closest('.art-tabs button') || e.target.closest('.mini-tabs button') || e.target.tagName === 'A') {
-        setTimeout(renderMermaid, 200);
-    }
-  });
+  // Tenta desenhar quando o site carrega
+  setTimeout(desenhar, 500);
 
-  // Tenta desenhar quando a página carregar
-  setTimeout(renderMermaid, 500);
+  // Toda vez que você clicar em QUALQUER lugar da tela (inclusive nas abas)
+  // ele tenta desenhar o gráfico.
+  document.addEventListener('click', () => {
+    setTimeout(desenhar, 150); 
+  });
 </script>
   
 </body>
