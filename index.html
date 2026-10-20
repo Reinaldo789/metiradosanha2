@@ -432,29 +432,6 @@
       <i class="fa-solid fa-arrow-up"></i>
     </button>
   </div>
-
- <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-<script>
-  // Inicializa o Mermaid
-  mermaid.initialize({ startOnLoad: false });
-
-  // Função que desenha
-  function desenhar() {
-    const elementos = document.querySelectorAll('.mermaid:not([data-processed="true"])');
-    if (elementos.length > 0) {
-      mermaid.run({ nodes: elementos });
-    }
-  }
-
-  // Tenta desenhar quando o site carrega
-  setTimeout(desenhar, 500);
-
-  // Toda vez que você clicar em QUALQUER lugar da tela (inclusive nas abas)
-  // ele tenta desenhar o gráfico.
-  document.addEventListener('click', () => {
-    setTimeout(desenhar, 150); 
-  });
-</script>
   
 </body>
 </html>
