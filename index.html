@@ -441,5 +441,29 @@
   <!-- JAVASCRIPT DO SEU SITE -->
   <script src="menu.js"></script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({ startOnLoad: false });
+
+  // Função para renderizar
+  function renderMermaid() {
+    const elements = document.querySelectorAll('.mermaid');
+    if (elements.length > 0) {
+      mermaid.run({ nodes: elements });
+    }
+  }
+
+  // Observa cliques em qualquer lugar (captura as abas)
+  document.body.addEventListener('click', (e) => {
+    // Se clicar em um botão de aba, espera um pouquinho e desenha
+    if (e.target.closest('.art-tabs button') || e.target.closest('.mini-tabs button') || e.target.tagName === 'A') {
+        setTimeout(renderMermaid, 200);
+    }
+  });
+
+  // Tenta desenhar quando a página carregar
+  setTimeout(renderMermaid, 500);
+</script>
+  
 </body>
 </html>
