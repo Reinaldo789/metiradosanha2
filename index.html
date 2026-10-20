@@ -433,21 +433,100 @@
     </button>
   </div>
 
-<!-- Biblioteca para desenhar diagramas Mermaid -->
-<script type="module">
-import mermaid from
-  'https://cdn.jsdelivr.net/npm/mermaid@12/dist/mermaid.esm.min.mjs';
-
-mermaid.initialize({
-  startOnLoad: false,
-  theme: 'default',
-  flowchart: {
-    useMaxWidth: true,
-    htmlLabels: true,
-    curve: 'linear'
-  }
-});
-
+  <!-- Carrega a biblioteca Mermaid (versão estável UMD) -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   
+  <script>
+    // ==========================================
+    // 1. FUNCIONALIDADES DO MENU E NAVEGAÇÃO
+    // ==========================================
+    document.addEventListener('DOMContentLoaded', () => {
+      // Menu Mobile
+      const mobileToggle = document.getElementById('mobile-toggle-btn');
+      const mainNav = document.getElementById('main-nav');
+
+      if (mobileToggle && mainNav) {
+        mobileToggle.addEventListener('click', () => {
+          mainNav.classList.toggle('active');
+        });
+      }
+
+      // Abrir submenus no celular
+      const navBtns = document.querySelectorAll('.nav-btn');
+      navBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          if (window.innerWidth <= 960) {
+            e.preventDefault();
+            const parent = btn.closest('.nav-item');
+            parent.classList.toggle('active');
+          }
+        });
+      });
+
+      // Efeito do Header ao rolar e Botão Voltar ao Topo
+      const btnTop = document.getElementById('btn-top');
+      const header = document.querySelector('.site-wrapper > header');
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          if (btnTop) btnTop.classList.add('visible');
+        } else {
+          if (btnTop) btnTop.classList.remove('visible');
+        }
+
+        if (header) {
+          if (window.scrollY > 10) {
+            header.classList.add('scrolled');
+          } else {
+            header.classList.remove('scrolled');
+          }
+        }
+      });
+
+      if (btnTop) {
+        btnTop.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+    });
+
+    // ==========================================
+    // 2. RENDERIZAÇÃO DO DIAGRAMA MERMAID
+    // ==========================================
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'default',
+      flowchart: {
+        useMaxWidth: true,
+        htmlLabels: true,
+        curve: 'linear'
+      }
+    });
+
+    async function desenharDiagramas() {
+      // Busca todos os diagramas que ainda não foram desenhados
+      const diagramas = document.querySelectorAll('.mermaid:not([data-processed="true"])');
+      
+      if (diagramas.length > 0) {
+        try {
+          await mermaid.run({ nodes: diagramas });
+        } catch (erro) {
+          console.error('Erro ao desenhar diagrama:', erro);
+        }
+      }
+    }
+
+    // Tenta desenhar quando a página carregar
+    window.addEventListener('DOMContentLoaded', desenharDiagramas);
+
+    // Detecta quando você clica em um link do menu e o artigo é carregado via AJAX/JS
+    const observador = new MutationObserver(() => {
+      if (document.querySelector('.mermaid:not([data-processed="true"])')) {
+        desenharDiagramas();
+      }
+    });
+    
+    observador.observe(document.body, { childList: true, subtree: true });
+  </script>
 </body>
 </html>
