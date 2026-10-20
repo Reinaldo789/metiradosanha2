@@ -57,15 +57,58 @@
   <li>Se durante os testes não houver tensão, verifique os fusíveis F25, F26, F27 e F28 e o relé principal.</li>
 </ul>
 
-<h3>Esquema Elétrico da Válvula MPROP</h3>
-<div class="mermaid">
-graph LR
-    Bateria[Bateria 12V] -->|Positivo +30| Rele[Rele Principal Y9]
-    Chave[Chave Ignição - Terminal 15] -->|Sinal ON| Rele
-    Rele -->|12V Pós-Chave| MPROP1[MPROP - Pino 1]
-    ECU[ECU EDC16] -->|Comando PWM| MPROP2[MPROP - Pino 2]
-    MPROP1 --- MPROP[Válvula MPROP]
-    MPROP2 --- MPROP
+<h3>Esquema elétrico — Válvula MPROP</h3>
+
+<div style="max-width:650px;margin:20px auto;font-family:Arial,sans-serif;">
+
+  <div style="background:#fce7f3;border:2px solid #be185d;
+  border-radius:8px;padding:14px;text-align:center;margin:8px;">
+    <strong>BATERIA — 12 V</strong><br>
+    Positivo (+30)
+  </div>
+
+  <div style="text-align:center;font-size:25px;">↓</div>
+
+  <div style="background:#fef3c7;border:2px solid #b45309;
+  border-radius:8px;padding:14px;text-align:center;margin:8px;">
+    <strong>RELÉ PRINCIPAL Y9</strong>
+  </div>
+
+  <div style="text-align:center;font-size:14px;margin:8px;">
+    ↓ 12 V pós-chave
+  </div>
+
+  <div style="background:#dcfce7;border:2px solid #15803d;
+  border-radius:8px;padding:14px;text-align:center;margin:8px;">
+    <strong>MPROP — PINO 1</strong><br>
+    Alimentação, conforme o esquema a confirmar
+  </div>
+
+  <hr style="border:0;border-top:2px dashed #64748b;margin:24px 8px;">
+
+  <div style="background:#fee2e2;border:2px solid #b91c1c;
+  border-radius:8px;padding:14px;text-align:center;margin:8px;">
+    <strong>ECU — EDC16</strong><br>
+    Comando PWM
+  </div>
+
+  <div style="text-align:center;font-size:25px;">↓</div>
+
+  <div style="background:#dcfce7;border:2px solid #15803d;
+  border-radius:8px;padding:14px;text-align:center;margin:8px;">
+    <strong>MPROP — PINO 2</strong><br>
+    Sinal de comando, conforme o esquema a confirmar
+  </div>
+
+  <p style="text-align:center;font-weight:bold;font-size:18px;margin-top:18px;">
+    VÁLVULA MPROP
+  </p>
+
+  <p style="font-size:12px;color:#555;text-align:center;">
+    Representação ilustrativa. Confirme alimentação, polaridade e
+    comando dos pinos no diagrama elétrico da aplicação.
+  </p>
+
 </div>
 
 <figure>
