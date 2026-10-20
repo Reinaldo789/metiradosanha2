@@ -58,15 +58,14 @@
 </ul>
 
 <h3>Esquema Elétrico da Válvula MPROP</h3>
-<!-- O código abaixo desenha o diagrama na tela -->
 <div class="mermaid">
-flowchart LR
-    Bateria["Bateria 12 V"] -->|"Positivo +30"| Rele_Y9["Relé principal Y9"]
-    Chave_15["Chave de ignição - Terminal 15"] -->|"Sinal ON"| Rele_Y9
-    Rele_Y9 -->|"12 V pós-chave"| MPROP_P1["MPROP - Pino 1"]
-    ECU["ECU EDC16"] -->|"Comando PWM"| MPROP_P2["MPROP - Pino 2"]
-    MPROP_P1 --- MPROP(("Válvula MPROP"))
-    MPROP_P2 --- MPROP
+graph LR
+    Bateria[Bateria 12V] -->|Positivo +30| Rele[Rele Principal Y9]
+    Chave[Chave Ignição - Terminal 15] -->|Sinal ON| Rele
+    Rele -->|12V Pós-Chave| MPROP1[MPROP - Pino 1]
+    ECU[ECU EDC16] -->|Comando PWM| MPROP2[MPROP - Pino 2]
+    MPROP1 --- MPROP[Válvula MPROP]
+    MPROP2 --- MPROP
 </div>
 
 <figure>
