@@ -820,38 +820,11 @@ a.img-link::after { content: "\f03e"; font-family: "Font Awesome 6 Free"; font-w
 
 /* códigos de falha em acordeão */
 .codigos { display: grid; gap: 0.6rem; margin-top: 1rem; }
-
-/* AQUI ESTÁ A MUDANÇA DO LAYOUT (block no lugar do flex) */
-.codigo { 
-  display: block; 
-  border: 1px solid var(--border-color); 
-  border-radius: 14px; 
-  padding: 1rem; 
-  background: #fff; 
-  transition: var(--transition); 
-}
-
-/* AQUI ESTÁ A MUDANÇA DO CÓDIGO (Vermelho e sem caixa) */
-.codigo .num { 
-  color: #dc2626; 
-  font-weight: 800; 
-  font-size: 1.05rem; 
-  background: none; 
-  padding: 0; 
-  margin-right: 0.3rem; 
-  display: inline; 
-}
-
-.codigo > div { 
-  width: 100%; 
-  text-align: left; 
-}
-
-.codigo h4 { margin: 0 0 0.5rem 0; font-size: 0.95rem; display: block; }
-.codigo p { margin: 0 0 0.5rem 0; font-size: 0.92rem; line-height: 1.5; }
-.codigo ul { margin: 0; padding-left: 1.2rem; list-style-position: outside; }
-.codigo li { margin-bottom: 0.3rem; text-align: left; }
-
+.codigo { display: flex; gap: 0.9rem; align-items: flex-start; border: 1px solid var(--border-color); border-radius: 14px; padding: 0.9rem 1rem; background: #fff; transition: var(--transition); }
+.codigo .num { flex: none; font-weight: 800; font-size: 0.95rem; color: #fff; background: var(--primary); border-radius: 10px; padding: 0.4rem 0.7rem; }
+.codigo h4 { margin: 0.25rem 0 0; font-size: 0.95rem; }
+.codigo p { margin: 0.5rem 0 0; font-size: 0.92rem; }
+.codigo ul { margin: 0.4rem 0 0; }
 .codigos.enh .codigo { cursor: pointer; }
 .codigos.enh .codigo:hover { border-color: #c7d2fe; box-shadow: var(--shadow-sm); }
 .codigos.enh .codigo > div > :not(h4) { display: none; }
@@ -990,41 +963,4 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
   .page-card table:has(tr > :nth-child(4)) { display: block !important; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .page-card th, .page-card td { padding: 0.5rem 0.55rem; font-size: 0.88rem; line-height: 1.4; overflow-wrap: break-word; vertical-align: top; }
   .page-card th { font-size: 0.8rem; }
-}
-
-/* ==========================================
-   19. AJUSTE MOBILE - MAIN E PAGE-CARD MAIS LARGOS
-   ========================================== */
-@media (max-width: 960px) {
-  main {
-    padding: 1rem 0.5rem !important; /* Reduz o padding do main nas laterais */
-  }
-  .page-card {
-    border-radius: 0 !important; /* Remove bordas arredondadas no celular */
-    border-left: none !important;
-    border-right: none !important;
-    padding: 1.2rem 0.8rem !important; /* Diminui o padding interno do card */
-  }
-
-   /* ==========================================
-   20. DIAGRAMA MERMAID (Esquemas Elétricos)
-   ========================================== */
-.mermaid {
-  display: flex;
-  justify-content: center;
-  margin: 1.5rem 0;
-  background: var(--bg-page); /* Usa o cinza claro do seu tema */
-  padding: 1.2rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border-color);
-  overflow-x: auto; /* Adiciona rolagem horizontal se o diagrama for muito largo no celular */
-}
-
-/* Ajuste para telas de celular */
-@media (max-width: 960px) {
-  .mermaid {
-    padding: 0.8rem;
-    margin: 1rem 0;
-  }
-}
 }
