@@ -1005,4 +1005,26 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
     border-right: none !important;
     padding: 1.2rem 0.8rem !important; /* Diminui o padding interno do card */
   }
+
+   /* ==========================================
+   20. DIAGRAMA MERMAID (Esquemas Elétricos)
+   ========================================== */
+.mermaid {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+  background: var(--bg-page); /* Usa o cinza claro do seu tema */
+  padding: 1.2rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  overflow-x: auto; /* Adiciona rolagem horizontal se o diagrama for muito largo no celular */
+}
+
+/* Ajuste para telas de celular */
+@media (max-width: 960px) {
+  .mermaid {
+    padding: 0.8rem;
+    margin: 1rem 0;
+  }
+}
 }
