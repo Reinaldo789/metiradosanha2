@@ -327,3 +327,36 @@ card.addEventListener('click', e => {
 cabecalho.classList.toggle('scrolled', window.scrollY > 20);
 
 lbImg.addEventListener('click', () => lbImg.classList.toggle('zoom'));
+
+// ==========================================
+// CONFIGURAÇÃO DO MERMAID PARA O SITE
+// ==========================================
+function desenharGraficos() {
+  if (typeof mermaid !== 'undefined') {
+    // Procura apenas os gráficos que ainda não foram desenhados
+    const graficos = document.querySelectorAll('.mermaid:not([data-processed="true"])');
+    if (graficos.length > 0) {
+      mermaid.run({ nodes: graficos }).catch(err => console.log('Erro no Mermaid:', err));
+    }
+  }
+}
+
+// 1. Tenta desenhar quando a página inicial carregar
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(desenharGraficos, 500); 
+});
+
+// 2. Fica "vigiando" se novas páginas forem carregadas
+const observer = new MutationObserver(() => {
+  desenharGraficos();
+});
+observer.observe(document.body, { childList: true, subtree: true });
+
+// 3. A MÁGICA ACONTECE AQUI: 
+// Sempre que o usuário clicar em uma aba (Parte Elétrica, Funcionamento, etc), 
+// espera 100 milissegundos (para a aba aparecer) e desenha o gráfico.
+document.addEventListener('click', (e) => {
+  if (e.target.closest('.art-tabs button') || e.target.closest('.mini-tabs button')) {
+    setTimeout(desenharGraficos, 100);
+  }
+});
