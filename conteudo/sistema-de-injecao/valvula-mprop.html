@@ -57,57 +57,126 @@
   <li>Se durante os testes não houver tensão, verifique os fusíveis F25, F26, F27 e F28 e o relé principal.</li>
 </ul>
 
-<h3>Esquema elétrico — Válvula MPROP</h3>
 
-<div style="max-width:650px;margin:20px auto;font-family:Arial,sans-serif;">
+<h3>Esquema elétrico da válvula MPROP — EDC16</h3>
 
-  <div style="background:#fce7f3;border:2px solid #be185d;
-  border-radius:8px;padding:14px;text-align:center;margin:8px;">
-    <strong>BATERIA — 12 V</strong><br>
-    Positivo (+30)
-  </div>
+<div style="width:100%;overflow-x:auto;margin:20px 0;border:1px solid #ddd;border-radius:8px;background:#fff;">
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 950 260"
+     role="img"
+     aria-label="Circuitos de alimentação e comando da válvula MPROP"
+     style="display:block;width:100%;min-width:760px;height:auto;font-family:Arial,sans-serif;">
 
-  <div style="text-align:center;font-size:25px;">↓</div>
+  <defs>
+    <marker id="seta-mprop" markerWidth="8" markerHeight="8"
+            refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#333"/>
+    </marker>
+  </defs>
 
-  <div style="background:#fef3c7;border:2px solid #b45309;
-  border-radius:8px;padding:14px;text-align:center;margin:8px;">
-    <strong>RELÉ PRINCIPAL Y9</strong>
-  </div>
+  <text x="20" y="22" font-size="14" font-weight="bold" fill="#92400e">
+    CIRCUITO DE ALIMENTAÇÃO
+  </text>
 
-  <div style="text-align:center;font-size:14px;margin:8px;">
-    ↓ 12 V pós-chave
-  </div>
+  <!-- Bateria -->
+  <rect x="20" y="38" width="145" height="52" rx="5"
+        fill="#fce7f3" stroke="#be185d" stroke-width="2"/>
+  <text x="92" y="60" font-size="14" text-anchor="middle" fill="#222">
+    <tspan x="92">Bateria 12 V</tspan>
+    <tspan x="92" dy="17">Positivo (+30)</tspan>
+  </text>
 
-  <div style="background:#dcfce7;border:2px solid #15803d;
-  border-radius:8px;padding:14px;text-align:center;margin:8px;">
-    <strong>MPROP — PINO 1</strong><br>
-    Alimentação, conforme o esquema a confirmar
-  </div>
+  <!-- Chave de ignição -->
+  <rect x="20" y="120" width="145" height="62" rx="5"
+        fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="92" y="143" font-size="13" text-anchor="middle" fill="#222">
+    <tspan x="92">Chave de ignição</tspan>
+    <tspan x="92" dy="17">Terminal 15</tspan>
+    <tspan x="92" dy="16">Sinal ON</tspan>
+  </text>
 
-  <hr style="border:0;border-top:2px dashed #64748b;margin:24px 8px;">
+  <!-- Bateria e chave para o relé -->
+  <path d="M165 64 H220 V91 H260"
+        fill="none" stroke="#333" stroke-width="2"
+        marker-end="url(#seta-mprop)"/>
+  <path d="M165 151 H235 V119 H260"
+        fill="none" stroke="#333" stroke-width="2"
+        marker-end="url(#seta-mprop)"/>
 
-  <div style="background:#fee2e2;border:2px solid #b91c1c;
-  border-radius:8px;padding:14px;text-align:center;margin:8px;">
-    <strong>ECU — EDC16</strong><br>
-    Comando PWM
-  </div>
+  <!-- Relé -->
+  <rect x="260" y="73" width="145" height="62" rx="5"
+        fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="332" y="99" font-size="14" text-anchor="middle" fill="#222">
+    <tspan x="332">Relé principal</tspan>
+    <tspan x="332" dy="18">Y9</tspan>
+  </text>
 
-  <div style="text-align:center;font-size:25px;">↓</div>
+  <!-- Saída do relé para o pino 1 -->
+  <path d="M405 103 H445 V64 H490"
+        fill="none" stroke="#333" stroke-width="2"
+        marker-end="url(#seta-mprop)"/>
+  <text x="448" y="49" font-size="12" text-anchor="middle" fill="#333">
+    12 V pós-chave*
+  </text>
 
-  <div style="background:#dcfce7;border:2px solid #15803d;
-  border-radius:8px;padding:14px;text-align:center;margin:8px;">
-    <strong>MPROP — PINO 2</strong><br>
-    Sinal de comando, conforme o esquema a confirmar
-  </div>
+  <!-- Pino 1 -->
+  <rect x="490" y="39" width="165" height="50" rx="5"
+        fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+  <text x="572" y="59" font-size="14" text-anchor="middle" fill="#222">
+    <tspan x="572">MPROP</tspan>
+    <tspan x="572" dy="17">Pino 1</tspan>
+  </text>
 
-  <p style="text-align:center;font-weight:bold;font-size:18px;margin-top:18px;">
-    VÁLVULA MPROP
-  </p>
+  <!-- Título do circuito de comando -->
+  <text x="20" y="218" font-size="14" font-weight="bold" fill="#991b1b">
+    CIRCUITO DE COMANDO DA ECU
+  </text>
 
-  <p style="font-size:12px;color:#555;text-align:center;">
-    Representação ilustrativa. Confirme alimentação, polaridade e
-    comando dos pinos no diagrama elétrico da aplicação.
-  </p>
+  <!-- ECU -->
+  <rect x="260" y="196" width="145" height="48" rx="5"
+        fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="332" y="216" font-size="14" text-anchor="middle" fill="#222">
+    <tspan x="332">ECU EDC16</tspan>
+    <tspan x="332" dy="17">Comando PWM</tspan>
+  </text>
+
+  <!-- Comando para o pino 2 -->
+  <path d="M405 220 H455 V174 H490"
+        fill="none" stroke="#333" stroke-width="2"
+        marker-end="url(#seta-mprop)"/>
+  <text x="456" y="161" font-size="12" text-anchor="middle" fill="#333">
+    PWM
+  </text>
+
+  <!-- Pino 2 -->
+  <rect x="490" y="149" width="165" height="50" rx="5"
+        fill="#dcfce7" stroke="#15803d" stroke-width="2"/>
+  <text x="572" y="169" font-size="14" text-anchor="middle" fill="#222">
+    <tspan x="572">MPROP</tspan>
+    <tspan x="572" dy="17">Pino 2</tspan>
+  </text>
+
+  <!-- Os dois ramos chegam à mesma válvula -->
+  <path d="M655 64 H720 Q740 64 740 84 V91 Q740 101 758 101 H792"
+        fill="none" stroke="#333" stroke-width="2"/>
+  <path d="M655 174 H720 Q740 174 740 154 V147 Q740 137 758 137 H792"
+        fill="none" stroke="#333" stroke-width="2"/>
+
+  <!-- Válvula -->
+  <ellipse cx="858" cy="119" rx="66" ry="56"
+           fill="#f3f4f6" stroke="#374151" stroke-width="2.5"/>
+  <text x="858" y="113" font-size="14" text-anchor="middle" fill="#222">
+    <tspan x="858">Válvula</tspan>
+    <tspan x="858" dy="19">MPROP</tspan>
+  </text>
+
+</svg>
+</div>
+
+<p style="font-size:12px;color:#555;">
+* Representação ilustrativa. Confirme os terminais, a alimentação e o comando PWM no esquema elétrico específico da aplicação antes de realizar medições.
+</p>
+
 
 </div>
 
