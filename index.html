@@ -433,13 +433,53 @@
     </button>
   </div>
 
-  <!-- JAVASCRIPT -->
-  <script src="menu.js"></script>
+  
+<script type="module">
+import mermaid from
+  'https://cdn.jsdelivr.net/npm/mermaid@12/dist/mermaid.esm.min.mjs';
 
-  <script type="module">
-  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-  mermaid.initialize({ startOnLoad: true });
+mermaid.initialize({
+  startOnLoad: false,
+  theme: 'default',
+  flowchart: {
+    useMaxWidth: true,
+    htmlLabels: true,
+    curve: 'linear'
+  }
+});
+
+async function desenharDiagramas() {
+  const diagramas = document.querySelectorAll(
+    '.mermaid:not([data-processed="true"])'
+  );
+
+  if (diagramas.length) {
+    try {
+      await mermaid.run({ nodes: diagramas });
+    } catch (erro) {
+      console.error('Erro ao desenhar diagrama:', erro);
+    }
+  }
+}
+
+// Desenha diagramas que já estão na página.
+desenharDiagramas();
+
+// Detecta artigos inseridos dinamicamente no site.
+const observador = new MutationObserver(() => {
+  if (document.querySelector(
+    '.mermaid:not([data-processed="true"])'
+  )) {
+    desenharDiagramas();
+  }
+});
+
+observador.observe(document.body, {
+  childList: true,
+  subtree: true
+});
 </script>
+
   
 </body>
 </html>
