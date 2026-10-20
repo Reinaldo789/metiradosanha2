@@ -59,54 +59,14 @@
 
 <h3>Esquema Elétrico da Válvula MPROP</h3>
 <!-- O código abaixo desenha o diagrama na tela -->
-
-
-<pre class="mermaid">
+<div class="mermaid">
 flowchart LR
-    classDef bat fill:#f9f,stroke:#333,stroke-width:2px
-    classDef chave fill:#bbf,stroke:#333,stroke-width:2px
-    classDef rele fill:#ffb,stroke:#333,stroke-width:2px
-    classDef comp fill:#bfb,stroke:#333,stroke-width:2px
-    classDef ecu fill:#fbb,stroke:#333,stroke-width:2px
-
-    Bateria["Bateria 12 V"]:::bat
-    Chave_15["Chave de ignição - Terminal 15"]:::chave
-    Rele_Y9["Relé principal Y9"]:::rele
-    MPROP_P1["MPROP - Pino 1"]:::comp
-    MPROP_P2["MPROP - Pino 2"]:::comp
-    ECU["ECU EDC16"]:::ecu
-    MPROP(("Válvula MPROP")):::comp
-
-    Bateria -->|"Positivo +30"| Rele_Y9
-    Chave_15 -->|"Sinal ON"| Rele_Y9
-    Rele_Y9 -->|"12 V pós-chave"| MPROP_P1
-    ECU -->|"Comando PWM"| MPROP_P2
-    MPROP_P1 --- MPROP
+    Bateria["Bateria 12 V"] -->|"Positivo +30"| Rele_Y9["Relé principal Y9"]
+    Chave_15["Chave de ignição - Terminal 15"] -->|"Sinal ON"| Rele_Y9
+    Rele_Y9 -->|"12 V pós-chave"| MPROP_P1["MPROP - Pino 1"]
+    ECU["ECU EDC16"] -->|"Comando PWM"| MPROP_P2["MPROP - Pino 2"]
+    MPROP_P1 --- MPROP(("Válvula MPROP"))
     MPROP_P2 --- MPROP
-</pre>
-
-<!-- <div class="mermaid">
-graph LR
-    classDef bat fill:#f9f,stroke:#333,stroke-width:2px;
-    classDef chave fill:#bbf,stroke:#333,stroke-width:2px;
-    classDef rele fill:#ffb,stroke:#333,stroke-width:2px;
-    classDef comp fill:#bfb,stroke:#333,stroke-width:2px;
-    classDef ecu fill:#fbb,stroke:#333,stroke-width:2px;
-
-    Bateria[Bateria 12V]:::bat
-    Chave_15[Chave Ignição - Terminal 15]:::chave
-    Relé_Y9[Relé Principal Y9]:::rele
-    MPROP_P1[MPROP - Pino 1]:::comp
-    MPROP_P2[MPROP - Pino 2]:::comp
-    ECU[ECU EDC16]:::ecu
-
-    Bateria -- Positivo (+30) --> Relé_Y9
-    Chave_15 -- Sinal ON --> Relé_Y9
-    Relé_Y9 -- 12V Pós-Chave --> MPROP_P1
-    
-    ECU -- Sinal PWM --> MPROP_P2
-    
-    MPROP_P1 & MPROP_P2 --- MPROP((Válvula MPROP)):::comp -->
 </div>
 
 <figure>
