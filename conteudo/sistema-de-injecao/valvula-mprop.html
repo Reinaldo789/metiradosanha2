@@ -59,7 +59,33 @@
 
 <h3>Esquema Elétrico da Válvula MPROP</h3>
 <!-- O código abaixo desenha o diagrama na tela -->
-<div class="mermaid">
+
+
+<pre class="mermaid">
+flowchart LR
+    classDef bat fill:#f9f,stroke:#333,stroke-width:2px
+    classDef chave fill:#bbf,stroke:#333,stroke-width:2px
+    classDef rele fill:#ffb,stroke:#333,stroke-width:2px
+    classDef comp fill:#bfb,stroke:#333,stroke-width:2px
+    classDef ecu fill:#fbb,stroke:#333,stroke-width:2px
+
+    Bateria["Bateria 12 V"]:::bat
+    Chave_15["Chave de ignição - Terminal 15"]:::chave
+    Rele_Y9["Relé principal Y9"]:::rele
+    MPROP_P1["MPROP - Pino 1"]:::comp
+    MPROP_P2["MPROP - Pino 2"]:::comp
+    ECU["ECU EDC16"]:::ecu
+    MPROP(("Válvula MPROP")):::comp
+
+    Bateria -->|"Positivo +30"| Rele_Y9
+    Chave_15 -->|"Sinal ON"| Rele_Y9
+    Rele_Y9 -->|"12 V pós-chave"| MPROP_P1
+    ECU -->|"Comando PWM"| MPROP_P2
+    MPROP_P1 --- MPROP
+    MPROP_P2 --- MPROP
+</pre>
+
+<!-- <div class="mermaid">
 graph LR
     classDef bat fill:#f9f,stroke:#333,stroke-width:2px;
     classDef chave fill:#bbf,stroke:#333,stroke-width:2px;
@@ -80,7 +106,7 @@ graph LR
     
     ECU -- Sinal PWM --> MPROP_P2
     
-    MPROP_P1 & MPROP_P2 --- MPROP((Válvula MPROP)):::comp
+    MPROP_P1 & MPROP_P2 --- MPROP((Válvula MPROP)):::comp -->
 </div>
 
 <figure>
