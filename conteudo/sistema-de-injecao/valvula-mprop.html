@@ -47,15 +47,17 @@
   <img src="conteudo/sistema-de-injecao/imagens/04-numero-vazao.jpg" alt="Número de vazão gravado na válvula" loading="lazy">
 </figure>
 
-<h2 id="parte-eletrica">Parte elétrica e testes</h2>
-<p>O ajuste da pressão necessária é feito pela válvula reguladora, comandada e processada pelo ECM, que a gerencia com um sinal modulado de pulsos (<a class="img-link" href="conteudo/sistema-de-injecao/imagens/05-parte-eletrica.jpg">ver circuito elétrico</a>).</p>
-<ul>
-  <li>Pulsos largos = alta pressão;</li>
-  <li>Pulsos curtos = baixa pressão;</li>
-  <li>O sensor de pressão do Rail fornece feedback à ECU para esse ajuste em tempo real;</li>
-  <li>É alimentada pela ECM com sinal PWM de 12 V e trabalha com duty cycle. <!-- Vídeo: cole aqui o link --></li>
-  <li>Se durante os testes não houver tensão, verifique os fusíveis F25, F26, F27 e F28 e o relé principal.</li>
-</ul>
+
+flowchart TB
+    BAT["Bateria 12 V"] --> REL["Relé principal Y9"]
+    REL -->|"Alimentação — pino 1"| MPROP["VÁLVULA MPROP<br/>Pino 1 — Alimentação<br/>Pino 2 — Comando PWM"]
+    ECU["ECU Bosch EDC16"] -->|"Comando — pino 2"| MPROP
+
+    style BAT fill:#fce7f3,stroke:#be185d,color:#000
+    style REL fill:#fef3c7,stroke:#b45309,color:#000
+    style ECU fill:#fee2e2,stroke:#b91c1c,color:#000
+    style MPROP fill:#dcfce7,stroke:#15803d,stroke-width:3px,color:#000
+
 
 
 <h3>Esquema elétrico da válvula MPROP — EDC16</h3>
