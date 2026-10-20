@@ -48,18 +48,6 @@
 </figure>
 
 
-flowchart TB
-    BAT["Bateria 12 V"] --> REL["Relé principal Y9"]
-    REL -->|"Alimentação — pino 1"| MPROP["VÁLVULA MPROP<br/>Pino 1 — Alimentação<br/>Pino 2 — Comando PWM"]
-    ECU["ECU Bosch EDC16"] -->|"Comando — pino 2"| MPROP
-
-    style BAT fill:#fce7f3,stroke:#be185d,color:#000
-    style REL fill:#fef3c7,stroke:#b45309,color:#000
-    style ECU fill:#fee2e2,stroke:#b91c1c,color:#000
-    style MPROP fill:#dcfce7,stroke:#15803d,stroke-width:3px,color:#000
-
-
-
 <h3>Esquema elétrico da válvula MPROP — EDC16</h3>
 
 <div style="width:100%;overflow-x:auto;margin:20px 0;border:1px solid #ddd;border-radius:8px;background:#fff;">
