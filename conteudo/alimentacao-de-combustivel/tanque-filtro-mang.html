@@ -1,87 +1,208 @@
-<p>O sistema de alimentação de combustível do motor MWM 2.8 Eletrônico (Bosch EDC16C8) é dividido em duas etapas: linha de baixa pressão (tanque, filtro, bomba elétrica e mangueiras) e linha de alta pressão (bomba CP3, Rail, bicos injetores). Qualquer falha na linha de baixa impede a bomba de alta de gerar pressão suficiente no Rail e o motor não pega.</p>
+<!-- Tanque, Filtro e Mangueiras. Imagens: salve em conteudo/imagens/tanque-filtro/ com estes nomes:
+01-percurso-combustivel.jpg      Localização: percurso do combustível
+02-mangueiras-combustivel.jpg    Mangueiras de combustível (tanque até o cofre)
+03-ligacao-tanque-1.jpg          Ligação das mangueiras no tanque (1)
+04-ligacao-tanque-2.jpg          Ligação das mangueiras no tanque (2)
+05-filtro-combustivel.jpg        Filtro de combustível
+06-teste-sensor-sem-agua.jpg     Teste do sensor de água: sem água
+07-teste-sensor-com-agua.jpg     Teste do sensor de água: com água
+08-circuito-cofre-motor.jpg      Circuito do combustível no cofre do motor
+09-mangueira-ressecada-1.jpg     Mangueira ressecada (1)
+10-mangueira-ressecada-2.jpg     Mangueira ressecada (2)
+11-mangueira-ressecada-3.jpg     Mangueira ressecada (3)
+12-mangueira-cortada.jpg         Corte na mangueira: sujeira interna
+13-filtro-cofre-s10.jpg          Filtro de combustível no cofre da GM S10
+Links entre páginas: confirme os caminhos (#linha-combustivel/..., #sistema-de-injecao/...). -->
+<header class="art-head">
+  <h1>Tanque, Filtro e Mangueiras</h1>
+</header>
 
-<h2>Como funciona</h2>
+<nav class="toc" aria-label="Neste artigo">
+  <strong>Neste artigo</strong>
+  <ul>
+    <li><a href="#" data-goto="localizacao">Localização</a></li>
+    <li><a href="#" data-goto="ligacao-tanque">Ligação das mangueiras no tanque</a></li>
+    <li><a href="#" data-goto="filtro-combustivel">Filtro de combustível</a></li>
+    <li><a href="#" data-goto="teste-sensor-agua">Teste do sensor de água no combustível</a></li>
+    <li><a href="#" data-goto="circuito-cofre">Circuito do combustível no cofre do motor</a></li>
+    <li><a href="#" data-goto="problemas-comuns">Problemas comuns</a></li>
+  </ul>
+</nav>
 
-<h3>Tanque de Combustível</h3>
-<p>Reservatório onde o diesel é armazenado. Internamente possui a bomba elétrica (que faz a sucção e envia o combustível para o filtro), o sensor de nível (boia) e, em alguns modelos, um pré-filtro (peneira) na entrada da bomba para reter sujeira grossa.</p>
+<div class="aviso">
+  <strong>O principal problema da Marruá</strong>
+  <p>O filtro de combustível não está instalado no cofre do motor. Assim, a sujeira das mangueiras e da bomba elétrica chega aos atuadores e à bomba de alta pressão. É um erro grave de engenharia.</p>
+  <p>Nos outros utilitários a diesel, o filtro fica no cofre do motor, muitas vezes são dois filtros, e as mangueiras de combustível são de plástico rígido ou de metal.</p>
+</div>
 
-<h3>Filtro de Combustível com Separador de Água</h3>
-<p>Elemento filtrante que retém impurezas microscópicas e separa a água emulsionada no diesel. Possui sensor de presença de água no fundo (que acende a luz no painel) e uma válvula de dreno manual para escoar a água acumulada. A água no sistema é o principal causador de corrosão nos bicos injetores.</p>
-
-<h3>Mangueiras e Linhas de Combustível</h3>
-<p>São divididas em:</p>
+<h2 id="localizacao">Localização</h2>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/tanque-filtro/01-percurso-combustivel.jpg" alt="Percurso do combustível do tanque até o retorno" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<p>Sequência do percurso do combustível:</p>
 <ul>
-  <li><strong>Linha de alimentação (ida):</strong> leva o diesel do tanque → filtro → bomba de alta (CP3)</li>
-  <li><strong>Linha de retorno:</strong> devolve o excesso de diesel da bomba de alta, do Rail e dos bicos de volta ao tanque</li>
-  <li><strong>Linha de respiro:</strong> alivia a pressão interna do tanque conforme o combustível é consumido</li>
+  <li>Tanque de combustível;</li>
+  <li>Pescador de combustível;</li>
+  <li>Filtro de combustível;</li>
+  <li>Bomba elétrica;</li>
+  <li>Bomba de engrenagem;</li>
+  <li>Válvula MProp;</li>
+  <li>Válvula KUV;</li>
+  <li>Bomba de alta pressão;</li>
+  <li>Tubo Rail;</li>
+  <li>Bicos injetores;</li>
+  <li>Retorno.</li>
+</ul>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/tanque-filtro/02-mangueiras-combustivel.jpg" alt="Mangueiras de combustível" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<h3>Mangueiras de combustível</h3>
+<ul>
+  <li>A bomba elétrica suga o combustível do tanque pelo pescador;</li>
+  <li>A bomba elétrica empurra o combustível até a bomba de engrenagens;</li>
+  <li>O combustível retorna ao tanque com pressão, por causa da força da bomba elétrica;</li>
+  <li>A mangueira do suspiro do tanque fica dentro da viatura, atrás do banco;</li>
+  <li>Os dois tanques são ligados entre si por uma mangueira que passa por baixo deles.</li>
 </ul>
 
-<h2>Sintomas de falha</h2>
-<ul>
-  <li>Motor não pega ou pega e morre logo em seguida</li>
-  <li>Motor perde força em subidas ou em altas rotações</li>
-  <li>Partida longa (demora a pegar pela manhã)</li>
-  <li>Marcha lenta oscilando ("motor galopando")</li>
-  <li>Fumaça branca densa no escapamento (combustível mal queimado)</li>
-  <li>Consumo elevado de diesel sem vazamento aparente</li>
-  <li>Luz de injeção acesa no painel (com códigos P0087 ou P0192)</li>
-  <li>Ruído de "assopro" ou bolhas visíveis em mangueiras transparentes (entrada de ar falsa)</li>
-  <li>Vazamento de diesel embaixo do veículo após o veículo ficar parado</li>
-</ul>
+<h2 id="ligacao-tanque">Ligação das mangueiras no tanque</h2>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/tanque-filtro/03-ligacao-tanque-1.jpg" alt="Conectores das mangueiras no tanque, vista 1" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/tanque-filtro/04-ligacao-tanque-2.jpg" alt="Conectores das mangueiras no tanque, vista 2" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<p>Sugado pela bomba elétrica, o combustível sai do tanque e passa no filtro. Até a bomba elétrica há depressão (sucção), e é nesse trecho que pode entrar ar no sistema.</p>
+<p>Os dois conectores são iguais e têm o mesmo tamanho de mangueira dos pescadores. A diferença é que o pescador vai para o filtro de combustível e o retorno vem direto da bomba de alta.</p>
+<div class="dica">
+  <strong>Suspeita de entrada de ar</strong>
+  <p>Se houver suspeita de entrada de ar por um desses conectores, troque as mangueiras de posição e verifique se o problema continua.</p>
+</div>
 
-<h2>Como testar</h2>
+<h2 id="filtro-combustivel">Filtro de combustível</h2>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/tanque-filtro/05-filtro-combustivel.jpg" alt="Filtro de combustível com sensor de água" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>O sensor só enrosca nos filtros originais MWM.</p>
+  <p>Se trocar o filtro original por um similar, não jogue fora o sensor de água no combustível: ele é extremamente caro.</p>
+</div>
 
-<h3>1. Inspeção Visual</h3>
+<h2 id="teste-sensor-agua">Teste do sensor de água no combustível</h2>
+<p>Fios do sensor:</p>
 <ul>
-  <li>Verificar se há vazamento nas conexões rápidas das mangueiras</li>
-  <li>Checar se as mangueiras estão ressecadas, trincadas ou amassadas</li>
-  <li>Verificar se o filtro está sujo ou se há água no copo separador</li>
-  <li>Conferir se o tanque tem combustível e se o marcador de nível está coerente</li>
+  <li><b>Vermelho:</b> positivo;</li>
+  <li><b>Marrom:</b> negativo;</li>
+  <li><b>Lilás:</b> retorno.</li>
 </ul>
+<p><b>Sem água</b></p>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/tanque-filtro/06-teste-sensor-sem-agua.jpg" alt="Teste do sensor de água no combustível sem água" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<p><b>Com água</b></p>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/tanque-filtro/07-teste-sensor-com-agua.jpg" alt="Teste do sensor de água no combustível com água" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
 
-<h3>2. Teste da Bomba Elétrica (Pressão de Baixa)</h3>
+<h2 id="circuito-cofre">Circuito do combustível no cofre do motor</h2>
+<div class="specs">
+  <div class="spec"><b>até 4 bar</b><span>Bomba elétrica</span></div>
+  <div class="spec"><b>até 12 bar</b><span>Bomba de engrenagem</span></div>
+  <div class="spec"><b>até 1400 bar</b><span>Bomba de alta pressão (Rail)</span></div>
+</div>
 <ul>
-  <li><strong>Ferramenta:</strong> Manômetro de combustível (escala 0 a 10 bar) instalado em série na saída do filtro</li>
-  <li><strong>Chave ligada (bomba por 3-5s):</strong> deve marcar entre <strong>3,5 e 4,5 bar</strong></li>
-  <li><strong>Motor em marcha lenta:</strong> pressão deve se manter entre 3,5 e 4,0 bar</li>
-  <li><strong>Aceleração:</strong> a agulha não pode cair abaixo de 2,0 bar</li>
+  <li>A bomba elétrica alimenta a bomba de engrenagem em até 4 bar;</li>
+  <li>A bomba de engrenagem eleva a pressão em até 12 bar, alimentando a bomba de alta pressão;</li>
+  <li>A bomba de alta pressiona o combustível no tubo Rail, que alimenta os bicos injetores, em até 1400 bar.</li>
 </ul>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/tanque-filtro/08-circuito-cofre-motor.jpg" alt="Circuito do combustível no cofre do motor" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<p>As mangueiras de entrada e de retorno de combustível são ligadas por dois “T” metálicos de cobre. Eles juntam a entrada de combustível da <a href="#linha-combustivel/bomba-eletrica">bomba elétrica</a>, o retorno dos bicos injetores, o retorno da lubrificação da bomba e a mangueira de retorno para o tanque.</p>
 
-<h3>3. Teste de Vazão</h3>
-<ul>
-  <li>Desconectar a mangueira de saída do filtro e apontar para um recipiente graduado</li>
-  <li>Acionar a bomba por 30 segundos contínuos (jumper no relé)</li>
-  <li><strong>Valor esperado:</strong> mínimo <strong>800 ml a 1 litro em 30 segundos</strong></li>
-  <li>Vazão menor indica filtro entupido ou bomba elétrica desgastada</li>
-</ul>
+<h2 id="problemas-comuns">Problemas comuns</h2>
 
-<h3>4. Teste de Estanqueidade (Entrada de Ar Falsa)</h3>
-<ul>
-  <li>Instalar um trecho de mangueira transparente na linha de sucção</li>
-  <li>Com o motor em marcha lenta, observar se aparecem bolhas de ar</li>
-  <li>Bolhas indicam entrada de ar falsa nas conexões ou no anel o-ring do filtro</li>
-</ul>
+<h3>Mangueiras ressecadas</h3>
+<p>Essas mangueiras têm duas camadas. A camada externa fica quebradiça por ressecamento. Com a trepidação da viatura, a parte interna também pode romper e deixar entrar ar.</p>
+<p>Normalmente a parte externa fica umedecida de óleo. Se notar esses sinais, troque a mangueira.</p>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/tanque-filtro/09-mangueira-ressecada-1.jpg" alt="Mangueira de combustível ressecada, foto 1" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/tanque-filtro/10-mangueira-ressecada-2.jpg" alt="Mangueira de combustível ressecada, foto 2" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/tanque-filtro/11-mangueira-ressecada-3.jpg" alt="Mangueira de combustível ressecada, foto 3" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Motor de partida gira, mas o motor não liga;</li>
+      <li>Sem pressão de combustível no tubo Rail (<a href="#linha-combustivel/tubo-rail">como medir</a>).</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Falta de combustível;</li>
+      <li>Entrada de ar nas mangueiras antes da bomba elétrica.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Verificar sinais de vazamento;</li>
+      <li>Verificar a obstrução do filtro de combustível;</li>
+      <li>Verificar também: <a href="#linha-combustivel/bomba-eletrica">bomba elétrica</a>, <a href="#sistema-de-injecao/valvula-mprop">válvula MProp</a>, <a href="#linha-combustivel/valvula-kuv">válvula KUV</a> e <a href="#linha-combustivel/tubo-rail">válvula de segurança do Rail</a>.</li>
+    </ul>
+  </div>
+</div>
 
-<h3>5. Teste do Sensor de Água no Combustível</h3>
-<ul>
-  <li>Drenar o copo separador pela válvula inferior</li>
-  <li>Observar se a luz de "água no combustível" acende no painel</li>
-  <li>Se o dreno estiver entupido, desmontar e limpar</li>
-</ul>
-
-<h3>6. Teste do Sensor de Nível (Boia)</h3>
-<ul>
-  <li>Medir resistência do sensor com o tanque cheio e vazio</li>
-  <li>Os valores variam conforme o modelo, mas a resistência deve mudar progressivamente conforme o nível do tanque</li>
-  <li>Resistência fixa ou infinita em qualquer posição = sensor com defeito</li>
-</ul>
-
-<h2>Principais Causas de Falha</h2>
-<ul>
-  <li><strong>Combustível contaminado:</strong> água, sujeira ou diesel adulterado destroem bicos, bomba de alta e sensor de água</li>
-  <li><strong>Filtro saturado:</strong> não trocado no intervalo correto restringe a vazão e força a bomba elétrica</li>
-  <li><strong>Bomba elétrica desgastada:</strong> escovas gastas reduzem a pressão e a vazão</li>
-  <li><strong>Conexões rápidas com anel o-ring ressecado:</strong> causam entrada de ar falsa</li>
-  <li><strong>Pré-filtro do tanque obstruído:</strong> borra de diesel ou sujeira acumulada impedem a sucção</li>
-  <li><strong>Chicote da bomba oxidado:</strong> queda de tensão elétrica reduz a rotação da bomba</li>
-</ul>
+<h3>Travamento frequente da MProp e dos bicos injetores</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>O motor liga, mas ao acelerar desliga na hora; se der partida, pega de novo.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Sujeira no tanque, na bomba elétrica e nas mangueiras.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Limpar todo o sistema e trocar filtros e mangueiras;</li>
+      <li>Lavar os dois tanques de combustível.</li>
+    </ul>
+  </div>
+</div>
+<p>Cortando a mangueira de combustível, dá para ver por que a válvula MProp trava logo depois de funcionar, mesmo com o sistema limpo.</p>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/tanque-filtro/12-mangueira-cortada.jpg" alt="Mangueira de combustível cortada mostrando a sujeira interna" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<div class="dica">
+  <strong>Solução recomendada</strong>
+  <p>Instale um filtro de combustível no cofre do motor para resolver ou amenizar o problema. A GM S10 usa um filtro no cofre do motor; a Marruá deveria ter o mesmo.</p>
+</div>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/tanque-filtro/13-filtro-cofre-s10.jpg" alt="Filtro de combustível instalado no cofre do motor da GM S10" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
