@@ -1,10 +1,4 @@
-<!-- Sensor de Fase (CMP). Imagens: salve em conteudo/imagens/sensor-fase/ com estes nomes:
-01-localizacao.jpg                 Localização na tampa de válvulas
-02-sensor-hall.jpg                 Sensor tipo Hall
-03-conector-pinos.jpg              Conector de 3 pinos
-04-teste-sem-ferramentas-1.jpg     Teste sem ferramentas (1)
-05-teste-sem-ferramentas-2.jpg     Teste sem ferramentas (2)
-Links entre páginas: confirme os caminhos (#sensores-e-atuadores/..., #sistema-eletrico/..., #linha-combustivel/...). -->
+<!-- Sensor de Fase (CMP). Imagens: salve em conteudo/imagens/sensor-cmp/ -->
 <header class="art-head">
   <h1>Sensor de Fase (CMP)</h1>
 </header>
@@ -14,118 +8,132 @@ Links entre páginas: confirme os caminhos (#sensores-e-atuadores/..., #sistema-
   <ul>
     <li><a href="#" data-goto="localizacao">Localização</a></li>
     <li><a href="#" data-goto="funcionamento">Funcionamento</a></li>
-    <li><a href="#" data-goto="sensor-hall">Sensor tipo Hall</a></li>
     <li><a href="#" data-goto="parte-eletrica">Parte elétrica e testes</a></li>
     <li><a href="#" data-goto="problemas-comuns">Problemas comuns</a></li>
+    <li><a href="#" data-goto="codigos-de-falha">Códigos de falha</a></li>
   </ul>
 </nav>
 
-<p>O Sensor de Fase, também chamado de Sensor de Posição da Árvore de Cames ou CMP (Camshaft Position Sensor), é um componente essencial da injeção eletrônica do motor MWM 2.8 turbo diesel.</p>
-<p>Sua função é monitorar a posição da árvore de cames (comando de válvulas) e identificar o Ponto Morto Superior (PMS) do cilindro número 1 no ciclo de compressão. Com o sinal do <a href="#sensores-e-atuadores/sensor-rotacao">sensor de rotação (CKP)</a>, a ECU determina a fase exata do motor e o momento ideal da injeção.</p>
+<p>O Sensor de Fase (também conhecido como Sensor de Posição da Árvore de Cames ou CMP — <i>Camshaft Position Sensor</i>) é um componente eletrônico essencial no sistema de injeção eletrônica do motor MWM 2.8 turbo diesel. Sua principal função é monitorar a posição da árvore de cames (comando de válvulas) e identificar o Ponto Morto Superior (PMS) do cilindro número 1 no ciclo de compressão.</p>
+<p>Essa informação é vital para a Unidade de Comando Eletrônico (ECU), pois, em conjunto com o sinal do Sensor de Rotação (CKP), permite que a ECU determine a fase exata do motor e o momento ideal para a injeção de combustível.</p>
 
 <h2 id="localizacao">Localização</h2>
-<p>Fica parafusado na tampa de válvulas do motor.</p>
 <figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-fase/01-localizacao.jpg" alt="Localização do sensor de fase na tampa de válvulas" loading="lazy">
+  <img src="conteudo/imagens/sensor-cmp/01-localizacao.jpg" alt="Localização do sensor de fase CMP" loading="lazy">
   <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
 </figure>
+<p>Parafusado na tampa de válvulas do motor, logo acima do comando de válvulas. Trabalha em par com o sensor de rotação para sincronizar o motor.</p>
 
 <h2 id="funcionamento">Funcionamento</h2>
-<p>No MWM 2.8 o sensor de fase é do tipo Efeito Hall e funciona assim:</p>
+<p>O Sensor de Fase, sendo do tipo <b>Efeito Hall</b> no MWM 2.8, opera da seguinte maneira:</p>
 <ul>
-  <li>Recebe alimentação de <b>5 V</b> da ECU;</li>
-  <li>Tem um elemento semicondutor que gera uma pequena tensão quando submetido a um campo magnético;</li>
-  <li>Quando o ressalto ou dente da roda fônica do comando passa pela ponta do sensor, o campo magnético muda;</li>
-  <li>Essa mudança faz o sensor gerar um sinal digital (onda quadrada) que alterna entre 0 V e a tensão de alimentação (5 V);</li>
-  <li>A ECU interpreta as transições do sinal para determinar a posição angular da árvore de cames.</li>
+  <li>Recebe alimentação elétrica (<b>5 V</b>) da ECU;</li>
+  <li>Possui um elemento semicondutor que gera uma pequena voltagem quando submetido a um campo magnético;</li>
+  <li>Quando o ressalto ou dente da roda fônica do comando de válvulas passa pela ponta do sensor, ele altera o campo magnético;</li>
+  <li>Essa alteração faz o sensor gerar um sinal digital (<b>onda quadrada</b>) que alterna entre 0 V e a voltagem de alimentação (5 V);</li>
+  <li>A ECU interpreta as transições desse sinal para determinar a posição angular da árvore de cames.</li>
 </ul>
-<p>A diferença para o sensor de rotação (CKP) é que o sensor de fase dá à ECU a referência de qual cilindro está em compressão e pronto para a injeção. O CKP informa a rotação e a posição precisa do virabrequim. Juntos, garantem o sincronismo do motor.</p>
+<p>A principal diferença para o Sensor de Rotação (CKP) é que o Sensor de Fase fornece uma referência para a ECU identificar qual cilindro está no ciclo de compressão (e, portanto, pronto para a injeção), enquanto o CKP fornece a rotação e a posição precisa do virabrequim. Juntos, eles garantem o sincronismo absoluto do motor.</p>
 
-<h2 id="sensor-hall">Sensor tipo Hall</h2>
-<p>O sensor é alimentado pela ECM (5 V). Não tem ímã permanente e não gera tensão alternada, ao contrário do sensor de rotação da Marruá, que é indutivo.</p>
-<div class="aviso">
-  <strong>Atenção</strong>
-  <p>Pela programação da ECM, este sensor é indispensável para o motor funcionar. Em muitos outros veículos o motor funciona mesmo sem o sinal de fase.</p>
-</div>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-fase/02-sensor-hall.jpg" alt="Sensor de fase tipo Hall" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+<figure>
+  <img src="conteudo/imagens/sensor-cmp/02-funcionamento.jpg" alt="Funcionamento do sensor Hall" loading="lazy">
 </figure>
+
+<div class="dica">
+  <strong>Sensor tipo Hall</strong>
+  <p>Esse sensor é alimentado pela ECM (5 V). Não possui ímã permanente e não gera tensão alternada como o sensor de rotação da Marrua, que é indutivo. Devido à programação da ECM, esse sensor é <b>indispensável</b> para o motor entrar em funcionamento — diferente de muitos outros veículos que, mesmo sem o sinal de fase, o motor consegue funcionar.</p>
+</div>
+
+<h3 id="pinos">Pinos do conector</h3>
+<ul>
+  <li><b>Pino 1 (Alimentação – Vcc):</b> Envia o sinal digital (onda quadrada) de volta para a ECU;</li>
+  <li><b>Pino 2 (Terra – GND):</b> Conexão de aterramento, geralmente fornecida pela ECU;</li>
+  <li><b>Pino 3 (Sinal – Signal):</b> Recebe 5 Volts da Unidade de Comando Eletrônico (ECU).</li>
+</ul>
+<p>É crucial que a fiação esteja intacta e os conectores limpos e firmes. Qualquer problema na fiação (fio rompido, curto-circuito, corrosão) pode causar a perda ou distorção do sinal, levando a falhas no motor.</p>
 
 <h2 id="parte-eletrica">Parte elétrica e testes</h2>
-<p>O conector tem 3 pinos:</p>
-<ul>
-  <li><b>Pino 1:</b> Sinal digital (onda quadrada) enviado de volta à ECU;</li>
-  <li><b>Pino 2:</b> Terra (GND), geralmente fornecido pela ECU;</li>
-  <li><b>Pino 3:</b> Alimentação (Vcc), 5 V vindos da ECU.</li>
-</ul>
-<p>A fiação precisa estar íntegra e os conectores limpos e firmes. Fio rompido, curto ou corrosão causam perda ou distorção do sinal e levam a falhas no motor.</p>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-fase/03-conector-pinos.jpg" alt="Conector de 3 pinos do sensor de fase" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
 
-<h3 id="testes-multimetro">Testes com multímetro</h3>
-<div class="specs">
-  <div class="spec"><b>≈ 5 V</b><span>Alimentação (pino 3 e terra)</span></div>
-  <div class="spec"><b>≈ 0 Ω</b><span>Terra (pino 2 ao chassi)</span></div>
-  <div class="spec"><b>0 V ↔ 5 V</b><span>Sinal (pino 1) ao girar o motor</span></div>
-</div>
+<h3 id="teste-alimentacao">Testes com multímetro</h3>
 <ul>
-  <li><b>Alimentação (Vcc):</b> com a ignição ligada e o sensor conectado, meça a tensão entre o pino 3 e o terra (pino 2) no conector do chicote. Deve ser aproximadamente 5 V;</li>
-  <li><b>Terra (GND):</b> meça a resistência entre o pino de terra do conector do chicote e um bom ponto de massa no chassi ou motor. Deve ser muito baixa, próxima de 0 Ω;</li>
-  <li><b>Sinal:</b> com o sensor conectado e a ignição ligada, meça em tensão contínua (V DC) entre o pino de sinal e o terra. Peça para alguém girar o motor e observe se a tensão alterna entre 0 V e 5 V, ou perto disso, quando o ressalto passa pelo sensor. Também dá para fazer o teste sem ferramentas descrito a seguir.</li>
+  <li><b>Teste de Alimentação (Vcc):</b> Com a ignição ligada e o sensor conectado, meça a voltagem entre o pino de alimentação (3) e o terra no conector do chicote (2). Deve ser aproximadamente <b>5 Volts</b>.</li>
+  <li><b>Teste de Terra (GND):</b> Meça a resistência entre o pino de terra do conector do chicote e um bom ponto de aterramento no chassi ou motor. Deve ser muito baixa (próxima de <b>0 Ohms</b>).</li>
+  <li><b>Teste de Sinal (Signal):</b> Com o sensor conectado e a ignição ligada, conecte o multímetro na escala de voltagem DC entre o pino de sinal e o terra. Peça para alguém girar o motor manualmente e observe se a voltagem alterna entre <b>0 V e 5 V</b> (ou próximo a isso) conforme o ressalto passa pelo sensor. Ou faça o teste como a imagem abaixo.</li>
 </ul>
+
+<div class="aviso">
+  <strong>PROIBIDO TESTAR RESISTÊNCIA</strong>
+  <p>Medir Ω nos pinos de um sensor Hall queima os circuitos integrados internos. Teste apenas por tensão (V DC) ou frequência (Hz).</p>
+</div>
 
 <h3 id="testes-sem-ferramentas">Testes sem ferramentas</h3>
-<p>Retire o sensor como na imagem, ligue a ignição e espere a bomba elétrica parar de funcionar. Depois passe um metal pela ponta do sensor, ou encoste o sensor em um metal, e veja se a <a href="#linha-combustivel/bomba-eletrica">bomba elétrica</a> volta a funcionar.</p>
+<p>Outro teste bastante simples e eficiente é retirar o sensor (como na imagem abaixo), ligar a ignição e aguardar o tempo até que a bomba elétrica pare de funcionar. Agora passe um metal ou encoste o sensor em um metal e verifique se a bomba elétrica é acionada novamente.</p>
+<figure>
+  <img src="conteudo/imagens/sensor-cmp/03-teste-sem-ferramentas.jpg" alt="Teste do sensor de fase sem ferramentas" loading="lazy">
+</figure>
 <div class="dica">
-  <strong>Resultado</strong>
-  <p>Se a bomba voltar a funcionar, é muitíssimo provável que o sensor esteja bom. Quando o metal passa pelo sensor, a ECM interpreta que o motor começou a girar e liga a bomba elétrica de novo.</p>
+  <strong>Por que funciona?</strong>
+  <p>Se acionar, é muitíssimo provável que o sensor esteja funcionando. Isso porque, quando passa o metal no sensor, a Central interpreta que o motor começou a girar e liga a bomba elétrica novamente.</p>
 </div>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-fase/04-teste-sem-ferramentas-1.jpg" alt="Teste do sensor de fase sem ferramentas, foto 1" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-fase/05-teste-sem-ferramentas-2.jpg" alt="Teste do sensor de fase sem ferramentas, foto 2" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
 
 <h2 id="problemas-comuns">Problemas comuns</h2>
-<p>Os defeitos mais comuns no sensor de fase são:</p>
+<p>Os defeitos mais comuns no Sensor de Fase incluem:</p>
 <ul>
-  <li><b>Danos físicos:</b> rachaduras e quebras no corpo do sensor por impacto ou vibração;</li>
-  <li><b>Contaminação:</b> óleo, sujeira ou limalha metálica na ponta do sensor, que atrapalham a leitura do ressalto;</li>
-  <li><b>Fiação e conector:</b> fios rompidos, isolamento danificado, corrosão nos terminais ou conexões frouxas;</li>
-  <li><b>Falha interna:</b> desgaste natural dos componentes eletrônicos com o tempo.</li>
+  <li><b>Danos físicos:</b> rachaduras, quebras no corpo do sensor devido a impactos ou vibrações;</li>
+  <li><b>Contaminação:</b> acúmulo de óleo, sujeira ou limalhas metálicas na ponta do sensor, que podem interferir na leitura do ressalto;</li>
+  <li><b>Problemas na fiação/conector:</b> fios rompidos, isolamento danificado, corrosão nos terminais ou conexões frouxas no chicote elétrico;</li>
+  <li><b>Falha interna do componente:</b> desgaste natural dos componentes eletrônicos internos do sensor ao longo do tempo.</li>
 </ul>
+
+<h3>Motor na partida mas não liga</h3>
 <div class="trio">
   <div>
     <h4>Sintomas</h4>
     <ul>
-      <li>Motor de partida gira, mas o motor não liga.</li>
+      <li>Motor da partida mas não liga.</li>
     </ul>
   </div>
   <div>
     <h4>Possíveis causas</h4>
     <ul>
-      <li>Sensor de fase queimado ou em curto;</li>
-      <li>Fusíveis F25, F26, F27 ou F28 queimados.</li>
+      <li>Sensor fase queimado ou em curto.</li>
     </ul>
   </div>
   <div>
     <h4>Possíveis soluções</h4>
     <ul>
-      <li>Verificar os <a href="#sistema-eletrico/fusiveis-e-lampadas">fusíveis F25, F26, F27 e F28</a>;</li>
-      <li>Verificar se há 5 V em qualquer um dos sensores;</li>
-      <li>Medir a tensão nos pinos do sensor e fazer os testes acima;</li>
-      <li>Verificar se há sujeira ou limalha de ferro na ponta do sensor e limpar;</li>
-      <li>Se houver rachadura, trocar o sensor.</li>
+      <li>Verificar fusíveis nº F25, F26, F27 e F28 queimados;</li>
+      <li>Verificar se há tensão de 5 V em qualquer um dos sensores;</li>
+      <li>Medir a tensão nos pinos do sensor e fazer o teste como mostrado na figura anterior;</li>
+      <li>Verificar se há sujeira ou limalha de ferro na ponta do sensor e fazer a limpeza;</li>
+      <li>Se verificar rachadura, o sensor deve ser trocado.</li>
     </ul>
   </div>
 </div>
-<div class="dica">
-  <strong>Defeito elétrico é raro</strong>
-  <p>É extremamente raro encontrar um sensor de fase com problema elétrico. Comece pela fiação, pelos fusíveis e pela sujeira na ponta.</p>
+
+<div class="aviso">
+  <strong>Observação</strong>
+  <p>É extremamente raro encontrar um Sensor de Fase com problemas elétricos.</p>
+</div>
+
+<h2 id="codigos-de-falha">Códigos de falha</h2>
+<div class="codigos">
+  <div class="codigo"><span class="num">P0340</span><div>
+    <h4>Falha no circuito do sensor de fase</h4>
+    <p>Sem sinal da árvore de comando chegando à ECM. Causas:</p>
+    <ul>
+      <li>Sensor desconectado/queimado;</li>
+      <li>Chicote rompido;</li>
+      <li>Alimentação 5 V ausente.</li>
+    </ul>
+  </div></div>
+  <div class="codigo"><span class="num">P0341</span><div>
+    <h4>Sinal incorreto ou fora de faixa do CMP</h4>
+    <p>O sinal existe, mas está com ruído ou fora de sincronismo. Causas:</p>
+    <ul>
+      <li>Sensor perdendo referência;</li>
+      <li>Folga mecânica no comando;</li>
+      <li>Motor fora de ponto.</li>
+    </ul>
+  </div></div>
 </div>
