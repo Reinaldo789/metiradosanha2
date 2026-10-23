@@ -1,131 +1,211 @@
-<!-- Escreva aqui o artigo: Bomba Elétrica 
-<p>Texto de introdução sobre Bomba Elétrica.</p>
-
-<h2>Como funciona</h2>
-<p>...</p>
-
-<h2>Sintomas de falha</h2>
-<ul>
-  <li>...</li>
-</ul>
-
-<h2>Como testar</h2>
-<p>...</p>
--->
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bicos Injetores - Método da Sanha 2</title>
-<link rel="stylesheet" href="../style.css">
-</head>
-<body>
-
-<header>
-  <h1>⚙️ Bicos Injetores</h1>
-  <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
+<!-- Bomba Elétrica. Imagens: salve em conteudo/imagens/bomba-eletrica/ com estes nomes:
+01-localizacao-1.jpg            Localização (1)
+02-localizacao-2.jpg            Localização (2)
+03-funcionamento.jpg            Funcionamento
+04-bomba-nao-liga.jpg           Bomba elétrica não liga
+05-entrada-ar.jpg               Entrada de ar no sistema
+06-escovas-travadas.jpg         Escovas travadas
+07-escovas-destravadas.jpg      Escovas destravadas
+08-desmontagem-1.jpg            Desmontagem e lavagem (1)
+09-desmontagem-2.jpg            Desmontagem e lavagem (2)
+10-filtro-fundo-1.jpg           Filtro do fundo da bomba (1)
+11-filtro-fundo-2.jpg           Filtro do fundo da bomba (2)
+12-montagem-encaixe.jpg         Montagem: encaixe das duas partes
+13-montagem-escovas.jpg         Montagem: parte das escovas
+14-montagem-copo-1.jpg          Montagem: inserção no copo (1)
+15-montagem-copo-2.jpg          Montagem: inserção no copo (2)
+16-antes-limpeza.jpg            Antes da limpeza
+17-apos-limpeza.jpg             Após a manutenção (limpeza)
+18-vazao-cofre-motor.jpg        Teste de vazão: cofre do motor
+19-vazao-tanque.jpg             Teste de vazão: tanque de combustível
+Links entre páginas: confirme os caminhos (#linha-combustivel/..., #sistema-eletrico/...). -->
+<header class="art-head">
+  <h1>Bomba Elétrica</h1>
 </header>
 
-<nav class="menu-lateral" id="menu">
-  <h2>🔧 SENSORES</h2>
-  <a href="../sensores/ckp.html">Sensor de Rotação (CKP)</a>
-  <a href="../sensores/cmp.html">Sensor de Fase (CMP)</a>
-  <a href="../sensores/map.html">Sensor MAP / Turbo</a>
-  <a href="../sensores/ect.html">Sensor de Temperatura (ECT)</a>
-  <a href="../sensores/rps.html">Sensor de Pressão do Rail</a>
-  <h2>⚙️ ATUADORES</h2>
-  <a href="mprop.html">Válvula MProp</a>
-  <a href="app.html">Pedal Eletrônico (APP)</a>
-  <a href="vgt.html">Modulador da Turbina</a>
-  <a href="injetores.html">Bicos Injetores</a>
-  <h2>🔩 ESPECIAIS</h2>
-  <a href="../especiais/mil.html">Lâmpada de Diagnóstico</a>
-  <a href="../especiais/kuv.html">Válvula de Alívio (KUV)</a>
-  <a href="../especiais/bomba-baixa.html">Bomba de Baixa</a>
-  <h2>📖 CONCEITOS</h2>
-  <a href="../conceitos/indutivo-hall.html">Indutivo vs Hall</a>
-  <a href="../conceitos/edc16c8.html">Identificação EDC16C8</a>
-  <a href="../conceitos/fluxograma.html">Motor Gira Não Pega</a>
-  <a href="../conceitos/dtcs.html">Tabela de DTCs</a>
+<nav class="toc" aria-label="Neste artigo">
+  <strong>Neste artigo</strong>
+  <ul>
+    <li><a href="#" data-goto="localizacao">Localização</a></li>
+    <li><a href="#" data-goto="funcionamento">Funcionamento</a></li>
+    <li><a href="#" data-goto="problemas-comuns">Problemas comuns</a></li>
+    <li><a href="#" data-goto="desmontagem">Desmontagem e lavagem completa</a></li>
+    <li><a href="#" data-goto="montagem">Montagem da bomba elétrica</a></li>
+  </ul>
 </nav>
 
-<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+<h2 id="localizacao">Localização</h2>
+<figure class="img-box-preview"><img src="conteudo/imagens/bomba-eletrica/01-localizacao-1.jpg" alt="Localização da bomba elétrica de combustível, vista 1" loading="lazy"><figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption></figure>
+<figure class="img-box-preview"><img src="conteudo/imagens/bomba-eletrica/02-localizacao-2.jpg" alt="Localização da bomba elétrica de combustível, vista 2" loading="lazy"><figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption></figure>
 
-<main class="container">
+<h2 id="funcionamento">Funcionamento</h2>
+<p>A bomba suga o combustível do tanque, passa pelo filtro e alimenta a bomba de engrenagens. É apenas uma bomba de transferência: em outros veículos, cuja bomba de alta pressão é o modelo Bosch CP3, essa bomba elétrica não é usada.</p>
+<p>O relé que alimenta a bomba (12 V) depende do relé principal e do negativo da ECM. Para testar problemas de tensão, verifique primeiro:</p>
+<ul>
+  <li>O fusível 25 (linha 15, pós-chave);</li>
+  <li>Os fusíveis 26 e 27, que alimentam a ECM.</li>
+</ul>
+<figure class="img-box-preview"><img src="conteudo/imagens/bomba-eletrica/03-funcionamento.jpg" alt="Esquema de funcionamento da bomba elétrica" loading="lazy"><figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption></figure>
 
-  <a href="../index.html" class="btn-voltar">← Voltar ao Início</a>
+<h2 id="problemas-comuns">Problemas comuns</h2>
 
-  <div class="card">
-    <h2>9. BICOS INJETORES (Common Rail Magnéticos)</h2>
-
-    <h3>9.1 Identificação e Localização</h3>
+<h3>Bomba elétrica não liga</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
     <ul>
-      <li><strong>Nome Técnico:</strong> Injetores de Combustível de Alta Pressão</li>
-      <li><strong>Localização:</strong> Cabeçote (1 por cilindro)</li>
-      <li><strong>Tipo:</strong> Solenoide de altíssima velocidade (predominantemente magnéticos Bosch)</li>
-      <li><strong>Código IMA:</strong> Gravação a laser no topo (5-9 caracteres). Obrigatório cadastrar na ECM ao substituir.</li>
+      <li>Motor de partida gira, mas o motor não liga;</li>
+      <li>Sem pressão de combustível no tubo Rail (<a href="#linha-combustivel/tubo-rail">como medir</a>).</li>
     </ul>
-
-    <h3>9.2 Funcionamento Elétrico</h3>
-    <p><strong>Alta Tensão:</strong> Disparo inicial de 50V-80V (capacitores da ECM), depois mantém em ~12V.</p>
-    <p><strong>Etapas:</strong> Pré-injeção, Injeção Principal, Pós-injeção.</p>
-
-    <h4>Fios (2 por injetor):</h4>
-    <ul>
-      <li><strong>Fio 1:</strong> Positivo de alta tensão (barramento comum)</li>
-      <li><strong>Fio 2:</strong> Comando negativo individual</li>
-    </ul>
-
-    <h3>9.3 Testes com Multímetro</h3>
-
-    <div class="alerta-perigo">
-      ⚠️ <strong>AVISO CRÍTICO:</strong> NUNCA medir tensão nos fios dos injetores com motor funcionando usando multímetro comum. O pico de 50-80V pode queimar o aparelho, o driver da ECM ou causar choque elétrico. Use apenas Osciloscópio ou Pinça Amperométrica.
-    </div>
-
-    <h4>Teste de Resistência (Estático)</h4>
-    <ul>
-      <li><strong>Escala:</strong> Ω em 200</li>
-      <li><strong>Condição:</strong> Motor desligado, conector desconectado</li>
-      <li><strong>Medição:</strong> Direto nos 2 pinos do bico</li>
-      <li><strong>Valor:</strong> 0,3 Ω a 0,7 Ω</li>
-    </ul>
-
-    <h4>Teste de Isolamento contra Massa</h4>
-    <ul>
-      <li><strong>Escala:</strong> 20kΩ ou 2MΩ</li>
-      <li><strong>Medição:</strong> Pino x Carcaça metálica</li>
-      <li><strong>Valor:</strong> Infinito (OL) — sem continuidade</li>
-    </ul>
-
-    <h3>9.4 Principais Defeitos</h3>
-    <ul>
-      <li><strong>Motor "Manco":</strong> Bobina queimada ou chicote ressecado sob tampa de válvulas.</li>
-      <li><strong>Retorno Excessivo:</strong> Desgaste da esfera de vedação interna. Motor não atinge 250 bar na partida.</li>
-      <li><strong>Batida de pino:</strong> Bico travado aberto por sujeira.</li>
-    </ul>
-
-    <h3>9.5 Códigos de Falha</h3>
-    <table>
-      <tr><th>Código</th><th>Descrição</th></tr>
-      <tr><td>P0201 a P0204</td><td>Falha no circuito do injetor (cil. 1 a 4)</td></tr>
-      <tr><td>P0300 / P0301</td><td>Falha de combustão/ignição</td></tr>
-    </table>
-
-    <h3>9.6 Diagnóstico e Solução</h3>
-    <ol>
-      <li>Verificar continuidade do chicote até a ECM</li>
-      <li>Teste de retorno com provetas (bico que encher rápido = culpado)</li>
-      <li>Envio para bancada EPS Bosch</li>
-      <li>Cadastrar código IMA via scanner após substituição</li>
-    </ol>
-
   </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Fusíveis ou relé queimados;</li>
+      <li>Falta de alimentação da ECM;</li>
+      <li>Bomba queimada ou travada.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Testar o relé principal e o relé da bomba elétrica;</li>
+      <li>Testar o fusível 25 (linha 15, pós-chave);</li>
+      <li>Testar os <a href="#sistema-eletrico/fusiveis-e-lampadas">fusíveis F25, F26, F27 e F28</a> da ECM;</li>
+      <li>Testar a tensão nos terminais da bomba.</li>
+    </ul>
+  </div>
+</div>
+<figure class="img-box-preview"><img src="conteudo/imagens/bomba-eletrica/04-bomba-nao-liga.jpg" alt="Teste da bomba elétrica que não liga" loading="lazy"><figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption></figure>
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Se a válvula MProp ou o sensor de pressão do Rail estiverem desconectados, a ECM não liga a bomba elétrica.</p>
+</div>
 
-</main>
+<h3>Entrada de ar no sistema</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Motor de partida gira, mas o motor não liga;</li>
+      <li>Bomba elétrica funcionando;</li>
+      <li>Sem pressão de combustível no tubo Rail (<a href="#linha-combustivel/tubo-rail">como medir</a>).</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li><a href="#linha-combustivel/tanque-filtro-mangueiras">Mangueiras</a> antes da bomba quebradas, deixando entrar ar;</li>
+      <li>Pescador do tanque entupido;</li>
+      <li>Abraçadeiras das mangueiras folgadas.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Verificar filtros, mangueiras e pescador;</li>
+      <li>Medir a amperagem de trabalho da bomba.</li>
+    </ul>
+  </div>
+</div>
+<figure class="img-box-preview"><img src="conteudo/imagens/bomba-eletrica/05-entrada-ar.jpg" alt="Entrada de ar no sistema de combustível" loading="lazy"><figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption></figure>
 
-<button class="topo" id="topo" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-<script src="../script.js"></script>
-</body>
-</html>
+<h3>Bomba elétrica fraca e com alta resistência</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Partida longa e perda de rendimento durante a aceleração;</li>
+      <li>Pressão de combustível no tubo Rail abaixo do esperado.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li><a href="#linha-combustivel/tanque-filtro-mangueiras">Mangueiras</a> antes da bomba deixando entrar ar;</li>
+      <li>Pescador do tanque entupido;</li>
+      <li>Filtro de combustível obstruído;</li>
+      <li>Bomba elétrica com excesso de sujeira.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Fazer a <a href="#" data-goto="desmontagem">limpeza da bomba</a>;</li>
+      <li>Substituí-la.</li>
+    </ul>
+  </div>
+</div>
+<p><b>Escovas travadas</b></p>
+<figure class="img-box-preview"><img src="conteudo/imagens/bomba-eletrica/06-escovas-travadas.jpg" alt="Escovas da bomba elétrica travadas" loading="lazy"><figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption></figure>
+<p><b>Escovas destravadas</b></p>
+<figure class="img-box-preview"><img src="conteudo/imagens/bomba-eletrica/07-escovas-destravadas.jpg" alt="Escovas da bomba elétrica destravadas" loading="lazy"><figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption></figure>
+
+<h3>Bomba elétrica liga com baixa vazão</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Perde rendimento durante a aceleração.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li><a href="#linha-combustivel/tanque-filtro-mangueiras">Mangueiras</a> antes da bomba deixando entrar ar;</li>
+      <li>Pescador do tanque entupido;</li>
+      <li>Filtro de combustível obstruído;</li>
+      <li>Bomba elétrica com excesso de sujeira.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Verificar filtros, mangueiras e pescador;</li>
+      <li>Verificar a vazão de combustível na mangueira de retorno do tanque;</li>
+      <li>Medir a resistência entre os terminais da bomba;</li>
+      <li>Medir a amperagem de trabalho da bomba;</li>
+      <li>Limpar a bomba.</li>
+    </ul>
+  </div>
+</div>
+<p>Se nada resolver, teste os outros componentes do sistema de injeção.</p>
+<div class="dica">
+  <strong>Como saber se a bomba está enviando combustível</strong>
+  <p>O jeito mais fácil é retirar a mangueira da bomba de alta no cofre do motor, ou a mangueira de retorno no tanque. A bomba elétrica pressuriza a linha de baixa sem restrição, então no retorno deve aparecer a pressão de trabalho da bomba.</p>
+</div>
+<p><b>Cofre do motor</b></p>
+<figure class="img-box-preview"><img src="conteudo/imagens/bomba-eletrica/18-vazao-cofre-motor.jpg" alt="Teste de vazão no cofre do motor" loading="lazy"><figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption></figure>
+<p><b>Tanque de combustível</b></p>
+<figure class="img-box-preview"><img src="conteudo/imagens/bomba-eletrica/19-vazao-tanque.jpg" alt="Teste de vazão no retorno do tanque de combustível" loading="lazy"><figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption></figure>
+
+<h2 id="desmontagem">Desmontagem e lavagem completa</h2>
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Este procedimento é “metiradosanha”. O certo é substituir a bomba elétrica.</p>
+</div>
+<p>Para fazer a manutenção, abra a bomba elétrica e lave com tíner ou outro solvente que dissolva as borras de óleo do biodiesel.</p>
+<figure class="img-box-preview"><img src="conteudo/imagens/bomba-eletrica/08-desmontagem-1.jpg" alt="Bomba elétrica aberta para lavagem, foto 1" loading="lazy"><figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption></figure>
+<figure class="img-box-preview"><img src="conteudo/imagens/bomba-eletrica/09-desmontagem-2.jpg" alt="Bomba elétrica aberta para lavagem, foto 2" loading="lazy"><figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption></figure>
+<div class="dica">
+  <strong>Filtro do fundo da bomba</strong>
+  <p>Dê atenção especial a ele. Se estiver sujo, continua obstruindo o fluxo de combustível: a resistência fica normal, mas a amperagem de trabalho fica alta por causa do esforço da bomba.</p>
+</div>
+<figure class="img-box-preview"><img src="conteudo/imagens/bomba-eletrica/10-filtro-fundo-1.jpg" alt="Filtro do fundo da bomba elétrica, foto 1" loading="lazy"><figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption></figure>
+<figure class="img-box-preview"><img src="conteudo/imagens/bomba-eletrica/11-filtro-fundo-2.jpg" alt="Filtro do fundo da bomba elétrica, foto 2" loading="lazy"><figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption></figure>
+
+<h2 id="montagem">Montagem da bomba elétrica</h2>
+<figure class="img-box-preview"><img src="conteudo/imagens/bomba-eletrica/12-montagem-encaixe.jpg" alt="Encaixe das duas partes da bomba elétrica" loading="lazy"><figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption></figure>
+<div class="aviso">
+  <strong>Cuidado</strong>
+  <p>As duas partes encaixam em qualquer posição, mas só uma delas funciona mecanicamente. A peça de alumínio fica marcada no ponto onde trabalhava: monte na mesma posição.</p>
+</div>
+<figure class="img-box-preview"><img src="conteudo/imagens/bomba-eletrica/13-montagem-escovas.jpg" alt="Montagem da parte das escovas" loading="lazy"><figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption></figure>
+<p>Montagem da parte das escovas. A bomba não tem parafusos para manter as partes unidas: só o tubo externo fixa as partes do motor.</p>
+<figure class="img-box-preview"><img src="conteudo/imagens/bomba-eletrica/14-montagem-copo-1.jpg" alt="Inserção do conjunto no copo da bomba, foto 1" loading="lazy"><figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption></figure>
+<figure class="img-box-preview"><img src="conteudo/imagens/bomba-eletrica/15-montagem-copo-2.jpg" alt="Inserção do conjunto no copo da bomba, foto 2" loading="lazy"><figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption></figure>
+<p>Depois de inserir no copo da bomba, rebata a parte que foi desamassada para abrir a bomba. Não ligue a bomba antes de fechar. Se quiser, use o multímetro para confirmar que a montagem está correta.</p>
+<p><b>Antes da limpeza</b></p>
+<figure class="img-box-preview"><img src="conteudo/imagens/bomba-eletrica/16-antes-limpeza.jpg" alt="Bomba elétrica antes da limpeza" loading="lazy"><figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption></figure>
+<p><b>Após a manutenção (limpeza)</b></p>
+<figure class="img-box-preview"><img src="conteudo/imagens/bomba-eletrica/17-apos-limpeza.jpg" alt="Bomba elétrica após a limpeza" loading="lazy"><figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption></figure>
