@@ -140,7 +140,10 @@ card.addEventListener('click', (e) => {
 });
 
 // ==========================================
-// BUSCA DA PÁGINA INICIAL (usa os links do menu)
+// BUSCA DA PÁGINA INICIAL
+// Procura nos títulos do menu e, se existir busca.json
+// (gerado por gerar_busca.py), também no texto das páginas
+// e nos códigos de falha (P0652, P0087...).
 // ==========================================
 const busca = document.getElementById('home-search');
 const resultados = document.getElementById('home-results');
@@ -150,13 +153,44 @@ if (busca) {
     href: a.getAttribute('href'),
     menu: a.closest('.nav-item').querySelector('.nav-btn span').textContent.trim()
   }));
+  const porHref = new Map(itens.map(i => [i.href, i]));
   const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-  busca.addEventListener('input', () => {
+  const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const bonito = s => s.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+
+  // busca.json é opcional: sem ele a busca continua só nos títulos
+  let indice = null;
+  const carregarIndice = () => indice ? Promise.resolve(indice) :
+    fetch('busca.json').then(r => r.ok ? r.json() : []).catch(() => []).then(j => (indice = j));
+  busca.addEventListener('focus', carregarIndice, { once: true });
+
+  let rodada = 0;
+  busca.addEventListener('input', async () => {
     const q = norm(busca.value.trim());
+    const minha = ++rodada;
     if (!q) { resultados.hidden = true; return; }
-    const achou = itens.filter(i => norm(i.nome).includes(q)).slice(0, 8);
+
+    const achados = new Map();   // href -> { nome, menu, href, n, cod }
+    itens.forEach(i => { if (norm(i.nome).includes(q)) achados.set(i.href, { ...i, n: 100 }); });
+
+    if (q.length >= 3) {
+      const dados = await carregarIndice();
+      if (minha !== rodada) return;          // o usuário já digitou outra coisa
+      dados.forEach(p => {
+        const exato = p.codigos.find(c => c.toLowerCase() === q);
+        const parcial = exato || p.codigos.find(c => c.toLowerCase().includes(q));
+        let n = exato ? 90 : parcial ? 60 : 0;
+        if (p.texto.includes(q)) n += 10;
+        if (!n) return;
+        const base = porHref.get(p.url) || { nome: p.titulo, href: p.url, menu: bonito(p.menu) };
+        const antigo = achados.get(p.url);
+        achados.set(p.url, { ...base, n: (antigo ? antigo.n : 0) + n, cod: exato || parcial || (antigo && antigo.cod) });
+      });
+    }
+
+    const achou = [...achados.values()].sort((a, b) => b.n - a.n).slice(0, 8);
     resultados.innerHTML = achou.length
-      ? achou.map(i => `<a href="${i.href}">${i.nome}<small>${i.menu}</small></a>`).join('')
+      ? achou.map(i => `<a href="${i.href}">${esc(i.nome)}<small>${i.cod ? 'Código ' + i.cod + ' · ' : ''}${esc(i.menu)}</small></a>`).join('')
       : '<p>Nada encontrado.</p>';
     resultados.hidden = false;
   });
