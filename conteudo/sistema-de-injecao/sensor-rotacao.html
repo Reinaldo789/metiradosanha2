@@ -3,102 +3,95 @@
   <h1>Sensor de Rotação (CKP)</h1>
 </header>
 
-<!-- CSS DO ÍNDICE (Padrão Bicos Injetores) -->
+<!-- CSS DO ÍNDICE (Padrão Bicos Injetores com isolamento de estilo) -->
 <style>
   .toc-custom {
-    background-color: #fffaf2; /* Fundo bege bem clarinho */
-    border-left: 5px solid #f59e0b; /* Barra laranja na esquerda */
-    border-radius: 8px;
-    padding: 1.5rem 2rem;
-    margin: 1.5rem 0 2.5rem 0;
-    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background-color: #fffaf2 !important;
+    border-left: 5px solid #f59e0b !important;
+    border-radius: 8px !important;
+    padding: 1.5rem 2rem !important;
+    margin: 1.5rem 0 2.5rem 0 !important;
+    font-family: 'Inter', 'Segoe UI', sans-serif !important;
   }
 
-  .toc-custom strong {
-    display: block;
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: #b45309; /* Marrom/Laranja escuro */
-    margin-bottom: 1rem;
+  .toc-custom > strong {
+    display: block !important;
+    font-size: 1.1rem !important;
+    font-weight: 800 !important;
+    color: #b45309 !important;
+    margin-bottom: 1rem !important;
   }
 
   .toc-custom ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
-  /* Itens Principais */
   .toc-custom > ul > li {
-    position: relative;
-    padding-left: 1.2rem;
-    margin-bottom: 0.6rem;
-    line-height: 1.5;
+    position: relative !important;
+    padding-left: 1.2rem !important;
+    margin-bottom: 0.6rem !important;
+    line-height: 1.5 !important;
   }
 
-  /* Bolinha Azul dos itens principais */
   .toc-custom > ul > li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #3b82f6; /* Azul */
-    font-size: 1.6rem;
-    line-height: 0;
+    content: '•' !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    color: #3b82f6 !important;
+    font-size: 1.6rem !important;
+    line-height: 0 !important;
   }
 
-  /* Links */
   .toc-custom a {
-    text-decoration: none;
-    color: #3b82f6; /* Azul dos links */
-    font-size: 0.95rem;
-    font-weight: 500;
-    transition: color 0.2s ease;
+    text-decoration: none !important;
+    color: #3b82f6 !important;
+    font-size: 0.95rem !important;
+    font-weight: 500 !important;
+    transition: color 0.2s ease !important;
+    display: inline-block !important;
   }
 
   .toc-custom a:hover {
-    color: #2563eb;
-    text-decoration: underline;
+    color: #2563eb !important;
+    text-decoration: underline !important;
   }
 
-  /* ==========================================
-     SUBCATEGORIAS (Recuadas com bolinha vazada)
-     ========================================== */
-  .sub-toc-custom {
+  .toc-custom .sub-toc-custom {
     margin-top: 0.3rem !important;
     padding-left: 0 !important;
   }
 
-  .sub-toc-custom li {
-    position: relative;
-    padding-left: 1rem;
-    margin-bottom: 0.3rem;
+  .toc-custom .sub-toc-custom li {
+    position: relative !important;
+    padding-left: 1rem !important;
+    margin-bottom: 0.3rem !important;
   }
 
-  /* Círculo vazado azul claro para os sub-itens */
-  .sub-toc-custom li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 6px;
-    height: 6px;
-    border: 1.5px solid #93c5fd; /* Azul claro */
-    border-radius: 50%;
-    background: transparent;
+  .toc-custom .sub-toc-custom li::before {
+    content: '' !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 6px !important;
+    height: 6px !important;
+    border: 1.5px solid #93c5fd !important;
+    border-radius: 50% !important;
+    background: transparent !important;
   }
 
-  .sub-toc-custom a {
-    font-size: 0.9rem;
-    color: #60a5fa; /* Azul mais claro */
-    font-weight: 400;
+  .toc-custom .sub-toc-custom a {
+    font-size: 0.9rem !important;
+    color: #60a5fa !important;
+    font-weight: 400 !important;
   }
   
-  /* Respiro para o menu fixo */
   h2[id], h3[id] {
-    scroll-margin-top: 100px;
+    scroll-margin-top: 100px !important;
   }
 </style>
 
