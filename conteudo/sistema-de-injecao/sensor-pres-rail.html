@@ -59,140 +59,121 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
 <h3 id="teste-multimetro">Testes com multímetro</h3>
 <p>Tensão no pino 02 (sinal), por condição do motor:</p>
 
-<!-- Cards existentes -->
-<div class="specs">
-  <div class="spec"><b>~0,5 V</b><span>Chave ligada (~0 bar)</span></div>
-  <div class="spec"><b>~1,2 V</b><span>Partida (250 a 350 bar)</span></div>
-  <div class="spec"><b>~1,3 V</b><span>Marcha lenta (300 a 400 bar)</span></div>
-  <div class="spec"><b>~3 V</b><span>Aceleração média (1000 bar)</span></div>
-  <div class="spec"><b>~4,5 V</b><span>Aceleração alta (1600 bar)</span></div>
+<style>
+  .grafico-barras-v {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 350px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 20px 15px 0 15px;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    /* Linhas de fundo para facilitar a leitura */
+    background-image: linear-gradient(to top, #e9ecef 1px, transparent 1px);
+    background-size: 100% 20%; /* Divide em 5 blocos (0, 1.2, 2.4, 3.6, 4.8) */
+  }
+
+  .coluna-barra {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    width: 18%;
+    height: 100%;
+  }
+
+  .barra {
+    width: 100%;
+    background: linear-gradient(to top, #2C5F8A, #4A90D9);
+    border-radius: 6px 6px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 8px;
+    color: white;
+    font-weight: bold;
+    font-size: 13px;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  .rotulo-condicao {
+    font-size: 12px;
+    color: #333;
+    text-align: center;
+    margin-top: 10px;
+    height: 45px; /* Altura fixa para alinhar os textos */
+    line-height: 1.2;
+  }
+
+  .rotulo-pressao {
+    font-size: 11px;
+    color: #666;
+    text-align: center;
+  }
+
+  /* Responsividade para telas pequenas (celular) */
+  @media (max-width: 600px) {
+    .rotulo-condicao { font-size: 10px; height: 50px; }
+    .rotulo-pressao { font-size: 9px; }
+    .barra { font-size: 11px; padding-top: 4px; }
+    .grafico-barras-v { padding: 15px 5px 0 5px; }
+  }
+</style>
+
+<div class="grafico-barras-v">
+  <!-- Escala base: 4,5V = 100% de altura -->
+  
+  <div class="coluna-barra">
+    <!-- (0.5 / 4.5) * 100 = 11.1% -->
+    <div class="barra" style="height: 11.1%;">0,5V</div>
+    <div class="rotulo-condicao">
+      Chave ligada<br>
+      <span class="rotulo-pressao">(~0 bar)</span>
+    </div>
+  </div>
+
+  <div class="coluna-barra">
+    <!-- (1.2 / 4.5) * 100 = 26.7% -->
+    <div class="barra" style="height: 26.7%;">1,2V</div>
+    <div class="rotulo-condicao">
+      Partida<br>
+      <span class="rotulo-pressao">(250-350 bar)</span>
+    </div>
+  </div>
+
+  <div class="coluna-barra">
+    <!-- (1.3 / 4.5) * 100 = 28.9% -->
+    <div class="barra" style="height: 28.9%;">1,3V</div>
+    <div class="rotulo-condicao">
+      Marcha lenta<br>
+      <span class="rotulo-pressao">(300-400 bar)</span>
+    </div>
+  </div>
+
+  <div class="coluna-barra">
+    <!-- (3.0 / 4.5) * 100 = 66.7% -->
+    <div class="barra" style="height: 66.7%;">3,0V</div>
+    <div class="rotulo-condicao">
+      Acel. média<br>
+      <span class="rotulo-pressao">(~1000 bar)</span>
+    </div>
+  </div>
+
+  <div class="coluna-barra">
+    <!-- (4.5 / 4.5) * 100 = 100% -->
+    <div class="barra" style="height: 100%;">4,5V</div>
+    <div class="rotulo-condicao">
+      Acel. alta<br>
+      <span class="rotulo-pressao">(~1600 bar)</span>
+    </div>
+  </div>
+
 </div>
-
-<!-- Gráfico isolado (estilos inline para não conflitar com o CSS do site) -->
-<div id="grafico-rail-wrap" style="position: relative; width: 100%; height: 380px; margin: 25px 0; padding: 15px; box-sizing: border-box; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); overflow: hidden;">
-    <canvas id="graficoRail" style="display: block; width: 100% !important; height: 100% !important;"></canvas>
-</div>
-
-<!-- Chart.js + script (no final do body, com verificação de carregamento) -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<script>
-(function() {
-    function iniciarGrafico() {
-        const canvas = document.getElementById('graficoRail');
-        if (!canvas) return;
-
-        // Se já existe um gráfico neste canvas, destrói antes de recriar
-        if (canvas._chartInstance) {
-            canvas._chartInstance.destroy();
-        }
-
-        const ctx = canvas.getContext('2d');
-
-        const labels = [
-            'Chave ligada\n(~0 bar)',
-            'Partida\n(250–350 bar)',
-            'Marcha lenta\n(300–400 bar)',
-            'Aceleração média\n(1000 bar)',
-            'Aceleração alta\n(1600 bar)'
-        ];
-        const tensao = [0.5, 1.2, 1.3, 3.0, 4.5];
-        const pressao = [0, 300, 350, 1000, 1600];
-
-        const gradiente = ctx.createLinearGradient(0, 0, 0, 380);
-        gradiente.addColorStop(0, '#4A90D9');
-        gradiente.addColorStop(1, '#2C5F8A');
-
-        canvas._chartInstance = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Tensão no pino 02 (V)',
-                        data: tensao,
-                        backgroundColor: gradiente,
-                        borderColor: '#2C5F8A',
-                        borderWidth: 1.5,
-                        borderRadius: 6,
-                        barPercentage: 0.6,
-                        yAxisID: 'y',
-                        order: 2
-                    },
-                    {
-                        type: 'line',
-                        label: 'Pressão no rail (bar)',
-                        data: pressao,
-                        borderColor: '#E74C3C',
-                        backgroundColor: 'rgba(231,76,60,0.1)',
-                        borderWidth: 3,
-                        pointBackgroundColor: '#fff',
-                        pointBorderColor: '#E74C3C',
-                        pointBorderWidth: 3,
-                        pointRadius: 6,
-                        tension: 0.3,
-                        fill: false,
-                        yAxisID: 'y1',
-                        order: 1
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                animation: { duration: 600 },
-                interaction: { mode: 'index', intersect: false },
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        labels: { font: { size: 12, weight: 'bold' }, padding: 15, usePointStyle: true }
-                    },
-                    tooltip: {
-                        backgroundColor: 'rgba(26,26,46,0.95)',
-                        padding: 10,
-                        cornerRadius: 6,
-                        callbacks: {
-                            label: function(ctx) {
-                                if (ctx.dataset.label.includes('Tensão')) return ` Tensão: ${ctx.parsed.y.toFixed(1)} V`;
-                                return ` Pressão: ${ctx.parsed.y} bar`;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    x: { grid: { display: false }, ticks: { font: { size: 10 }, maxRotation: 0 } },
-                    y: {
-                        position: 'left', beginAtZero: true, max: 5.5,
-                        title: { display: true, text: 'Tensão (V)', color: '#2C5F8A', font: { size: 12, weight: 'bold' } },
-                        ticks: { color: '#2C5F8A', font: { size: 10 }, callback: v => v + ' V' },
-                        grid: { color: 'rgba(0,0,0,0.06)' }
-                    },
-                    y1: {
-                        position: 'right', beginAtZero: true, max: 1800,
-                        title: { display: true, text: 'Pressão (bar)', color: '#E74C3C', font: { size: 12, weight: 'bold' } },
-                        ticks: { color: '#E74C3C', font: { size: 10 }, callback: v => v + ' bar' },
-                        grid: { drawOnChartArea: false }
-                    }
-                }
-            }
-        });
-    }
-
-    // Aguarda o DOM e o Chart.js estarem prontos
-    function tentarIniciar() {
-        if (typeof Chart !== 'undefined') {
-            iniciarGrafico();
-        } else {
-            setTimeout(tentarIniciar, 200);
-        }
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', tentarIniciar);
-    } else {
-        tentarIniciar();
-    }
-})();
-</script>
 
 <ul>
   <li>Teste a alimentação de 5 V entre os pinos 1 e 3, de preferência com o chicote conectado ao sensor;</li>
