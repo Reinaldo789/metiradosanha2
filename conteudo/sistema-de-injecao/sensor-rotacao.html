@@ -3,17 +3,134 @@
   <h1>Sensor de Rotação (CKP)</h1>
 </header>
 
-<nav class="toc" aria-label="Neste artigo">
+<!-- ESTILO DO ÍNDICE (FIEL À IMAGEM) -->
+<style>
+  .indice-limpo {
+    background-color: #f4f7fb;
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    margin: 1.5rem 0 2.5rem 0;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+  }
+
+  .indice-limpo strong {
+    display: block;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #1a202c;
+    margin-bottom: 1rem;
+  }
+
+  .indice-limpo ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Itens principais */
+  .indice-limpo > ul > li {
+    position: relative;
+    padding-left: 1.2rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.5;
+  }
+
+  /* Bolinha roxa dos itens principais */
+  .indice-limpo > ul > li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #4f46e5;
+    font-size: 1.6rem;
+    line-height: 0;
+  }
+
+  /* Links */
+  .indice-limpo a {
+    text-decoration: none;
+    color: #334155;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+    cursor: pointer;
+  }
+
+  .indice-limpo a:hover {
+    color: #4f46e5;
+    text-decoration: underline;
+  }
+
+  /* ==========================================
+     SUBCATEGORIAS (Mesmo estilo, mas recuado)
+     ========================================== */
+  .indice-sub-limpo {
+    margin-top: 0.4rem !important;
+    padding-left: 0 !important;
+  }
+
+  .indice-sub-limpo li {
+    position: relative;
+    padding-left: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  /* Bolinha menor para os sub-itens */
+  .indice-sub-limpo li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 1.2rem;
+    line-height: 0;
+  }
+
+  .indice-sub-limpo a {
+    font-size: 0.88rem;
+    color: #64748b;
+  }
+
+  /* Respiro para o menu fixo não cobrir os títulos ao clicar */
+  h2[id], h3[id] {
+    scroll-margin-top: 100px;
+  }
+</style>
+
+<!-- ESTRUTURA DO ÍNDICE -->
+<div class="indice-limpo">
   <strong>Neste artigo</strong>
   <ul>
     <li><a href="#" data-goto="localizacao">Localização</a></li>
+    
     <li><a href="#" data-goto="funcionamento">Funcionamento</a></li>
-    <li><a href="#" data-goto="parte-eletrica">Parte elétrica e testes</a></li>
-    <li><a href="#" data-goto="testes-ac">Testes em corrente alternada</a></li>
-    <li><a href="#" data-goto="problemas-comuns">Problemas comuns</a></li>
+    
+    <li>
+      <a href="#" data-goto="parte-eletrica">Parte elétrica e testes</a>
+      <ul class="indice-sub-limpo">
+        <li><a href="#" data-goto="teste-resistencia">Teste de resistência</a></li>
+        <li><a href="#" data-goto="testes-ac">Testes em corrente alternada</a></li>
+        <li><a href="#" data-goto="diagnostico-chicote">Diagnóstico de chicote vs. componente</a></li>
+      </ul>
+    </li>
+    
+    <li>
+      <a href="#" data-goto="problemas-comuns">Problemas comuns</a>
+      <ul class="indice-sub-limpo">
+        <li><a href="#" data-goto="motor-gira-nao-pega">Motor gira mas não pega</a></li>
+        <li><a href="#" data-goto="motor-apaga-aquece">Motor apaga quando aquece</a></li>
+      </ul>
+    </li>
+    
     <li><a href="#" data-goto="codigos-de-falha">Códigos de falha</a></li>
   </ul>
-</nav>
+</div>
+
+<!-- ==========================================
+     CONTEÚDO DO ARTIGO
+     ========================================== -->
 
 <h2 id="localizacao">Localização</h2>
 <figure class="img-box-preview">
@@ -31,8 +148,9 @@
   <li>A falha de dois dentes na roda serve como <b>ponto de referência</b> do pistão;</li>
   <li>Frequência e amplitude aumentam proporcionalmente à rotação.</li>
 </ul>
-<figure>
+<figure class="img-box-preview">
   <img src="conteudo/imagens/sensor-ckp/02-funcionamento.jpg" alt="Funcionamento do sensor indutivo" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
 </figure>
 <p>O sinal chega à ECM em forma de <b>onda senoidal</b> (V AC). Esse é o único sensor do motor que o mecânico <b>precisa obrigatoriamente</b> mudar o multímetro para a escala de alternada (V AC) para ler o sinal real.</p>
 
@@ -61,7 +179,7 @@
   <p>Se a resistência passar de 1.300 Ω ou der circuito aberto (OL) com o motor quente, o motor apaga sozinho e só volta a pegar quando esfriar. É o defeito térmico clássico.</p>
 </div>
 
-<h2 id="testes-ac">Testes em corrente alternada</h2>
+<h3 id="testes-ac">Testes em corrente alternada</h3>
 <p>Aqui você <b>DEVE</b> mudar o multímetro para <b>Tensão Alternada (V AC / V~)</b>. Insira duas agulhas por trás do conector (backprobing) nos fios dos pinos 1 e 2 — a cor das pontas não importa, pois a corrente alternada não tem polaridade fixa.</p>
 
 <div class="specs">
@@ -83,7 +201,7 @@
 
 <h2 id="problemas-comuns">Problemas comuns</h2>
 
-<h3>Motor gira mas não pega</h3>
+<h3 id="motor-gira-nao-pega">Motor gira mas não pega</h3>
 <div class="trio">
   <div>
     <h4>Sintomas</h4>
@@ -113,7 +231,7 @@
   </div>
 </div>
 
-<h3>Motor apaga quando aquece</h3>
+<h3 id="motor-apaga-aquece">Motor apaga quando aquece</h3>
 <div class="trio">
   <div>
     <h4>Sintomas</h4>
