@@ -8,7 +8,6 @@
   <ul>
     <li><a href="#" data-goto="localizacao-funcionamento">Localização e Funcionamento</a></li>
     <li><a href="#" data-goto="codigos-de-falha">Mapeamento de Códigos (OBD-II)</a></li>
-    
     <li><a href="#" data-goto="tabela-ntc">Tabela de Resistência e Tensão (Curva NTC)</a></li>
     <li><a href="#" data-goto="pinagem">Mapeamento de Pinagem (Sensor x ECU)</a></li>
     
@@ -28,6 +27,13 @@
 
 <h2 id="localizacao-funcionamento">Localização Física e Estratégia de Funcionamento</h2>
 <p>O sensor de temperatura do líquido de arrefecimento (código Bosch de referência <b>0281002209</b>) está rosqueado diretamente no bloco do motor, posicionado na parte frontal, próximo à carcaça da válvula termostática.</p>
+
+<!-- IMAGEM: Localização do sensor no bloco -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/sensor-temp-agua/01-localizacao.jpg" alt="Localização do sensor de temperatura da água no bloco do motor" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
 <p>A central de injeção (ECU) utiliza esse componente (um resistor do tipo <b>NTC - Coeficiente de Temperatura Negativo</b>) para monitorar a variação térmica do bloco. A central envia uma tensão estável de 5,0V e mede a queda de tensão provocada pela variação da resistência interna do sensor.</p>
 
 <div class="aviso">
@@ -110,6 +116,12 @@
 <p>Para testar a fiação contra curto-circuito, alta resistência ou interrupção, o teste de continuidade (resistência do fio) deve ser feito da tomada do sensor até o conector correspondente da central de injeção.</p>
 <p>No sistema do motor MWM 4.07, os fios do sensor de temperatura correm diretamente para o <b>Conector A ("Motor") da ECU</b>:</p>
 
+<!-- IMAGEM: Conector e pinos do sensor -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/sensor-temp-agua/02-conector-pinos.jpg" alt="Conector e pinagem do sensor de temperatura da água" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
 <div class="specs">
   <div class="spec"><b>Sensor Pino 1</b><span>Alimentação 5V/Sinal → <b>ECU Pino A05</b> (Entrada de Sinal)</span></div>
   <div class="spec"><b>Sensor Pino 2</b><span>Massa/Aterramento → <b>ECU Pino A22</b> (Terra dos Sensores)</span></div>
@@ -133,12 +145,30 @@
 <p>Desconecte a tomada do sensor. Ligue a chave de ignição. Meça a tensão elétrica no conector do chicote elétrico (fio que vai para o pino A05 da ECU contra o terra do chassi).</p>
 <p>O multímetro deve registrar <b>5,0 Volts cravados</b>. Se marcar 0V, há interrupção na linha ou falha interna na ECU.</p>
 
+<!-- IMAGEM: Teste de tensão no conector do chicote com multímetro -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/sensor-temp-agua/03-teste-multimetro.jpg" alt="Teste de tensão de referência de 5V no conector do chicote" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
 <h3 id="passo-3">3. Teste Estático do Componente (Sensor)</h3>
 <p>Com o sensor desconectado, meça a resistência diretamente nos seus dois pinos metálicos.</p>
 <ul>
   <li>Se o motor estiver frio (temperatura de oficina de ~20°C), o valor deve estar em torno de <b>2,5 kΩ</b>;</li>
   <li>Coloque o sensor em um recipiente com água quente: a resistência deve cair de forma <b>limpa e progressiva</b>, sem saltos, até atingir cerca de <b>300 Ω</b> perto dos 80°C.</li>
 </ul>
+
+<!-- IMAGEM: Teste de resistência (Ohmímetro) nos terminais do sensor -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/sensor-temp-agua/04-teste-resistencia.jpg" alt="Teste de resistência elétrica nos terminais do sensor NTC" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<!-- IMAGEM: Teste do sensor imerso em água quente para verificar variação -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/sensor-temp-agua/05-teste-aquecimento.jpg" alt="Teste de variação de resistência do sensor com aquecimento em água" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
 
 <div class="aviso">
   <strong>Atenção</strong>
