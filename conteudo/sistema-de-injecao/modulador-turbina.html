@@ -1,103 +1,74 @@
-<!-- Modulador da Turbina. Imagens: salve em conteudo/imagens/modulador-turbina/ com estes nomes:
-01-localizacao.jpg    Localização do modulador
-02-eletrica.jpg       Parte elétrica: conector e fios
-Links entre páginas: confirme os caminhos (#sistema-de-injecao/...). -->
+<!-- Atuador do Turboalimentador com falha (luz acesa) - MWM Sprint 2.8 -->
 <header class="art-head">
-  <h1>Modulador da Turbina</h1>
+  <span class="art-kicker">Sistema de Injeção · Diagnóstico</span>
+  <h1>Atuador do Turboalimentador (Modulador)</h1>
+  <p class="art-lead">Fluxograma de diagnóstico com a luz amarela acesa: responda Sim ou Não em cada passo até chegar à solução.</p>
+  <div class="chips"><span>MWM Sprint 2.8</span><span>S10 até 2011</span><span>P0243 · P0244 · P0245 · P0246</span></div>
 </header>
 
 <nav class="toc" aria-label="Neste artigo">
   <strong>Neste artigo</strong>
   <ul>
-    <li><a href="#" data-goto="localizacao">Localização</a></li>
-    <li><a href="#" data-goto="funcionamento">Funcionamento</a></li>
-    <li><a href="#" data-goto="parte-eletrica">Parte elétrica</a></li>
-    <li><a href="#" data-goto="problemas-comuns">Problemas comuns</a></li>
+    <li><a href="#" data-goto="fluxo">Fluxograma</a></li>
+    <li><a href="#" data-goto="valores">Valores e pinos</a>
+      <ul>
+        <li><a href="#" data-goto="pinos-do-atuador-e-do-ecm">Pinos do atuador e do ECM</a></li>
+      </ul>
+    </li>
+    <li><a href="#" data-goto="solucoes">Soluções comuns</a></li>
+    <li><a href="#" data-goto="codigos">Códigos relacionados</a></li>
   </ul>
 </nav>
 
-<p>Modulador do turboalimentador: válvula Pierburg.</p>
+<p>Use este roteiro quando a diagnose registrar P0243 (sinal perdido), P0244 (temperatura elevada no CI), P0245 (tensão baixa) ou P0246 (tensão alta). Sem o atuador, a pressão do turbo fica limitada e o motor perde potência.</p>
 
-<h2 id="localizacao">Localização</h2>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/modulador-turbina/01-localizacao.jpg" alt="Localização do modulador da turbina" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
+<div class="aviso"><strong>Atenção</strong><p>O atuador do turbo é uma válvula eletromagnética que controla a passagem de vácuo para a waste-gate. É comandada pelo ECM e ajusta a pressão do ar na admissão.</p></div>
 
-<h2 id="funcionamento">Funcionamento</h2>
+<h2 id="fluxo">Fluxograma</h2>
+<div class="fluxo">
+  <div class="passo" id="p1"><span class="passo-n">Passo 1</span><p><strong>A ferramenta registrou P0243, P0244, P0245 ou P0246?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p2">Sim</button><button type="button" class="nao" data-ir="r1">Não</button></div></div>
+  <div class="passo fim acao" id="r1"><span class="passo-n">Outro código</span><p>Siga o fluxograma do código apresentado.</p></div>
+  <div class="passo" id="p2"><span class="passo-n">Passo 2</span><p>Desligue o conector do atuador do turbo. Ligue o contato, sem dar partida, e meça a tensão entre o negativo da bateria e o pino <strong>1</strong> do conector do atuador. <strong>O valor é igual à tensão da bateria?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p3">Sim</button><button type="button" class="nao" data-ir="r2">Não</button></div></div>
+  <div class="passo fim erro" id="r2"><span class="passo-n">Alimentação incorreta</span><ul><li>Meça a continuidade do fusível F29 e do pino 1 do atuador à base do fusível. Valores devem ser menores que 1 Ω;</li><li>Verifique tensão e terminais da bateria;</li><li>Providencie reparos e refaça o teste.</li></ul></div>
+  <div class="passo" id="p3"><span class="passo-n">Passo 3</span><p>Instale um frequentímetro entre o negativo da bateria e o pino <strong>2</strong> do conector do atuador. Ligue o contato sem dar partida. <strong>O valor está entre 300 Hz e 310 Hz?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p4">Sim</button><button type="button" class="nao" data-ir="r3">Não</button></div></div>
+  <div class="passo fim erro" id="r3"><span class="passo-n">Chicote interrompido</span><ul><li>Meça a continuidade do chicote entre o pino 2 do atuador e o pino A15 do conector do ECM (menor que 1 Ω);</li><li>Se o valor estiver OK, verifique alimentação elétrica do ECM;</li><li>Se o chicote estiver OK e a falha persistir, substitua o ECM.</li></ul></div>
+  <div class="passo" id="p4"><span class="passo-n">Passo 4</span><p>Meça a resistência do atuador do turbo entre os pinos 1 e 2. <strong>O valor está entre 14 Ω e 17 Ω?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r4">Sim</button><button type="button" class="nao" data-ir="r5">Não</button></div></div>
+  <div class="passo fim ok" id="r4"><span class="passo-n">Atuador OK</span><ul><li>Verifique mau contato ou oxidações nos conectores;</li><li>Apague os códigos de falha e refaça o teste;</li><li>Se não houver mais falhas, libere o veículo.</li></ul></div>
+  <div class="passo fim erro" id="r5"><span class="passo-n">Substituir atuador</span><ul><li>Substitua o atuador do turboalimentador;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+</div>
+
+<h2 id="valores">Valores e pinos</h2>
+<table><tr><th>Teste</th><th>Valor esperado</th></tr>
+<tr><td>Alimentação do atuador (pino 1)</td><td>tensão da bateria</td></tr>
+<tr><td>Frequência do sinal PWM (pino 2)</td><td>300 Hz a 310 Hz</td></tr>
+<tr><td>Resistência do atuador (pinos 1-2)</td><td>14 Ω a 17 Ω</td></tr>
+<tr><td>Fusível F29</td><td>menor que 1 Ω</td></tr></table>
+
+<h3 id="pinos-do-atuador-e-do-ecm">Pinos do atuador e do ECM</h3>
+<table><tr><th>Pino do atuador</th><th>Pino do ECM / Origem</th><th>Função</th></tr>
+<tr><td>1</td><td>Pino 87 do relé principal (via F29)</td><td>Alimentação positiva</td></tr>
+<tr><td>2</td><td>A15</td><td>Sinal PWM de controle</td></tr></table>
+
+<div class="dica"><strong>Função do atuador</strong><p>Controla a válvula waste-gate do turbo. O ECM varia a largura de pulso (PWM) para regular a pressão do ar admitido, evitando excesso de pressão na admissão.</p></div>
+
+<h2 id="solucoes">Soluções comuns</h2>
 <ul>
-  <li>É uma válvula eletromagnética que libera ou bloqueia a passagem de vácuo para a válvula waste-gate do turbocompressor;</li>
-  <li>Controlada pela ECM, ajusta eletronicamente a pressão de ar no coletor de admissão.</li>
+<li><strong>Conector com oxidação:</strong> limpe e reapente os terminais;</li>
+<li><strong>Fusível F29 queimado:</strong> substitua e refaça o teste;</li>
+<li><strong>Mangueiras de vácuo soltas ou rasgadas:</strong> verifique as conexões entre atuador, waste-gate e bomba de vácuo;</li>
+<li><strong>Bomba tandem (gerador de vácuo) com desgaste:</strong> teste a pressão negativa;</li>
+<li><strong>Atuador com resistência fora do especificado:</strong> substitua o atuador;</li>
+<li><strong>ECM com defeito:</strong> se chicote e atuador estiverem OK e a falha persistir, substitua o ECM.</li>
 </ul>
 
-<h2 id="parte-eletrica">Parte elétrica</h2>
-<div class="specs">
-  <div class="spec"><b>12 V</b><span>Fio vermelho (positivo)</span></div>
-  <div class="spec"><b>PWM</b><span>Fio branco (negativo, comando da ECM)</span></div>
-  <div class="spec"><b>16 Ω</b><span>Resistência da bobina</span></div>
-</div>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/modulador-turbina/02-eletrica.jpg" alt="Conector e fios do modulador da turbina" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<h2 id="problemas-comuns">Problemas comuns</h2>
-
-<h3>Mangueira do coletor estourando</h3>
-<div class="trio">
-  <div>
-    <h4>Sintomas</h4>
-    <ul>
-      <li>Em altas rotações a mangueira estoura;</li>
-      <li>O motor acende a luz de injeção e entra em modo de segurança.</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Possíveis causas</h4>
-    <ul>
-      <li>Mangueira de vácuo que vai para o modulador furada;</li>
-      <li>Mangueira ligada no lugar errado no modulador;</li>
-      <li>Waste-gate da turbina travando ou desregulada.</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Possíveis soluções</h4>
-    <ul>
-      <li>Testar se há vácuo na mangueira do modulador;</li>
-      <li>Verificar o movimento da waste-gate durante a aceleração;</li>
-      <li>Testar a tensão do <a href="#sistema-de-injecao/sensor-pres-adm">sensor de pressão do coletor de admissão</a>.</li>
-    </ul>
-  </div>
-</div>
-
-<h3>Aceleração limitada em cerca de 2.400 rpm</h3>
-<div class="trio">
-  <div>
-    <h4>Sintomas</h4>
-    <ul>
-      <li>A aceleração não passa de aproximadamente 2.400 rpm;</li>
-      <li>Motor castanholando no início da aceleração;</li>
-      <li>Fumaça preta no escapamento.</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Possíveis causas</h4>
-    <ul>
-      <li>Conector da válvula moduladora com mau contato;</li>
-      <li>Bobina da válvula moduladora aberta (medir a resistência).</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Possíveis soluções</h4>
-    <ul>
-      <li>Limpar os terminais dos conectores;</li>
-      <li>Medir a resistência da bobina: 16 Ω;</li>
-      <li>Com a ignição ligada e o conector plugado no modulador, verificar se há tensão de bateria nos dois terminais.</li>
-    </ul>
-  </div>
-</div>
-<div class="aviso">
-  <strong>Atenção</strong>
-  <p>Os sintomas são parecidos com os da <a href="#sistema-de-injecao/valvula-mprop">válvula MProp</a> travada aberta. Na marcha lenta, a tensão no <a href="#sistema-de-injecao/sensor-pres-rail">sensor do Rail</a> fica em torno de 1,6 V (pressão alta).</p>
-  <p>Ao testar a tensão, deve haver 12 V nos dois terminais: um é o positivo pós-chave e o outro é o retorno que passa pela bobina do modulador.</p>
-</div>
+<h2 id="codigos">Códigos relacionados</h2>
+<ul>
+<li><strong>P0243</strong>: Sinal do atuador perdido — válvula em 50%;</li>
+<li><strong>P0244</strong>: Temperatura elevada no CI do atuador — válvula em 50%;</li>
+<li><strong>P0245</strong>: Tensão baixa no atuador — válvula em 50%;</li>
+<li><strong>P0246</strong>: Tensão alta no atuador — válvula em 50%.</li>
+</ul>

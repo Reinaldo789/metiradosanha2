@@ -13,10 +13,29 @@
   <ul>
     <li><a href="#" data-goto="localizacao">Localização</a></li>
     <li><a href="#" data-goto="funcionamento">Funcionamento</a></li>
-    <li><a href="#" data-goto="parte-eletrica">Parte elétrica e testes</a></li>
-    <li><a href="#" data-goto="estrutura-mecanica">Estrutura mecânica</a></li>
+    <li><a href="#" data-goto="parte-eletrica">Parte elétrica e testes</a>
+      <ul>
+        <li><a href="#" data-goto="teste-tensao-multimetro">Teste de tensão com multímetro</a></li>
+        <li><a href="#" data-goto="teste-tensao-caneta">Teste de tensão com caneta de polaridade</a></li>
+        <li><a href="#" data-goto="teste-resistencia">Teste de resistência com multímetro</a></li>
+      </ul>
+    </li>
+    <li><a href="#" data-goto="estrutura-mecanica">Estrutura mecânica</a>
+      <ul>
+        <li><a href="#" data-goto="teste-mecanico">Teste mecânico</a></li>
+      </ul>
+    </li>
     <li><a href="#" data-goto="problemas-combustivel">Problema combustível</a></li>
-    <li><a href="#" data-goto="problemas-comuns">Problemas comuns</a></li>
+    <li><a href="#" data-goto="problemas-comuns">Problemas comuns</a>
+      <ul>
+        <li><a href="#" data-goto="problemas-eletricos">Problemas elétricos</a></li>
+        <li><a href="#" data-goto="sem-pressao-rail">Sem pressão de combustível no tubo Rail</a></li>
+        <li><a href="#" data-goto="alta-pressao-rail">Alta pressão de combustível no tubo Rail</a></li>
+        <li><a href="#" data-goto="testes-com-multimetro">Testes com multímetro</a></li>
+        <li><a href="#" data-goto="testes-com-scanner">Testes com scanner</a></li>
+        <li><a href="#" data-goto="procedimento-metiradosanha">Procedimento "metiradosanha"</a></li>
+      </ul>
+    </li>
     <li><a href="#" data-goto="codigos-de-falha">Códigos de falha</a></li>
   </ul>
 </nav>
@@ -342,7 +361,7 @@
   <p>Problemas no sensor do Rail e na MProp confundem muito, pois um depende do outro. Repare se há excesso de fumaça preta no escapamento: isso indica excesso de combustível nos injetores por falha da MProp.</p>
 </div>
 
-<h3>Testes com multímetro</h3>
+<h3 id="testes-com-multimetro">Testes com multímetro</h3>
 <p>Meça a tensão no pino 02 do sensor do tubo:</p>
 <div class="specs">
   <div class="spec"><b>0,5 V</b><span>Chave ligada, antes da partida</span></div>
@@ -350,12 +369,12 @@
   <div class="spec"><b>até ≈ 4,5 V</b><span>Rotação alta</span></div>
 </div>
 
-<h3>Testes com scanner</h3>
+<h3 id="testes-com-scanner">Testes com scanner</h3>
 <p><a class="img-link" href="conteudo/sistema-de-injecao/imagens/17-scanner-1.jpg">Se a pressão real estiver sempre acima</a>, a MProp pode estar travada ou o sensor de pressão com defeito.</p>
 <figure><img src="conteudo/sistema-de-injecao/imagens/17-scanner-1.jpg" alt="Pressão do Rail no scanner" loading="lazy"><figcaption>Em 750 rpm, marcha lenta, a pressão deveria estar entre 200 e 500 bar</figcaption></figure>
 <figure><img src="conteudo/sistema-de-injecao/imagens/18-scanner-2.jpg" alt="Pressão do Rail no scanner em rotação alta" loading="lazy"><figcaption><a class="img-link" href="conteudo/sistema-de-injecao/imagens/18-scanner-2.jpg">Em 2.000 rpm</a> a pressão já está no limite máximo aceitável para máxima rotação</figcaption></figure>
 
-<h3>Procedimento "metiradosanha"</h3>
+<h3 id="procedimento-metiradosanha">Procedimento "metiradosanha"</h3>
 <p>O ideal é tentar destravar com produtos químicos que não sejam agressivos ao material da válvula, em uma cuba ultrassônica. Antes de retirar a MProp, verifique:</p>
 <ul>
   <li>Se tem combustível no tanque;</li>

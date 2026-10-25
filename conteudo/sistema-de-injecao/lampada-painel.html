@@ -1,207 +1,77 @@
-<!-- Bicos Injetores. Imagens: salve em conteudo/imagens/bicos-injetores/ com estes nomes:
-01-como-retirar.jpg           Como retirar os bicos
-02-tabela-aperto-1.jpg        Tabela de aperto (1)
-03-tabela-aperto-2.jpg        Tabela de aperto (2)
-04-ligacao-ecm-bicos.jpg      Ligação do módulo ECM até os bicos (Manual Agrale Marruá)
-05-teste-pulso.jpg            Teste de pulso com a caneta de teste
-06-limpeza-1.jpg              Limpeza do bico (1)
-07-limpeza-2.jpg              Limpeza do bico (2)
-08-teste-retorno-spray.jpg    Teste de retorno com spray no furo maior
-09-teste-ponteira.jpg         Teste da ponteira do bico com spray
-10-reparo-1.jpg               Limpeza e reparo do bico (1)
-11-reparo-2.jpg               Limpeza e reparo do bico (2)
-12-montagem-1.jpg             Montagem do bico no motor (1)
-13-montagem-2.jpg             Montagem do bico no motor (2)
-Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentacao-de-combustivel/...). -->
+<!-- Luz Amarela de Advertência com falha (luz acesa) - MWM Sprint 2.8 -->
 <header class="art-head">
-  <h1>Bicos Injetores</h1>
+  <span class="art-kicker">Sistema Elétrico · Diagnóstico</span>
+  <h1>Luz Amarela de Advertência (Painel)</h1>
+  <p class="art-lead">Fluxograma de diagnóstico com a luz amarela acesa: responda Sim ou Não em cada passo até chegar à solução.</p>
+  <div class="chips"><span>MWM Sprint 2.8</span><span>S10 até 2011</span><span>P1650 · P1651 · P1652 · P1653</span></div>
 </header>
 
 <nav class="toc" aria-label="Neste artigo">
   <strong>Neste artigo</strong>
   <ul>
-    <li><a href="#" data-goto="localizacao">Localização</a></li>
-    <li><a href="#" data-goto="como-retirar">Como retirar</a>
+    <li><a href="#" data-goto="fluxo">Fluxograma</a></li>
+    <li><a href="#" data-goto="valores">Valores e pinos</a>
       <ul>
-        <li><a href="#" data-goto="tabela-aperto">Tabela de aperto</a></li>
+        <li><a href="#" data-goto="pinos-do-rele-e-do-ecm">Pinos do relé e do ECM</a></li>
       </ul>
     </li>
-    <li><a href="#" data-goto="funcionamento">Como funciona</a></li>
-    <li><a href="#" data-goto="parte-eletrica">Parte elétrica</a>
-      <ul>
-        <li><a href="#" data-goto="teste-pulso">Teste de pulso</a></li>
-      </ul>
-    </li>
-    <li><a href="#" data-goto="problemas-comuns">Problemas comuns</a>
-      <ul>
-        <li><a href="#" data-goto="excesso-de-retorno-dos-bicos-injetores">Excesso de retorno dos bicos injetores</a></li>
-        <li><a href="#" data-goto="castanholar-forte-e-motor-fraco">Castanholar forte e motor fraco</a></li>
-        <li><a href="#" data-goto="limpeza-bico">Limpeza do bico injetor</a></li>
-      </ul>
-    </li>
-    <li><a href="#" data-goto="teste-retorno">Teste de retorno dos injetores</a>
-      <ul>
-        <li><a href="#" data-goto="medidas-de-referencia">Medidas de referência</a></li>
-      </ul>
-    </li>
+    <li><a href="#" data-goto="solucoes">Soluções comuns</a></li>
+    <li><a href="#" data-goto="codigos">Códigos relacionados</a></li>
   </ul>
 </nav>
 
-<h2 id="localizacao">Localização</h2>
-<p>Os bicos injetores ficam montados no cabeçote, um para cada cilindro.</p>
+<p>Use este roteiro quando a diagnose registrar falha no circuito da luz amarela de advertência do painel. Essas falhas não reduzem a potência do motor, mas indicam problema no circuito de sinalização.</p>
 
-<h2 id="como-retirar">Como retirar</h2>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/01-como-retirar.jpg" alt="Como retirar os bicos injetores" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-<h3 id="tabela-aperto">Tabela de aperto</h3>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/02-tabela-aperto-1.jpg" alt="Tabela de aperto dos bicos injetores, parte 1" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/03-tabela-aperto-2.jpg" alt="Tabela de aperto dos bicos injetores, parte 2" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
+<div class="aviso"><strong>Atenção</strong><p>Se a lâmpada está queimada ou o circuito interrompido, o motorista pode não ser avisado de outras falhas do sistema. Sempre corrija este circuito antes de liberar o veículo.</p></div>
 
-<h2 id="funcionamento">Como funciona</h2>
-<p>Os bicos injetores estão montados no cabeçote e pulverizam o combustível na câmara de combustão. A ECM controla os bicos: determina a quantidade e o momento da injeção para cada cilindro.</p>
+<h2 id="fluxo">Fluxograma</h2>
+<div class="fluxo">
+  <div class="passo" id="p1"><span class="passo-n">Passo 1</span><p><strong>A ferramenta registrou P1650, P1651, P1652 ou P1653?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p2">Sim</button><button type="button" class="nao" data-ir="r1">Não</button></div></div>
+  <div class="passo fim acao" id="r1"><span class="passo-n">Outro código</span><p>Siga o fluxograma do código apresentado.</p></div>
+  <div class="passo" id="p2"><span class="passo-n">Passo 2</span><p>Ligue o contato. A lâmpada amarela deve acender por alguns segundos e apagar. <strong>A lâmpada acende?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p3">Sim</button><button type="button" class="nao" data-ir="r2">Não</button></div></div>
+  <div class="passo fim erro" id="r2"><span class="passo-n">Lâmpada não acende</span><ul><li>Verifique o estado da lâmpada. Substitua se necessário;</li><li>Apague todos os códigos de falha presentes;</li><li>Verifique se o conector está devidamente montado;</li><li>Repita o teste. Se persistir, vá para o passo 4.</li></ul></div>
+  <div class="passo" id="p3"><span class="passo-n">Passo 3</span><p>Provocar uma falha conhecida para verificar se a lâmpada funciona corretamente. <strong>O circuito funciona corretamente?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r3">Sim</button><button type="button" class="nao" data-ir="p4">Não</button></div></div>
+  <div class="passo fim ok" id="r3"><span class="passo-n">Circuito OK</span><ul><li>Apague os códigos de falha;</li><li>Se não houver mais falhas, libere o veículo.</li></ul></div>
+  <div class="passo" id="p4"><span class="passo-n">Passo 4</span><p>Desligue o conector do ECM. Meça a continuidade entre o pino <strong>K71</strong> do conector do ECM e o pino <strong>87</strong> do relé principal. <strong>O valor é menor que 1 Ω?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="p5">Sim</button><button type="button" class="nao" data-ir="r4">Não</button></div></div>
+  <div class="passo fim erro" id="r4"><span class="passo-n">Chicote interrompido</span><ul><li>Verifique interrupções ou mau contato nos conectores e chicote;</li><li>Efetue os reparos e substituições necessárias;</li><li>Apague os códigos de falha e refaça o teste.</li></ul></div>
+  <div class="passo" id="p5"><span class="passo-n">Passo 5</span><p>Verifique possível <strong>mau contato</strong> ou oxidações na central elétrica, fusível F28, soquete da lâmpada e conector do ECM. <strong>Existe algum desses problemas?</strong></p>
+    <div class="resp"><button type="button" class="sim" data-ir="r5">Sim</button><button type="button" class="nao" data-ir="r6">Não</button></div></div>
+  <div class="passo fim erro" id="r5"><span class="passo-n">Corrigir contatos</span><ul><li>Limpe e reapente os terminais;</li><li>Substitua o fusível F28 se necessário;</li><li>Apague os códigos de falha e refaça o teste.</li></ul></div>
+  <div class="passo fim erro" id="r6"><span class="passo-n">Suspeita de ECM</span><ul><li>Verifique se a potência da lâmpada está conforme o especificado;</li><li>Verifique curto-circuito no soquete da lâmpada ou no chicote em relação ao terra;</li><li>Utilize as informações referentes ao PCode P1650;</li><li>Se a falha persistir, substitua o ECM.</li></ul></div>
+</div>
+
+<h2 id="valores">Valores e pinos</h2>
+<table><tr><th>Teste</th><th>Valor esperado</th></tr>
+<tr><td>Continuidade K71 ↔ pino 87 do relé principal</td><td>menor que 1 Ω</td></tr>
+<tr><td>Fusível F28</td><td>continuidade e sem oxidação</td></tr>
+<tr><td>Potência da lâmpada</td><td>conforme especificação</td></tr>
+<tr><td>Curto-circuito no soquete</td><td>não deve haver</td></tr></table>
+
+<h3 id="pinos-do-rele-e-do-ecm">Pinos do relé e do ECM</h3>
+<table><tr><th>Pino</th><th>Ligação</th><th>Função</th></tr>
+<tr><td>K71</td><td>Conector da lâmpada (via F28)</td><td>Sinal de alimentação da luz amarela</td></tr>
+<tr><td>87</td><td>Relé principal</td><td>Alimentação positiva</td></tr></table>
+
+<h2 id="solucoes">Soluções comuns</h2>
 <ul>
-  <li><b>Posição de repouso:</b> o bico está fechado (desenergizado). A agulha permanece fechada pela alta pressão do combustível na haste do bico, que tem área maior que a área inferior;</li>
-  <li><b>Início da injeção:</b> a ECM energiza a válvula eletromagnética, que abre a passagem de saída do combustível para o retorno. O combustível pressurizado entra pelo furo calibrado e cria uma depressão na câmara de controle. Essa depressão faz a agulha subir e começa a pulverização na câmara de combustão;</li>
-  <li><b>Fim da injeção:</b> ocorre quando a ECM desenergiza a válvula eletromagnética. A mola fecha a passagem do furo de retorno, o combustível pressurizado ocupa de novo a câmara de controle e a agulha desce, voltando à posição de repouso.</li>
+<li><strong>Lâmpada queimada:</strong> substitua por outra de mesma potência;</li>
+<li><strong>Fusível F28 queimado:</strong> substitua por um de mesma amperagem;</li>
+<li><strong>Conector com oxidação:</strong> limpe e reapente os terminais;</li>
+<li><strong>Soquete da lâmpada em curto:</strong> substitua o soquete;</li>
+<li><strong>Chicote rompido:</strong> repare o trecho danificado;</li>
+<li><strong>Suspeita de ECM:</strong> se o circuito estiver OK e a falha persistir, substitua o ECM.</li>
 </ul>
 
-<h2 id="parte-eletrica">Parte elétrica</h2>
-<p>Ligação do módulo ECM até os bicos injetores (Manual Agrale Marruá).</p>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/04-ligacao-ecm-bicos.jpg" alt="Ligação elétrica entre o módulo ECM e os bicos injetores" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-<h3 id="teste-pulso">Teste de pulso</h3>
-<p>Com a caneta de teste dá para ver os pulsos e também o Duty Cycle (ciclo de trabalho). Para testes básicos, o Duty Cycle não é importante.</p>
-<div class="aviso">
-  <strong>Atenção</strong>
-  <p>Só há pulso nos bicos injetores se a tensão de retorno no <a href="#sistema-de-injecao/sensor-pres-rail">sensor de pressão do Rail</a> for de no mínimo 0,9 V.</p>
-</div>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/05-teste-pulso.jpg" alt="Teste de pulso nos bicos injetores com a caneta de teste" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
+<div class="dica"><strong>Teste rápido</strong><p>Provocar uma falha conhecida (ex.: desconectar um sensor) deve acender a lâmpada amarela. Se não acender, o circuito de sinalização está com problema.</p></div>
 
-<h2 id="problemas-comuns">Problemas comuns</h2>
-<div class="aviso">
-  <strong>Atenção</strong>
-  <p>Os testes com spray são extremamente básicos: o spray tem apenas 6 bar de pressão. Na marcha lenta, o sistema trabalha com no mínimo 250 bar.</p>
-</div>
-
-<h3 id="excesso-de-retorno-dos-bicos-injetores">Excesso de retorno dos bicos injetores</h3>
-<div class="trio">
-  <div>
-    <h4>Sintomas</h4>
-    <ul>
-      <li>Motor de partida gira, mas o motor não liga;</li>
-      <li>Partidas muito longas.</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Possíveis causas</h4>
-    <ul>
-      <li>Baixa pressão na linha de baixa;</li>
-      <li>Baixa pressão na linha de alta;</li>
-      <li>Válvula de alívio do <a href="#alimentacao-de-combustivel/tubo-rail">tubo Rail</a> com vazamento;</li>
-      <li>Excesso de retorno nos bicos injetores.</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Possíveis soluções</h4>
-    <ul>
-      <li>Depois de confirmar o excesso de retorno, trocar o reparo do bico injetor.</li>
-    </ul>
-  </div>
-</div>
-
-<h3 id="castanholar-forte-e-motor-fraco">Castanholar forte e motor fraco</h3>
-<div class="trio">
-  <div>
-    <h4>Sintomas</h4>
-    <ul>
-      <li>Motor de partida gira e às vezes o motor liga, com castanholar forte;</li>
-      <li>Motor sem potência;</li>
-      <li>Partidas muito longas.</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Possíveis causas</h4>
-    <ul>
-      <li>Bico injetor travado aberto;</li>
-      <li><a href="#sistema-de-injecao/valvula-mprop">Válvula MProp</a> travada aberta: meça a tensão no <a href="#sistema-de-injecao/sensor-pres-rail">sensor do Rail</a>.</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Possíveis soluções</h4>
-    <ul>
-      <li>Retirar os bicos injetores e fazer a limpeza.</li>
-    </ul>
-  </div>
-</div>
-
-<h3 id="limpeza-bico">Limpeza do bico injetor</h3>
-<p>Limpe também o tubo Rail e as tubulações de ligação (veja em <a href="#alimentacao-de-combustivel/tubo-rail">Tubo Rail</a>).</p>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/06-limpeza-1.jpg" alt="Limpeza do bico injetor, foto 1" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/07-limpeza-2.jpg" alt="Limpeza do bico injetor, foto 2" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-<p>Faça o teste de retorno do bico: ele verifica a estanqueidade do reparo da caneta do bico e o assentamento da esfera de controle do retorno.</p>
-<p>Injete spray no primeiro furo do bico (o furo maior). Nesse teste não pode sair líquido pelo retorno.</p>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/08-teste-retorno-spray.jpg" alt="Teste de retorno do bico com spray no furo maior" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-<p>Teste a ponteira do bico com spray. Se estiver travada fechada, não sai líquido. O líquido deve sair pulverizado.</p>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/09-teste-ponteira.jpg" alt="Teste da ponteira do bico injetor com spray" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-<p><b>Limpeza e reparo do bico</b></p>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/10-reparo-1.jpg" alt="Limpeza e reparo do bico injetor, foto 1" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/11-reparo-2.jpg" alt="Limpeza e reparo do bico injetor, foto 2" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-<p>Teste usando desengripante em spray.</p>
-<p><b>Montar o bico no motor</b></p>
+<h2 id="codigos">Códigos relacionados</h2>
 <ul>
-  <li>Use o O-ring de vedação no bico, para o bico injetor não enferrujar;</li>
-  <li>Troque a arruela de cobre sempre que desmontar;</li>
-  <li>Siga a <a href="#" data-goto="tabela-aperto">tabela de aperto</a> para não danificar a rosca do cabeçote.</li>
+<li><strong>P1650</strong>: Sinal de alimentação da luz amarela perdido — lâmpada não é acionada;</li>
+<li><strong>P1651</strong>: Tensão elevada no circuito da luz de advertência — lâmpada não é acionada;</li>
+<li><strong>P1652</strong>: Tensão baixa na lâmpada de aviso — lâmpada não é acionada;</li>
+<li><strong>P1653</strong>: Temperatura excessiva no CI de controle da luz — lâmpada não é acionada.</li>
 </ul>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/12-montagem-1.jpg" alt="Montagem do bico injetor no motor, foto 1" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/13-montagem-2.jpg" alt="Montagem do bico injetor no motor, foto 2" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<h2 id="teste-retorno">Teste de retorno dos injetores</h2>
-<ul>
-  <li>Use mangueiras transparentes e frascos para coletar o retorno de cada injetor separadamente;</li>
-  <li>Com o motor em marcha lenta por 1 minuto, os volumes devem ser quase iguais entre os injetores;</li>
-  <li>Um injetor com volume de retorno alto indica desgaste interno e compromete a manutenção da pressão do Rail.</li>
-</ul>
-<h3 id="medidas-de-referencia">Medidas de referência</h3>
-<div class="specs">
-  <div class="spec"><b>12,4 mm</b><span>Fundo da bobina, sem calço</span></div>
-  <div class="spec"><b>10,7 mm</b><span>Fundo da bobina, com calço de 1,7 mm</span></div>
-  <div class="spec"><b>17,8 mm</b><span>Ponta, sem calço</span></div>
-</div>

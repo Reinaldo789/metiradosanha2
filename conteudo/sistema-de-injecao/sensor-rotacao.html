@@ -8,29 +8,25 @@
   <ul>
     <li><a href="#" data-goto="localizacao">Localização</a></li>
     <li><a href="#" data-goto="funcionamento">Funcionamento</a></li>
-    
     <li><a href="#" data-goto="parte-eletrica">Parte elétrica e testes</a>
       <ul>
-        <li><a href="#" data-goto="teste-resistencia">Teste de resistência</a></li>
-        <li><a href="#" data-goto="testes-ac">Testes em corrente alternada</a></li>
-        <li><a href="#" data-goto="diagnostico-chicote">Diagnóstico de chicote</a></li>
+        <li><a href="#" data-goto="teste-resistencia">Teste de resistência (motor desligado)</a></li>
       </ul>
     </li>
-    
+    <li><a href="#" data-goto="testes-ac">Testes em corrente alternada</a>
+      <ul>
+        <li><a href="#" data-goto="diagnostico-chicote">Diagnóstico de chicote vs. componente</a></li>
+      </ul>
+    </li>
     <li><a href="#" data-goto="problemas-comuns">Problemas comuns</a>
       <ul>
-        <li><a href="#" data-goto="motor-gira-nao-pega">Motor gira mas não pega</a></li>
-        <li><a href="#" data-goto="motor-apaga-aquece">Motor apaga quando aquece</a></li>
+        <li><a href="#" data-goto="motor-gira-mas-nao-pega">Motor gira mas não pega</a></li>
+        <li><a href="#" data-goto="motor-apaga-quando-aquece">Motor apaga quando aquece</a></li>
       </ul>
     </li>
-    
     <li><a href="#" data-goto="codigos-de-falha">Códigos de falha</a></li>
   </ul>
 </nav>
-
-<!-- ==========================================
-     CONTEÚDO DO ARTIGO
-     ========================================== -->
 
 <h2 id="localizacao">Localização</h2>
 <figure class="img-box-preview">
@@ -48,9 +44,8 @@
   <li>A falha de dois dentes na roda serve como <b>ponto de referência</b> do pistão;</li>
   <li>Frequência e amplitude aumentam proporcionalmente à rotação.</li>
 </ul>
-<figure class="img-box-preview">
+<figure>
   <img src="conteudo/imagens/sensor-ckp/02-funcionamento.jpg" alt="Funcionamento do sensor indutivo" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
 </figure>
 <p>O sinal chega à ECM em forma de <b>onda senoidal</b> (V AC). Esse é o único sensor do motor que o mecânico <b>precisa obrigatoriamente</b> mudar o multímetro para a escala de alternada (V AC) para ler o sinal real.</p>
 
@@ -79,7 +74,7 @@
   <p>Se a resistência passar de 1.300 Ω ou der circuito aberto (OL) com o motor quente, o motor apaga sozinho e só volta a pegar quando esfriar. É o defeito térmico clássico.</p>
 </div>
 
-<h3 id="testes-ac">Testes em corrente alternada</h3>
+<h2 id="testes-ac">Testes em corrente alternada</h2>
 <p>Aqui você <b>DEVE</b> mudar o multímetro para <b>Tensão Alternada (V AC / V~)</b>. Insira duas agulhas por trás do conector (backprobing) nos fios dos pinos 1 e 2 — a cor das pontas não importa, pois a corrente alternada não tem polaridade fixa.</p>
 
 <div class="specs">
@@ -101,7 +96,7 @@
 
 <h2 id="problemas-comuns">Problemas comuns</h2>
 
-<h3 id="motor-gira-nao-pega">Motor gira mas não pega</h3>
+<h3 id="motor-gira-mas-nao-pega">Motor gira mas não pega</h3>
 <div class="trio">
   <div>
     <h4>Sintomas</h4>
@@ -131,7 +126,7 @@
   </div>
 </div>
 
-<h3 id="motor-apaga-aquece">Motor apaga quando aquece</h3>
+<h3 id="motor-apaga-quando-aquece">Motor apaga quando aquece</h3>
 <div class="trio">
   <div>
     <h4>Sintomas</h4>
