@@ -1,77 +1,165 @@
-<!-- Luz Amarela de Advertência com falha (luz acesa) - MWM Sprint 2.8 -->
+<!-- Bicos Injetores. Imagens: salve em conteudo/imagens/bicos-injetores/ -->
 <header class="art-head">
-  <span class="art-kicker">Sistema Elétrico · Diagnóstico</span>
-  <h1>Luz Amarela de Advertência (Painel)</h1>
-  <p class="art-lead">Fluxograma de diagnóstico com a luz amarela acesa: responda Sim ou Não em cada passo até chegar à solução.</p>
-  <div class="chips"><span>MWM Sprint 2.8</span><span>S10 até 2011</span><span>P1650 · P1651 · P1652 · P1653</span></div>
+  <h1>Bicos Injetores (Common Rail)</h1>
 </header>
 
 <nav class="toc" aria-label="Neste artigo">
   <strong>Neste artigo</strong>
   <ul>
-    <li><a href="#" data-goto="fluxo">Fluxograma</a></li>
-    <li><a href="#" data-goto="valores">Valores e pinos</a>
+    <li><a href="#" data-goto="funcionamento">Funcionamento</a></li>
+    
+    <li><a href="#" data-goto="parte-eletrica">Parte Elétrica e Testes</a>
       <ul>
-        <li><a href="#" data-goto="pinos-do-rele-e-do-ecm">Pinos do relé e do ECM</a></li>
+        <li><a href="#" data-goto="pinagem">Pinagem do Chicote</a></li>
+        <li><a href="#" data-goto="teste-resistencia">Teste de Resistência</a></li>
+        <li><a href="#" data-goto="teste-pulso">Teste de Pulso</a></li>
       </ul>
     </li>
-    <li><a href="#" data-goto="solucoes">Soluções comuns</a></li>
-    <li><a href="#" data-goto="codigos">Códigos relacionados</a></li>
+    
+    <li><a href="#" data-goto="codigos-de-falha">Códigos de Falha</a>
+      <ul>
+        <li><a href="#" data-goto="injetor-desconectado">Injetor não Conectado (P0201 a P0204)</a></li>
+        <li><a href="#" data-goto="curto-banco">Curto no Banco de Injetores</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
-<p>Use este roteiro quando a diagnose registrar falha no circuito da luz amarela de advertência do painel. Essas falhas não reduzem a potência do motor, mas indicam problema no circuito de sinalização.</p>
+<!-- ==========================================
+     CONTEÚDO DO ARTIGO
+     ========================================== -->
 
-<div class="aviso"><strong>Atenção</strong><p>Se a lâmpada está queimada ou o circuito interrompido, o motorista pode não ser avisado de outras falhas do sistema. Sempre corrija este circuito antes de liberar o veículo.</p></div>
+<h2 id="funcionamento">Funcionamento</h2>
+<p>Os bicos injetores estão montados no cabeçote e têm a finalidade de pulverizar o combustível na câmara de combustão. O controle dos bicos é feito pela ECM, que determina a quantidade e o momento exato da injeção de combustível para cada cilindro.</p>
 
-<h2 id="fluxo">Fluxograma</h2>
-<div class="fluxo">
-  <div class="passo" id="p1"><span class="passo-n">Passo 1</span><p><strong>A ferramenta registrou P1650, P1651, P1652 ou P1653?</strong></p>
-    <div class="resp"><button type="button" class="sim" data-ir="p2">Sim</button><button type="button" class="nao" data-ir="r1">Não</button></div></div>
-  <div class="passo fim acao" id="r1"><span class="passo-n">Outro código</span><p>Siga o fluxograma do código apresentado.</p></div>
-  <div class="passo" id="p2"><span class="passo-n">Passo 2</span><p>Ligue o contato. A lâmpada amarela deve acender por alguns segundos e apagar. <strong>A lâmpada acende?</strong></p>
-    <div class="resp"><button type="button" class="sim" data-ir="p3">Sim</button><button type="button" class="nao" data-ir="r2">Não</button></div></div>
-  <div class="passo fim erro" id="r2"><span class="passo-n">Lâmpada não acende</span><ul><li>Verifique o estado da lâmpada. Substitua se necessário;</li><li>Apague todos os códigos de falha presentes;</li><li>Verifique se o conector está devidamente montado;</li><li>Repita o teste. Se persistir, vá para o passo 4.</li></ul></div>
-  <div class="passo" id="p3"><span class="passo-n">Passo 3</span><p>Provocar uma falha conhecida para verificar se a lâmpada funciona corretamente. <strong>O circuito funciona corretamente?</strong></p>
-    <div class="resp"><button type="button" class="sim" data-ir="r3">Sim</button><button type="button" class="nao" data-ir="p4">Não</button></div></div>
-  <div class="passo fim ok" id="r3"><span class="passo-n">Circuito OK</span><ul><li>Apague os códigos de falha;</li><li>Se não houver mais falhas, libere o veículo.</li></ul></div>
-  <div class="passo" id="p4"><span class="passo-n">Passo 4</span><p>Desligue o conector do ECM. Meça a continuidade entre o pino <strong>K71</strong> do conector do ECM e o pino <strong>87</strong> do relé principal. <strong>O valor é menor que 1 Ω?</strong></p>
-    <div class="resp"><button type="button" class="sim" data-ir="p5">Sim</button><button type="button" class="nao" data-ir="r4">Não</button></div></div>
-  <div class="passo fim erro" id="r4"><span class="passo-n">Chicote interrompido</span><ul><li>Verifique interrupções ou mau contato nos conectores e chicote;</li><li>Efetue os reparos e substituições necessárias;</li><li>Apague os códigos de falha e refaça o teste.</li></ul></div>
-  <div class="passo" id="p5"><span class="passo-n">Passo 5</span><p>Verifique possível <strong>mau contato</strong> ou oxidações na central elétrica, fusível F28, soquete da lâmpada e conector do ECM. <strong>Existe algum desses problemas?</strong></p>
-    <div class="resp"><button type="button" class="sim" data-ir="r5">Sim</button><button type="button" class="nao" data-ir="r6">Não</button></div></div>
-  <div class="passo fim erro" id="r5"><span class="passo-n">Corrigir contatos</span><ul><li>Limpe e reapente os terminais;</li><li>Substitua o fusível F28 se necessário;</li><li>Apague os códigos de falha e refaça o teste.</li></ul></div>
-  <div class="passo fim erro" id="r6"><span class="passo-n">Suspeita de ECM</span><ul><li>Verifique se a potência da lâmpada está conforme o especificado;</li><li>Verifique curto-circuito no soquete da lâmpada ou no chicote em relação ao terra;</li><li>Utilize as informações referentes ao PCode P1650;</li><li>Se a falha persistir, substitua o ECM.</li></ul></div>
+<h3>Início da Injeção</h3>
+<p>O ECM determina o início de injeção energizando a válvula eletromagnética, que abre a passagem de saída do combustível para o retorno. O combustível pressurizado entra pelo furo calibrado, criando uma depressão na câmara de controle; essa depressão faz a agulha do injetor se movimentar para cima, iniciando a pulverização do combustível na câmara de combustão.</p>
+
+<h3>Fim da Injeção</h3>
+<p>O fim da injeção ocorre quando a válvula eletromagnética é desenergizada pelo ECM. A mola aciona a válvula que fecha a passagem do furo de retorno. O combustível pressurizado ocupa a câmara de controle fazendo a agulha do injetor se movimentar para baixo, voltando à posição de repouso.</p>
+
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>O sistema Common Rail trabalha com pressões extremamente altas (até 1400 bar). Nunca desconecte os tubos de alta pressão com o motor em funcionamento. Risco grave de queimaduras e acidentes.</p>
 </div>
 
-<h2 id="valores">Valores e pinos</h2>
-<table><tr><th>Teste</th><th>Valor esperado</th></tr>
-<tr><td>Continuidade K71 ↔ pino 87 do relé principal</td><td>menor que 1 Ω</td></tr>
-<tr><td>Fusível F28</td><td>continuidade e sem oxidação</td></tr>
-<tr><td>Potência da lâmpada</td><td>conforme especificação</td></tr>
-<tr><td>Curto-circuito no soquete</td><td>não deve haver</td></tr></table>
+<h2 id="parte-eletrica">Parte Elétrica e Testes</h2>
 
-<h3 id="pinos-do-rele-e-do-ecm">Pinos do relé e do ECM</h3>
-<table><tr><th>Pino</th><th>Ligação</th><th>Função</th></tr>
-<tr><td>K71</td><td>Conector da lâmpada (via F28)</td><td>Sinal de alimentação da luz amarela</td></tr>
-<tr><td>87</td><td>Relé principal</td><td>Alimentação positiva</td></tr></table>
+<h3 id="pinagem">Pinagem do Chicote (Conector A da ECM)</h3>
+<p>Cada bico injetor é acionado individualmente pela ECM. A continuidade do chicote deve ser testada entre o conector do bico e o Conector A do módulo.</p>
 
-<h2 id="solucoes">Soluções comuns</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Cilindro</th>
+      <th>Pino de Alimentação (ECM)</th>
+      <th>Pino de Chaveamento (ECM)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Cilindro 1</b></td>
+      <td>A47</td>
+      <td>A16</td>
+    </tr>
+    <tr>
+      <td><b>Cilindro 2</b></td>
+      <td>A31</td>
+      <td>A02</td>
+    </tr>
+    <tr>
+      <td><b>Cilindro 3</b></td>
+      <td>A46</td>
+      <td>A01</td>
+    </tr>
+    <tr>
+      <td><b>Cilindro 4</b></td>
+      <td>A33</td>
+      <td>A17</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="teste-resistencia">Teste de Resistência (Bobina Interna)</h3>
 <ul>
-<li><strong>Lâmpada queimada:</strong> substitua por outra de mesma potência;</li>
-<li><strong>Fusível F28 queimado:</strong> substitua por um de mesma amperagem;</li>
-<li><strong>Conector com oxidação:</strong> limpe e reapente os terminais;</li>
-<li><strong>Soquete da lâmpada em curto:</strong> substitua o soquete;</li>
-<li><strong>Chicote rompido:</strong> repare o trecho danificado;</li>
-<li><strong>Suspeita de ECM:</strong> se o circuito estiver OK e a falha persistir, substitua o ECM.</li>
+  <li><b>Condição:</b> Chave desligada e conector do injetor desconectado.</li>
+  <li><b>Medição:</b> Meça a resistência entre os dois terminais do próprio injetor.</li>
 </ul>
 
-<div class="dica"><strong>Teste rápido</strong><p>Provocar uma falha conhecida (ex.: desconectar um sensor) deve acender a lâmpada amarela. Se não acender, o circuito de sinalização está com problema.</p></div>
+<div class="specs">
+  <div class="spec"><b>≤ 0,8 Ω</b><span>Valor correto esperado</span></div>
+</div>
 
-<h2 id="codigos">Códigos relacionados</h2>
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Se a resistência for muito alta (ou circuito aberto/OL), a bobina do injetor está rompida. Se for próxima de zero, há um curto-circuito interno. Em ambos os casos, o injetor deve ser substituído.</p>
+</div>
+
+<h3 id="teste-pulso">Teste de Pulso</h3>
+<p>Com uma caneta de teste (lâmpada de LED) ou osciloscópio, é possível verificar se a ECM está enviando o sinal de chaveamento (PWM) para os injetores.</p>
+
+<div class="dica">
+  <strong>Dica de Oficina</strong>
+  <p>Só há pulso nos bicos injetores se a tensão de retorno no <a href="#sistema-de-injecao/sensor-pres-rail">sensor de pressão do Rail</a> for de no mínimo <b>0,9 V</b> durante a partida. A ECM bloqueia a injeção se não detectar pressão suficiente no sistema.</p>
+</div>
+
+<h2 id="codigos-de-falha">Códigos de Falha (OBD-II)</h2>
+
+<h3 id="injetor-desconectado">P0201 a P0204 - Bico Injetor não Conectado</h3>
+<div class="trio">
+  <div>
+    <h4>Detalhamento</h4>
+    <ul>
+      <li>Possivelmente o conector esteja desligado, o chicote elétrico ou a solenoide do bico injetor esteja em circuito aberto.</li>
+      <li>O código varia conforme o cilindro: P0201 (Cil 1), P0202 (Cil 2), P0203 (Cil 3), P0204 (Cil 4).</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Estratégia da ECM</h4>
+    <ul>
+      <li>A luz amarela de advertência não é acionada.</li>
+      <li>O débito de combustível é limitado e a rotação do motor é reduzida para <b>2000 rpm</b>.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Solução</h4>
+    <ul>
+      <li>Verificar a conexão do chicote no injetor.</li>
+      <li>Medir a continuidade entre o conector e a ECM.</li>
+      <li>Se o chicote estiver OK, substituir o injetor.</li>
+    </ul>
+  </div>
+</div>
+
+<h3 id="curto-banco">P0261 a P0270 - Curto-Circuito nos Injetores</h3>
+<p>Os injetores estão divididos em dois bancos elétricos controlados pela ECM:</p>
 <ul>
-<li><strong>P1650</strong>: Sinal de alimentação da luz amarela perdido — lâmpada não é acionada;</li>
-<li><strong>P1651</strong>: Tensão elevada no circuito da luz de advertência — lâmpada não é acionada;</li>
-<li><strong>P1652</strong>: Tensão baixa na lâmpada de aviso — lâmpada não é acionada;</li>
-<li><strong>P1653</strong>: Temperatura excessiva no CI de controle da luz — lâmpada não é acionada.</li>
+  <li><b>Banco 1:</b> Injetores 1 e 4 (Código P0261 para o banco ou P0262/P0270 para injetor específico);</li>
+  <li><b>Banco 2:</b> Injetores 2 e 3 (Código P0263 para o banco ou P0264/P0267 para injetor específico).</li>
 </ul>
+
+<div class="trio">
+  <div>
+    <h4>Detalhamento</h4>
+    <ul>
+      <li>Curto-circuito do banco em relação ao terra ou ao positivo da bateria.</li>
+      <li>Pode ser causado por chicote esmagado, conector com umidade ou falha interna na bobina do injetor.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Estratégia da ECM</h4>
+    <ul>
+      <li>A luz amarela de advertência é acionada.</li>
+      <li>Ao reconhecer a falha, o ECM <b>desliga o motor</b> imediatamente.</li>
+      <li>Após alguns segundos, uma nova partida poderá ser efetuada (dependendo do banco afetado).</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Solução</h4>
+    <ul>
+      <li>Isolar o chicote e verificar curtos com a massa.</li>
+      <li>Testar a resistência dos injetores do banco afetado.</li>
+      <li>Se o circuito estiver íntegro e a falha persistir, substituir o ECM.</li>
+    </ul>
+  </div>
+</div>
