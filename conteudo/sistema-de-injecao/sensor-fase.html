@@ -8,12 +8,34 @@
   <ul>
     <li><a href="#" data-goto="localizacao">Localização</a></li>
     <li><a href="#" data-goto="funcionamento">Funcionamento</a></li>
-    <li><a href="#" data-goto="parte-eletrica">Parte elétrica e testes</a></li>
-    <li><a href="#" data-goto="variacao-tensao">Variação de tensão</a></li>
-    <li><a href="#" data-goto="problemas-comuns">Problemas comuns</a></li>
+    
+    <li><a href="#" data-goto="parte-eletrica">Parte elétrica e testes</a>
+      <ul>
+        <li><a href="#" data-goto="pinos">Pinos do conector</a></li>
+        <li><a href="#" data-goto="teste-alimentacao">Teste de alimentação</a></li>
+      </ul>
+    </li>
+    
+    <li><a href="#" data-goto="variacao-tensao">Variação de tensão conforme aceleração</a>
+      <ul>
+        <li><a href="#" data-goto="tensao-dc">Em Tensão Contínua (V DC)</a></li>
+        <li><a href="#" data-goto="frequencia-hz">Em Frequência (Hz)</a></li>
+      </ul>
+    </li>
+    
+    <li><a href="#" data-goto="problemas-comuns">Problemas comuns</a>
+      <ul>
+        <li><a href="#" data-goto="partida-longa">Partida longa</a></li>
+      </ul>
+    </li>
+    
     <li><a href="#" data-goto="codigos-de-falha">Códigos de falha</a></li>
   </ul>
 </nav>
+
+<!-- ==========================================
+     CONTEÚDO DO ARTIGO
+     ========================================== -->
 
 <h2 id="localizacao">Localização</h2>
 <figure class="img-box-preview">
@@ -30,9 +52,12 @@
   <li>O circuito interno chaveia o pino de sinal, gerando uma <b>onda quadrada digital</b>;</li>
   <li>Permite à ECM identificar <b>o primeiro cilindro no ciclo de compressão</b> (sincronismo de fase).</li>
 </ul>
-<figure>
+<figure class="img-box-preview">
   <img src="conteudo/imagens/sensor-cmp/02-funcionamento.jpg" alt="Funcionamento do sensor Hall" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
 </figure>
+
+<h2 id="parte-eletrica">Parte elétrica e testes</h2>
 
 <h3 id="pinos">Pinos do conector</h3>
 <ul>
@@ -40,8 +65,6 @@
   <li><b>Pino 2:</b> Sinal de saída (onda quadrada);</li>
   <li><b>Pino 3:</b> Aterramento (massa da ECM).</li>
 </ul>
-
-<h2 id="parte-eletrica">Parte elétrica e testes</h2>
 
 <h3 id="teste-alimentacao">Teste de alimentação</h3>
 <ul>
@@ -59,10 +82,10 @@
   <p>Medir Ω nos pinos de um sensor Hall queima os circuitos integrados internos. Teste apenas por tensão (V DC) ou frequência (Hz).</p>
 </div>
 
-<h2 id="variacao-tensao">Variação de tensão</h2>
+<h2 id="variacao-tensao">Variação de tensão conforme aceleração</h2>
 <p>Como o sinal é digital (0 V ↔ 5 V), o comportamento do multímetro é diferente do sensor indutivo. Veja o que aparece na tela em cada escala:</p>
 
-<h3>Em Tensão Contínua (V DC) — apenas média matemática</h3>
+<h3 id="tensao-dc">Em Tensão Contínua (V DC) — apenas média matemática</h3>
 <div class="specs">
   <div class="spec"><b>0 a 0,5 V</b><span>Motor parado (janela em nível baixo)</span></div>
   <div class="spec"><b>4,5 a 5,0 V</b><span>Motor parado (janela em nível alto)</span></div>
@@ -75,16 +98,16 @@
   <p>O comando do MWM 2.8 tem janelas simétricas e fixas. A proporção de tempo em nível alto/baixo (duty cycle) permanece constante. Só a <b>frequência</b> muda — a média em V DC continua estática. Se ao acelerar a tensão subir para 4 V ou cair para 1 V, há falha de mau contato, folga no comando ou o sensor perdendo referência interna.</p>
 </div>
 
-<h3>Em Frequência (Hz) — o teste correto da aceleração</h3>
+<h3 id="frequencia-hz">Em Frequência (Hz) — o teste correto da aceleração</h3>
 <div class="specs">
   <div class="spec"><b>13 a 20 Hz</b><span>Marcha lenta</span></div>
   <div class="spec"><b>60 a 80 Hz</b><span>Alta rotação</span></div>
 </div>
-<p>Insira uma agulha por trás do conector no Pino 2 (sinal) e a ponta preta no polo negativo (-) da bateria. Mude a chave para <b>Hz</b>. A frequência sobe de forma <b>perfeitamente linear</b> com a rotação. Se travar, falhar ou cair para zero, o sensor tem defeito térmico ou mecânico.</p>
+<p>Insira uma agulha por trás do conector no <b>Pino 2</b> (sinal) e a ponta preta no polo negativo (-) da bateria. Mude a chave para <b>Hz</b>. A frequência sobe de forma <b>perfeitamente linear</b> com a rotação. Se travar, falhar ou cair para zero, o sensor tem defeito térmico ou mecânico.</p>
 
 <h2 id="problemas-comuns">Problemas comuns</h2>
 
-<h3>Partida longa (motor demora para pegar)</h3>
+<h3 id="partida-longa">Partida longa (motor demora para pegar)</h3>
 <div class="trio">
   <div>
     <h4>Sintomas</h4>
