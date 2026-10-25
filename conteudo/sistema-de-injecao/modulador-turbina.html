@@ -1,6 +1,6 @@
-<!-- Atuador do Turboalimentador (Válvula Solenoide). Imagens: salve em conteudo/imagens/atuador-turbo/ -->
+<!-- Atuador do Turboalimentador (Modulador). Imagens: salve em conteudo/imagens/modulador-turbina/ -->
 <header class="art-head">
-  <h1>Atuador do Turboalimentador (Válvula Solenoide)</h1>
+  <h1>Atuador do Turboalimentador (Modulador)</h1>
 </header>
 
 <nav class="toc" aria-label="Neste artigo">
@@ -8,15 +8,13 @@
   <ul>
     <li><a href="#" data-goto="localizacao-funcionamento">Localização e Funcionamento</a></li>
     <li><a href="#" data-goto="pinagem">Pinagem do Conector</a></li>
-    
-    <li><a href="#" data-goto="testes-multimetro">Testes com Multímetro</a>
+    <li><a href="#" data-goto="parte-eletrica">Testes Elétricos</a>
       <ul>
         <li><a href="#" data-goto="teste-resistencia">Teste de Resistência</a></li>
         <li><a href="#" data-goto="teste-alimentacao">Teste de Alimentação</a></li>
-        <li><a href="#" data-goto="teste-dinamico">Teste Dinâmico (PWM)</a></li>
+        <li><a href="#" data-goto="teste-sinal-ecu">Teste do Sinal de Controle (PWM)</a></li>
       </ul>
     </li>
-    
     <li><a href="#" data-goto="defeitos">Principais Defeitos</a>
       <ul>
         <li><a href="#" data-goto="falta-potencia">Falta crônica de potência</a></li>
@@ -24,30 +22,26 @@
         <li><a href="#" data-goto="trancos">Pressão oscilando</a></li>
       </ul>
     </li>
-    
     <li><a href="#" data-goto="codigos-de-falha">Códigos de Falha OBD-II</a></li>
   </ul>
 </nav>
 
-<!-- ==========================================
-     CONTEÚDO DO ARTIGO
-     ========================================== -->
-
-<p>No motor <b>MWM Sprint 2.8 Eletrônico (4.07 TCE)</b> com sistema <b>Bosch EDC16C8</b>, o controle da pressão de sobrealimentação não é feito por um atuador puramente eletrônico acoplado à turbina, mas sim por um sistema <b>eletropneumático</b>.</p>
-<p>A central de injeção (ECU) gerencia a turbina de geometria variável (VNT) modulando uma eletroválvula solenoide (Válvula Moduladora de Vácuo do Turbo, código original <b>7001400C1</b> ou <b>7.03964.00</b>). Essa solenoide regula a quantidade de vácuo que chega até a cápsula pneumática instalada na turbina.</p>
-
 <h2 id="localizacao-funcionamento">Localização e Funcionamento</h2>
-<p><b>Localização:</b> Fixada no cofre do motor (geralmente próxima à parede corta-fogo ou no para-lama interno), conectada a três mangueiras de vácuo (bomba de vácuo, cápsula do turbo e respiro com filtro) e a um conector elétrico de 2 pinos.</p>
+<p>O atuador do turbo (modulador) é uma válvula eletromagnética que controla a passagem de vácuo para a válvula <i>waste-gate</i> do turbocompressor. É comandado pela ECM e ajusta eletronicamente a pressão do ar na admissão do motor.</p>
+<p><b>Localização:</b> Fixado no cofre do motor, geralmente próximo à parede corta-fogo ou no para-lama interno, conectado a três mangueiras de vácuo (bomba de vácuo, cápsula do turbo e respiro com filtro) e a um conector elétrico de 2 pinos.</p>
 
-<h3>Princípio de Operação Real</h3>
-<ul>
-  <li>A ECU controla a solenoide enviando um sinal de massa pulsante por largura de pulso (PWM) <b>apenas sob demanda</b>;</li>
-  <li><b>Estratégia de Marcha Lenta (Inércia):</b> Ao contrário de outros sistemas, na marcha lenta a ECU <b>não chaveia o pino de sinal</b> com o negativo (Duty Cycle em 0%). O circuito de aterramento permanece aberto, a solenoide fica em repouso e nenhum vácuo é enviado para a cápsula do turbo;</li>
-  <li><b>Estratégia de Carga (Modulação):</b> A ECU só começa a enviar o pulso PWM negativo quando a rotação do motor sobe e a pressão de sobrealimentação precisa ser gerada e controlada. Ao elevar o Duty Cycle, a solenoide calibra a passagem de vácuo, puxando a haste da cápsula pneumática para fechar as aletas e fazer o turbo encher mais rápido;</li>
-  <li>Ao atingir a pressão estipulada de segurança no coletor (lida pelo sensor MAP), a ECU altera o Duty Cycle, aliviando o vácuo para abrir as aletas e estabilizar a pressão.</li>
-</ul>
+<!-- IMAGEM: Localização do modulador -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/modulador-turbina/01-localizacao.jpg" alt="Localização do modulador do turbo" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
 
-<h2 id="pinagem">Pinagem do Conector da Válvula Solenoide</h2>
+<div class="aviso">
+  <strong>Estratégia de Marcha Lenta (Inércia)</strong>
+  <p>Ao contrário de outros sistemas, na marcha lenta a ECU <b>não chaveia o pino de sinal com o negativo (Duty Cycle em 0%)</b>. O circuito de aterramento permanece aberto, a solenoide fica em repouso e nenhum vácuo é enviado para a cápsula do turbo. O PWM só começa a ser enviado quando a rotação do motor sobe e a pressão de sobrealimentação precisa ser gerada e controlada.</p>
+</div>
+
+<h2 id="pinagem">Pinagem do Conector</h2>
 <table>
   <thead>
     <tr>
@@ -61,59 +55,150 @@
     <tr>
       <td><b>01</b></td>
       <td>Alimentação (+12V Positivo)</td>
-      <td>Linha pós-relé principal da injeção</td>
-      <td>~12,0V a 12,6V (Chave ligada)<br>~13,8V a 14,4V (Motor funcionando)</td>
+      <td>Pino 87 do relé principal (via fusível F29)</td>
+      <td>Tensão da bateria (~12V)</td>
     </tr>
     <tr>
       <td><b>02</b></td>
-      <td>Sinal de Controle (Massa Pulsante)</td>
-      <td>Comando da ECU (Chaveamento)</td>
-      <td>Marcha Lenta: ~14,0V (Retorno da bobina)<br>Sob Carga: Média de 4,0V a 8,0V (PWM ativo)</td>
+      <td>Sinal de Controle (PWM)</td>
+      <td>Comando da ECU (Pino A15)</td>
+      <td>Marcha Lenta: ~14,0V (Circuito aberto)<br>Sob Carga: Média de 4,0V a 8,0V (PWM ativo)</td>
     </tr>
   </tbody>
 </table>
 
-<h2 id="testes-multimetro">Testes com Multímetro e Diagnóstico Físico</h2>
+<h2 id="parte-eletrica">Testes Elétricos</h2>
 
-<h3 id="teste-resistencia">Teste de Resistência Elétrica (Bobina Interna)</h3>
+<h3 id="teste-resistencia">1. Teste de Resistência (Bobina Interna)</h3>
 <ul>
   <li><b>Condição:</b> Chave desligada e conector solto.</li>
-  <li><b>Medição:</b> Meça diretamente nos dois pinos da solenoide.</li>
+  <li><b>Medição:</b> Meça a resistência entre os pinos 1 e 2 do próprio atuador.</li>
 </ul>
 
 <div class="specs">
-  <div class="spec"><b>15 Ω a 22 Ω</b><span>Valor correto esperado</span></div>
+  <div class="spec"><b>14 Ω a 17 Ω</b><span>Valor correto esperado</span></div>
 </div>
 
 <div class="aviso">
   <strong>Atenção</strong>
-  <p>Valor próximo de zero indica curto interno; infinito (OL) indica bobina aberta (queimada).</p>
+  <p>Valores fora desta faixa indicam bobina rompida (infinito) ou em curto (próximo de zero). O atuador deve ser substituído.</p>
 </div>
 
-<h3 id="teste-alimentacao">Teste de Alimentação Elétrica</h3>
+<h3 id="teste-alimentacao">2. Teste de Alimentação Positiva</h3>
 <ul>
   <li><b>Condição:</b> Chave ligada e conector solto.</li>
-  <li><b>Medição:</b> Meça a tensão no Pino 01 contra o negativo da bateria.</li>
+  <li><b>Medição:</b> Meça a tensão no Pino 01 do conector do chicote contra o negativo da bateria.</li>
 </ul>
 
 <div class="specs">
-  <div class="spec"><b>~12,5 V</b><span>Tensão nominal da bateria</span></div>
+  <div class="spec"><b>Tensão da bateria</b><span>~12V a 14V (com motor funcionando)</span></div>
 </div>
 
-<h3 id="teste-dinamico">Teste Dinâmico do Sinal (Pino 02)</h3>
+<h3 id="teste-sinal-ecu">3. Teste do Sinal de Controle da ECU (PWM)</h3>
 <ul>
-  <li><b>Condição:</b> Conector inserido (usando agulhas por trás) e motor funcionando.</li>
-  <li><b>Medição:</b> Meça a tensão do Pino 02 contra o negativo da bateria.</li>
+  <li><b>Condição:</b> Conector conectado (backprobing) e motor em funcionamento.</li>
+  <li><b>Medição:</b> Meça a tensão no Pino 02 contra o negativo da bateria. O multímetro deve ser configurado em V CC (Tensão Contínua).</li>
 </ul>
 
-<div class="specs">
-  <div class="spec"><b>~14,0 V</b><span>Marcha lenta (Circuito aberto)</span></div>
-  <div class="spec"><b>4,0 a 8,0 V</b><span>Sob carga (PWM ativo)</span></div>
+<div class="dica">
+  <strong>Entendendo o Sinal no Multímetro</strong>
+  <p>Como o chaveamento (quando ocorre) é rápido, o multímetro convencional calculará uma média de tensão ponderada no tempo. Como em marcha lenta não há chaveamento (Duty Cycle 0%), o multímetro lerá a tensão de retorno da bobina (~14V). Sob carga, quando a ECU começa a pulsar o terra, a tensão média cai para a faixa de 4,0V a 8,0V.</p>
+</div>
+
+<!-- GRÁFICO DE FREQUÊNCIA (PWM) DO MODULADOR DO TURBO -->
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif; overflow-x: auto;">
+  
+  <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <div style="width: 16px; height: 4px; background: #3B82F6; border-radius: 2px;"></div>
+      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Sinal PWM da ECU (12V / 0V)</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <div style="width: 16px; height: 4px; background: #F59E0B; border-radius: 2px; border-top: 2px dashed #F59E0B; background: transparent; border-bottom: none; border-left: none; border-right: none;"></div>
+      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Tensão Média Lida no Multímetro</span>
+    </div>
+  </div>
+
+  <svg viewBox="0 0 750 550" style="width: 100%; height: auto; min-width: 550px;">
+    <defs>
+      <filter id="shadow-pwm" x="-10%" y="-10%" width="120%" height="120%">
+        <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.1"/>
+      </filter>
+    </defs>
+
+    <!-- ========================================== -->
+    <!-- GRÁFICO 1: MARCHA LENTA (Sem PWM)          -->
+    <!-- ========================================== -->
+    <text x="20" y="30" font-size="14" font-weight="bold" fill="#1e293b">MARCHA LENTA / INÉRCIA</text>
+    <text x="20" y="50" font-size="12" fill="#64748b">Duty Cycle: 0% (Sem PWM). Circuito aberto em tensão alta.</text>
+
+    <!-- Grid -->
+    <g stroke="#f1f5f9" stroke-width="1">
+      <line x1="60" y1="80" x2="720" y2="80" />
+      <line x1="60" y1="120" x2="720" y2="120" />
+      <line x1="60" y1="160" x2="720" y2="160" />
+      <line x1="60" y1="200" x2="720" y2="200" />
+      <line x1="60" y1="240" x2="720" y2="240" />
+    </g>
+
+    <!-- Eixo Y -->
+    <line x1="60" y1="80" x2="60" y2="240" stroke="#cbd5e1" stroke-width="2" />
+    <g fill="#64748b" font-size="12" font-weight="600" text-anchor="end">
+      <text x="50" y="84">14V</text>
+      <text x="50" y="164">7V</text>
+      <text x="50" y="244">0V</text>
+    </g>
+
+    <!-- Eixo X -->
+    <line x1="60" y1="240" x2="720" y2="240" stroke="#cbd5e1" stroke-width="2" />
+
+    <!-- Linha Média (Multímetro) -->
+    <line x1="60" y1="80" x2="720" y2="80" stroke="#F59E0B" stroke-width="3" stroke-dasharray="6,4" />
+    <text x="730" y="84" fill="#F59E0B" font-size="12" font-weight="bold" text-anchor="start">~14.0V</text>
+
+    <!-- Onda Quadrada (Sinal) - Linha reta em 14V -->
+    <line x1="60" y1="80" x2="720" y2="80" stroke="#3B82F6" stroke-width="3" filter="url(#shadow-pwm)" />
+
+    <!-- ========================================== -->
+    <!-- GRÁFICO 2: SOB CARGA (PWM Ativo)           -->
+    <!-- ========================================== -->
+    <text x="20" y="300" font-size="14" font-weight="bold" fill="#1e293b">SOB CARGA / ALTA ROTAÇÃO</text>
+    <text x="20" y="320" font-size="12" fill="#64748b">Duty Cycle ativo (ECU envia massa pulsante) -> Tensão média cai</text>
+
+    <!-- Grid -->
+    <g stroke="#f1f5f9" stroke-width="1">
+      <line x1="60" y1="350" x2="720" y2="350" />
+      <line x1="60" y1="390" x2="720" y2="390" />
+      <line x1="60" y1="430" x2="720" y2="430" />
+      <line x1="60" y1="470" x2="720" y2="470" />
+      <line x1="60" y1="510" x2="720" y2="510" />
+    </g>
+
+    <!-- Eixo Y -->
+    <line x1="60" y1="350" x2="60" y2="510" stroke="#cbd5e1" stroke-width="2" />
+    <g fill="#64748b" font-size="12" font-weight="600" text-anchor="end">
+      <text x="50" y="354">14V</text>
+      <text x="50" y="434">7V</text>
+      <text x="50" y="514">0V</text>
+    </g>
+
+    <!-- Eixo X -->
+    <line x1="60" y1="510" x2="720" y2="510" stroke="#cbd5e1" stroke-width="2" />
+
+    <!-- Linha Média (Multímetro) -->
+    <line x1="60" y1="434" x2="720" y2="434" stroke="#F59E0B" stroke-width="3" stroke-dasharray="6,4" />
+    <text x="730" y="438" fill="#F59E0B" font-size="12" font-weight="bold" text-anchor="start">~6.0V</text>
+
+    <!-- Onda Quadrada (Sinal) -->
+    <polyline points="60,350 130,350 130,510 210,510 210,350 280,350 280,510 360,510 360,350 430,350 430,510 510,510 510,350 580,350 580,510 660,510 660,350 720,350" 
+              fill="none" stroke="#3B82F6" stroke-width="3" stroke-linejoin="round" filter="url(#shadow-pwm)"/>
+
+  </svg>
 </div>
 
 <div class="aviso">
   <strong>Alerta de Oficina</strong>
-  <p>Se você medir <b>0V no Pino 02 em marcha lenta</b> com o motor funcionando, o fio de sinal está em curto-circuito direto com a massa ou o driver interno da ECU queimou em curto. O correto em marcha lenta é <b>tensão alta</b> (circuito aberto).</p>
+  <p>Se você medir <b>0V</b> no Pino 02 em marcha lenta com o motor funcionando, o fio de sinal está em curto-circuito direto com a massa ou o driver interno da ECU queimou em curto. O correto em marcha lenta é <b>tensão alta</b> (~14V, circuito aberto).</p>
 </div>
 
 <h2 id="defeitos">Principais Defeitos, Causas e Soluções</h2>
@@ -136,7 +221,7 @@
     </ul>
   </div>
   <div>
-    <h4>Solução Recomendada</h4>
+    <h4>Solução</h4>
     <ul>
       <li>Inspecionar linhas de vácuo;</li>
       <li>Testar alimentação pós-relé e limpar/substituir o filtro de respiro.</li>
@@ -162,7 +247,7 @@
     </ul>
   </div>
   <div>
-    <h4>Solução Recomendada</h4>
+    <h4>Solução</h4>
     <ul>
       <li>Checar o livre movimento da haste mecânica do turbo;</li>
       <li>Corrigir isolamento do chicote esmagado.</li>
@@ -187,7 +272,7 @@
     </ul>
   </div>
   <div>
-    <h4>Solução Recomendada</h4>
+    <h4>Solução</h4>
     <ul>
       <li>Aplicar limpa-contato de alta qualidade nos terminais;</li>
       <li>Substituir a válvula moduladora.</li>
@@ -213,7 +298,3 @@
     <p>A ECU enviou o sinal PWM correto, mas a resposta medida pelo sensor MAP permaneceu incoerente devido a travamentos ou vazamentos pneumáticos.</p>
   </div></div>
 </div>
-
-<p style="font-size: 0.85rem; color: #64748b; margin-top: 2rem; border-top: 1px solid #e2e8f0; padding-top: 1rem;">
-  <em>Este material é destinado ao apoio em diagnóstico automotivo de oficina. Procedimentos devem seguir as normas de segurança do fabricante.</em>
-</p>
