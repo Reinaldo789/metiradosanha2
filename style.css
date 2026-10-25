@@ -1,5 +1,5 @@
 /* ==========================================
-   1. ESTILOS BASE E CORES
+   1. ESTILOS BASE E CORES (MELHORADO)
    ========================================== */
 :root {
   --bg-page: #f8fafc;
@@ -40,7 +40,7 @@ html, body {
 }
 
 /* ==========================================
-   2. CABEÇALHO SUPERIOR (NAVBAR)
+   2. CABEÇALHO SUPERIOR (NAVBAR) - MELHORADO
    ========================================== */
 .site-wrapper > header {
   background: rgba(255, 255, 255, 0.85);
@@ -74,7 +74,9 @@ html, body {
   letter-spacing: -0.02em;
 }
 
-.logo i { font-size: 1.3rem; }
+.logo i {
+  font-size: 1.3rem;
+}
 
 .main-nav {
   display: flex;
@@ -107,9 +109,19 @@ html, body {
   font-family: inherit;
 }
 
-.nav-btn:hover { background-color: var(--primary-light); color: var(--primary); }
-.nav-btn i.fa-chevron-down { font-size: 0.7rem; transition: transform 0.3s ease; }
-.nav-item.active .nav-btn i.fa-chevron-down { transform: rotate(180deg); }
+.nav-btn:hover {
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+.nav-btn i.fa-chevron-down {
+  font-size: 0.7rem;
+  transition: transform 0.3s ease;
+}
+
+.nav-item.active .nav-btn i.fa-chevron-down {
+  transform: rotate(180deg);
+}
 
 .mobile-toggle {
   display: none;
@@ -123,10 +135,13 @@ html, body {
   transition: var(--transition);
 }
 
-.mobile-toggle:hover { background-color: var(--primary-light); color: var(--primary); }
+.mobile-toggle:hover {
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
 
 /* ==========================================
-   3. MEGA MENU DROPDOWN (DESKTOP)
+   3. MEGA MENU DROPDOWN (DESKTOP) - MELHORADO
    ========================================== */
 .mega-menu {
   position: absolute;
@@ -153,21 +168,62 @@ html, body {
   gap: 1.5rem;
 }
 
-.mega-menu::-webkit-scrollbar { width: 6px; }
-.mega-menu::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-
-@media (min-width: 961px) {
-  .nav-item:hover > .nav-btn { background-color: var(--primary-light); color: var(--primary); }
-  .nav-item:hover > .nav-btn i.fa-chevron-down { transform: rotate(180deg); }
-  .nav-item:hover .mega-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+.mega-menu::-webkit-scrollbar {
+  width: 6px;
+}
+.mega-menu::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
 }
 
-.mega-categories-container { display: flex; flex-direction: column; gap: 1.2rem; }
+/* HOVER DESKTOP */
+@media (min-width: 961px) {
+  .nav-item:hover > .nav-btn {
+    background-color: var(--primary-light);
+    color: var(--primary);
+  }
 
-.category-group { padding-bottom: 1rem; position: relative; }
-.category-group::after { content: ""; display: block; width: 60%; height: 1px; background-color: #f1f5f9; position: absolute; bottom: 0; left: 0; }
-.category-group:last-child { padding-bottom: 0; }
-.category-group:last-child::after { display: none; }
+  .nav-item:hover > .nav-btn i.fa-chevron-down {
+    transform: rotate(180deg);
+  }
+
+  .nav-item:hover .mega-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
+.mega-categories-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* --- LINHA DE DIVISÃO PERSONALIZADA --- */
+.category-group {
+  padding-bottom: 1rem;
+  position: relative;
+}
+
+.category-group::after {
+  content: "";
+  display: block;
+  width: 60%;
+  height: 1px;
+  background-color: #f1f5f9;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.category-group:last-child {
+  padding-bottom: 0;
+}
+
+.category-group:last-child::after {
+  display: none;
+}
 
 .category-title {
   font-size: 0.78rem;
@@ -181,7 +237,11 @@ html, body {
   gap: 0.4rem;
 }
 
-.mega-links-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+.mega-links-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
 
 .mega-link-item {
   display: flex;
@@ -196,11 +256,32 @@ html, body {
   border: 1px solid transparent;
 }
 
-.mega-link-item:hover { background-color: var(--primary-light); color: var(--primary); border-color: #e0e7ff; transform: translateX(3px); }
-.mega-link-item i { font-size: 0.7rem; color: var(--text-muted); transition: var(--transition); }
-.mega-link-item:hover i { color: var(--primary); transform: translateX(2px); }
-.mega-link-item.active { background-color: var(--primary-light); color: var(--primary); font-weight: 700; border-color: #c7d2fe; }
+.mega-link-item:hover {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  border-color: #e0e7ff;
+  transform: translateX(3px);
+}
 
+.mega-link-item i {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
+.mega-link-item:hover i {
+  color: var(--primary);
+  transform: translateX(2px);
+}
+
+.mega-link-item.active {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  font-weight: 700;
+  border-color: #c7d2fe;
+}
+
+/* Painel Lateral Explore - MELHORADO */
 .mega-explore-side {
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   border-radius: 14px;
@@ -212,7 +293,9 @@ html, body {
   transition: var(--transition);
 }
 
-.mega-explore-side:hover { box-shadow: var(--shadow-md); }
+.mega-explore-side:hover {
+  box-shadow: var(--shadow-md);
+}
 
 .explore-header-title {
   font-size: 0.72rem;
@@ -234,10 +317,29 @@ html, body {
   box-shadow: 0 4px 12px rgba(49, 46, 129, 0.25);
 }
 
-.explore-banner:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(49, 46, 129, 0.35); }
-.explore-banner i { font-size: 1.8rem; margin-bottom: 0.5rem; color: #a5b4fc; }
-.explore-banner h5 { margin: 0 0 0.3rem 0; font-size: 0.9rem; font-weight: 700; }
-.explore-banner p { margin: 0; font-size: 0.75rem; opacity: 0.85; line-height: 1.4; }
+.explore-banner:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(49, 46, 129, 0.35);
+}
+
+.explore-banner i {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #a5b4fc;
+}
+
+.explore-banner h5 {
+  margin: 0 0 0.3rem 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.explore-banner p {
+  margin: 0;
+  font-size: 0.75rem;
+  opacity: 0.85;
+  line-height: 1.4;
+}
 
 .explore-link {
   color: var(--primary);
@@ -251,12 +353,21 @@ html, body {
   padding: 0.4rem 0;
 }
 
-.explore-link:hover { gap: 0.7rem; color: var(--primary-hover); }
+.explore-link:hover {
+  gap: 0.7rem;
+  color: var(--primary-hover);
+}
 
 /* ==========================================
    4. CONTEÚDO DA PÁGINA
    ========================================== */
-main { flex-grow: 1; padding: 3rem 1.5rem; max-width: 1200px; margin: 0 auto; width: 100%; }
+main {
+  flex-grow: 1;
+  padding: 3rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
 
 .hero-box {
   text-align: center;
@@ -267,14 +378,41 @@ main { flex-grow: 1; padding: 3rem 1.5rem; max-width: 1200px; margin: 0 auto; wi
   border: 1px solid var(--border-color);
 }
 
-.hero-title-bg { font-size: clamp(2rem, 6vw, 4.5rem); font-weight: 900; color: rgba(79, 70, 229, 0.12); margin: 0; line-height: 1; text-transform: uppercase; letter-spacing: -0.03em; }
-.hero-title-main { font-size: clamp(1.5rem, 4vw, 2.2rem); color: var(--text-main); margin-top: -1rem; font-weight: 800; letter-spacing: -0.02em; }
-.hero-sub { color: var(--text-muted); font-size: 0.95rem; max-width: 600px; margin: 0.8rem auto 0 auto; line-height: 1.6; }
+.hero-title-bg {
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  font-weight: 900;
+  color: rgba(79, 70, 229, 0.12);
+  margin: 0;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+}
+
+.hero-title-main {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  color: var(--text-main);
+  margin-top: -1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.hero-sub {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  max-width: 600px;
+  margin: 0.8rem auto 0 auto;
+  line-height: 1.6;
+}
 
 /* ==========================================
    5. BOTÃO FLUTUANTE (VOLTAR AO TOPO)
    ========================================== */
-.floating-container { position: fixed; bottom: 24px; right: 24px; z-index: 999; }
+.floating-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+}
 
 .float-btn {
   width: 48px;
@@ -294,19 +432,29 @@ main { flex-grow: 1; padding: 3rem 1.5rem; max-width: 1200px; margin: 0 auto; wi
   pointer-events: none;
 }
 
-.float-btn:hover { background-color: var(--primary-hover); transform: translateY(-4px) scale(1.05); }
-.float-btn.visible { opacity: 1; pointer-events: auto; }
+.float-btn:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-4px) scale(1.05);
+}
+
+.float-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
 
 /* ==========================================
-   6. ESTILOS MOBILE
+   6. ESTILOS MOBILE - MELHORADO
    ========================================== */
 @media (max-width: 960px) {
   .mobile-toggle { display: block; }
+
   .main-nav {
     display: none;
     position: fixed;
     top: 61px;
-    left: 0; right: 0; bottom: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     width: 100%;
     height: calc(100vh - 61px);
     background: var(--bg-page);
@@ -319,8 +467,14 @@ main { flex-grow: 1; padding: 3rem 1.5rem; max-width: 1200px; margin: 0 auto; wi
     animation: fadeInDown 0.2s ease;
   }
 
-  @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-  .main-nav.active { display: flex; }
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .main-nav.active { 
+    display: flex; 
+  }
 
   .nav-item {
     padding-bottom: 0;
@@ -335,13 +489,30 @@ main { flex-grow: 1; padding: 3rem 1.5rem; max-width: 1200px; margin: 0 auto; wi
     transition: var(--transition);
   }
 
-  .nav-item.active { box-shadow: var(--shadow-md); border-color: #c7d2fe; }
-  .nav-btn { width: 100%; justify-content: space-between; padding: 1rem 1.2rem; font-size: 0.95rem; background: white; border-radius: 0; }
-  .nav-item.active .nav-btn { background-color: var(--primary-light); color: var(--primary); font-weight: 700; }
+  .nav-item.active {
+    box-shadow: var(--shadow-md);
+    border-color: #c7d2fe;
+  }
+
+  .nav-btn {
+    width: 100%;
+    justify-content: space-between;
+    padding: 1rem 1.2rem;
+    font-size: 0.95rem;
+    background: white;
+    border-radius: 0;
+  }
+
+  .nav-item.active .nav-btn {
+    background-color: var(--primary-light);
+    color: var(--primary);
+    font-weight: 700;
+  }
 
   .mega-menu {
     position: static;
-    left: auto; right: auto;
+    left: auto;
+    right: auto;
     transform: none !important;
     width: 100%;
     box-shadow: none;
@@ -357,15 +528,42 @@ main { flex-grow: 1; padding: 3rem 1.5rem; max-width: 1200px; margin: 0 auto; wi
     background: #ffffff;
   }
 
-  .nav-item.active .mega-menu { display: block; animation: slideDown 0.25s ease; }
-  @keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
-  .nav-item.active > .nav-btn i.fa-chevron-down { transform: rotate(180deg); }
+  .nav-item.active .mega-menu {
+    display: block;
+    animation: slideDown 0.25s ease;
+  }
 
-  .mega-links-grid { grid-template-columns: 1fr; gap: 0.4rem; }
-  .mega-link-item { padding: 0.7rem 0.9rem; background: #f8fafc; border-radius: 8px; }
-  .mega-link-item:hover { transform: none; }
-  .mega-explore-side { margin-top: 1rem; }
-  .category-group::after { width: 100%; }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .nav-item.active > .nav-btn i.fa-chevron-down {
+    transform: rotate(180deg);
+  }
+
+  .mega-links-grid {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
+  .mega-link-item {
+    padding: 0.7rem 0.9rem;
+    background: #f8fafc;
+    border-radius: 8px;
+  }
+
+  .mega-link-item:hover {
+    transform: none;
+  }
+
+  .mega-explore-side {
+    margin-top: 1rem;
+  }
+
+  .category-group::after {
+    width: 100%;
+  }
 }
 
 /* ==========================================
@@ -390,9 +588,11 @@ main { flex-grow: 1; padding: 3rem 1.5rem; max-width: 1200px; margin: 0 auto; wi
 .page-card table { border-collapse: collapse; width: 100%; }
 .page-card td, .page-card th { border: 1px solid var(--border-color); padding: 0.4rem 0.7rem; }
 .page-loading { color: var(--text-muted); }
+/* depois de clicar num item, o painel fecha até o mouse sair e voltar */
 .nav-item.closed .mega-menu { opacity: 0 !important; visibility: hidden !important; }
 @media (max-width: 960px) { .page-card { padding: 1.2rem; border-radius: 14px; } }
 
+/* Índice interno, avisos e listas dos artigos */
 .page-card [id] { scroll-margin-top: 80px; }
 .page-card h3 { margin: 1.4rem 0 0.3rem; font-size: 1.05rem; }
 .page-card ul { padding-left: 1.3rem; }
@@ -408,15 +608,23 @@ main { flex-grow: 1; padding: 3rem 1.5rem; max-width: 1200px; margin: 0 auto; wi
 .aviso p { margin: 0.3rem 0 0; }
 
 /* ==========================================
-   8. MEGA MENU COMPACTO (DESKTOP)
+   8. MEGA MENU COMPACTO (somente desktop)
    ========================================== */
 @media (min-width: 961px) {
-  .mega-menu { max-width: 1000px; padding: 1rem 1.2rem; grid-template-columns: 1fr 230px; gap: 1rem; }
+  .mega-menu {
+    max-width: 1000px;
+    padding: 1rem 1.2rem;
+    grid-template-columns: 1fr 230px;
+    gap: 1rem;
+  }
   .mega-categories-container { gap: 0.5rem; }
   .category-group { padding-bottom: 0.5rem; }
   .category-group::after { width: 80%; }
   .category-title { margin-bottom: 0.25rem; font-size: 0.75rem; }
-  .mega-links-grid { grid-template-columns: repeat(4, 1fr); gap: 0 0.4rem; }
+  .mega-links-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0 0.4rem;
+  }
   .mega-link-item { padding: 0.3rem 0.5rem; font-size: 0.82rem; }
   .mega-explore-side { padding: 0.8rem; justify-content: flex-start; gap: 0.6rem; }
   .explore-header-title { margin-bottom: 0; }
@@ -425,7 +633,8 @@ main { flex-grow: 1; padding: 3rem 1.5rem; max-width: 1200px; margin: 0 auto; wi
 }
 
 /* ==========================================
-   9. MENUS ELEGANTES (DROPDOWN SIMPLES)
+   9. MENUS ELEGANTES (sem mega menu)
+   Dropdown simples, uma coluna, abaixo de cada botão
    ========================================== */
 .explore-header-title, .explore-banner { display: none; }
 .mega-link-item i { display: none; }
@@ -465,6 +674,7 @@ main { flex-grow: 1; padding: 3rem 1.5rem; max-width: 1200px; margin: 0 auto; wi
   .category-title { padding: 0; }
 }
 
+/* Cabeçalho do artigo nunca herda o comportamento do cabeçalho do site */
 .page-card header {
   position: static; z-index: auto; top: auto; width: auto;
   background: none; border: 0;
@@ -549,7 +759,7 @@ main { flex-grow: 1; padding: 3rem 1.5rem; max-width: 1200px; margin: 0 auto; wi
 }
 
 /* ==========================================
-   11. ARTIGOS (Cabeçalho, caixas, figuras)
+   11. ARTIGOS (abas, caixas, diálogo)
    ========================================== */
 .page-card .art-head {
   background: linear-gradient(135deg, #312e81 0%, #4f46e5 100%); color: #fff;
@@ -561,18 +771,28 @@ main { flex-grow: 1; padding: 3rem 1.5rem; max-width: 1200px; margin: 0 auto; wi
 .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .chips span { font-size: 0.78rem; padding: 0.25rem 0.7rem; border-radius: 99px; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.25); }
 
-/* mini abas internas (sintomas / causas / soluções) */
+/* abas principais */
+.art-tabs { display: flex; gap: 0.4rem; overflow-x: auto; padding: 0.3rem 0 0.6rem; margin: 1rem 0; border-bottom: 1px solid var(--border-color); scroll-margin-top: 70px; scrollbar-width: thin; }
+.art-tabs button, .mini-tabs button {
+  flex: none; font: inherit; font-size: 0.86rem; font-weight: 600; cursor: pointer;
+  padding: 0.5rem 0.95rem; border-radius: 99px; border: 1px solid var(--border-color);
+  background: #fff; color: var(--text-muted); transition: var(--transition);
+}
+.art-tabs button:hover, .mini-tabs button:hover { color: var(--primary); border-color: #c7d2fe; }
+.art-tabs button.on, .mini-tabs button.on { background: var(--primary); border-color: var(--primary); color: #fff; box-shadow: 0 4px 10px rgba(79,70,229,0.25); }
+.art-panel { display: none; }
+.art-panel.on { display: block; animation: slideDown 0.25s ease; }
+.art-panel > h2:first-child { margin-top: 0.5rem; }
+.aba-nav { display: flex; justify-content: space-between; gap: 0.6rem; flex-wrap: wrap; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border-color); }
+.aba-nav button { font: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; padding: 0.5rem 0.9rem; border-radius: 10px; border: 1px solid var(--border-color); background: #fff; color: var(--primary); transition: var(--transition); }
+.aba-nav button:hover { background: var(--primary-light); }
+
+/* mini abas (sintomas / causas / soluções) */
 .trio { border: 1px solid var(--border-color); border-radius: 14px; padding: 1rem; margin: 1rem 0; background: #fafbff; }
 .trio.enh .mini-panel { display: none; }
 .trio.enh .mini-panel.on { display: block; animation: slideDown 0.2s ease; }
 .mini-tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.6rem; }
-.mini-tabs button {
-  flex: none; font: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer;
-  padding: 0.35rem 0.8rem; border-radius: 99px; border: 1px solid var(--border-color);
-  background: #fff; color: var(--text-muted); transition: var(--transition);
-}
-.mini-tabs button:hover { color: var(--primary); border-color: #c7d2fe; }
-.mini-tabs button.on { background: var(--primary); border-color: var(--primary); color: #fff; box-shadow: 0 4px 10px rgba(79,70,229,0.25); }
+.mini-tabs button { padding: 0.35rem 0.8rem; font-size: 0.82rem; }
 .trio h4 { margin: 0 0 0.3rem; }
 
 /* cartões de especificação */
@@ -622,92 +842,14 @@ a.img-link::after { content: "\f03e"; font-family: "Font Awesome 6 Free"; font-w
 @media (max-width: 960px) { .page-card .art-head { padding: 1.1rem; } .codigo { padding: 0.8rem; } }
 
 /* ==========================================
-   12. ÍNDICE DO ARTIGO (ABAS EM PÍLULA)
+   12. ÍNDICE DO ARTIGO (abas numeradas, claro no celular)
    ========================================== */
-
-/* Título "NESTE ARTIGO" */
-.art-index-title { 
-  margin: 1.5rem 0 1rem; 
-  font-size: 0.78rem; 
-  font-weight: 800; 
-  text-transform: uppercase; 
-  letter-spacing: 0.06em; 
-  color: var(--text-muted); 
-  scroll-margin-top: 72px; 
-}
-
-/* Container das abas */
-.art-tabs { 
-  display: flex; 
-  flex-wrap: wrap; 
-  gap: 0.5rem; 
-  margin-bottom: 2rem; 
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 1.5rem;
-}
-
-/* Botão da Aba (Pílula) */
-.art-tabs button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  font: inherit;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 0.5rem 1.2rem;
-  border-radius: 99px; 
-  border: 1px solid var(--border-color);
-  background: #fff;
-  color: var(--text-main);
-  transition: all 0.2s ease;
-}
-
-.art-tabs button:hover { 
-  border-color: #c7d2fe; 
-  color: var(--primary);
-}
-
-/* O Círculo do Número (Inativo) */
-.art-tabs button em {
-  font-style: normal;
-  font-size: 0.75rem;
-  font-weight: 800;
-  width: 1.6rem;
-  height: 1.6rem;
-  flex: none;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: #f1f5f9;
-  color: var(--text-muted);
-  transition: all 0.2s ease;
-}
-
-/* Aba Ativa (Roxa) */
-.art-tabs button.on {
-  background: var(--primary);
-  border-color: var(--primary);
-  color: #fff;
-  box-shadow: 0 4px 10px rgba(79,70,229,0.25);
-}
-
-/* Círculo do Número (Ativo) */
-.art-tabs button.on em {
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
-}
-
-/* Conteúdo dos Painéis */
-.art-panel { display: none; scroll-margin-top: 72px; }
-.art-panel.on { display: block; animation: slideDown 0.3s ease; }
-.art-panel h2 { margin-top: 0; color: var(--primary); }
-.art-panel > h2:first-child { margin-top: 0.5rem; }
-
-/* Navegação inferior (Anterior / Próximo) */
-.aba-nav { display: flex; justify-content: space-between; gap: 0.6rem; flex-wrap: wrap; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border-color); }
-.aba-nav button { font: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; padding: 0.5rem 0.9rem; border-radius: 10px; border: 1px solid var(--border-color); background: #fff; color: var(--primary); transition: var(--transition); }
-.aba-nav button:hover { background: var(--primary-light); }
+.art-index-title { margin: 1.2rem 0 0.4rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); scroll-margin-top: 72px; }
+.art-tabs { margin-top: 0; }
+.art-panel { scroll-margin-top: 72px; }
+.art-tabs button { display: inline-flex; align-items: center; gap: 0.5rem; }
+.art-tabs button em { font-style: normal; font-size: 0.72rem; font-weight: 800; width: 1.4rem; height: 1.4rem; flex: none; border-radius: 50%; display: grid; place-items: center; background: var(--primary-light); color: var(--primary); }
+.art-tabs button.on em { background: rgba(255,255,255,0.25); color: #fff; }
 
 @media (max-width: 960px) {
   .art-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; overflow: visible; padding-bottom: 1rem; }
@@ -718,6 +860,15 @@ a.img-link::after { content: "\f03e"; font-family: "Font Awesome 6 Free"; font-w
   .aba-nav span { display: none; }
   .mini-tabs button { flex: 1 1 auto; }
 }
+
+/* Índice sem barra de rolagem: as abas quebram em várias linhas */
+.art-tabs { flex-wrap: wrap; overflow: visible; gap: 0.5rem; padding-bottom: 1rem; }
+
+/* Tabelas e listas numeradas dos artigos */
+.page-card th { background: var(--primary-light); color: var(--primary); text-align: left; font-size: 0.85rem; }
+.page-card tr:nth-child(even) td { background: #f8fafc; }
+.page-card ol { padding-left: 1.4rem; }
+.page-card li { margin: 0.35rem 0; }
 
 /* ==========================================
    13. BARRA ESCURA AO ROLAR A PÁGINA
@@ -736,9 +887,10 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 }
 
 /* ==========================================
-   14. MENU DO CELULAR
+   14. MENU DO CELULAR: o final da lista não fica escondido
    ========================================== */
 @media (max-width: 960px) {
+  /* backdrop-filter faz o menu fixo se medir pelo cabeçalho e não pela tela */
   .site-wrapper > header { backdrop-filter: none; -webkit-backdrop-filter: none; }
   .main-nav {
     height: auto;
@@ -774,7 +926,7 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 .fluxo > .passo:first-child [data-voltar] { visibility: hidden; }
 
 /* ==========================================
-   16. ESCOLHA DE SENSOR / ATUADOR
+   16. ESCOLHA DE SENSOR / ATUADOR E ROTEIROS EM IMAGEM
    ========================================== */
 .hub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.8rem; margin: 1rem 0 1.5rem; }
 .page-card .hub-card { display: flex; gap: 0.9rem; align-items: flex-start; padding: 1rem; background: #fff; border: 1px solid var(--border-color); border-radius: 14px; text-decoration: none; color: var(--text-main); transition: var(--transition); }
@@ -788,7 +940,9 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 .lightbox img.zoom { max-height: none; width: min(94vw, 1000px); cursor: zoom-out; }
 
 /* ==========================================
-   17. BOTÃO DO MENU DESTACADO
+   17. BOTÃO DO MENU DESTACADO NA PÁGINA ABERTA
+   (o JavaScript põe a classe "atual" no botão do menu
+   que contém o item da página que está aberta)
    ========================================== */
 .nav-btn.atual { color: var(--primary); background-color: var(--primary-light); }
 @media (min-width: 961px) {
@@ -797,6 +951,9 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 
 /* ==========================================
    18. TABELAS RESPONSIVAS
+   - ocupam a largura inteira do artigo
+   - no celular continuam tabelas, só mais compactas (menos espaço interno, fonte menor, texto quebrando)
+   - tabelas com 4 ou mais colunas rolam para o lado
    ========================================== */
 .page-card th { background: var(--primary-light); color: var(--primary); font-size: 0.9rem; text-align: left; }
 .page-card tbody tr:nth-child(odd) td { background: #f8fafc; }
