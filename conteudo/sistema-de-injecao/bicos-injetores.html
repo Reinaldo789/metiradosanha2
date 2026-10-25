@@ -1,4 +1,4 @@
-<!-- Bicos Injetores. Imagens: salve em conteudo/imagens/bicos-injetores/ -->
+<!-- Bicos Injetores (Common Rail). Imagens: salve em conteudo/imagens/bicos-injetores/ -->
 <header class="art-head">
   <h1>Bicos Injetores (Common Rail)</h1>
 </header>
@@ -6,33 +6,21 @@
 <nav class="toc" aria-label="Neste artigo">
   <strong>Neste artigo</strong>
   <ul>
-    <li><a href="#" data-goto="localizacao">Localização</a></li>
-    <li><a href="#" data-goto="como-retirar">Como retirar</a>
-      <ul>
-        <li><a href="#" data-goto="tabela-aperto">Tabela de aperto</a></li>
-      </ul>
-    </li>
-    <li><a href="#" data-goto="funcionamento">Como funciona</a></li>
+    <li><a href="#" data-goto="funcionamento">Funcionamento</a></li>
     
-    <li><a href="#" data-goto="parte-eletrica">Parte elétrica</a>
+    <li><a href="#" data-goto="parte-eletrica">Parte Elétrica e Testes</a>
       <ul>
         <li><a href="#" data-goto="pinagem">Pinagem do Chicote</a></li>
-        <li><a href="#" data-goto="teste-resistencia">Teste de Resistência</a></li>
-        <li><a href="#" data-goto="teste-tensao">Teste de Tensão e Pulso</a></li>
+        <li><a href="#" data-goto="teste-resistencia">Teste de Resistência (Ω)</a></li>
+        <li><a href="#" data-goto="teste-tensao-dc">Teste de Tensão DC</a></li>
+        <li><a href="#" data-goto="teste-pwm">Sinal PWM (Duty Cycle e Frequência)</a></li>
       </ul>
     </li>
     
-    <li><a href="#" data-goto="problemas-comuns">Problemas comuns</a>
+    <li><a href="#" data-goto="codigos-de-falha">Códigos de Falha</a>
       <ul>
-        <li><a href="#" data-goto="excesso-retorno">Excesso de retorno</a></li>
-        <li><a href="#" data-goto="castanhado-forte">Castanhado forte e motor fraco</a></li>
-        <li><a href="#" data-goto="limpeza-bico">Limpeza do bico injetor</a></li>
-      </ul>
-    </li>
-    
-    <li><a href="#" data-goto="teste-retorno">Teste de retorno dos injetores</a>
-      <ul>
-        <li><a href="#" data-goto="medidas-referencia">Medidas de referência</a></li>
+        <li><a href="#" data-goto="injetor-desconectado">Injetor não Conectado (P0201 a P0204)</a></li>
+        <li><a href="#" data-goto="curto-banco">Curto no Banco de Injetores</a></li>
       </ul>
     </li>
   </ul>
@@ -42,61 +30,21 @@
      CONTEÚDO DO ARTIGO
      ========================================== -->
 
-<h2 id="localizacao">Localização</h2>
+<h2 id="funcionamento">Funcionamento</h2>
 <p>Os bicos injetores estão montados no cabeçote e têm a finalidade de pulverizar o combustível na câmara de combustão. O controle dos bicos é feito pela ECM, que determina a quantidade e o momento exato da injeção de combustível para cada cilindro.</p>
 
-<!-- IMAGEM: Localização -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/01-localizacao.jpg" alt="Localização dos bicos injetores no motor" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<h2 id="como-retirar">Como retirar</h2>
-<div class="aviso">
-  <strong>Atenção</strong>
-  <p>Ao usar chaves para soltar a tubulação de alta pressão, cuidado com a torção do cano. Se a chave escapar, pode quebrar o plug da bobina do injetor.</p>
-</div>
-
-<!-- IMAGEM: Cuidados ao retirar (Chave e plug) -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/02-cuidados-retirada.jpg" alt="Cuidados ao soltar a tubulação e o plug do injetor" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<h3 id="tabela-aperto">Tabela de Aperto</h3>
-<div class="specs">
-  <div class="spec"><b>8,5 ± 1 Nm</b><span>Abraçadeira / Tubo de retorno</span></div>
-  <div class="spec"><b>20 ± 3 Nm</b><span>Parafusos da flange / Tubo de alta</span></div>
-  <div class="spec"><b>25 ± 4 Nm</b><span>Porca do tubo de alta no Rail</span></div>
-  <div class="spec"><b>27 ± 3 Nm</b><span>Conexão do tubo de alta no bico</span></div>
-  <div class="spec"><b>1ª 14 ± 1 Nm<br>2ª 55° ± 2°</b><span>Parafuso de fixação do bico (garra)</span></div>
-</div>
-
-<!-- IMAGEM: Tabela de Aperto Visual -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/03-tabela-aperto.jpg" alt="Tabela de aperto visual dos parafusos" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<h2 id="funcionamento">Como funciona</h2>
-
-<h3>Posição de Repouso</h3>
-<p>Na posição de repouso, o bico injetor está fechado (desenergizado). A agulha do bico permanece fechada pela ação da alta pressão do combustível na haste do bico, que possui uma área maior em relação à área inferior do bico injetor.</p>
-
-<h3>Início de Injeção</h3>
-<p>O ECM determina o início de injeção, energizando a válvula eletromagnética que abre a passagem de saída do combustível para o retorno. O combustível pressurizado entra pelo furo calibrado, criando uma depressão na câmara de controle; essa depressão faz a agulha do injetor se movimentar para cima, iniciando a pulverização do combustível na câmara de combustão.</p>
+<h3>Início da Injeção</h3>
+<p>O ECM determina o início de injeção energizando a válvula eletromagnética, que abre a passagem de saída do combustível para o retorno. O combustível pressurizado entra pelo furo calibrado, criando uma depressão na câmara de controle; essa depressão faz a agulha do injetor se movimentar para cima, iniciando a pulverização do combustível na câmara de combustão.</p>
 
 <h3>Fim da Injeção</h3>
 <p>O fim da injeção ocorre quando a válvula eletromagnética é desenergizada pelo ECM. A mola aciona a válvula que fecha a passagem do furo de retorno. O combustível pressurizado ocupa a câmara de controle fazendo a agulha do injetor se movimentar para baixo, voltando à posição de repouso.</p>
 
-<h2 id="parte-eletrica">Parte elétrica</h2>
-<p>Ligação do módulo ECM (Conector A - 60 vias) até os bicos injetores.</p>
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>O sistema Common Rail trabalha com pressões extremamente altas (até 1350 bar no MWM Sprint 2.8). Nunca desconecte os tubos de alta pressão com o motor em funcionamento. Risco grave de queimaduras e acidentes.</p>
+</div>
 
-<!-- IMAGEM: Esquema Elétrico ECM -> Bicos -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/04-ligacao-ecm-bicos.jpg" alt="Esquema elétrico de ligação do ECM aos bicos injetores" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
+<h2 id="parte-eletrica">Parte Elétrica e Testes</h2>
 
 <h3 id="pinagem">Pinagem do Chicote (Conector A da ECM)</h3>
 <table>
@@ -131,7 +79,7 @@
   </tbody>
 </table>
 
-<h3 id="teste-resistencia">Teste de Resistência (Ω)</h3>
+<h3 id="teste-resistencia">1. Teste de Resistência (Ω)</h3>
 <ul>
   <li><b>Condição:</b> Chave de ignição desligada e conector do injetor desconectado.</li>
   <li><b>Medição:</b> Meça a resistência entre os dois terminais do próprio injetor com o multímetro na escala de resistência (Ω).</li>
@@ -143,168 +91,269 @@
 
 <div class="aviso">
   <strong>Atenção</strong>
-  <p>Considere o erro das pontas de prova do multímetro. Valores muito acima de 0,5 Ω (ou circuito aberto/OL) indicam bobina rompida. Valores próximos de zero podem indicar curto interno. Em ambos os casos, o injetor deve ser substituído.</p>
+  <p>Considere o erro das pontas de prova. Valores muito acima de 0,5 Ω indicam bobina rompida. Valores próximos de zero podem indicar curto interno. Em ambos os casos, o injetor deve ser substituído.</p>
 </div>
 
-<h3 id="teste-tensao">Teste de Tensão e Pulso</h3>
-<p>Com a caneta de teste ou multímetro, é possível ver os pulsos e também o Duty Cycle (ciclo de trabalho). Para testes básicos, o Duty Cycle não é importante.</p>
-
-<div class="aviso">
-  <strong>Atenção</strong>
-  <p>Só haverá pulso nos bicos injetores se a tensão de retorno no <a href="#sistema-de-injecao/sensor-pres-rail">sensor de pressão do Rail</a> for de no mínimo <b>0,9 Volts</b>.</p>
-</div>
-
-<!-- IMAGEM: Teste de pulso com caneta (Fio Azul / Fio Preto) -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/05-teste-pulso.jpg" alt="Teste de pulso com caneta de teste nos fios do injetor" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<h2 id="problemas-comuns">Problemas comuns</h2>
-
-<div class="aviso">
-  <strong>Atenção</strong>
-  <p>Os testes usando spray são extremamente básicos, pois o spray tem apenas 6 bar de pressão. Na marcha lenta, o sistema trabalha com no mínimo 250 bar.</p>
-</div>
-
-<h3 id="excesso-retorno">Excesso de retorno dos bicos injetores</h3>
-<div class="trio">
-  <div>
-    <h4>Sintomas</h4>
-    <ul>
-      <li>Motor de partida gira, mas não liga;</li>
-      <li>Partidas muito longas.</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Possíveis causas</h4>
-    <ul>
-      <li>Baixa pressão na linha de baixa;</li>
-      <li>Baixa pressão na linha de alta;</li>
-      <li>Válvula de alívio do tubo Rail com vazamento;</li>
-      <li>Excesso de retorno nos bicos injetores.</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Possíveis soluções</h4>
-    <ul>
-      <li>Após verificar o excesso de retorno, é preciso trocar o reparo do bico injetor.</li>
-    </ul>
-  </div>
-</div>
-
-<h3 id="castanhado-forte">Castanhado forte e motor fraco</h3>
-<div class="trio">
-  <div>
-    <h4>Sintomas</h4>
-    <ul>
-      <li>Motor de partida gira e às vezes o motor liga, com castanhado forte;</li>
-      <li>Motor sem potência;</li>
-      <li>Partidas muito longas.</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Possíveis causas</h4>
-    <ul>
-      <li>Bico injetor travado aberto;</li>
-      <li>Válvula MPROP travada aberta (medir tensão no sensor do Rail).</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Possíveis soluções</h4>
-    <ul>
-      <li>Sacar os bicos injetores e realizar a limpeza.</li>
-    </ul>
-  </div>
-</div>
-
-<h3 id="limpeza-bico">Limpeza do bico injetor</h3>
-<p>É preciso limpar também o tubo Rail e as tubulações de ligação (veja em <a href="#alimentacao-de-combustivel/tubo-rail">Tubo Rail</a>).</p>
-
-<!-- IMAGEM: Bico sujo e pino -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/06-limpeza-1.jpg" alt="Bico injetor sujo e o pino de controle" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<div class="dica">
-  <strong>Dica de Desmontagem e Limpeza</strong>
-  <ul>
-    <li>Para <b>retirar</b> o pino do bico, bata no pino do lado da rosca do bico injetor.</li>
-    <li>Para <b>montar</b>, bata no pino do lado da rosca do tubo do Rail.</li>
-  </ul>
-</div>
-
-<!-- IMAGEM: Retirar e Montar o pino (Lado da rosca) -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/07-limpeza-2.jpg" alt="Demonstração de como retirar e montar o pino do bico injetor" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<p>Faça o teste de retorno do bico: ele verifica a estanqueidade do reparo da caneta do bico e o assentamento da esfera de controle de retorno.</p>
-<p>Usando spray no primeiro furo do bico (furo maior), realize o teste de retorno: injete spray e, nesse caso, <b>não pode sair líquido pelo retorno</b>.</p>
-
-<!-- IMAGEM: Teste de retorno com spray no furo maior -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/08-teste-retorno-spray.jpg" alt="Teste de retorno com spray injetado no furo maior do bico" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<p>Teste usando desengripante em spray para verificar a pulverização da ponteira.</p>
-
-<!-- IMAGEM: Teste da ponteira com desengripante -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/09-teste-ponteira.jpg" alt="Teste da ponteira do bico com desengripante em spray" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<!-- IMAGEM: Componentes internos do bico (Reparo da caneta e esfera) -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/10-reparo-1.jpg" alt="Componentes internos do bico injetor: reparo da caneta e esfera de controle" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<!-- IMAGEM: Teste de estanqueidade com desengripante no reparo -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/11-reparo-2.jpg" alt="Teste de estanqueidade do reparo do bico com spray" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<h3>Montagem no motor</h3>
+<h3 id="teste-tensao-dc">2. Teste de Tensão DC</h3>
 <ul>
-  <li>Use o O-ring de vedação no bico para não enferrujar o injetor;</li>
-  <li>Recomenda-se trocar a arruela de cobre sempre que desmontar;</li>
-  <li>Verifique a <a href="#" data-goto="tabela-aperto">tabela de aperto</a> para não danificar a rosca do cabeçote.</li>
+  <li><b>Condição:</b> Chave de ignição ligada (motor parado) e conector do injetor desconectado.</li>
+  <li><b>Medição:</b> Meça a tensão entre o pino de alimentação do conector do chicote e o negativo da bateria.</li>
 </ul>
 
-<!-- IMAGEM: Bico pronto para montar (com O-ring e arruela) -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/12-montagem-1.jpg" alt="Bico injetor com O-ring e arruela de cobre pronto para montagem" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<!-- IMAGEM: Bico sendo montado no cabeçote -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/13-montagem-2.jpg" alt="Bico injetor sendo instalado no cabeçote do motor" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<h2 id="teste-retorno">Teste de retorno dos injetores</h2>
-<ul>
-  <li>Use mangueiras transparentes e frascos para coleta do retorno individual;</li>
-  <li>Com o motor em marcha lenta por 1 minuto, os volumes devem ser quase iguais entre os injetores;</li>
-  <li>Um injetor com alto volume de retorno indica desgaste interno e compromete a manutenção da pressão do Rail.</li>
-</ul>
-
-<!-- IMAGEM: Teste de retorno com mangueiras transparentes -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/14-teste-retorno-mangueiras.jpg" alt="Teste de retorno dos injetores usando mangueiras transparentes e frascos" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<h3 id="medidas-referencia">Medidas de referência</h3>
 <div class="specs">
-  <div class="spec"><b>12,4 mm</b><span>Fundo da bobina sem calço</span></div>
-  <div class="spec"><b>10,7 mm</b><span>Fundo da bobina com calço de 1,7 mm</span></div>
-  <div class="spec"><b>17,8 mm</b><span>Ponta sem calço</span></div>
+  <div class="spec"><b>≈ 12 V</b><span>Tensão da Bateria</span></div>
+</div>
+
+<h3 id="teste-pwm">3. Sinal PWM (Duty Cycle e Frequência)</h3>
+<p>O sinal de comando do injetor não é uma simples onda quadrada de 12 V. A ECU gera um pulso complexo (PWM) para abrir e manter o injetor. Com um multímetro comum na escala de <b>Tensão Contínua (V DC)</b>, é possível medir a tensão média do sinal no pino de controle.</p>
+
+<div class="specs">
+  <div class="spec"><b>Tensão Média Variável</b><span>Depende do regime (aumenta com a carga)</span></div>
+  <div class="spec"><b>Frequência Fundamental</b><span>Rot. (RPM) ÷ 30 (Hz)</span></div>
+</div>
+
+<!-- GRÁFICO DE SINAL DO INJETOR (PWM) -->
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif; overflow-x: auto;">
+  <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <div style="width: 16px; height: 4px; background: #3B82F6; border-radius: 2px;"></div>
+      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Sinal de Comando da ECU (Osciloscópio)</span>
+    </div>
+  </div>
+
+  <svg viewBox="0 0 850 350" style="width: 100%; height: auto; min-width: 650px;">
+    <g stroke="#f1f5f9" stroke-width="1">
+      <line x1="60" y1="50" x2="780" y2="50" />
+      <line x1="60" y1="100" x2="780" y2="100" />
+      <line x1="60" y1="150" x2="780" y2="150" />
+      <line x1="60" y1="200" x2="780" y2="200" />
+      <line x1="60" y1="250" x2="780" y2="250" />
+      <line x1="60" y1="300" x2="780" y2="300" />
+    </g>
+    <line x1="60" y1="300" x2="780" y2="300" stroke="#cbd5e1" stroke-width="2" />
+    <line x1="60" y1="50" x2="60" y2="300" stroke="#cbd5e1" stroke-width="2" />
+    <g fill="#64748b" font-size="12" font-weight="600" text-anchor="end">
+      <text x="50" y="54">80V</text>
+      <text x="50" y="104">60V</text>
+      <text x="50" y="154">40V</text>
+      <text x="50" y="204">20V</text>
+      <text x="50" y="254">12V</text>
+      <text x="50" y="304">0V</text>
+    </g>
+    <g fill="#64748b" font-size="12" font-weight="600" text-anchor="middle">
+      <text x="100" y="325">Abertura</text>
+      <text x="100" y="340" font-size="10" fill="#94a3b8">(~100 µs)</text>
+      <text x="300" y="325">Manutenção (Hold)</text>
+      <text x="300" y="340" font-size="10" fill="#94a3b8">(2ms a 5ms)</text>
+      <text x="600" y="325">Corte</text>
+      <text x="600" y="340" font-size="10" fill="#94a3b8">(Fechamento)</text>
+    </g>
+    <g stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4">
+      <line x1="100" y1="50" x2="100" y2="300" />
+      <line x1="300" y1="50" x2="300" y2="300" />
+      <line x1="600" y1="50" x2="600" y2="300" />
+    </g>
+    <polyline points="60,300 80,300 80,50 120,50 120,250 500,250 500,300 780,300" fill="none" stroke="#3B82F6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="80" cy="50" r="5" fill="#3B82F6" />
+    <circle cx="120" cy="250" r="5" fill="#3B82F6" />
+    <circle cx="500" cy="300" r="5" fill="#3B82F6" />
+    <g font-size="11" font-weight="700" fill="#1e293b">
+      <text x="80" y="38" text-anchor="middle">Pico 50-80V</text>
+      <text x="120" y="240" text-anchor="middle">~12V</text>
+      <text x="500" y="288" text-anchor="middle">0V</text>
+    </g>
+  </svg>
+</div>
+
+<!-- GRÁFICO DE FREQUÊNCIA VS ROTAÇÃO -->
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif; overflow-x: auto;">
+  <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <div style="width: 16px; height: 4px; background: #8B5CF6; border-radius: 2px;"></div>
+      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Frequência Fundamental de Injeção (Hz)</span>
+    </div>
+  </div>
+  <svg viewBox="0 0 850 400" style="width: 100%; height: auto; min-width: 650px;">
+    <g stroke="#f1f5f9" stroke-width="1">
+      <line x1="60" y1="50" x2="780" y2="50" />
+      <line x1="60" y1="100" x2="780" y2="100" />
+      <line x1="60" y1="150" x2="780" y2="150" />
+      <line x1="60" y1="200" x2="780" y2="200" />
+      <line x1="60" y1="250" x2="780" y2="250" />
+      <line x1="60" y1="300" x2="780" y2="300" />
+    </g>
+    <line x1="60" y1="300" x2="780" y2="300" stroke="#cbd5e1" stroke-width="2" />
+    <line x1="60" y1="50" x2="60" y2="300" stroke="#cbd5e1" stroke-width="2" />
+    <g fill="#64748b" font-size="12" font-weight="600" text-anchor="end">
+      <text x="50" y="54">140 Hz</text>
+      <text x="50" y="104">110 Hz</text>
+      <text x="50" y="154">80 Hz</text>
+      <text x="50" y="204">50 Hz</text>
+      <text x="50" y="254">20 Hz</text>
+      <text x="50" y="304">0 Hz</text>
+    </g>
+    <g fill="#64748b" font-size="12" font-weight="600" text-anchor="middle">
+      <text x="100" y="325">Marcha Lenta</text>
+      <text x="100" y="340" font-size="10" fill="#94a3b8">(800 RPM)</text>
+      <text x="300" y="325">Torque Máximo</text>
+      <text x="300" y="340" font-size="10" fill="#94a3b8">(1800 RPM)</text>
+      <text x="550" y="325">Plena Carga</text>
+      <text x="550" y="340" font-size="10" fill="#94a3b8">(3000 RPM)</text>
+      <text x="700" y="325">Rotação Máx</text>
+      <text x="700" y="340" font-size="10" fill="#94a3b8">(3500 RPM)</text>
+    </g>
+    <g stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4">
+      <line x1="100" y1="50" x2="100" y2="300" />
+      <line x1="300" y1="50" x2="300" y2="300" />
+      <line x1="550" y1="50" x2="550" y2="300" />
+      <line x1="700" y1="50" x2="700" y2="300" />
+    </g>
+    <polyline points="100,260 300,200 550,150 700,133" fill="none" stroke="#8B5CF6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="100" cy="260" r="6" fill="#ffffff" stroke="#8B5CF6" stroke-width="3" />
+    <circle cx="300" cy="200" r="6" fill="#ffffff" stroke="#8B5CF6" stroke-width="3" />
+    <circle cx="550" cy="150" r="6" fill="#ffffff" stroke="#8B5CF6" stroke-width="3" />
+    <circle cx="700" cy="133" r="6" fill="#ffffff" stroke="#8B5CF6" stroke-width="3" />
+    <g font-size="11" font-weight="700" fill="#1e293b">
+      <text x="100" y="248" text-anchor="middle">~26,7 Hz</text>
+      <text x="300" y="188" text-anchor="middle">60 Hz</text>
+      <text x="550" y="138" text-anchor="middle">100 Hz</text>
+      <text x="700" y="121" text-anchor="middle">~117 Hz</text>
+    </g>
+  </svg>
+</div>
+
+<!-- GRÁFICO DE DUTY CYCLE VS ROTAÇÃO -->
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif; overflow-x: auto;">
+  <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <div style="width: 16px; height: 4px; background: #10B981; border-radius: 2px;"></div>
+      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Duty Cycle (%)</span>
+    </div>
+  </div>
+
+  <svg viewBox="0 0 850 400" style="width: 100%; height: auto; min-width: 650px;">
+    <g stroke="#f1f5f9" stroke-width="1">
+      <line x1="60" y1="50" x2="780" y2="50" />
+      <line x1="60" y1="100" x2="780" y2="100" />
+      <line x1="60" y1="150" x2="780" y2="150" />
+      <line x1="60" y1="200" x2="780" y2="200" />
+      <line x1="60" y1="250" x2="780" y2="250" />
+      <line x1="60" y1="300" x2="780" y2="300" />
+    </g>
+
+    <line x1="60" y1="300" x2="780" y2="300" stroke="#cbd5e1" stroke-width="2" />
+    <line x1="60" y1="50" x2="60" y2="300" stroke="#cbd5e1" stroke-width="2" />
+
+    <g fill="#64748b" font-size="12" font-weight="600" text-anchor="end">
+      <text x="50" y="54">100%</text>
+      <text x="50" y="104">80%</text>
+      <text x="50" y="154">60%</text>
+      <text x="50" y="204">40%</text>
+      <text x="50" y="254">20%</text>
+      <text x="50" y="304">0%</text>
+    </g>
+
+    <g fill="#64748b" font-size="12" font-weight="600" text-anchor="middle">
+      <text x="100" y="325">Marcha Lenta</text>
+      <text x="100" y="340" font-size="10" fill="#94a3b8">(800 RPM)</text>
+      <text x="300" y="325">Torque Máximo</text>
+      <text x="300" y="340" font-size="10" fill="#94a3b8">(1800 RPM)</text>
+      <text x="550" y="325">Plena Carga</text>
+      <text x="550" y="340" font-size="10" fill="#94a3b8">(3000 RPM)</text>
+      <text x="700" y="325">Rotação Máx</text>
+      <text x="700" y="340" font-size="10" fill="#94a3b8">(3500 RPM)</text>
+    </g>
+
+    <g stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4">
+      <line x1="100" y1="50" x2="100" y2="300" />
+      <line x1="300" y1="50" x2="300" y2="300" />
+      <line x1="550" y1="50" x2="550" y2="300" />
+      <line x1="700" y1="50" x2="700" y2="300" />
+    </g>
+
+    <!-- Curva de Duty Cycle -->
+    <!-- Idle (800) = ~15% (y=262.5) -->
+    <!-- Torque Max (1800) = ~35% (y=212.5) -->
+    <!-- Plena Carga (3000) = ~60% (y=150) -->
+    <!-- Rotação Max (3500) = ~75% (y=112.5) -->
+    <polyline points="100,262.5 300,212.5 550,150 700,112.5" fill="none" stroke="#10B981" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <circle cx="100" cy="262.5" r="6" fill="#ffffff" stroke="#10B981" stroke-width="3" />
+    <circle cx="300" cy="212.5" r="6" fill="#ffffff" stroke="#10B981" stroke-width="3" />
+    <circle cx="550" cy="150" r="6" fill="#ffffff" stroke="#10B981" stroke-width="3" />
+    <circle cx="700" cy="112.5" r="6" fill="#ffffff" stroke="#10B981" stroke-width="3" />
+
+    <g font-size="11" font-weight="700" fill="#1e293b">
+      <text x="100" y="250" text-anchor="middle">~15%</text>
+      <text x="300" y="200" text-anchor="middle">~35%</text>
+      <text x="550" y="138" text-anchor="middle">~60%</text>
+      <text x="700" y="100" text-anchor="middle">~75%</text>
+    </g>
+  </svg>
+
+  <div class="dica">
+    <strong>Por que o Duty Cycle aumenta?</strong>
+    <p>Diferente de uma válvula PWM contínua, o injetor recebe pulsos discretos. O "Duty Cycle" representa a porcentagem de tempo que o injetor fica aberto dentro do ciclo do motor. Em baixa rotação/carga, o tempo de injeção é curto (ex: ~15%). Em plena carga, a ECU precisa injetar mais combustível por mais tempo, elevando essa proporção (ex: ~60% a 75%).</p>
+  </div>
+</div>
+
+<h2 id="codigos-de-falha">Códigos de Falha (OBD-II)</h2>
+
+<h3 id="injetor-desconectado">P0201 a P0204 - Bico Injetor não Conectado</h3>
+<div class="trio">
+  <div>
+    <h4>Detalhamento</h4>
+    <ul>
+      <li>Possivelmente o conector esteja desligado, o chicote elétrico ou a solenoide do bico injetor esteja em circuito aberto.</li>
+      <li>O código varia conforme o cilindro: P0201 (Cil 1), P0202 (Cil 2), P0203 (Cil 3), P0204 (Cil 4).</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Estratégia da ECM</h4>
+    <ul>
+      <li>A luz amarela de advertência não é acionada.</li>
+      <li>O débito de combustível é limitado e a rotação do motor é reduzida para <b>2000 rpm</b>.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Solução</h4>
+    <ul>
+      <li>Verificar a conexão do chicote no injetor.</li>
+      <li>Medir a continuidade entre o conector e a ECM.</li>
+      <li>Se o chicote estiver OK, substituir o injetor.</li>
+    </ul>
+  </div>
+</div>
+
+<h3 id="curto-banco">P0261 a P0270 - Curto-Circuito nos Injetores</h3>
+<p>Os injetores estão divididos em dois bancos elétricos controlados pela ECM:</p>
+<ul>
+  <li><b>Banco 1:</b> Injetores 1 e 4 (Código P0261 para o banco ou P0262/P0270 para injetor específico);</li>
+  <li><b>Banco 2:</b> Injetores 2 e 3 (Código P0263 para o banco ou P0264/P0267 para injetor específico).</li>
+</ul>
+
+<div class="trio">
+  <div>
+    <h4>Detalhamento</h4>
+    <ul>
+      <li>Curto-circuito do banco em relação ao terra ou ao positivo da bateria.</li>
+      <li>Pode ser causado por chicote esmagado, conector com umidade ou falha interna na bobina do injetor.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Estratégia da ECM</h4>
+    <ul>
+      <li>A luz amarela de advertência é acionada.</li>
+      <li>Ao reconhecer a falha, o ECM <b>desliga o motor</b> imediatamente.</li>
+      <li>Após alguns segundos, uma nova partida poderá ser efetuada (dependendo do banco afetado).</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Solução</h4>
+    <ul>
+      <li>Isolar o chicote e verificar curtos com a massa.</li>
+      <li>Testar a resistência dos injetores do banco afetado.</li>
+      <li>Se o circuito estiver íntegro e a falha persistir, substituir o ECM.</li>
+    </ul>
+  </div>
 </div>
