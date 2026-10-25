@@ -6,23 +6,19 @@
 <nav class="toc" aria-label="Neste artigo">
   <strong>Neste artigo</strong>
   <ul>
-    <li><a href="#" data-goto="funcionamento">Funcionamento</a></li>
+    <li><a href="#" data-goto="funcionamento">Princípio de Funcionamento</a></li>
     
     <li><a href="#" data-goto="parte-eletrica">Parte Elétrica e Testes</a>
       <ul>
-        <li><a href="#" data-goto="pinagem">Pinagem do Chicote</a></li>
         <li><a href="#" data-goto="teste-resistencia">Teste de Resistência (Ω)</a></li>
-        <li><a href="#" data-goto="teste-tensao-dc">Teste de Tensão DC</a></li>
-        <li><a href="#" data-goto="teste-pwm">Sinal PWM (Duty Cycle e Frequência)</a></li>
+        <li><a href="#" data-goto="teste-isolamento">Teste de Isolamento (Massa)</a></li>
+        <li><a href="#" data-goto="teste-pwm">Sinal de Comando (PWM)</a></li>
       </ul>
     </li>
     
-    <li><a href="#" data-goto="codigos-de-falha">Códigos de Falha</a>
-      <ul>
-        <li><a href="#" data-goto="injetor-desconectado">Injetor não Conectado (P0201 a P0204)</a></li>
-        <li><a href="#" data-goto="curto-banco">Curto no Banco de Injetores</a></li>
-      </ul>
-    </li>
+    <li><a href="#" data-goto="graficos-dinamicos">Frequência e Duty Cycle</a></li>
+    <li><a href="#" data-goto="problemas-comuns">Falhas e Sintomas</a></li>
+    <li><a href="#" data-goto="codigos-de-falha">Códigos de Falha</a></li>
   </ul>
 </nav>
 
@@ -30,89 +26,56 @@
      CONTEÚDO DO ARTIGO
      ========================================== -->
 
-<h2 id="funcionamento">Funcionamento</h2>
-<p>Os bicos injetores estão montados no cabeçote e têm a finalidade de pulverizar o combustível na câmara de combustão. O controle dos bicos é feito pela ECM, que determina a quantidade e o momento exato da injeção de combustível para cada cilindro.</p>
-
-<h3>Início da Injeção</h3>
-<p>O ECM determina o início de injeção energizando a válvula eletromagnética, que abre a passagem de saída do combustível para o retorno. O combustível pressurizado entra pelo furo calibrado, criando uma depressão na câmara de controle; essa depressão faz a agulha do injetor se movimentar para cima, iniciando a pulverização do combustível na câmara de combustão.</p>
-
-<h3>Fim da Injeção</h3>
-<p>O fim da injeção ocorre quando a válvula eletromagnética é desenergizada pelo ECM. A mola aciona a válvula que fecha a passagem do furo de retorno. O combustível pressurizado ocupa a câmara de controle fazendo a agulha do injetor se movimentar para baixo, voltando à posição de repouso.</p>
+<h2 id="funcionamento">Princípio de Funcionamento Elétrico</h2>
+<p>Os bicos injetores do motor MWM 2.8 Eletrônico (injeção Bosch EDC16C8) são do tipo solenoide. Eles não abrem por pressão mecânica do combustível, mas sim por um comando elétrico ultra-rápido enviado pela central eletrônica (ECU). O combustível fica armazenado na flauta (rail) sob altíssima pressão.</p>
+<p>Quando a ECU energiza a bobina interna do injetor, uma pequena esfera de controle se move, aliviando a pressão interna e permitindo que a agulha suba, pulverizando o diesel diretamente na câmara de combustão.</p>
 
 <div class="aviso">
-  <strong>Atenção</strong>
-  <p>O sistema Common Rail trabalha com pressões extremamente altas (até 1350 bar no MWM Sprint 2.8). Nunca desconecte os tubos de alta pressão com o motor em funcionamento. Risco grave de queimaduras e acidentes.</p>
+  <strong>Cuidado de Segurança Extremo na Oficina</strong>
+  <p><b>Nunca</b> tente descascar ou agulhar (backprobing) os fios dos bicos injetores com o motor funcionando para medir tensão com um multímetro comum. O pico de <b>80V</b> pode queimar o multímetro, danificar o driver interno da ECU ou provocar um choque elétrico severo. Da mesma forma, <b>nunca</b> desligue a tomada de um bico com o motor em funcionamento; o arco elétrico gerado queima a central instantaneamente.</p>
 </div>
 
-<h2 id="parte-eletrica">Parte Elétrica e Testes</h2>
+<h2 id="parte-eletrica">Testes com Multímetro (Estáticos)</h2>
+<p>O diagnóstico elétrico seguro dos injetores Bosch é feito de forma estática com o motor e a ignição desligados, utilizando o conector do bico solto (isolado do chicote do carro).</p>
 
-<h3 id="pinagem">Pinagem do Chicote (Conector A da ECM)</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Cilindro</th>
-      <th>Pino de Alimentação (ECM)</th>
-      <th>Pino de Chaveamento (ECM)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><b>Cilindro 1</b></td>
-      <td>A47</td>
-      <td>A16</td>
-    </tr>
-    <tr>
-      <td><b>Cilindro 2</b></td>
-      <td>A31</td>
-      <td>A02</td>
-    </tr>
-    <tr>
-      <td><b>Cilindro 3</b></td>
-      <td>A46</td>
-      <td>A01</td>
-    </tr>
-    <tr>
-      <td><b>Cilindro 4</b></td>
-      <td>A33</td>
-      <td>A17</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="teste-resistencia">1. Teste de Resistência (Ω)</h3>
+<h3 id="teste-resistencia">1. Teste de Resistência Elétrica (Bobina Interna)</h3>
 <ul>
-  <li><b>Condição:</b> Chave de ignição desligada e conector do injetor desconectado.</li>
-  <li><b>Medição:</b> Meça a resistência entre os dois terminais do próprio injetor com o multímetro na escala de resistência (Ω).</li>
+  <li><b>Configuração:</b> Coloque o multímetro na escala mais baixa de Resistência Ôhmica (200 Ω).</li>
+  <li><b>Medição:</b> Encoste as pontas de prova diretamente nos dois pinos metálicos do bico injetor.</li>
 </ul>
 
 <div class="specs">
-  <div class="spec"><b>≈ 0,5 Ω</b><span>Valor de referência de fábrica</span></div>
+  <div class="spec"><b>0,3 Ω a 0,7 Ω</b><span>Valor de referência (tipicamente 0,5 Ω a 20°C)</span></div>
 </div>
 
 <div class="aviso">
-  <strong>Atenção</strong>
-  <p>Considere o erro das pontas de prova. Valores muito acima de 0,5 Ω indicam bobina rompida. Valores próximos de zero podem indicar curto interno. Em ambos os casos, o injetor deve ser substituído.</p>
+  <strong>Análise</strong>
+  <p>Se marcar zero absoluto (0,0 Ω), a bobina interna entrou em curto-circuito. Se o visor indicar infinito (OL), a bobina do injetor está partida/queimada por circuito aberto. Em ambos os casos o bico deve ser substituído.</p>
 </div>
 
-<h3 id="teste-tensao-dc">2. Teste de Tensão DC</h3>
+<h3 id="teste-isolamento">2. Teste Crucial de Isolamento (Curto com a Massa)</h3>
 <ul>
-  <li><b>Condição:</b> Chave de ignição ligada (motor parado) e conector do injetor desconectado.</li>
-  <li><b>Medição:</b> Meça a tensão entre o pino de alimentação do conector do chicote e o negativo da bateria.</li>
+  <li><b>Configuração:</b> Coloque o multímetro na maior escala de resistência disponível (20 Megaohms / 20MΩ ou superior).</li>
+  <li><b>Medição:</b> Encoste uma ponta de prova em um dos pinos elétricos do bico e a outra ponta de prova diretamente na carcaça metálica (corpo) do próprio bico injetor. Repita o teste com o outro pino elétrico.</li>
 </ul>
 
 <div class="specs">
-  <div class="spec"><b>≈ 12 V</b><span>Tensão da Bateria</span></div>
+  <div class="spec"><b>Infinito (OL)</b><span>Isolamento total esperado</span></div>
 </div>
 
-<h3 id="teste-pwm">3. Sinal PWM (Duty Cycle e Frequência)</h3>
-<p>O sinal de comando do injetor não é uma simples onda quadrada de 12 V. A ECU gera um pulso complexo (PWM) para abrir e manter o injetor. Com um multímetro comum na escala de <b>Tensão Contínua (V DC)</b>, é possível medir a tensão média do sinal no pino de controle.</p>
-
-<div class="specs">
-  <div class="spec"><b>Tensão Média Variável</b><span>Depende do regime (aumenta com a carga)</span></div>
-  <div class="spec"><b>Frequência Fundamental</b><span>Rot. (RPM) ÷ 30 (Hz)</span></div>
+<div class="aviso">
+  <strong>Análise</strong>
+  <p>Se o multímetro indicar qualquer valor numérico de resistência (mesmo que alto, em quilo-ohms ou megaohms), significa que o isolamento interno de cerâmica falhou e a fiação do bico está jogando corrente para o bloco do motor. Isso faz a ECU Bosch EDC16C8 entrar em <b>modo de proteção total imediato e desligar o motor de segurança</b>.</p>
 </div>
 
-<!-- GRÁFICO DE SINAL DO INJETOR (PWM) -->
+<h3 id="teste-pwm">3. Sinal de Comando (PWM e Tensão)</h3>
+<p>O sinal de comando do injetor <b>não é uma simples onda quadrada de 12V</b>. A ECU controla o bico chaveando o circuito em duas fases elétricas distintas por pulso:</p>
+<ul>
+  <li><b>Fase de Atração (Tensão de Pico / Boost):</b> No exato milissegundo de abertura, a ECU descarrega capacitores internos enviando um pico de alta tensão contínua que varia entre <b>70 Volts e 80 Volts DC</b> para o injetor. Essa pancada de energia gera o campo magnético forte necessário para puxar a agulha para cima rapidamente;</li>
+  <li><b>Fase de Manutenção (Tensão de Hold):</b> Assim que o bico abre, a ECU corta a alta tensão e passa a enviar uma tensão modulada por largura de pulso (PWM) de aproximadamente <b>12 Volts a 14 Volts DC</b> apenas para manter o bico aberto pelo tempo determinado pelo mapa de injeção.</li>
+</ul>
+
+<!-- GRÁFICO DE TENSÃO PWM (INJETOR) -->
 <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif; overflow-x: auto;">
   <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
     <div style="display: flex; align-items: center; gap: 8px;">
@@ -141,10 +104,10 @@
       <text x="50" y="304">0V</text>
     </g>
     <g fill="#64748b" font-size="12" font-weight="600" text-anchor="middle">
-      <text x="100" y="325">Abertura</text>
-      <text x="100" y="340" font-size="10" fill="#94a3b8">(~100 µs)</text>
+      <text x="100" y="325">Abertura (Boost)</text>
+      <text x="100" y="340" font-size="10" fill="#94a3b8">(Pico de 70-80V)</text>
       <text x="300" y="325">Manutenção (Hold)</text>
-      <text x="300" y="340" font-size="10" fill="#94a3b8">(2ms a 5ms)</text>
+      <text x="300" y="340" font-size="10" fill="#94a3b8">(PWM 12-14V)</text>
       <text x="600" y="325">Corte</text>
       <text x="600" y="340" font-size="10" fill="#94a3b8">(Fechamento)</text>
     </g>
@@ -158,12 +121,15 @@
     <circle cx="120" cy="250" r="5" fill="#3B82F6" />
     <circle cx="500" cy="300" r="5" fill="#3B82F6" />
     <g font-size="11" font-weight="700" fill="#1e293b">
-      <text x="80" y="38" text-anchor="middle">Pico 50-80V</text>
-      <text x="120" y="240" text-anchor="middle">~12V</text>
+      <text x="80" y="38" text-anchor="middle">Pico 70-80V</text>
+      <text x="120" y="240" text-anchor="middle">~12-14V</text>
       <text x="500" y="288" text-anchor="middle">0V</text>
     </g>
   </svg>
 </div>
+
+<h2 id="graficos-dinamicos">Frequência e Duty Cycle</h2>
+<p>Para analisar o comportamento dinâmico dos injetores, utilizamos a frequência de injeção e o Duty Cycle (ciclo de trabalho). Como o motor é 4 cilindros e 4 tempos, a frequência fundamental de injeção segue a fórmula: <b>Frequência (Hz) = Rotação (RPM) ÷ 30</b>.</p>
 
 <!-- GRÁFICO DE FREQUÊNCIA VS ROTAÇÃO -->
 <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif; overflow-x: auto;">
@@ -222,12 +188,12 @@
   </svg>
 </div>
 
-<!-- GRÁFICO DE DUTY CYCLE VS ROTAÇÃO -->
+<!-- GRÁFICO DE DUTY CYCLE VS ROTAÇÃO (CORRIGIDO) -->
 <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif; overflow-x: auto;">
   <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
     <div style="display: flex; align-items: center; gap: 8px;">
       <div style="width: 16px; height: 4px; background: #10B981; border-radius: 2px;"></div>
-      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Duty Cycle (%)</span>
+      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Duty Cycle (%) do Injetor</span>
     </div>
   </div>
 
@@ -240,19 +206,15 @@
       <line x1="60" y1="250" x2="780" y2="250" />
       <line x1="60" y1="300" x2="780" y2="300" />
     </g>
-
     <line x1="60" y1="300" x2="780" y2="300" stroke="#cbd5e1" stroke-width="2" />
     <line x1="60" y1="50" x2="60" y2="300" stroke="#cbd5e1" stroke-width="2" />
-
     <g fill="#64748b" font-size="12" font-weight="600" text-anchor="end">
-      <text x="50" y="54">100%</text>
-      <text x="50" y="104">80%</text>
-      <text x="50" y="154">60%</text>
-      <text x="50" y="204">40%</text>
-      <text x="50" y="254">20%</text>
+      <text x="50" y="54">40%</text>
+      <text x="50" y="104">30%</text>
+      <text x="50" y="154">20%</text>
+      <text x="50" y="204">10%</text>
       <text x="50" y="304">0%</text>
     </g>
-
     <g fill="#64748b" font-size="12" font-weight="600" text-anchor="middle">
       <text x="100" y="325">Marcha Lenta</text>
       <text x="100" y="340" font-size="10" fill="#94a3b8">(800 RPM)</text>
@@ -263,97 +225,82 @@
       <text x="700" y="325">Rotação Máx</text>
       <text x="700" y="340" font-size="10" fill="#94a3b8">(3500 RPM)</text>
     </g>
-
     <g stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4">
       <line x1="100" y1="50" x2="100" y2="300" />
       <line x1="300" y1="50" x2="300" y2="300" />
       <line x1="550" y1="50" x2="550" y2="300" />
       <line x1="700" y1="50" x2="700" y2="300" />
     </g>
-
-    <!-- Curva de Duty Cycle -->
-    <!-- Idle (800) = ~15% (y=262.5) -->
-    <!-- Torque Max (1800) = ~35% (y=212.5) -->
-    <!-- Plena Carga (3000) = ~60% (y=150) -->
-    <!-- Rotação Max (3500) = ~75% (y=112.5) -->
-    <polyline points="100,262.5 300,212.5 550,150 700,112.5" fill="none" stroke="#10B981" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-
-    <circle cx="100" cy="262.5" r="6" fill="#ffffff" stroke="#10B981" stroke-width="3" />
-    <circle cx="300" cy="212.5" r="6" fill="#ffffff" stroke="#10B981" stroke-width="3" />
-    <circle cx="550" cy="150" r="6" fill="#ffffff" stroke="#10B981" stroke-width="3" />
-    <circle cx="700" cy="112.5" r="6" fill="#ffffff" stroke="#10B981" stroke-width="3" />
-
+    <!-- Curva de Duty Cycle caindo com a rotação -->
+    <!-- Idle (800 RPM): ~25% (y=175) -->
+    <!-- Torque Max (1800 RPM): ~18% (y=210) -->
+    <!-- Plena Carga (3000 RPM): ~12% (y=240) -->
+    <!-- Rotação Max (3500 RPM): ~10% (y=250) -->
+    <polyline points="100,175 300,210 550,240 700,250" fill="none" stroke="#10B981" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="100" cy="175" r="6" fill="#ffffff" stroke="#10B981" stroke-width="3" />
+    <circle cx="300" cy="210" r="6" fill="#ffffff" stroke="#10B981" stroke-width="3" />
+    <circle cx="550" cy="240" r="6" fill="#ffffff" stroke="#10B981" stroke-width="3" />
+    <circle cx="700" cy="250" r="6" fill="#ffffff" stroke="#10B981" stroke-width="3" />
     <g font-size="11" font-weight="700" fill="#1e293b">
-      <text x="100" y="250" text-anchor="middle">~15%</text>
-      <text x="300" y="200" text-anchor="middle">~35%</text>
-      <text x="550" y="138" text-anchor="middle">~60%</text>
-      <text x="700" y="100" text-anchor="middle">~75%</text>
+      <text x="100" y="163" text-anchor="middle">~25%</text>
+      <text x="300" y="198" text-anchor="middle">~18%</text>
+      <text x="550" y="228" text-anchor="middle">~12%</text>
+      <text x="700" y="238" text-anchor="middle">~10%</text>
     </g>
   </svg>
 
   <div class="dica">
-    <strong>Por que o Duty Cycle aumenta?</strong>
-    <p>Diferente de uma válvula PWM contínua, o injetor recebe pulsos discretos. O "Duty Cycle" representa a porcentagem de tempo que o injetor fica aberto dentro do ciclo do motor. Em baixa rotação/carga, o tempo de injeção é curto (ex: ~15%). Em plena carga, a ECU precisa injetar mais combustível por mais tempo, elevando essa proporção (ex: ~60% a 75%).</p>
+    <strong>Por que o Duty Cycle diminui em alta rotação?</strong>
+    <p>O Duty Cycle é a porcentagem de tempo que o injetor fica aberto em relação ao tempo total do ciclo do motor. Em alta rotação, o tempo total do ciclo encurta drasticamente (a 3000 RPM, o motor completa um ciclo em menos de 10ms). Embora o injetor precise ficar aberto por mais tempo absoluto (em milissegundos) para fornecer combustível, essa duração representa uma <b>porcentagem menor</b> do ciclo total. Por isso, a linha do Duty Cycle cai.</p>
+  </div>
+</div>
+
+<h2 id="problemas-comuns">Principais Falhas e Sintomas de Oficina</h2>
+<p>As falhas nos injetores podem ser elétricas ou mecânicas (hidráulicas):</p>
+
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Motor falha um cilindro (manco) e perde força;</li>
+      <li>Motor bate pino forte (rajado metálico pesado);</li>
+      <li>Solta muita fumaça branca/cinza com cheiro de diesel cru;</li>
+      <li>Motor demora muito para pegar ou só pega no "tranco".</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Causas</h4>
+    <ul>
+      <li>Bobina com circuito aberto ou bico travado fechado;</li>
+      <li>Bico injetor com giclê travado aberto ou gotejando;</li>
+      <li>Desgaste mecânico na válvula de controle interna (gera excesso de retorno).</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Soluções</h4>
+    <ul>
+      <li>Substituir o bico injetor;</li>
+      <li>Para bico travado aberto, substituir imediatamente;</li>
+      <li>Para excesso de retorno, substituir o bico ou enviar para teste em bancada Bosch.</li>
+    </ul>
   </div>
 </div>
 
 <h2 id="codigos-de-falha">Códigos de Falha (OBD-II)</h2>
 
-<h3 id="injetor-desconectado">P0201 a P0204 - Bico Injetor não Conectado</h3>
-<div class="trio">
-  <div>
-    <h4>Detalhamento</h4>
-    <ul>
-      <li>Possivelmente o conector esteja desligado, o chicote elétrico ou a solenoide do bico injetor esteja em circuito aberto.</li>
-      <li>O código varia conforme o cilindro: P0201 (Cil 1), P0202 (Cil 2), P0203 (Cil 3), P0204 (Cil 4).</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Estratégia da ECM</h4>
-    <ul>
-      <li>A luz amarela de advertência não é acionada.</li>
-      <li>O débito de combustível é limitado e a rotação do motor é reduzida para <b>2000 rpm</b>.</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Solução</h4>
-    <ul>
-      <li>Verificar a conexão do chicote no injetor.</li>
-      <li>Medir a continuidade entre o conector e a ECM.</li>
-      <li>Se o chicote estiver OK, substituir o injetor.</li>
-    </ul>
-  </div>
-</div>
+<div class="codigos">
+  <div class="codigo"><span class="num">P0201 a P0204</span><div>
+    <h4>Falha no Circuito do Injetor (Cilindros 1 a 4)</h4>
+    <p>Indica falha elétrica direta na linha do injetor correspondente (chicote partido ou bobina do bico queimada em circuito aberto).</p>
+  </div></div>
+  
+  <div class="codigo"><span class="num">P2146</span><div>
+    <h4>Tensão de Alimentação dos Injetores - Banco A (Cilindros 1 e 4)</h4>
+    <p>A ECU divide os bicos em dois bancos elétricos de controle. Se um único bico do cilindro 1 ou 4 sofrer curto-circuito com a massa (corpo do bico), a ECU desarma o banco inteiro por proteção e o motor apaga imediatamente na via ou não pega.</p>
+  </div></div>
 
-<h3 id="curto-banco">P0261 a P0270 - Curto-Circuito nos Injetores</h3>
-<p>Os injetores estão divididos em dois bancos elétricos controlados pela ECM:</p>
-<ul>
-  <li><b>Banco 1:</b> Injetores 1 e 4 (Código P0261 para o banco ou P0262/P0270 para injetor específico);</li>
-  <li><b>Banco 2:</b> Injetores 2 e 3 (Código P0263 para o banco ou P0264/P0267 para injetor específico).</li>
-</ul>
-
-<div class="trio">
-  <div>
-    <h4>Detalhamento</h4>
-    <ul>
-      <li>Curto-circuito do banco em relação ao terra ou ao positivo da bateria.</li>
-      <li>Pode ser causado por chicote esmagado, conector com umidade ou falha interna na bobina do injetor.</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Estratégia da ECM</h4>
-    <ul>
-      <li>A luz amarela de advertência é acionada.</li>
-      <li>Ao reconhecer a falha, o ECM <b>desliga o motor</b> imediatamente.</li>
-      <li>Após alguns segundos, uma nova partida poderá ser efetuada (dependendo do banco afetado).</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Solução</h4>
-    <ul>
-      <li>Isolar o chicote e verificar curtos com a massa.</li>
-      <li>Testar a resistência dos injetores do banco afetado.</li>
-      <li>Se o circuito estiver íntegro e a falha persistir, substituir o ECM.</li>
-    </ul>
-  </div>
+  <div class="codigo"><span class="num">P2149</span><div>
+    <h4>Tensão de Alimentação dos Injetores - Banco B (Cilindros 2 e 3)</h4>
+    <p>Mesma lógica do P2146, mas para o banco 2. Se o curto ocorrer nos cilindros 2 ou 3, o erro gravado será o P2149, desligando a injeção por completo.</p>
+  </div></div>
 </div>
