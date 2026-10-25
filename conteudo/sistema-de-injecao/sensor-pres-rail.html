@@ -9,137 +9,20 @@
 08-pressao-comandada-real-1.jpg      Pressão comandada x real, marcha lenta
 09-pressao-comandada-real-2.jpg      Pressão comandada x real, 2.000 rpm
 Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentacao-de-combustivel/...). -->
-
 <header class="art-head">
   <h1>Sensor de Pressão do Rail</h1>
 </header>
 
-<!-- ESTILO DO ÍNDICE (FIEL À IMAGEM) -->
-<style>
-  .indice-limpo {
-    background-color: #f4f7fb;
-    border-radius: 16px;
-    padding: 1.5rem 2rem;
-    margin: 1.5rem 0 2.5rem 0;
-    font-family: 'Inter', 'Segoe UI', sans-serif;
-  }
-
-  .indice-limpo strong {
-    display: block;
-    font-size: 1.05rem;
-    font-weight: 800;
-    color: #1a202c;
-    margin-bottom: 1rem;
-  }
-
-  .indice-limpo ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  /* Itens principais */
-  .indice-limpo > ul > li {
-    position: relative;
-    padding-left: 1.2rem;
-    margin-bottom: 0.8rem;
-    line-height: 1.5;
-  }
-
-  /* Bolinha roxa dos itens principais */
-  .indice-limpo > ul > li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #4f46e5;
-    font-size: 1.6rem;
-    line-height: 0;
-  }
-
-  /* Links */
-  .indice-limpo a {
-    text-decoration: none;
-    color: #334155;
-    font-size: 0.95rem;
-    font-weight: 500;
-    transition: color 0.2s ease;
-  }
-
-  .indice-limpo a:hover {
-    color: #4f46e5;
-    text-decoration: underline;
-  }
-
-  /* ==========================================
-     SUBCATEGORIAS (Mesmo estilo, mas recuado)
-     ========================================== */
-  .indice-sub-limpo {
-    margin-top: 0.4rem !important;
-    padding-left: 0 !important;
-  }
-
-  .indice-sub-limpo li {
-    position: relative;
-    padding-left: 1rem;
-    margin-bottom: 0.4rem;
-  }
-
-  /* Bolinha menor para os sub-itens */
-  .indice-sub-limpo li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #94a3b8;
-    font-size: 1.2rem;
-    line-height: 0;
-  }
-
-  .indice-sub-limpo a {
-    font-size: 0.88rem;
-    color: #64748b;
-  }
-
-  /* Respiro para o menu fixo não cobrir os títulos ao clicar */
-  h2[id], h3[id] {
-    scroll-margin-top: 100px;
-  }
-</style>
-
-<!-- ESTRUTURA DO ÍNDICE -->
-<div class="indice-limpo">
+<nav class="toc" aria-label="Neste artigo">
   <strong>Neste artigo</strong>
-  
   <ul>
-    <li><a href="#localizacao">Localização</a></li>
-    <li><a href="#como-funciona">Como funciona</a></li>
-    
-    <li>
-      <a href="#parte-eletrica">Parte elétrica e testes</a>
-      <ul class="indice-sub-limpo">
-        <li><a href="#teste-multimetro">Testes com Multímetro</a></li>
-        <li><a href="#teste-scanner">Testes com Scanner</a></li>
-      </ul>
-    </li>
-    
-    <li>
-      <a href="#problemas-comuns">Problemas comuns</a>
-      <ul class="indice-sub-limpo">
-        <li><a href="#problemas-comuns">Motor desliga na aceleração</a></li>
-        <li><a href="#problemas-comuns">Pressão comandada x real</a></li>
-      </ul>
-    </li>
-    
-    <li><a href="#codigos-de-falha">Códigos de falha</a></li>
+    <li><a href="#" data-goto="localizacao">Localização</a></li>
+    <li><a href="#" data-goto="como-funciona">Como funciona</a></li>
+    <li><a href="#" data-goto="parte-eletrica">Parte elétrica e testes</a></li>
+    <li><a href="#" data-goto="problemas-comuns">Problemas comuns</a></li>
+    <li><a href="#" data-goto="codigos-de-falha">Códigos de falha</a></li>
   </ul>
-</div>
-
-<!-- ==========================================
-     CONTEÚDO DO ARTIGO
-     ========================================== -->
+</nav>
 
 <h2 id="localizacao">Localização</h2>
 <p>Está instalado no próprio tubo Rail.</p>
@@ -166,55 +49,199 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
   <p>Se a Central verificar que a pressão está acima do permitido e não conseguir controlá-la pela MProp, entra em modo de segurança e desliga o motor.</p>
 </div>
 
-<h2 id="parte-eletrica">Parte elétrica e testes</h2>
 
-<h3 id="teste-multimetro">Testes com multímetro</h3>
+<h2 id="teste-multimetro">Testes com multímetro</h2>
 <p>Tensão no pino 02 (sinal), por condição do motor:</p>
 
-<!-- Gráfico de Linhas -->
-<div style="display: flex; height: 350px; background: #ffffff; border: 1px solid #eaeaea; border-radius: 12px; margin: 25px 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px 20px 0 0; box-sizing: border-box; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
-  <div style="display: flex; flex-direction: column; justify-content: space-between; width: 45px; height: 100%; padding-right: 12px; box-sizing: border-box; border-right: 1px solid #ccc;">
-    <span style="font-size: 12px; color: #777; text-align: right; line-height: 1; transform: translateY(50%); font-weight: 500;">3.5V</span>
-    <span style="font-size: 12px; color: #777; text-align: right; line-height: 1; transform: translateY(50%); font-weight: 500;">3.0V</span>
-    <span style="font-size: 12px; color: #777; text-align: right; line-height: 1; transform: translateY(50%); font-weight: 500;">2.5V</span>
-    <span style="font-size: 12px; color: #777; text-align: right; line-height: 1; transform: translateY(50%); font-weight: 500;">2.0V</span>
-    <span style="font-size: 12px; color: #777; text-align: right; line-height: 1; transform: translateY(50%); font-weight: 500;">1.5V</span>
-    <span style="font-size: 12px; color: #777; text-align: right; line-height: 1; transform: translateY(50%); font-weight: 500;">1.0V</span>
-    <span style="font-size: 12px; color: #777; text-align: right; line-height: 1; transform: translateY(50%); font-weight: 500;">0.5V</span>
-    <span style="font-size: 12px; color: #777; text-align: right; line-height: 1; transform: translateY(50%); font-weight: 500;">0V</span>
+<style>
+  .grafico-linha-limpo {
+    display: flex;
+    height: 350px;
+    background: #ffffff;
+    border: 1px solid #eaeaea;
+    border-radius: 12px;
+    margin: 25px 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px 20px 0 0;
+    box-sizing: border-box;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  }
+
+  /* EIXO Y */
+  .eixo-y-limpo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 45px;
+    height: 100%;
+    padding-right: 12px;
+    box-sizing: border-box;
+    border-right: 1px solid #ccc;
+  }
+
+  .eixo-y-limpo span {
+    font-size: 12px;
+    color: #777;
+    text-align: right;
+    line-height: 1;
+    transform: translateY(50%);
+    font-weight: 500;
+  }
+
+  /* ÁREA DO GRÁFICO */
+  .area-pontos {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    flex-grow: 1;
+    height: 100%;
+    position: relative;
+    padding-left: 20px;
+  }
+
+  /* Linhas horizontais de fundo (Grid) */
+  .area-pontos::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: linear-gradient(to top, #f0f0f0 1px, transparent 1px);
+    background-size: 100% 12.5%; 
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* Colunas invisíveis para posicionamento */
+  .coluna-ponto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    width: 18%;
+    height: 100%;
+    z-index: 1;
+    position: relative;
+  }
+
+  /* O Ponto em si */
+  .ponto-dado {
+    width: 14px;
+    height: 14px;
+    background: #4A90D9;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px #4A90D9, 0 4px 6px rgba(0,0,0,0.1);
+    position: absolute;
+    transform: translateY(50%); /* Centraliza o ponto na linha exata */
+    transition: transform 0.2s;
+  }
+
+  .ponto-dado:hover {
+    transform: translateY(50%) scale(1.3);
+    cursor: pointer;
+    background: #2C5F8A;
+    box-shadow: 0 0 0 2px #2C5F8A, 0 4px 6px rgba(0,0,0,0.2);
+  }
+
+  /* Linha de conexão ligando os pontos (fundo) */
+  .linha-tendencia {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .rotulo-condicao {
+    font-size: 12px;
+    color: #333;
+    text-align: center;
+    margin-top: 25px; /* Empurra o texto para baixo dos pontos */
+    height: 50px;
+    line-height: 1.2;
+    font-weight: 600;
+  }
+
+  .rotulo-detalhe {
+    font-size: 11px;
+    color: #777;
+    text-align: center;
+    font-weight: normal;
+  }
+
+  @media (max-width: 600px) {
+    .rotulo-condicao { font-size: 10px; height: 60px; margin-top: 20px; }
+    .rotulo-detalhe { font-size: 9px; }
+    .eixo-y-limpo span { font-size: 10px; }
+    .grafico-linha-limpo { padding: 15px 10px 0 0; }
+    .area-pontos { padding-left: 10px; }
+  }
+</style>
+
+<div class="grafico-linha-limpo">
+  
+  <div class="eixo-y-limpo">
+    <span>3.5V</span>
+    <span>3.0V</span>
+    <span>2.5V</span>
+    <span>2.0V</span>
+    <span>1.5V</span>
+    <span>1.0V</span>
+    <span>0.5V</span>
+    <span>0V</span>
   </div>
 
-  <div style="display: flex; justify-content: space-around; align-items: flex-end; flex-grow: 1; height: 100%; position: relative; padding-left: 20px;">
-    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(to top, #f0f0f0 1px, transparent 1px); background-size: 100% 12.5%; z-index: 0; pointer-events: none;"></div>
+  <div class="area-pontos">
     
-    <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;" preserveAspectRatio="none" viewBox="0 0 100 100">
+    <!-- Linha de conexão SVG (Apenas decorativa, liga os pontos) -->
+    <svg class="linha-tendencia" preserveAspectRatio="none" viewBox="0 0 100 100">
+      <!-- Coordenadas aproximadas baseadas nas alturas das divs abaixo -->
       <polyline points="10,77 30,63 50,63 70,29 90,0" fill="none" stroke="#4A90D9" stroke-width="1.5" stroke-dasharray="4" opacity="0.4" />
     </svg>
 
-    <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end; width: 18%; height: 100%; z-index: 1; position: relative;">
-      <div style="width: 14px; height: 14px; background: #4A90D9; border: 3px solid #ffffff; border-radius: 50%; box-shadow: 0 0 0 2px #4A90D9, 0 4px 6px rgba(0,0,0,0.1); position: absolute; transform: translateY(50%); bottom: 22.8%;"></div>
-      <div style="font-size: 12px; color: #333; text-align: center; margin-top: 25px; height: 50px; line-height: 1.2; font-weight: 600;">Chave ligada<br><span style="font-size: 11px; color: #777; font-weight: normal;">(0 RPM)<br>(0 bar)</span></div>
+    <div class="coluna-ponto">
+      <!-- (0.8 / 3.5) * 100 = 22.8% de altura do fundo -->
+      <div class="ponto-dado" style="bottom: 22.8%;"></div>
+      <div class="rotulo-condicao">
+        Chave ligada<br>
+        <span class="rotulo-detalhe">(0 RPM)<br>(0 bar)</span>
+      </div>
     </div>
 
-    <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end; width: 18%; height: 100%; z-index: 1; position: relative;">
-      <div style="width: 14px; height: 14px; background: #4A90D9; border: 3px solid #ffffff; border-radius: 50%; box-shadow: 0 0 0 2px #4A90D9, 0 4px 6px rgba(0,0,0,0.1); position: absolute; transform: translateY(50%); bottom: 37.1%;"></div>
-      <div style="font-size: 12px; color: #333; text-align: center; margin-top: 25px; height: 50px; line-height: 1.2; font-weight: 600;">Fase de Partida<br><span style="font-size: 11px; color: #777; font-weight: normal;">(~200 RPM)<br>(> 300 bar)</span></div>
+    <div class="coluna-ponto">
+      <!-- (1.3 / 3.5) * 100 = 37.1% de altura do fundo -->
+      <div class="ponto-dado" style="bottom: 37.1%;"></div>
+      <div class="rotulo-condicao">
+        Fase de Partida<br>
+        <span class="rotulo-detalhe">(~200 RPM)<br>(> 300 bar)</span>
+      </div>
     </div>
 
-    <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end; width: 18%; height: 100%; z-index: 1; position: relative;">
-      <div style="width: 14px; height: 14px; background: #4A90D9; border: 3px solid #ffffff; border-radius: 50%; box-shadow: 0 0 0 2px #4A90D9, 0 4px 6px rgba(0,0,0,0.1); position: absolute; transform: translateY(50%); bottom: 37.1%;"></div>
-      <div style="font-size: 12px; color: #333; text-align: center; margin-top: 25px; height: 50px; line-height: 1.2; font-weight: 600;">Marcha Lenta<br><span style="font-size: 11px; color: #777; font-weight: normal;">(~800 RPM)<br>(250-350 bar)</span></div>
+    <div class="coluna-ponto">
+      <!-- (1.3 / 3.5) * 100 = 37.1% de altura do fundo -->
+      <div class="ponto-dado" style="bottom: 37.1%;"></div>
+      <div class="rotulo-condicao">
+        Marcha Lenta<br>
+        <span class="rotulo-detalhe">(~800 RPM)<br>(250-350 bar)</span>
+      </div>
     </div>
 
-    <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end; width: 18%; height: 100%; z-index: 1; position: relative;">
-      <div style="width: 14px; height: 14px; background: #4A90D9; border: 3px solid #ffffff; border-radius: 50%; box-shadow: 0 0 0 2px #4A90D9, 0 4px 6px rgba(0,0,0,0.1); position: absolute; transform: translateY(50%); bottom: 71.4%;"></div>
-      <div style="font-size: 12px; color: #333; text-align: center; margin-top: 25px; height: 50px; line-height: 1.2; font-weight: 600;">Torque Máximo<br><span style="font-size: 11px; color: #777; font-weight: normal;">(1800 RPM)<br>(700-900 bar)</span></div>
+    <div class="coluna-ponto">
+      <!-- (2.5 / 3.5) * 100 = 71.4% de altura do fundo -->
+      <div class="ponto-dado" style="bottom: 71.4%;"></div>
+      <div class="rotulo-condicao">
+        Torque Máximo<br>
+        <span class="rotulo-detalhe">(1800 RPM)<br>(700-900 bar)</span>
+      </div>
     </div>
 
-    <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end; width: 18%; height: 100%; z-index: 1; position: relative;">
-      <div style="width: 14px; height: 14px; background: #4A90D9; border: 3px solid #ffffff; border-radius: 50%; box-shadow: 0 0 0 2px #4A90D9, 0 4px 6px rgba(0,0,0,0.1); position: absolute; transform: translateY(50%); bottom: 100%;"></div>
-      <div style="font-size: 12px; color: #333; text-align: center; margin-top: 25px; height: 50px; line-height: 1.2; font-weight: 600;">Plena Carga<br><span style="font-size: 11px; color: #777; font-weight: normal;">(3500 RPM)<br>(> 1300 bar)</span></div>
+    <div class="coluna-ponto">
+      <!-- (3.5 / 3.5) * 100 = 100% de altura do fundo -->
+      <div class="ponto-dado" style="bottom: 100%;"></div>
+      <div class="rotulo-condicao">
+        Plena Carga<br>
+        <span class="rotulo-detalhe">(3500 RPM)<br>(> 1300 bar)</span>
+      </div>
     </div>
+
   </div>
 </div>
 
