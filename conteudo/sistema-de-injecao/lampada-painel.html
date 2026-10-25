@@ -1,260 +1,207 @@
-<!-- Sensor de Pressão do Rail. Imagens: salve em conteudo/imagens/sensor-pres-rail/ com estes nomes:
-01-localizacao.jpg                   Localização no tubo Rail
-02-funcionamento.jpg                 Como funciona
-03-conector-pinos.jpg                Parte elétrica: conector e pinos
-04-teste-multimetro.jpg              Teste com multímetro
-05-teste-scanner.jpg                 Teste com scanner: pressão na partida
-06-scanner-pressao-1.jpg             Scanner durante a aceleração
-07-scanner-1500-bar.jpg              Atingiu 1.500 bar e desligou o motor
-08-pressao-comandada-real-1.jpg      Pressão comandada x real, marcha lenta
-09-pressao-comandada-real-2.jpg      Pressão comandada x real, 2.000 rpm
+<!-- Bicos Injetores. Imagens: salve em conteudo/imagens/bicos-injetores/ com estes nomes:
+01-como-retirar.jpg           Como retirar os bicos
+02-tabela-aperto-1.jpg        Tabela de aperto (1)
+03-tabela-aperto-2.jpg        Tabela de aperto (2)
+04-ligacao-ecm-bicos.jpg      Ligação do módulo ECM até os bicos (Manual Agrale Marruá)
+05-teste-pulso.jpg            Teste de pulso com a caneta de teste
+06-limpeza-1.jpg              Limpeza do bico (1)
+07-limpeza-2.jpg              Limpeza do bico (2)
+08-teste-retorno-spray.jpg    Teste de retorno com spray no furo maior
+09-teste-ponteira.jpg         Teste da ponteira do bico com spray
+10-reparo-1.jpg               Limpeza e reparo do bico (1)
+11-reparo-2.jpg               Limpeza e reparo do bico (2)
+12-montagem-1.jpg             Montagem do bico no motor (1)
+13-montagem-2.jpg             Montagem do bico no motor (2)
 Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentacao-de-combustivel/...). -->
 <header class="art-head">
-  <h1>Sensor de Pressão do Rail</h1>
+  <h1>Bicos Injetores</h1>
 </header>
 
 <nav class="toc" aria-label="Neste artigo">
   <strong>Neste artigo</strong>
   <ul>
     <li><a href="#" data-goto="localizacao">Localização</a></li>
-    <li><a href="#" data-goto="como-funciona">Como funciona</a></li>
-    <li><a href="#" data-goto="parte-eletrica">Parte elétrica e testes</a>
+    <li><a href="#" data-goto="como-retirar">Como retirar</a>
       <ul>
-        <li><a href="#" data-goto="teste-multimetro">Testes com multímetro</a></li>
-        <li><a href="#" data-goto="teste-scanner">Testes com scanner</a></li>
+        <li><a href="#" data-goto="tabela-aperto">Tabela de aperto</a></li>
+      </ul>
+    </li>
+    <li><a href="#" data-goto="funcionamento">Como funciona</a></li>
+    <li><a href="#" data-goto="parte-eletrica">Parte elétrica</a>
+      <ul>
+        <li><a href="#" data-goto="teste-pulso">Teste de pulso</a></li>
       </ul>
     </li>
     <li><a href="#" data-goto="problemas-comuns">Problemas comuns</a>
       <ul>
-        <li><a href="#" data-goto="motor-desliga-durante-a-aceleracao">Motor desliga durante a aceleração</a></li>
-        <li><a href="#" data-goto="pressao-comandada-x-pressao-real">Pressão comandada x pressão real</a></li>
+        <li><a href="#" data-goto="excesso-de-retorno-dos-bicos-injetores">Excesso de retorno dos bicos injetores</a></li>
+        <li><a href="#" data-goto="castanholar-forte-e-motor-fraco">Castanholar forte e motor fraco</a></li>
+        <li><a href="#" data-goto="limpeza-bico">Limpeza do bico injetor</a></li>
       </ul>
     </li>
-    <li><a href="#" data-goto="codigos-de-falha">Códigos de falha comuns</a></li>
+    <li><a href="#" data-goto="teste-retorno">Teste de retorno dos injetores</a>
+      <ul>
+        <li><a href="#" data-goto="medidas-de-referencia">Medidas de referência</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
 <h2 id="localizacao">Localização</h2>
-<p>Está instalado no próprio tubo Rail.</p>
+<p>Os bicos injetores ficam montados no cabeçote, um para cada cilindro.</p>
+
+<h2 id="como-retirar">Como retirar</h2>
 <figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-pres-rail/01-localizacao.jpg" alt="Localização do sensor de pressão no tubo Rail" loading="lazy">
+  <img src="conteudo/imagens/bicos-injetores/01-como-retirar.jpg" alt="Como retirar os bicos injetores" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<h3 id="tabela-aperto">Tabela de aperto</h3>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bicos-injetores/02-tabela-aperto-1.jpg" alt="Tabela de aperto dos bicos injetores, parte 1" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bicos-injetores/03-tabela-aperto-2.jpg" alt="Tabela de aperto dos bicos injetores, parte 2" loading="lazy">
   <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
 </figure>
 
-<h2 id="como-funciona">Como funciona</h2>
+<h2 id="funcionamento">Como funciona</h2>
+<p>Os bicos injetores estão montados no cabeçote e pulverizam o combustível na câmara de combustão. A ECM controla os bicos: determina a quantidade e o momento da injeção para cada cilindro.</p>
 <ul>
-  <li>Monitora constantemente a pressão do combustível no sistema de alta pressão;</li>
-  <li>É um elemento <b>piezo-resistivo</b> com circuito integrado e compensação de temperatura;</li>
-  <li>Atua por um diafragma que se deforma com a pressão do combustível, o que altera a resistência e o sinal;</li>
-  <li>Quanto maior a pressão no Rail, maior a tensão de sinal no pino 02, de retorno para a Central;</li>
-  <li>A ECM usa esse valor para regular a pressão e controlar a <a href="#sistema-de-injecao/valvula-mprop">válvula MProp</a>.</li>
+  <li><b>Posição de repouso:</b> o bico está fechado (desenergizado). A agulha permanece fechada pela alta pressão do combustível na haste do bico, que tem área maior que a área inferior;</li>
+  <li><b>Início da injeção:</b> a ECM energiza a válvula eletromagnética, que abre a passagem de saída do combustível para o retorno. O combustível pressurizado entra pelo furo calibrado e cria uma depressão na câmara de controle. Essa depressão faz a agulha subir e começa a pulverização na câmara de combustão;</li>
+  <li><b>Fim da injeção:</b> ocorre quando a ECM desenergiza a válvula eletromagnética. A mola fecha a passagem do furo de retorno, o combustível pressurizado ocupa de novo a câmara de controle e a agulha desce, voltando à posição de repouso.</li>
 </ul>
+
+<h2 id="parte-eletrica">Parte elétrica</h2>
+<p>Ligação do módulo ECM até os bicos injetores (Manual Agrale Marruá).</p>
 <figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-pres-rail/02-funcionamento.jpg" alt="Funcionamento do sensor de pressão do Rail" loading="lazy">
+  <img src="conteudo/imagens/bicos-injetores/04-ligacao-ecm-bicos.jpg" alt="Ligação elétrica entre o módulo ECM e os bicos injetores" loading="lazy">
   <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
 </figure>
-<p>Se a pressão está baixa, a ECM aumenta o Duty Cycle da MProp, que fica mais tempo aberta. Se a pressão está alta, diminui o Duty Cycle e a pressão cai.</p>
-<div class="aviso">
-  <strong>Modo de segurança</strong>
-  <p>Se a Central verificar que a pressão está acima do permitido e não conseguir controlá-la pela MProp, entra em modo de segurança e desliga o motor.</p>
-</div>
-
-<h2 id="parte-eletrica">Parte elétrica e testes</h2>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-pres-rail/03-conector-pinos.jpg" alt="Conector e pinos do sensor de pressão do Rail" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<h3 id="teste-multimetro">Testes com multímetro</h3>
-<p>Tensão no pino 02 (sinal), por condição do motor:</p>
-<div class="specs">
-  <div class="spec"><b>~0,5 V</b><span>Chave ligada (~0 bar)</span></div>
-  <div class="spec"><b>~1,2 V</b><span>Partida (250 a 350 bar)</span></div>
-  <div class="spec"><b>~1,3 V</b><span>Marcha lenta (300 a 400 bar)</span></div>
-  <div class="spec"><b>~3 V</b><span>Aceleração média (1000 bar)</span></div>
-  <div class="spec"><b>~4,5 V</b><span>Aceleração alta (1600 bar)</span></div>
-</div>
-<style>
-.grafico{margin:14px 0 18px;padding:12px 14px;border:1px solid #d9dee5;border-radius:8px;background:#fff}
-.grafico .g-titulo{margin:0 0 6px;font-weight:700;font-size:1rem}
-.grafico .g-rolagem{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.grafico svg{display:block;width:100%;min-width:520px;height:auto;font-family:inherit}
-.grafico .gr{stroke:#e6eaef;stroke-width:1}
-.grafico .ax-l{stroke:#9aa5b1;stroke-width:1.2}
-.grafico .tv{font-size:12px;fill:#2f5f93;font-weight:600}
-.grafico .tp{font-size:12px;fill:#d03a2d;font-weight:600}
-.grafico .ax{font-size:12.5px;font-weight:700}
-.grafico .xl{font-size:13px;fill:#1b2430;font-weight:600}
-.grafico .xs{font-size:11.5px;fill:#5b6770}
-.grafico .xv{font-size:14px;fill:#2f5f93;font-weight:800}
-.grafico .pl{font-size:12px;fill:#c0392b;font-weight:700;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
-.grafico .lg{font-size:13px;fill:#3a4652;font-weight:600}
-.grafico .g-nota{margin:6px 0 0;font-size:.85rem;color:#5b6770}
-</style>
-<div class="grafico">
-  <p class="g-titulo">Tensão no pino 02 x pressão no Rail</p>
-  <div class="g-rolagem">
-<svg viewBox="0 0 690 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gráfico: tensão no pino 02 do sensor e pressão no Rail em cinco condições do motor, de 0,5 V com 0 bar a 4,5 V com 1600 bar">
-<defs><linearGradient id="gbar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a8bd0"/><stop offset="1" stop-color="#2f5f93"/></linearGradient></defs>
-<line x1="64" x2="576" y1="292.0" y2="292.0" class="gr"/>
-<text x="56" y="296.0" text-anchor="end" class="tv">0 V</text>
-<text x="584" y="296.0" text-anchor="start" class="tp">0 bar</text>
-<line x1="64" x2="576" y1="252.7" y2="252.7" class="gr"/>
-<text x="56" y="256.7" text-anchor="end" class="tv">1 V</text>
-<text x="584" y="256.7" text-anchor="start" class="tp">300 bar</text>
-<line x1="64" x2="576" y1="213.3" y2="213.3" class="gr"/>
-<text x="56" y="217.3" text-anchor="end" class="tv">2 V</text>
-<text x="584" y="217.3" text-anchor="start" class="tp">600 bar</text>
-<line x1="64" x2="576" y1="174.0" y2="174.0" class="gr"/>
-<text x="56" y="178.0" text-anchor="end" class="tv">3 V</text>
-<text x="584" y="178.0" text-anchor="start" class="tp">900 bar</text>
-<line x1="64" x2="576" y1="134.7" y2="134.7" class="gr"/>
-<text x="56" y="138.7" text-anchor="end" class="tv">4 V</text>
-<text x="584" y="138.7" text-anchor="start" class="tp">1200 bar</text>
-<line x1="64" x2="576" y1="95.3" y2="95.3" class="gr"/>
-<text x="56" y="99.3" text-anchor="end" class="tv">5 V</text>
-<text x="584" y="99.3" text-anchor="start" class="tp">1500 bar</text>
-<line x1="64" x2="576" y1="56.0" y2="56.0" class="gr"/>
-<text x="56" y="60.0" text-anchor="end" class="tv">6 V</text>
-<text x="584" y="60.0" text-anchor="start" class="tp">1800 bar</text>
-<text transform="translate(16,174) rotate(-90)" text-anchor="middle" class="tv ax">Tensão (V)</text>
-<text transform="translate(678,174) rotate(90)" text-anchor="middle" class="tp ax">Pressão no Rail (bar)</text>
-<rect x="86.2" y="272.3" width="58" height="19.7" rx="4" fill="url(#gbar)"><title>Chave ligada (~0 bar): ~0,5 V</title></rect>
-<rect x="188.6" y="244.8" width="58" height="47.2" rx="4" fill="url(#gbar)"><title>Partida (250–350 bar): ~1,2 V</title></rect>
-<rect x="291.0" y="240.9" width="58" height="51.1" rx="4" fill="url(#gbar)"><title>Marcha lenta (300–400 bar): ~1,3 V</title></rect>
-<rect x="393.4" y="174.0" width="58" height="118.0" rx="4" fill="url(#gbar)"><title>Aceleração média (1000 bar): ~3 V</title></rect>
-<rect x="495.8" y="115.0" width="58" height="177.0" rx="4" fill="url(#gbar)"><title>Aceleração alta (1600 bar): ~4,5 V</title></rect>
-<path d="M115.2,292.0 C149.3,278.9 183.5,255.6 217.6,252.7 C251.7,249.7 285.9,252.0 320.0,246.1 C354.1,240.2 388.3,188.2 422.4,160.9 C456.5,133.6 490.7,108.4 524.8,82.2" fill="none" stroke="#e5483b" stroke-width="3.5" stroke-linecap="round"/>
-<circle cx="115.2" cy="292.0" r="6" fill="#fff" stroke="#e5483b" stroke-width="3"><title>Chave ligada: 0 bar</title></circle>
-<text x="115.2" y="264.7" text-anchor="middle" class="pl">0 bar</text>
-<circle cx="217.6" cy="252.7" r="6" fill="#fff" stroke="#e5483b" stroke-width="3"><title>Partida: 300 bar</title></circle>
-<text x="217.6" y="238.7" text-anchor="middle" class="pl">300 bar</text>
-<circle cx="320.0" cy="246.1" r="6" fill="#fff" stroke="#e5483b" stroke-width="3"><title>Marcha lenta: 350 bar</title></circle>
-<text x="320.0" y="232.1" text-anchor="middle" class="pl">350 bar</text>
-<circle cx="422.4" cy="160.9" r="6" fill="#fff" stroke="#e5483b" stroke-width="3"><title>Aceleração média: 1000 bar</title></circle>
-<text x="422.4" y="146.9" text-anchor="middle" class="pl">1000 bar</text>
-<circle cx="524.8" cy="82.2" r="6" fill="#fff" stroke="#e5483b" stroke-width="3"><title>Aceleração alta: 1600 bar</title></circle>
-<text x="524.8" y="68.2" text-anchor="middle" class="pl">1600 bar</text>
-<text x="115.2" y="312" text-anchor="middle" class="xl">Chave ligada</text>
-<text x="115.2" y="328" text-anchor="middle" class="xs">(~0 bar)</text>
-<text x="115.2" y="347" text-anchor="middle" class="xv">~0,5 V</text>
-<text x="217.6" y="312" text-anchor="middle" class="xl">Partida</text>
-<text x="217.6" y="328" text-anchor="middle" class="xs">(250–350 bar)</text>
-<text x="217.6" y="347" text-anchor="middle" class="xv">~1,2 V</text>
-<text x="320.0" y="312" text-anchor="middle" class="xl">Marcha lenta</text>
-<text x="320.0" y="328" text-anchor="middle" class="xs">(300–400 bar)</text>
-<text x="320.0" y="347" text-anchor="middle" class="xv">~1,3 V</text>
-<text x="422.4" y="312" text-anchor="middle" class="xl">Aceleração média</text>
-<text x="422.4" y="328" text-anchor="middle" class="xs">(1000 bar)</text>
-<text x="422.4" y="347" text-anchor="middle" class="xv">~3 V</text>
-<text x="524.8" y="312" text-anchor="middle" class="xl">Aceleração alta</text>
-<text x="524.8" y="328" text-anchor="middle" class="xs">(1600 bar)</text>
-<text x="524.8" y="347" text-anchor="middle" class="xv">~4,5 V</text>
-<line x1="64" x2="576" y1="292" y2="292" class="ax-l"/>
-<g transform="translate(195,22)"><circle cx="8" cy="0" r="6" fill="#fff" stroke="#e5483b" stroke-width="3"/><text x="22" y="4" class="lg">Pressão no Rail (bar)</text><rect x="170" y="-7" width="14" height="14" rx="3" fill="url(#gbar)"/><text x="190" y="4" class="lg">Tensão no pino 02 (V)</text></g>
-</svg>
-  </div>
-  <p class="g-nota">Valores aproximados da tabela acima. Nas faixas (partida e marcha lenta) a pressão está marcada no ponto médio: 300 bar e 350 bar.</p>
-</div>
-<ul>
-  <li>Teste a alimentação de 5 V entre os pinos 1 e 3, de preferência com o chicote conectado ao sensor;</li>
-  <li>Com a chave ligada, a tensão no pino 02 deve ser de 0,5 V;</li>
-  <li>Durante a partida, a tensão no pino 02 deve ficar em cerca de 1,2 V, o que corresponde a aproximadamente 300 bar;</li>
-  <li>Se não chegar a cerca de 1,2 V, verifique os componentes antes do tubo Rail;</li>
-  <li>Na marcha lenta, a tensão no pino 02 é de cerca de 1,3 V.</li>
-</ul>
+<h3 id="teste-pulso">Teste de pulso</h3>
+<p>Com a caneta de teste dá para ver os pulsos e também o Duty Cycle (ciclo de trabalho). Para testes básicos, o Duty Cycle não é importante.</p>
 <div class="aviso">
   <strong>Atenção</strong>
-  <p>Se a tensão não alcançar cerca de 1,2 V, a Central não libera pulso nos bicos injetores.</p>
+  <p>Só há pulso nos bicos injetores se a tensão de retorno no <a href="#sistema-de-injecao/sensor-pres-rail">sensor de pressão do Rail</a> for de no mínimo 0,9 V.</p>
 </div>
 <figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-pres-rail/04-teste-multimetro.jpg" alt="Teste do sensor de pressão do Rail com multímetro" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<h3 id="teste-scanner">Testes com scanner</h3>
-<ul>
-  <li>Coloque o scanner em leitura de pressão do Rail e verifique a pressão durante a partida;</li>
-  <li>Em marcha lenta, a pressão deve estar entre 250 e 350 bar;</li>
-  <li>Se a pressão real estiver sempre abaixo, o problema é a bomba, o DRV ou injetores com retorno excessivo.</li>
-</ul>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-pres-rail/05-teste-scanner.jpg" alt="Leitura da pressão do Rail no scanner durante a partida" loading="lazy">
+  <img src="conteudo/imagens/bicos-injetores/05-teste-pulso.jpg" alt="Teste de pulso nos bicos injetores com a caneta de teste" loading="lazy">
   <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
 </figure>
 
 <h2 id="problemas-comuns">Problemas comuns</h2>
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Os testes com spray são extremamente básicos: o spray tem apenas 6 bar de pressão. Na marcha lenta, o sistema trabalha com no mínimo 250 bar.</p>
+</div>
 
-<h3 id="motor-desliga-durante-a-aceleracao">Motor desliga durante a aceleração</h3>
+<h3 id="excesso-de-retorno-dos-bicos-injetores">Excesso de retorno dos bicos injetores</h3>
 <div class="trio">
   <div>
     <h4>Sintomas</h4>
     <ul>
-      <li>Alta pressão no tubo Rail;</li>
-      <li>Acende a luz de injeção e o motor desliga.</li>
+      <li>Motor de partida gira, mas o motor não liga;</li>
+      <li>Partidas muito longas.</li>
     </ul>
   </div>
   <div>
     <h4>Possíveis causas</h4>
     <ul>
-      <li>Válvula MProp travada aberta;</li>
-      <li>Sensor do Rail avariado.</li>
+      <li>Baixa pressão na linha de baixa;</li>
+      <li>Baixa pressão na linha de alta;</li>
+      <li>Válvula de alívio do <a href="#alimentacao-de-combustivel/tubo-rail">tubo Rail</a> com vazamento;</li>
+      <li>Excesso de retorno nos bicos injetores.</li>
     </ul>
   </div>
   <div>
     <h4>Possíveis soluções</h4>
     <ul>
-      <li>Limpar a válvula MProp;</li>
-      <li>Trocar o sensor do Rail avariado.</li>
+      <li>Depois de confirmar o excesso de retorno, trocar o reparo do bico injetor.</li>
     </ul>
   </div>
 </div>
-<div class="dica">
-  <strong>Dica</strong>
-  <p>Problemas no sensor do Rail e na MProp se confundem, porque um depende do outro. Observe se há excesso de fumaça preta no escapamento: indica excesso de combustível nos injetores por falha da MProp.</p>
+
+<h3 id="castanholar-forte-e-motor-fraco">Castanholar forte e motor fraco</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Motor de partida gira e às vezes o motor liga, com castanholar forte;</li>
+      <li>Motor sem potência;</li>
+      <li>Partidas muito longas.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Bico injetor travado aberto;</li>
+      <li><a href="#sistema-de-injecao/valvula-mprop">Válvula MProp</a> travada aberta: meça a tensão no <a href="#sistema-de-injecao/sensor-pres-rail">sensor do Rail</a>.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Retirar os bicos injetores e fazer a limpeza.</li>
+    </ul>
+  </div>
 </div>
-<p><b>Multímetro:</b> verifique a tensão no pino 02 do sensor do tubo.</p>
+
+<h3 id="limpeza-bico">Limpeza do bico injetor</h3>
+<p>Limpe também o tubo Rail e as tubulações de ligação (veja em <a href="#alimentacao-de-combustivel/tubo-rail">Tubo Rail</a>).</p>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bicos-injetores/06-limpeza-1.jpg" alt="Limpeza do bico injetor, foto 1" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bicos-injetores/07-limpeza-2.jpg" alt="Limpeza do bico injetor, foto 2" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<p>Faça o teste de retorno do bico: ele verifica a estanqueidade do reparo da caneta do bico e o assentamento da esfera de controle do retorno.</p>
+<p>Injete spray no primeiro furo do bico (o furo maior). Nesse teste não pode sair líquido pelo retorno.</p>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bicos-injetores/08-teste-retorno-spray.jpg" alt="Teste de retorno do bico com spray no furo maior" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<p>Teste a ponteira do bico com spray. Se estiver travada fechada, não sai líquido. O líquido deve sair pulverizado.</p>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bicos-injetores/09-teste-ponteira.jpg" alt="Teste da ponteira do bico injetor com spray" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<p><b>Limpeza e reparo do bico</b></p>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bicos-injetores/10-reparo-1.jpg" alt="Limpeza e reparo do bico injetor, foto 1" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bicos-injetores/11-reparo-2.jpg" alt="Limpeza e reparo do bico injetor, foto 2" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<p>Teste usando desengripante em spray.</p>
+<p><b>Montar o bico no motor</b></p>
 <ul>
-  <li>Chave ligada, antes da partida: 0,5 V;</li>
-  <li>Marcha lenta: aproximadamente 1,3 V;</li>
-  <li>Rotação alta: aproximadamente até 4,5 V.</li>
+  <li>Use o O-ring de vedação no bico, para o bico injetor não enferrujar;</li>
+  <li>Troque a arruela de cobre sempre que desmontar;</li>
+  <li>Siga a <a href="#" data-goto="tabela-aperto">tabela de aperto</a> para não danificar a rosca do cabeçote.</li>
 </ul>
-<p><b>Scanner:</b> se durante a aceleração a pressão chegar a 1.500 bar, a ECM entra em modo de proteção e desliga o motor.</p>
 <figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-pres-rail/06-scanner-pressao-1.jpg" alt="Scanner mostrando a pressão do Rail durante a aceleração" loading="lazy">
+  <img src="conteudo/imagens/bicos-injetores/12-montagem-1.jpg" alt="Montagem do bico injetor no motor, foto 1" loading="lazy">
   <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
 </figure>
-<p>Atingiu 1.500 bar, o motor desligou e a pressão caiu instantaneamente.</p>
 <figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-pres-rail/07-scanner-1500-bar.jpg" alt="Scanner mostrando a pressão chegando a 1.500 bar e o motor desligando" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<h3 id="pressao-comandada-x-pressao-real">Pressão comandada x pressão real</h3>
-<p>Se a pressão real estiver sempre acima da comandada, a válvula MProp pode estar travada ou o sensor de pressão está com defeito.</p>
-<p>Em marcha lenta (750 rpm), a pressão deveria estar entre 200 e 500 bar.</p>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-pres-rail/08-pressao-comandada-real-1.jpg" alt="Pressão comandada e real em marcha lenta" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-<p>Em 2.000 rpm, a pressão já está no limite máximo aceitável para a rotação máxima.</p>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-pres-rail/09-pressao-comandada-real-2.jpg" alt="Pressão comandada e real a 2.000 rpm" loading="lazy">
+  <img src="conteudo/imagens/bicos-injetores/13-montagem-2.jpg" alt="Montagem do bico injetor no motor, foto 2" loading="lazy">
   <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
 </figure>
 
-<h2 id="codigos-de-falha">Códigos de falha comuns</h2>
-<div class="codigos">
-  <div class="codigo"><span class="num">P0087</span><div>
-    <h4>Pressão do rail muito baixa</h4>
-    <p>Regulador de pressão (DRV / SCV) travado aberto.</p>
-  </div></div>
-  <div class="codigo"><span class="num">P0088</span><div>
-    <h4>Pressão do rail muito alta</h4>
-    <p>Regulador de pressão (DRV / SCV) travado fechado.</p>
-  </div></div>
-  <div class="codigo"><span class="num">P0191</span><div>
-    <h4>Variação incorreta da pressão (intermitente)</h4>
-    <p>Se a leitura do sensor estiver travada ou incoerente, a ECU pode gerar P0191 ou P0193, ou entrar em modo de emergência.</p>
-  </div></div>
+<h2 id="teste-retorno">Teste de retorno dos injetores</h2>
+<ul>
+  <li>Use mangueiras transparentes e frascos para coletar o retorno de cada injetor separadamente;</li>
+  <li>Com o motor em marcha lenta por 1 minuto, os volumes devem ser quase iguais entre os injetores;</li>
+  <li>Um injetor com volume de retorno alto indica desgaste interno e compromete a manutenção da pressão do Rail.</li>
+</ul>
+<h3 id="medidas-de-referencia">Medidas de referência</h3>
+<div class="specs">
+  <div class="spec"><b>12,4 mm</b><span>Fundo da bobina, sem calço</span></div>
+  <div class="spec"><b>10,7 mm</b><span>Fundo da bobina, com calço de 1,7 mm</span></div>
+  <div class="spec"><b>17,8 mm</b><span>Ponta, sem calço</span></div>
 </div>
