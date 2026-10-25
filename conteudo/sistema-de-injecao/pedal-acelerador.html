@@ -11,8 +11,10 @@
     
     <li><a href="#" data-goto="parte-eletrica">Testes e Diagnóstico</a>
       <ul>
-        <li><a href="#" data-goto="teste-alimentacao">Teste de Alimentação e Terra</a></li>
-        <li><a href="#" data-goto="teste-dinamico">Teste Dinâmico de Pista</a></li>
+        <li><a href="#" data-goto="passo-1">Passo 1: Inspeção Visual</a></li>
+        <li><a href="#" data-goto="passo-2">Passo 2: Alimentação e Terra</a></li>
+        <li><a href="#" data-goto="grafico-tensao">Gráfico de Tensão (Pistas 1 e 2)</a></li>
+        <li><a href="#" data-goto="passo-3">Passo 3: Teste Dinâmico (Ponto Cego)</a></li>
       </ul>
     </li>
     
@@ -26,7 +28,6 @@
     </li>
     
     <li><a href="#" data-goto="codigos-de-falha">Códigos de Falha OBD-II</a></li>
-    
     <li><a href="#" data-goto="calibracao">Calibração Pós-Troca</a></li>
   </ul>
 </nav>
@@ -35,36 +36,91 @@
      CONTEÚDO DO ARTIGO
      ========================================== -->
 
-<h2 id="introducao">Introdução e Arquitetura</h2>
-<p>O Sensor de Posição do Pedal do Acelerador (GPA - Gas Pedal Actuator ou APP - Accelerator Pedal Position) é o componente primário de entrada do gerenciamento de torque do motor MWM Sprint 2.8 Eletrônico (4.07 TCE).</p>
-<p>Diferente dos sistemas mecânicos antigos controlados por cabo de aço, o MWM Eletrônico utiliza a estratégia <b>Drive-by-Wire</b> (Aceleração Eletrônica). O curso do pedal é convertido em sinais de tensão elétrica analógicos contínuos e transmitido em tempo real para a Unidade de Controle Eletrônico (ECU Bosch EDC16C8).</p>
+<h2 id="introducao">Introdução e Arquitetura do Sistema</h2>
+<p>O Sensor de Posição do Pedal do Acelerador (GPA - Gas Pedal Actuator ou APP - Accelerator Pedal Position) é o componente primário de entrada do gerenciamento de torque do motor <b>MWM Sprint 2.8 Eletrônico (4.07 TCE)</b>.</p>
+<p><b>Aplicações:</b> Chevrolet S10, Nissan Frontier e Troller T4 (Motores Euro III).</p>
+<p>Diferente dos sistemas mecânicos antigos controlados por cabo de aço, o MWM Eletrônico utiliza a estratégia <b>Drive-by-Wire</b> (Aceleração Eletrônica). O curso do pedal é convertido em sinais de tensão elétrica analógicos contínuos e transmitidos em tempo real para a Unidade de Controle Eletrônico (<b>ECU Bosch EDC16C8</b>).</p>
 
-<h2 id="funcionamento">Funcionamento e Redundância</h2>
-<p>Para atender aos critérios automotivos internacionais de segurança funcional (ISO 26262), o pedal de aceleração integra <b>dois potenciômetros lineares rotativos independentes</b> dentro de um mesmo invólucro blindado. Essa arquitetura redundante garante que qualquer falha interna no circuito elétrico ou de leitura mecânica seja imediatamente interceptada pela central, mitigando riscos de aceleração involuntária em pista.</p>
+<h2 id="funcionamento">Princípio de Funcionamento e Redundância (Razão 2:1)</h2>
+<p>Para atender aos critérios automotivos internacionais de segurança funcional (ISO 26262), o pedal de aceleração integra <b>dois potenciômetros lineares rotativos independentes</b> dentro de um mesmo invólucro blindado. Essa arquitetura redundante garante que qualquer falha interna no circuito elétrico ou de leitura mecânica seja imediatamente interceptada pela central, mitigando riscos de aceleração involuntária.</p>
 
 <ul>
   <li><b>Estratégia de Correlação de Sinal:</b> O Sensor principal (Pista 1) opera com o dobro da taxa de variação de tensão elétrica do Sensor secundário (Pista 2). A equação de validação contínua executada pela ECU é definida como: <b>V_sinal_1 = 2 × V_sinal_2</b> (com uma tolerância calibrada de ±0,2V);</li>
-  <li><b>Modo Limp Home (Segurança Ativa):</b> Se houver colapso em qualquer uma das pistas de grafite ou chicote partido, a ECU aciona a luz de anomalia (injeção) e fixa a rotação do motor em um patamar de segurança limite (1200 a 1500 RPM). O torque livre do acelerador é desativado, forçando o motorista a direcionar o veículo para oficina sem potência operacional aberta.</li>
+  <li><b>Modo Limp Home (Segurança Ativa):</b> Se houver colapso em qualquer uma das pistas de grafite ou chicote partido, a ECU aciona a luz de anomalia (injeção) e fixa a rotação do motor em um patamar de segurança limite (<b>1200 a 1500 RPM</b>). O torque livre do acelerador é desativado, forçando o motorista a direcionar o veículo para oficina sem potência operacional aberta.</li>
 </ul>
-
-<div class="aviso">
-  <strong>Atenção</strong>
-  <p>As imagens e esquemas elétricos deste artigo devem ser consultados no manual de oficina oficial do veículo. Nunca substitua o conjunto do pedal por peças de procedência duvidosa.</p>
-</div>
 
 <h2 id="parte-eletrica">Testes e Diagnóstico</h2>
 
-<h3 id="teste-alimentacao">Teste de Alimentação e Terra</h3>
+<h3 id="passo-1">Passo 1: Inspeção Visual e Conexões</h3>
 <ul>
-  <li>Desconecte o conector do pedal;</li>
-  <li>Com a chave de ignição ligada, meça a tensão entre os pinos de alimentação (geralmente pino 1 e 5, ou 2 e 3, dependendo do modelo);</li>
-  <li>A tensão de referência deve ser de <b>5V</b>;</li>
-  <li>Meça a resistência entre o pino de terra do conector e a carcaça/massa do motor. O valor de queda de tensão deve ser inferior a <b>50mV</b>. Resistência acima de 1.0 Ohm indica chicote esmagado ou oxidação nos pontos de aterramento.</li>
+  <li>Verifique o estado físico do conector do pedal. Procure por umidade, oxidação (zinabre) ou pinos tortos;</li>
+  <li>Verifique se o pedal não possui folgas mecânicas excessivas nos eixos ou batentes quebrados;</li>
+  <li>Certifique-se de que o tapete ou objetos não estão obstruindo o curso total do pedal.</li>
 </ul>
 
-<h3 id="teste-dinamico">Teste Dinâmico de Pista e Ponto Cego (Glitch)</h3>
-<p>Mantenha a ponta preta fixada no terra e conecte a ponta vermelha no Pino do Sinal 1. Com a mão, pressione o acelerador de forma <b>extremamente lenta</b> do início do curso até o fundo, levando cerca de 10 a 15 segundos no movimento.</p>
-<p>Observe atentamente o display do equipamento: a subida deve ser linear, sem saltos e sem zerar. Repita a mesma operação milimétrica no Pino do Sinal 2. Quedas abruptas para zero ou congelamentos em um valor fixo revelam desgaste mecânico na película resistiva interna (conhecido como <b>ponto cego do acelerador</b>), exigindo a troca imediata da peça.</p>
+<h3 id="passo-2">Passo 2: Teste de Alimentação e Terra</h3>
+<ul>
+  <li>Desconecte o conector do pedal;</li>
+  <li>Com a chave de ignição ligada, meça a tensão entre os pinos de alimentação (geralmente pino 1 e 5). A tensão de referência deve ser de <b>5V</b>;</li>
+  <li>Meça a resistência entre o pino de terra do conector e a carcaça/massa do motor. O valor de queda de tensão deve ser <b>inferior a 50mV</b>. Uma resistência acima de 1.0 Ohm indica chicote esmagado ou oxidação nos pontos de aterramento elétrico fixados na lataria do veículo.</li>
+</ul>
+
+<h3 id="grafico-tensao">Gráfico de Tensão das Pistas (Padrão MWM)</h3>
+<p>Abaixo está o comportamento esperado das tensões das duas pistas à medida que o pedal é pressionado. Note que a Pista 1 sempre opera com o dobro do valor da Pista 2.</p>
+
+<!-- GRÁFICO DE LINHAS -->
+<div style="display: flex; height: 350px; background: #ffffff; border: 1px solid #eaeaea; border-radius: 12px; margin: 25px 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px 20px 0 0; box-sizing: border-box; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+  <div style="display: flex; flex-direction: column; justify-content: space-between; width: 45px; height: 100%; padding-right: 12px; box-sizing: border-box; border-right: 1px solid #ccc;">
+    <span style="font-size: 12px; color: #777; text-align: right; line-height: 1; transform: translateY(50%); font-weight: 500;">5.0V</span>
+    <span style="font-size: 12px; color: #777; text-align: right; line-height: 1; transform: translateY(50%); font-weight: 500;">4.0V</span>
+    <span style="font-size: 12px; color: #777; text-align: right; line-height: 1; transform: translateY(50%); font-weight: 500;">3.0V</span>
+    <span style="font-size: 12px; color: #777; text-align: right; line-height: 1; transform: translateY(50%); font-weight: 500;">2.0V</span>
+    <span style="font-size: 12px; color: #777; text-align: right; line-height: 1; transform: translateY(50%); font-weight: 500;">1.0V</span>
+    <span style="font-size: 12px; color: #777; text-align: right; line-height: 1; transform: translateY(50%); font-weight: 500;">0V</span>
+  </div>
+
+  <div style="display: flex; justify-content: space-around; align-items: flex-end; flex-grow: 1; height: 100%; position: relative; padding-left: 20px;">
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(to top, #f0f0f0 1px, transparent 1px); background-size: 100% 20%; z-index: 0; pointer-events: none;"></div>
+    
+    <!-- Linhas de conexão -->
+    <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;" preserveAspectRatio="none" viewBox="0 0 100 100">
+      <!-- Linha Pista 1 (Azul) -->
+      <polyline points="10,82 50,59 90,18" fill="none" stroke="#4A90D9" stroke-width="3" />
+      <!-- Linha Pista 2 (Laranja) -->
+      <polyline points="10,91 50,79.5 90,60" fill="none" stroke="#F59E0B" stroke-width="3" />
+    </svg>
+
+    <!-- Ponto 1: Repouso -->
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end; width: 18%; height: 100%; z-index: 1; position: relative;">
+      <div style="width: 16px; height: 16px; background: #4A90D9; border: 3px solid #ffffff; border-radius: 50%; box-shadow: 0 0 0 2px #4A90D9; position: absolute; transform: translateY(50%); bottom: 18%;" title="Pista 1: 0,7V"></div>
+      <div style="width: 16px; height: 16px; background: #F59E0B; border: 3px solid #ffffff; border-radius: 50%; box-shadow: 0 0 0 2px #F59E0B; position: absolute; transform: translateY(50%); bottom: 9%;" title="Pista 2: 0,35V"></div>
+      <div style="font-size: 12px; color: #333; text-align: center; margin-top: 30px; line-height: 1.2; font-weight: 600;">Repouso<br><span style="font-size: 11px; color: #777; font-weight: normal;">(0% Pressionado)</span></div>
+    </div>
+
+    <!-- Ponto 2: Meio Curso -->
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end; width: 18%; height: 100%; z-index: 1; position: relative;">
+      <div style="width: 16px; height: 16px; background: #4A90D9; border: 3px solid #ffffff; border-radius: 50%; box-shadow: 0 0 0 2px #4A90D9; position: absolute; transform: translateY(50%); bottom: 41%;" title="Pista 1: 2,4V"></div>
+      <div style="width: 16px; height: 16px; background: #F59E0B; border: 3px solid #ffffff; border-radius: 50%; box-shadow: 0 0 0 2px #F59E0B; position: absolute; transform: translateY(50%); bottom: 20.5%;" title="Pista 2: 1,2V"></div>
+      <div style="font-size: 12px; color: #333; text-align: center; margin-top: 30px; line-height: 1.2; font-weight: 600;">Meio Curso<br><span style="font-size: 11px; color: #777; font-weight: normal;">(50% Pressionado)</span></div>
+    </div>
+
+    <!-- Ponto 3: Fundo -->
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end; width: 18%; height: 100%; z-index: 1; position: relative;">
+      <div style="width: 16px; height: 16px; background: #4A90D9; border: 3px solid #ffffff; border-radius: 50%; box-shadow: 0 0 0 2px #4A90D9; position: absolute; transform: translateY(50%); bottom: 82%;" title="Pista 1: 4,1V"></div>
+      <div style="width: 16px; height: 16px; background: #F59E0B; border: 3px solid #ffffff; border-radius: 50%; box-shadow: 0 0 0 2px #F59E0B; position: absolute; transform: translateY(50%); bottom: 40%;" title="Pista 2: 2,0V"></div>
+      <div style="font-size: 12px; color: #333; text-align: center; margin-top: 30px; line-height: 1.2; font-weight: 600;">Fundo<br><span style="font-size: 11px; color: #777; font-weight: normal;">(100% Pressionado)</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="specs">
+  <div class="spec"><b>Pista 1 (Sinal 1)</b><span style="color:#4A90D9; font-weight:bold;">Linha Azul (Variação 0,7V a 4,1V)</span></div>
+  <div class="spec"><b>Pista 2 (Sinal 2)</b><span style="color:#F59E0B; font-weight:bold;">Linha Laranja (Variação 0,35V a 2,0V)</span></div>
+</div>
+
+<h3 id="passo-3">Passo 3: Teste Dinâmico de Pista e Ponto Cego (Glitch)</h3>
+<p>Mantenha a ponta preta do multímetro fixada no terra e conecte a ponta vermelha no Pino 04 (Sinal 1). Com a mão, pressione o acelerador de forma <b>extremamente lenta</b> do início do curso até o fundo, levando cerca de 10 a 15 segundos no movimento.</p>
+<p>Observe atentamente o display: a subida deve ser linear, sem saltos e sem zerar. Repita a mesma operação milimétrica no Pino 03 (Sinal 2). Quedas abruptas para zero ou congelamentos em um valor fixo revelam desgaste mecânico na película resistiva interna (conhecido como <b>ponto cego do acelerador</b>), exigindo a troca imediata da peça.</p>
 
 <div class="dica">
   <strong>Dica Exclusiva de Osciloscópio</strong>
@@ -99,13 +155,13 @@
   </div>
 </div>
 
-<h3 id="cortes-intermitentes">Cortes intermitentes em aceleração de estrada</h3>
+<h3 id="cortes-intermitentes">Cortes intermitentes em aceleração de estrada (veículo perde força e retoma bruscamente)</h3>
 <div class="trio">
   <div>
     <h4>Sintomas</h4>
     <ul>
-      <li>Veículo perde força e retoma bruscamente;</li>
-      <li>Desgaste físico localizado da trilha condutiva interna de grafite (ponto de cruzeiro).</li>
+      <li>Desgaste físico localizado da trilha condutiva interna de grafite;</li>
+      <li>Falha ocorre precisamente no ponto de abertura equivalente à velocidade de cruzeiro.</li>
     </ul>
   </div>
   <div>
@@ -123,7 +179,7 @@
   </div>
 </div>
 
-<h3 id="oscilacao-marcha-re">Motor oscila rotação ou morre nas manobras de marcha ré</h3>
+<h3 id="oscilacao-marcha-re">Motor oscila rotação ou morre nas manobras de marcha ré ou saídas lentas de primeira marcha</h3>
 <div class="trio">
   <div>
     <h4>Sintomas</h4>
@@ -147,7 +203,7 @@
   </div>
 </div>
 
-<h3 id="infiltracao-agua">Luz de injeção acende após lavagem ou vazamento de ar quente</h3>
+<h3 id="infiltracao-agua">Luz de injeção acende após lavagem do assoalho interno do veículo ou vazamento de radiador de ar quente</h3>
 <div class="trio">
   <div>
     <h4>Sintomas</h4>
@@ -172,7 +228,7 @@
   </div>
 </div>
 
-<h2 id="codigos-de-falha">Códigos de Falha OBD-II</h2>
+<h2 id="codigos-de-falha">Códigos de Falha OBD-II (Mapeamento de Scanner)</h2>
 <p>Ao efetuar a varredura da memória de erros da ECU utilizando um scanner automotivo, os seguintes códigos apontam diretamente para o circuito do pedal:</p>
 
 <div class="codigos">
