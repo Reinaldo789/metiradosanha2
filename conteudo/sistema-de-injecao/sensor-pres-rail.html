@@ -55,8 +55,11 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
   <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
 </figure>
 
+
 <h3 id="teste-multimetro">Testes com multímetro</h3>
 <p>Tensão no pino 02 (sinal), por condição do motor:</p>
+
+<!-- Seus cards de especificação (mantidos) -->
 <div class="specs">
   <div class="spec"><b>~0,5 V</b><span>Chave ligada (~0 bar)</span></div>
   <div class="spec"><b>~1,2 V</b><span>Partida (250 a 350 bar)</span></div>
@@ -64,6 +67,156 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
   <div class="spec"><b>~3 V</b><span>Aceleração média (1000 bar)</span></div>
   <div class="spec"><b>~4,5 V</b><span>Aceleração alta (1600 bar)</span></div>
 </div>
+
+<!-- GRÁFICO ADICIONADO AQUI -->
+<div style="position: relative; height: 380px; width: 100%; margin: 25px 0; background: #fff; padding: 15px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+    <canvas id="graficoRail"></canvas>
+</div>
+
+<!-- Script do Chart.js (adicione uma única vez no final do seu site ou dentro do <body>) -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Verifica se o canvas existe na página antes de renderizar (evita erros em outras páginas)
+    const canvasRail = document.getElementById('graficoRail');
+    if (canvasRail) {
+        const ctx = canvasRail.getContext('2d');
+
+        const labels = [
+            'Chave ligada\n(~0 bar)',
+            'Partida\n(250–350 bar)',
+            'Marcha lenta\n(300–400 bar)',
+            'Aceleração média\n(1000 bar)',
+            'Aceleração alta\n(1600 bar)'
+        ];
+
+        const tensao = [0.5, 1.2, 1.3, 3.0, 4.5];
+        const pressao = [0, 300, 350, 1000, 1600];
+
+        const gradiente = ctx.createLinearGradient(0, 0, 0, 400);
+        gradiente.addColorStop(0, '#4A90D9');
+        gradiente.addColorStop(1, '#2C5F8A');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Tensão no pino 02 (V)',
+                        data: tensao,
+                        backgroundColor: gradiente,
+                        borderColor: '#2C5F8A',
+                        borderWidth: 1.5,
+                        borderRadius: 6,
+                        barPercentage: 0.6,
+                        yAxisID: 'y',
+                        order: 2
+                    },
+                    {
+                        type: 'line',
+                        label: 'Pressão no rail (bar)',
+                        data: pressao,
+                        borderColor: '#E74C3C',
+                        backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                        borderWidth: 3,
+                        pointBackgroundColor: '#ffffff',
+                        pointBorderColor: '#E74C3C',
+                        pointBorderWidth: 3,
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        tension: 0.3,
+                        fill: false,
+                        yAxisID: 'y1',
+                        order: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: { size: 12, weight: 'bold' },
+                            padding: 15,
+                            usePointStyle: true
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(26, 26, 46, 0.95)',
+                        titleFont: { size: 12 },
+                        bodyFont: { size: 12 },
+                        padding: 10,
+                        cornerRadius: 6,
+                        callbacks: {
+                            label: function(context) {
+                                if (context.dataset.label.includes('Tensão')) {
+                                    return ` Tensão: ${context.parsed.y.toFixed(1)} V`;
+                                } else {
+                                    return ` Pressão: ${context.parsed.y} bar`;
+                                }
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            font: { size: 10 },
+                            maxRotation: 0,
+                            minRotation: 0
+                        }
+                    },
+                    y: {
+                        position: 'left',
+                        beginAtZero: true,
+                        max: 5.5,
+                        title: {
+                            display: true,
+                            text: 'Tensão (V)',
+                            color: '#2C5F8A',
+                            font: { size: 12, weight: 'bold' }
+                        },
+                        ticks: {
+                            color: '#2C5F8A',
+                            font: { size: 10 },
+                            callback: value => value + ' V'
+                        },
+                        grid: {
+                            color: 'rgba(0,0,0,0.06)'
+                        }
+                    },
+                    y1: {
+                        position: 'right',
+                        beginAtZero: true,
+                        max: 1800,
+                        title: {
+                            display: true,
+                            text: 'Pressão (bar)',
+                            color: '#E74C3C',
+                            font: { size: 12, weight: 'bold' }
+                        },
+                        ticks: {
+                            color: '#E74C3C',
+                            font: { size: 10 },
+                            callback: value => value + ' bar'
+                        },
+                        grid: {
+                            drawOnChartArea: false
+                        }
+                    }
+                }
+            }
+        });
+    }
+</script>
+
 <ul>
   <li>Teste a alimentação de 5 V entre os pinos 1 e 3, de preferência com o chicote conectado ao sensor;</li>
   <li>Com a chave ligada, a tensão no pino 02 deve ser de 0,5 V;</li>
