@@ -969,3 +969,21 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
   .page-card th, .page-card td { padding: 0.5rem 0.55rem; font-size: 0.88rem; line-height: 1.4; overflow-wrap: break-word; vertical-align: top; }
   .page-card th { font-size: 0.8rem; }
 }
+
+/* ==========================================
+   Índice em caixa laranja (igual ao .aviso)
+   e títulos do índice em caixa azul clarinha
+   ========================================== */
+.page-card .toc {
+  background: #fff7ed;
+  border-left: 4px solid #f59e0b;
+  border-radius: 8px;
+  padding: 0.9rem 1.2rem;
+}
+.page-card .toc > strong { color: #9a3412; }
+.page-card h2[id],
+.page-card h3[id] {
+  background: #eaf3ff;
+  border-radius: 8px;
+  padding: 0.5rem 0.85rem;
+}
