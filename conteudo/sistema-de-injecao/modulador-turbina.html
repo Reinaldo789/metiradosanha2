@@ -1,6 +1,6 @@
-<!-- Válvula Moduladora Solenoide do Turbo. Imagens: salve em conteudo/imagens/valvula-turbo/ -->
+<!-- Atuador do Turboalimentador (Válvula Solenoide). Imagens: salve em conteudo/imagens/atuador-turbo/ -->
 <header class="art-head">
-  <h1>Válvula Moduladora Solenoide do Turbo</h1>
+  <h1>Atuador do Turboalimentador (Válvula Solenoide)</h1>
 </header>
 
 <nav class="toc" aria-label="Neste artigo">
@@ -13,15 +13,15 @@
       <ul>
         <li><a href="#" data-goto="teste-resistencia">Teste de Resistência</a></li>
         <li><a href="#" data-goto="teste-alimentacao">Teste de Alimentação</a></li>
-        <li><a href="#" data-goto="teste-sinal-ecu">Teste do Sinal da ECU</a></li>
+        <li><a href="#" data-goto="teste-dinamico">Teste Dinâmico (PWM)</a></li>
       </ul>
     </li>
     
-    <li><a href="#" data-goto="defeitos">Defeitos, Causas e Soluções</a>
+    <li><a href="#" data-goto="defeitos">Principais Defeitos</a>
       <ul>
         <li><a href="#" data-goto="falta-potencia">Falta crônica de potência</a></li>
-        <li><a href="#" data-goto="limp-home">Corte de potência (Limp Home)</a></li>
-        <li><a href="#" data-goto="trancos">Pressão oscilando (trancos)</a></li>
+        <li><a href="#" data-goto="corte-potencia">Corte de potência (Limp Home)</a></li>
+        <li><a href="#" data-goto="trancos">Pressão oscilando</a></li>
       </ul>
     </li>
     
@@ -33,18 +33,21 @@
      CONTEÚDO DO ARTIGO
      ========================================== -->
 
+<p>No motor <b>MWM Sprint 2.8 Eletrônico (4.07 TCE)</b> com sistema <b>Bosch EDC16C8</b>, o controle da pressão de sobrealimentação não é feito por um atuador puramente eletrônico acoplado à turbina, mas sim por um sistema <b>eletropneumático</b>.</p>
+<p>A central de injeção (ECU) gerencia a turbina de geometria variável (VNT) modulando uma eletroválvula solenoide (Válvula Moduladora de Vácuo do Turbo, código original <b>7001400C1</b> ou <b>7.03964.00</b>). Essa solenoide regula a quantidade de vácuo que chega até a cápsula pneumática instalada na turbina.</p>
+
 <h2 id="localizacao-funcionamento">Localização e Funcionamento</h2>
-<p><b>Localização:</b> A válvula moduladora solenoide está fixada no cofre do motor (geralmente próxima à parede corta-fogo ou no para-lama interno), conectada a três mangueiras de vácuo (uma vinda da bomba de vácuo, uma que vai para a cápsula do turbo e um respiro com filtro) e a um conector elétrico de 2 pinos.</p>
+<p><b>Localização:</b> Fixada no cofre do motor (geralmente próxima à parede corta-fogo ou no para-lama interno), conectada a três mangueiras de vácuo (bomba de vácuo, cápsula do turbo e respiro com filtro) e a um conector elétrico de 2 pinos.</p>
 
-<h3>Princípio de Operação</h3>
-<ol>
-  <li>A ECU controla a solenoide enviando um sinal de massa pulsante por largura de pulso (PWM).</li>
-  <li>O ciclo de trabalho (Duty Cycle) varia conforme o regime do motor.</li>
-  <li>Quando a ECU exige pressão máxima de turbo (ex: saídas de marcha lenta ou retomadas sob carga), ela eleva o Duty Cycle. A solenoide abre totalmente a passagem de vácuo, puxando a haste da cápsula pneumática para fechar as aletas internas da turbina (restringindo o fluxo dos gases para fazer o turbo encher mais rápido).</li>
-  <li>Ao atingir a pressão estipulada de segurança no coletor (medida pelo sensor MAP), a ECU reduz o Duty Cycle, aliviando o vácuo para abrir as aletas e estabilizar a pressão do ar.</li>
-</ol>
+<h3>Princípio de Operação Real</h3>
+<ul>
+  <li>A ECU controla a solenoide enviando um sinal de massa pulsante por largura de pulso (PWM) <b>apenas sob demanda</b>;</li>
+  <li><b>Estratégia de Marcha Lenta (Inércia):</b> Ao contrário de outros sistemas, na marcha lenta a ECU <b>não chaveia o pino de sinal</b> com o negativo (Duty Cycle em 0%). O circuito de aterramento permanece aberto, a solenoide fica em repouso e nenhum vácuo é enviado para a cápsula do turbo;</li>
+  <li><b>Estratégia de Carga (Modulação):</b> A ECU só começa a enviar o pulso PWM negativo quando a rotação do motor sobe e a pressão de sobrealimentação precisa ser gerada e controlada. Ao elevar o Duty Cycle, a solenoide calibra a passagem de vácuo, puxando a haste da cápsula pneumática para fechar as aletas e fazer o turbo encher mais rápido;</li>
+  <li>Ao atingir a pressão estipulada de segurança no coletor (lida pelo sensor MAP), a ECU altera o Duty Cycle, aliviando o vácuo para abrir as aletas e estabilizar a pressão.</li>
+</ul>
 
-<h2 id="pinagem">Pinagem do Conector da Válvula Solenoide (2 Pinos)</h2>
+<h2 id="pinagem">Pinagem do Conector da Válvula Solenoide</h2>
 <table>
   <thead>
     <tr>
@@ -59,13 +62,13 @@
       <td><b>01</b></td>
       <td>Alimentação (+12V Positivo)</td>
       <td>Linha pós-relé principal da injeção</td>
-      <td>~12,0 V a 14,2 V (Com chave ligada ou motor funcionando)</td>
+      <td>~12,0V a 12,6V (Chave ligada)<br>~13,8V a 14,4V (Motor funcionando)</td>
     </tr>
     <tr>
       <td><b>02</b></td>
       <td>Sinal de Controle (Massa Pulsante)</td>
-      <td>Comando da ECU (Pino correspondente)</td>
-      <td>Sinal PWM Negativo (Varia de 0V a 12V em frequência fixa)</td>
+      <td>Comando da ECU (Chaveamento)</td>
+      <td>Marcha Lenta: ~14,0V (Retorno da bobina)<br>Sob Carga: Média de 4,0V a 8,0V (PWM ativo)</td>
     </tr>
   </tbody>
 </table>
@@ -74,38 +77,43 @@
 
 <h3 id="teste-resistencia">Teste de Resistência Elétrica (Bobina Interna)</h3>
 <ul>
-  <li><b>Condição:</b> Chave desligada e conector da solenoide desconectado.</li>
-  <li><b>Medição:</b> Ajuste o multímetro na escala de Resistência (Ω). Meça diretamente nos dois pinos metálicos da válvula solenoide (isolada do chicote).</li>
+  <li><b>Condição:</b> Chave desligada e conector solto.</li>
+  <li><b>Medição:</b> Meça diretamente nos dois pinos da solenoide.</li>
 </ul>
 
 <div class="specs">
-  <div class="spec"><b>15 Ω a 22 Ω</b><span>Valor correto (a ~20°C)</span></div>
+  <div class="spec"><b>15 Ω a 22 Ω</b><span>Valor correto esperado</span></div>
 </div>
 
 <div class="aviso">
   <strong>Atenção</strong>
-  <p>Valor próximo de zero indica curto-circuito interno; circuito aberto (∞ ou OL) indica bobina queimada/rompida.</p>
+  <p>Valor próximo de zero indica curto interno; infinito (OL) indica bobina aberta (queimada).</p>
 </div>
 
 <h3 id="teste-alimentacao">Teste de Alimentação Elétrica</h3>
 <ul>
-  <li><b>Condição:</b> Chave ligada (ignição na posição ON), motor parado. Conector elétrico desconectado.</li>
-  <li><b>Medição:</b> Ajuste o multímetro na escala de Tensão Contínua (V). Aterrar a ponta preta do multímetro no bloco do motor ou no borne negativo da bateria. Inserir a ponta vermelha no Pino 01 do chicote elétrico.</li>
+  <li><b>Condição:</b> Chave ligada e conector solto.</li>
+  <li><b>Medição:</b> Meça a tensão no Pino 01 contra o negativo da bateria.</li>
 </ul>
 
 <div class="specs">
-  <div class="spec"><b>~12,0 V a 12,6 V</b><span>Tensão nominal da bateria esperada</span></div>
+  <div class="spec"><b>~12,5 V</b><span>Tensão nominal da bateria</span></div>
 </div>
 
-<h3 id="teste-sinal-ecu">Teste do Sinal de Controle da ECU (Escala de Tensão)</h3>
+<h3 id="teste-dinamico">Teste Dinâmico do Sinal (Pino 02)</h3>
 <ul>
-  <li><b>Condição:</b> Motor funcionando em marcha lenta. Conector conectado (utilizando agulhas/backprobing por trás do conector).</li>
-  <li><b>Medição:</b> Ponta vermelha no Pino 01 (+12V) e ponta preta no Pino 02 (Sinal ECU).</li>
+  <li><b>Condição:</b> Conector inserido (usando agulhas por trás) e motor funcionando.</li>
+  <li><b>Medição:</b> Meça a tensão do Pino 02 contra o negativo da bateria.</li>
 </ul>
 
-<div class="dica">
-  <strong>Comportamento Esperado</strong>
-  <p>Na marcha lenta, a ECU envia um pulso forte para acionar a geometria. A leitura no multímetro deve ficar em uma média de <b>~8,0 V a 10,5 V</b> (isso ocorre porque o multímetro convencional calcula a média de tensão do sinal quadrado PWM). Ao acelerar forte em vazio, essa leitura média deve oscilar momentaneamente para baixo (aliviando a pressão).</p>
+<div class="specs">
+  <div class="spec"><b>~14,0 V</b><span>Marcha lenta (Circuito aberto)</span></div>
+  <div class="spec"><b>4,0 a 8,0 V</b><span>Sob carga (PWM ativo)</span></div>
+</div>
+
+<div class="aviso">
+  <strong>Alerta de Oficina</strong>
+  <p>Se você medir <b>0V no Pino 02 em marcha lenta</b> com o motor funcionando, o fio de sinal está em curto-circuito direto com a massa ou o driver interno da ECU queimou em curto. O correto em marcha lenta é <b>tensão alta</b> (circuito aberto).</p>
 </div>
 
 <h2 id="defeitos">Principais Defeitos, Causas e Soluções</h2>
@@ -113,105 +121,99 @@
 <h3 id="falta-potencia">Falta crônica de potência (Motor "amarrado")</h3>
 <div class="trio">
   <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Motor sem torque;</li>
+      <li>Dificuldade em retomadas.</li>
+    </ul>
+  </div>
+  <div>
     <h4>Provável Causa</h4>
     <ul>
-      <li>Mangueira de vácuo furada, invertida ou desconectada;</li>
-      <li>Falta de alimentação de 12V no Pino 01;</li>
-      <li>Filtro de respiro da solenoide entupido de poeira.</li>
+      <li>Mangueira de vácuo furada ou invertida;</li>
+      <li>Falta de 12V no Pino 01 (fusível);</li>
+      <li>Filtro de respiro da solenoide entupido.</li>
     </ul>
   </div>
   <div>
-    <h4>Diagnóstico</h4>
+    <h4>Solução Recomendada</h4>
     <ul>
-      <li>Inspecionar todas as linhas de vácuo da bomba até o turbo;</li>
-      <li>Medir fusíveis e chicotes elétricos;</li>
-      <li>Substituir ou limpar o respiro.</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Solução</h4>
-    <ul>
-      <li>Reparo das linhas de vácuo;</li>
-      <li>Correção do circuito elétrico;</li>
-      <li>Limpeza do respiro.</li>
+      <li>Inspecionar linhas de vácuo;</li>
+      <li>Testar alimentação pós-relé e limpar/substituir o filtro de respiro.</li>
     </ul>
   </div>
 </div>
 
-<h3 id="limp-home">Motor corta potência sob aceleração e entra em Limp Home</h3>
+<h3 id="corte-potencia">Motor corta potência sob carga (Entra em Limp Home)</h3>
 <div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Perda súbita de força;</li>
+      <li>Luz de injeção acesa;</li>
+      <li>Limitação de rotação.</li>
+    </ul>
+  </div>
   <div>
     <h4>Provável Causa</h4>
     <ul>
-      <li>Geometria variável do turbo travada por carbonização interna;</li>
-      <li>Válvula moduladora travada mecanicamente aberta (vácuo direto).</li>
+      <li>Geometria do turbo travada por carbonização;</li>
+      <li>Fio do Pino 02 em curto com a massa (aplica vácuo total direto).</li>
     </ul>
   </div>
   <div>
-    <h4>Diagnóstico</h4>
+    <h4>Solução Recomendada</h4>
     <ul>
-      <li>Remover o braço do atuador do turbo e checar se as aletas movem-se livremente sem travar.</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Solução</h4>
-    <ul>
-      <li>Descarbonização do turbo;</li>
-      <li>Troca da solenoide moduladora.</li>
+      <li>Checar o livre movimento da haste mecânica do turbo;</li>
+      <li>Corrigir isolamento do chicote esmagado.</li>
     </ul>
   </div>
 </div>
 
-<h3 id="trancos">Pressão de turbo oscilando (Motor dando "trancos")</h3>
+<h3 id="trancos">Pressão do turbo oscilando (Motor dando "trancos")</h3>
 <div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Aceleração irregular;</li>
+      <li>Falta de suavidade na entrega de potência.</li>
+    </ul>
+  </div>
   <div>
     <h4>Provável Causa</h4>
     <ul>
-      <li>Mau contato elétrico no conector da solenoide (oxidação nos terminais);</li>
-      <li>Perda parcial de isolamento interno da bobina.</li>
+      <li>Mau contato ou zinabre no conector;</li>
+      <li>Perda de isolamento na bobina interna.</li>
     </ul>
   </div>
   <div>
-    <h4>Diagnóstico</h4>
+    <h4>Solução Recomendada</h4>
     <ul>
-      <li>Aplicar limpa-contato de alta qualidade nos conectores;</li>
-      <li>Testar resistência novamente após limpeza.</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Solução</h4>
-    <ul>
+      <li>Aplicar limpa-contato de alta qualidade nos terminais;</li>
       <li>Substituir a válvula moduladora.</li>
     </ul>
   </div>
 </div>
 
 <h2 id="codigos-de-falha">Códigos de Falha Relacionados (OBD-II)</h2>
-<p>Quando ocorre uma anomalia elétrica no circuito da solenoide da turbina, a ECU Bosch registra os seguintes códigos de falha na memória:</p>
 
 <div class="codigos">
   <div class="codigo"><span class="num">P0234</span><div>
-    <h4>Pressão de Sobrealimentação do Motor - Limite Excedido</h4>
-    <p>A pressão real do turbo ultrapassou o teto seguro mapeado na central eletrônica. Indica geralmente que a geometria variável travou fechada ou que as mangueiras de vácuo estão direcionando sucção direta sem controle da solenoide.</p>
+    <h4>Pressão de Sobrealimentação - Limite Excedido</h4>
+    <p>A pressão real superou o teto seguro mapeado. Indica travamento mecânico das aletas fechadas ou curto com a massa permanente no fio 02.</p>
   </div></div>
   
   <div class="codigo"><span class="num">P0299</span><div>
-    <h4>Pressão de Sobrealimentação do Motor - Limite Não Atingido</h4>
-    <p>O turbo não consegue gerar a pressão solicitada pela central. Causas comuns incluem mangueira de vácuo furada (cápsula não puxa a haste), bomba de vácuo ineficiente ou bobina da solenoide queimada (circuito aberto).</p>
+    <h4>Pressão de Sobrealimentação - Limite Não Atingido</h4>
+    <p>O turbo não gera a pressão solicitada. Indica vazamento de vácuo, bomba de vácuo ineficiente, solenoide queimada ou falta de 12V.</p>
   </div></div>
   
   <div class="codigo"><span class="num">P2261</span><div>
     <h4>Válvula de Controle de Pressão do Turbo - Falha Mecânica</h4>
-    <p>Indica que a ECU enviou o sinal elétrico PWM correto para modular a peça, mas a resposta de pressão gerada pelo turbo (lida pelo sensor MAP) permaneceu incoerente com o comando enviado.</p>
+    <p>A ECU enviou o sinal PWM correto, mas a resposta medida pelo sensor MAP permaneceu incoerente devido a travamentos ou vazamentos pneumáticos.</p>
   </div></div>
 </div>
 
-<div class="dica" style="margin-top: 2rem;">
-  <strong>Roteiro de Diagnóstico Rápido</strong>
-  <p>Se você estiver diagnosticando uma falha de pressão de turbo nesse motor MWM 2.8, verifique:</p>
-  <ul>
-    <li>O motor está apresentando falta de pressão (código P0299) ou excesso de pressão (código P0234)?</li>
-    <li>Você já verificou se a haste mecânica da turbina se move livremente ao ligar o motor ou se ela está travada por carbonização?</li>
-  </ul>
-  <p>Com esses dados, é possível isolar se o problema é estritamente elétrico (chicote/solenoide) ou mecânico (turbo/mangueiras).</p>
-</div>
+<p style="font-size: 0.85rem; color: #64748b; margin-top: 2rem; border-top: 1px solid #e2e8f0; padding-top: 1rem;">
+  <em>Este material é destinado ao apoio em diagnóstico automotivo de oficina. Procedimentos devem seguir as normas de segurança do fabricante.</em>
+</p>
