@@ -604,6 +604,11 @@ main {
 .toc ul { margin: 0.3rem 0 0; padding-left: 1.1rem; }
 .toc a { text-decoration: none; }
 .toc a:hover { text-decoration: underline; }
+/* sub-índice: itens h3 dentro de cada seção */
+.toc > ul > li { margin: 0.45rem 0; font-weight: 600; }
+.toc ul ul { margin: 0.25rem 0 0.2rem; padding-left: 1.2rem; list-style: circle; }
+.toc ul ul li { margin: 0.2rem 0; font-weight: 400; }
+.toc ul ul a { font-size: 0.93em; }
 .aviso { background: #fff7ed; border-left: 4px solid #f59e0b; border-radius: 8px; padding: 0.8rem 1rem; margin: 1.2rem 0; }
 .aviso p { margin: 0.3rem 0 0; }
 
