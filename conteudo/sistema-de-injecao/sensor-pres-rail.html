@@ -5,7 +5,7 @@
 04-teste-multimetro.jpg              Teste com multímetro
 05-teste-scanner.jpg                 Teste com scanner: pressão na partida
 06-scanner-pressao-1.jpg             Scanner durante a aceleração
-07-scanner-1500-bar.jpg              Atingiu 1.500 bar e desligou o motor
+07-scanner-1500-bar.jpg              Atingiu o limite de pressão e desligou o motor
 08-pressao-comandada-real-1.jpg      Pressão comandada x real, marcha lenta
 09-pressao-comandada-real-2.jpg      Pressão comandada x real, 2.000 rpm
 Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentacao-de-combustivel/...). -->
@@ -55,11 +55,18 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
 <p>Se a pressão está baixa, a ECM aumenta o Duty Cycle da MProp, que fica mais tempo aberta. Se a pressão está alta, diminui o Duty Cycle e a pressão cai.</p>
 <div class="aviso">
   <strong>Modo de segurança</strong>
-  <p>Se a Central verificar que a pressão está acima do permitido e não conseguir controlá-la pela MProp, entra em modo de segurança e desliga o motor.</p>
+  <p>Se a Central verificar que a pressão está acima do permitido (~1.500 bar) e não conseguir controlá-la pela MProp, entra em modo de segurança e desliga o motor. Se a tensão do sensor for inferior a 0,3 V ou superior a 4,76 V, a ECU também assume controle de emergência.</p>
 </div>
 
 <h2 id="teste-multimetro">Testes com multímetro</h2>
 <p>Tensão no pino 02 (sinal), por condição do motor:</p>
+
+<div class="specs">
+  <div class="spec"><b>~0,5 V</b><span>Chave ligada (~0 bar)</span></div>
+  <div class="spec"><b>~1,2 V</b><span>Partida (~300 bar)</span></div>
+  <div class="spec"><b>~2,0 V</b><span>Média Carga (~600 bar)</span></div>
+  <div class="spec"><b>~4,3 V</b><span>Plena Carga (~1.350 bar)</span></div>
+</div>
 
 <!-- GRÁFICO TENSÃO X PRESSÃO -->
 <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif; overflow-x: auto;">
@@ -109,10 +116,10 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
 
     <!-- Valores Eixo Y Direito (Pressão) -->
     <g fill="#F59E0B" font-size="12" font-weight="600" text-anchor="start">
-      <text x="735" y="54">1600 bar</text>
-      <text x="735" y="104">1200 bar</text>
-      <text x="735" y="154">800 bar</text>
-      <text x="735" y="204">400 bar</text>
+      <text x="735" y="54">1400 bar</text>
+      <text x="735" y="104">1050 bar</text>
+      <text x="735" y="154">700 bar</text>
+      <text x="735" y="204">350 bar</text>
       <text x="735" y="304">0 bar</text>
     </g>
 
@@ -121,69 +128,61 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
       <text x="100" y="325">Chave Ligada</text>
       <text x="100" y="340" font-size="10" fill="#94a3b8">(~0 bar)</text>
       
-      <text x="220" y="325">Partida</text>
-      <text x="220" y="340" font-size="10" fill="#94a3b8">(>300 bar)</text>
+      <text x="260" y="325">Partida</text>
+      <text x="260" y="340" font-size="10" fill="#94a3b8">(~300 bar)</text>
       
-      <text x="360" y="325">Marcha Lenta</text>
-      <text x="360" y="340" font-size="10" fill="#94a3b8">(250-350 bar)</text>
+      <text x="440" y="325">Média Carga</text>
+      <text x="440" y="340" font-size="10" fill="#94a3b8">(~600 bar)</text>
       
-      <text x="500" y="325">Aceleração Média</text>
-      <text x="500" y="340" font-size="10" fill="#94a3b8">(~1000 bar)</text>
-      
-      <text x="620" y="325">Aceleração Alta</text>
-      <text x="620" y="340" font-size="10" fill="#94a3b8">(~1600 bar)</text>
+      <text x="620" y="325">Plena Carga</text>
+      <text x="620" y="340" font-size="10" fill="#94a3b8">(~1350 bar)</text>
     </g>
 
     <!-- Linhas Verticais de Grade -->
     <g stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4">
       <line x1="100" y1="50" x2="100" y2="300" />
-      <line x1="220" y1="50" x2="220" y2="300" />
-      <line x1="360" y1="50" x2="360" y2="300" />
-      <line x1="500" y1="50" x2="500" y2="300" />
+      <line x1="260" y1="50" x2="260" y2="300" />
+      <line x1="440" y1="50" x2="440" y2="300" />
       <line x1="620" y1="50" x2="620" y2="300" />
     </g>
 
     <!-- Curva de Tensão (Azul) -->
-    <!-- 0.5V = 275, 1.2V = 240, 1.3V = 235, 3.0V = 150, 4.5V = 75 -->
-    <polyline points="100,275 220,240 360,235 500,150 620,75" fill="none" stroke="#3B82F6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#shadow-rail)"/>
+    <!-- 0.5V = 275, 1.2V = 240, 2.0V = 200, 4.3V = 85 -->
+    <polyline points="100,275 260,240 440,200 620,85" fill="none" stroke="#3B82F6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#shadow-rail)"/>
     
     <!-- Curva de Pressão (Laranja) -->
-    <!-- 0 = 300, 300 = 253, 350 = 245, 1000 = 144, 1600 = 50 -->
-    <polyline points="100,300 220,253 360,245 500,144 620,50" fill="none" stroke="#F59E0B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#shadow-rail)"/>
+    <!-- 0 = 300, 300 = 236, 600 = 171, 1350 = 64 -->
+    <polyline points="100,300 260,236 440,171 620,64" fill="none" stroke="#F59E0B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#shadow-rail)"/>
 
     <!-- Pontos Interativos Tensão (Azul) -->
     <g fill="#ffffff" stroke="#3B82F6" stroke-width="3">
       <circle cx="100" cy="275" r="6" />
-      <circle cx="220" cy="240" r="6" />
-      <circle cx="360" cy="235" r="6" />
-      <circle cx="500" cy="150" r="6" />
-      <circle cx="620" cy="75" r="6" />
+      <circle cx="260" cy="240" r="6" />
+      <circle cx="440" cy="200" r="6" />
+      <circle cx="620" cy="85" r="6" />
     </g>
 
     <!-- Pontos Interativos Pressão (Laranja) -->
     <g fill="#ffffff" stroke="#F59E0B" stroke-width="3">
       <circle cx="100" cy="300" r="6" />
-      <circle cx="220" cy="253" r="6" />
-      <circle cx="360" cy="245" r="6" />
-      <circle cx="500" cy="144" r="6" />
-      <circle cx="620" cy="50" r="6" />
+      <circle cx="260" cy="236" r="6" />
+      <circle cx="440" cy="171" r="6" />
+      <circle cx="620" cy="64" r="6" />
     </g>
     
     <!-- Etiquetas de Valores nos Pontos -->
     <g font-size="11" font-weight="700">
       <!-- Tensão -->
       <text x="100" y="263" fill="#3B82F6" text-anchor="middle">0,5V</text>
-      <text x="220" y="228" fill="#3B82F6" text-anchor="middle">1,2V</text>
-      <text x="360" y="223" fill="#3B82F6" text-anchor="middle">1,3V</text>
-      <text x="500" y="138" fill="#3B82F6" text-anchor="middle">3,0V</text>
-      <text x="620" y="63" fill="#3B82F6" text-anchor="middle">4,5V</text>
+      <text x="260" y="228" fill="#3B82F6" text-anchor="middle">1,2V</text>
+      <text x="440" y="188" fill="#3B82F6" text-anchor="middle">2,0V</text>
+      <text x="620" y="73" fill="#3B82F6" text-anchor="middle">4,3V</text>
       
       <!-- Pressão -->
       <text x="100" y="315" fill="#F59E0B" text-anchor="middle">0 bar</text>
-      <text x="220" y="243" fill="#F59E0B" text-anchor="middle">300 bar</text>
-      <text x="360" y="235" fill="#F59E0B" text-anchor="middle">350 bar</text>
-      <text x="500" y="134" fill="#F59E0B" text-anchor="middle">1000 bar</text>
-      <text x="620" y="40" fill="#F59E0B" text-anchor="middle">1600 bar</text>
+      <text x="260" y="224" fill="#F59E0B" text-anchor="middle">300 bar</text>
+      <text x="440" y="159" fill="#F59E0B" text-anchor="middle">600 bar</text>
+      <text x="620" y="52" fill="#F59E0B" text-anchor="middle">1350 bar</text>
     </g>
   </svg>
 </div>
@@ -193,7 +192,7 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
   <li>Com a chave ligada, a tensão no pino 02 deve ser de 0,5 V;</li>
   <li>Durante a partida, a tensão no pino 02 deve ficar em cerca de 1,2 V, o que corresponde a aproximadamente 300 bar;</li>
   <li>Se não chegar a cerca de 1,2 V, verifique os componentes antes do tubo Rail;</li>
-  <li>Na marcha lenta, a tensão no pino 02 é de cerca de 1,3 V.</li>
+  <li>Na marcha lenta, a tensão no pino 02 é de cerca de 1,2 V a 1,3 V.</li>
 </ul>
 <div class="aviso">
   <strong>Atenção</strong>
@@ -248,17 +247,17 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
 <p><b>Multímetro:</b> verifique a tensão no pino 02 do sensor do tubo.</p>
 <ul>
   <li>Chave ligada, antes da partida: 0,5 V;</li>
-  <li>Marcha lenta: aproximadamente 1,3 V;</li>
-  <li>Rotação alta: aproximadamente até 4,5 V.</li>
+  <li>Marcha lenta: aproximadamente 1,2 V a 1,3 V;</li>
+  <li>Rotação alta: aproximadamente até 4,3 V.</li>
 </ul>
-<p><b>Scanner:</b> se durante a aceleração a pressão chegar a 1.500 bar, a ECM entra em modo de proteção e desliga o motor.</p>
+<p><b>Scanner:</b> se durante a aceleração a pressão chegar a ~1.500 bar, a ECM entra em modo de proteção e desliga o motor.</p>
 <figure class="img-box-preview">
   <img src="conteudo/imagens/sensor-pres-rail/06-scanner-pressao-1.jpg" alt="Scanner mostrando a pressão do Rail durante a aceleração" loading="lazy">
   <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
 </figure>
-<p>Atingiu 1.500 bar, o motor desligou e a pressão caiu instantaneamente.</p>
+<p>Atingiu o limite de pressão, o motor desligou e a pressão caiu instantaneamente.</p>
 <figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-pres-rail/07-scanner-1500-bar.jpg" alt="Scanner mostrando a pressão chegando a 1.500 bar e o motor desligando" loading="lazy">
+  <img src="conteudo/imagens/sensor-pres-rail/07-scanner-1500-bar.jpg" alt="Scanner mostrando a pressão chegando ao limite e o motor desligando" loading="lazy">
   <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
 </figure>
 
