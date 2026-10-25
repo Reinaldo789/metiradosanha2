@@ -236,6 +236,51 @@ function ativarAba(bar, panels, i) {
   panels.forEach((p, j) => p.classList.toggle('on', j === i));
 }
 
+// monta (ou refaz) o índice "Neste artigo" a partir dos títulos h2 e h3 da página,
+// então não é preciso editar o índice à mão em cada arquivo de conteudo/
+function slugTitulo(s) {
+  return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'secao';
+}
+function montarIndice() {
+  const titulos = [...card.querySelectorAll(':scope > h2, :scope > h3')];
+  if (!titulos.length) return;
+  const usados = new Set([...card.querySelectorAll('[id]')].map(e => e.id));
+  titulos.forEach(h => {          // título sem id ganha um
+    if (h.id) return;
+    const base = slugTitulo(h.textContent);
+    let id = base, n = 2;
+    while (usados.has(id)) id = base + '-' + n++;
+    h.id = id; usados.add(id);
+  });
+  let toc = card.querySelector('.toc');
+  if (!toc) {                     // página antiga sem índice: cria se tiver 2 ou mais seções
+    if (titulos.filter(h => h.tagName === 'H2').length < 2) return;
+    toc = document.createElement('nav');
+    toc.className = 'toc';
+    toc.setAttribute('aria-label', 'Neste artigo');
+    const ref = card.querySelector('.art-head') || card.querySelector(':scope > h1');
+    if (ref) ref.after(toc); else card.prepend(toc);
+  }
+  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  let html = '<strong>Neste artigo</strong><ul>', aberto = false, sub = false;
+  titulos.forEach(h => {
+    const a = `<a href="#" data-goto="${h.id}">${esc(h.textContent.trim())}</a>`;
+    if (h.tagName === 'H2') {
+      if (sub) html += '</ul>';
+      if (aberto) html += '</li>';
+      html += `<li>${a}`; aberto = true; sub = false;
+    } else {
+      if (!aberto) { html += '<li>'; aberto = true; }
+      if (!sub) { html += '<ul>'; sub = true; }
+      html += `<li>${a}</li>`;
+    }
+  });
+  if (sub) html += '</ul>';
+  if (aberto) html += '</li>';
+  toc.innerHTML = html + '</ul>';
+}
+
 // true = cada título h2 vira uma aba (e o índice "Neste artigo" some)
 // false = mantém o índice "Neste artigo" com sub-itens e a página rola normalmente
 const USAR_ABAS = false;
@@ -243,6 +288,8 @@ const USAR_ABAS = false;
 function melhorarArtigo() {
   // o artigo já traz o próprio título
   if (card.querySelector('.art-head')) card.querySelector(':scope > h1')?.remove();
+
+  montarIndice();
 
   // imagem que não existe vira uma caixa com a legenda
   card.querySelectorAll('img').forEach(img => {
