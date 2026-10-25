@@ -49,123 +49,200 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
   <p>Se a Central verificar que a pressão está acima do permitido e não conseguir controlá-la pela MProp, entra em modo de segurança e desliga o motor.</p>
 </div>
 
+
 <h2 id="teste-multimetro">Testes com multímetro</h2>
 <p>Tensão no pino 02 (sinal), por condição do motor:</p>
 
 <style>
-  .grafico-barras-v {
+  .grafico-linha-limpo {
+    display: flex;
+    height: 350px;
+    background: #ffffff;
+    border: 1px solid #eaeaea;
+    border-radius: 12px;
+    margin: 25px 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px 20px 0 0;
+    box-sizing: border-box;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  }
+
+  /* EIXO Y */
+  .eixo-y-limpo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 45px;
+    height: 100%;
+    padding-right: 12px;
+    box-sizing: border-box;
+    border-right: 1px solid #ccc;
+  }
+
+  .eixo-y-limpo span {
+    font-size: 12px;
+    color: #777;
+    text-align: right;
+    line-height: 1;
+    transform: translateY(50%);
+    font-weight: 500;
+  }
+
+  /* ÁREA DO GRÁFICO */
+  .area-pontos {
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
-    height: 350px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    padding: 20px 15px 0 15px;
-    margin: 20px 0;
-    font-family: Arial, sans-serif;
-    box-sizing: border-box;
-    /* Linhas de fundo para facilitar a leitura */
-    background-image: linear-gradient(to top, #e9ecef 1px, transparent 1px);
-    background-size: 100% 20%; /* Divide em 5 blocos (0, 1.2, 2.4, 3.6, 4.8) */
+    flex-grow: 1;
+    height: 100%;
+    position: relative;
+    padding-left: 20px;
   }
 
-  .coluna-barra {
+  /* Linhas horizontais de fundo (Grid) */
+  .area-pontos::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: linear-gradient(to top, #f0f0f0 1px, transparent 1px);
+    background-size: 100% 12.5%; 
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* Colunas invisíveis para posicionamento */
+  .coluna-ponto {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
     width: 18%;
     height: 100%;
+    z-index: 1;
+    position: relative;
   }
 
-  .barra {
-    width: 100%;
-    background: linear-gradient(to top, #2C5F8A, #4A90D9);
-    border-radius: 6px 6px 0 0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 8px;
-    color: white;
-    font-weight: bold;
-    font-size: 13px;
-    box-sizing: border-box;
-    position: relative;
+  /* O Ponto em si */
+  .ponto-dado {
+    width: 14px;
+    height: 14px;
+    background: #4A90D9;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px #4A90D9, 0 4px 6px rgba(0,0,0,0.1);
+    position: absolute;
+    transform: translateY(50%); /* Centraliza o ponto na linha exata */
+    transition: transform 0.2s;
+  }
+
+  .ponto-dado:hover {
+    transform: translateY(50%) scale(1.3);
+    cursor: pointer;
+    background: #2C5F8A;
+    box-shadow: 0 0 0 2px #2C5F8A, 0 4px 6px rgba(0,0,0,0.2);
+  }
+
+  /* Linha de conexão ligando os pontos (fundo) */
+  .linha-tendencia {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
   }
 
   .rotulo-condicao {
     font-size: 12px;
     color: #333;
     text-align: center;
-    margin-top: 10px;
-    height: 45px; /* Altura fixa para alinhar os textos */
+    margin-top: 25px; /* Empurra o texto para baixo dos pontos */
+    height: 50px;
     line-height: 1.2;
+    font-weight: 600;
   }
 
-  .rotulo-pressao {
+  .rotulo-detalhe {
     font-size: 11px;
-    color: #666;
+    color: #777;
     text-align: center;
+    font-weight: normal;
   }
 
-  /* Responsividade para telas pequenas (celular) */
   @media (max-width: 600px) {
-    .rotulo-condicao { font-size: 10px; height: 50px; }
-    .rotulo-pressao { font-size: 9px; }
-    .barra { font-size: 11px; padding-top: 4px; }
-    .grafico-barras-v { padding: 15px 5px 0 5px; }
+    .rotulo-condicao { font-size: 10px; height: 60px; margin-top: 20px; }
+    .rotulo-detalhe { font-size: 9px; }
+    .eixo-y-limpo span { font-size: 10px; }
+    .grafico-linha-limpo { padding: 15px 10px 0 0; }
+    .area-pontos { padding-left: 10px; }
   }
 </style>
 
-<div class="grafico-barras-v">
-  <!-- Escala base: 3,5V = 100% de altura -->
+<div class="grafico-linha-limpo">
   
-  <div class="coluna-barra">
-    <!-- (0.5 / 3,5) * 100 = 11.1% -->
-    <div class="barra" style="height: 11.1%;">0,5V</div>
-    <div class="rotulo-condicao">
-      Chave ligada<br>
-      <span class="rotulo-pressao">(~0 bar)</span>
-    </div>
+  <div class="eixo-y-limpo">
+    <span>3.5V</span>
+    <span>3.0V</span>
+    <span>2.5V</span>
+    <span>2.0V</span>
+    <span>1.5V</span>
+    <span>1.0V</span>
+    <span>0.5V</span>
+    <span>0V</span>
   </div>
 
-  <div class="coluna-barra">
-    <!-- (1.2 / 4.5) * 100 = 26.7% -->
-    <div class="barra" style="height: 26.7%;">1,2V</div>
-    <div class="rotulo-condicao">
-      Partida<br>
-      <span class="rotulo-pressao">(250-350 bar)</span>
-    </div>
-  </div>
+  <div class="area-pontos">
+    
+    <!-- Linha de conexão SVG (Apenas decorativa, liga os pontos) -->
+    <svg class="linha-tendencia" preserveAspectRatio="none" viewBox="0 0 100 100">
+      <!-- Coordenadas aproximadas baseadas nas alturas das divs abaixo -->
+      <polyline points="10,77 30,63 50,63 70,29 90,0" fill="none" stroke="#4A90D9" stroke-width="1.5" stroke-dasharray="4" opacity="0.4" />
+    </svg>
 
-  <div class="coluna-barra">
-    <!-- (1.3 / 3.5) * 100 = 28.9% -->
-    <div class="barra" style="height: 28.9%;">1,3 a 1,8V</div>
-    <div class="rotulo-condicao">
-      Marcha lenta<br>
-      <span class="rotulo-pressao">(300-400 bar)</span>
+    <div class="coluna-ponto">
+      <!-- (0.8 / 3.5) * 100 = 22.8% de altura do fundo -->
+      <div class="ponto-dado" style="bottom: 22.8%;"></div>
+      <div class="rotulo-condicao">
+        Chave ligada<br>
+        <span class="rotulo-detalhe">(0 RPM)<br>(0 bar)</span>
+      </div>
     </div>
-  </div>
 
-  <div class="coluna-barra">
-    <!-- (3.0 / 3.5) * 100 = 66.7% -->
-    <div class="barra" style="height: 66.7%;">2,5 a 3,0V</div>
-    <div class="rotulo-condicao">
-      Acel. média<br>
-      <span class="rotulo-pressao">(~1000 bar)</span>
+    <div class="coluna-ponto">
+      <!-- (1.3 / 3.5) * 100 = 37.1% de altura do fundo -->
+      <div class="ponto-dado" style="bottom: 37.1%;"></div>
+      <div class="rotulo-condicao">
+        Fase de Partida<br>
+        <span class="rotulo-detalhe">(~200 RPM)<br>(> 300 bar)</span>
+      </div>
     </div>
-  </div>
 
-  <div class="coluna-barra">
-    <!-- (3.5 / 3.5) * 100 = 100% -->
-    <div class="barra" style="height: 100%;">Até 3,5V</div>
-    <div class="rotulo-condicao">
-      Acel. alta<br>
-      <span class="rotulo-pressao">(~1600 bar)</span>
+    <div class="coluna-ponto">
+      <!-- (1.3 / 3.5) * 100 = 37.1% de altura do fundo -->
+      <div class="ponto-dado" style="bottom: 37.1%;"></div>
+      <div class="rotulo-condicao">
+        Marcha Lenta<br>
+        <span class="rotulo-detalhe">(~800 RPM)<br>(250-350 bar)</span>
+      </div>
     </div>
-  </div>
 
+    <div class="coluna-ponto">
+      <!-- (2.5 / 3.5) * 100 = 71.4% de altura do fundo -->
+      <div class="ponto-dado" style="bottom: 71.4%;"></div>
+      <div class="rotulo-condicao">
+        Torque Máximo<br>
+        <span class="rotulo-detalhe">(1800 RPM)<br>(700-900 bar)</span>
+      </div>
+    </div>
+
+    <div class="coluna-ponto">
+      <!-- (3.5 / 3.5) * 100 = 100% de altura do fundo -->
+      <div class="ponto-dado" style="bottom: 100%;"></div>
+      <div class="rotulo-condicao">
+        Plena Carga<br>
+        <span class="rotulo-detalhe">(3500 RPM)<br>(> 1300 bar)</span>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <ul>
