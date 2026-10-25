@@ -49,131 +49,204 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
   <p>Se a Central verificar que a pressão está acima do permitido e não conseguir controlá-la pela MProp, entra em modo de segurança e desliga o motor.</p>
 </div>
 
-<h2 id="parte-eletrica">Testes Elétricos</h2>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-pres-rail/03-conector-pinos.jpg" alt="Conector e pinos do sensor de pressão do Rail" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico Sensor Common Rail - MWM 2.8</title>
+    <!-- Carregando a biblioteca Chart.js para o gráfico interativo -->
+    <script src="https://jsdelivr.net"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1a365d;
+            font-size: 24px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+        p {
+            line-height: 1.6;
+            color: #4a5568;
+        }
+        .chart-container {
+            position: relative;
+            margin: 30px 0;
+            height: 400px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        th {
+            background-color: #2b6cb0;
+            color: white;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f7fafc;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #2b6cb0;
+        }
+    </style>
+</head>
+<body>
 
+<div class="container">
+    <h1>Relação Rotação (RPM) vs. Tensão (V) no Sensor do Rail - MWM 2.8</h1>
+    <p>No sistema de injeção eletrônica Common Rail do motor <strong>MWM Sprint 2.8 Eletrônico (4.07 TCE)</strong>, a rotação e a carga ditam a pressão interna exigida na flauta. À medida que o giro do motor sobe, a pressão aumenta e o sensor envia uma resposta em tensão contínua linearmente proporcional para a ECU.</p>
 
-<h3 id="teste-multimetro">Testes com multímetro</h3>
-<p>Tensão no pino 02 (sinal), por condição do motor:</p>
-
-<style>
-  .grafico-barras-v {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
-    height: 350px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    padding: 20px 15px 0 15px;
-    margin: 20px 0;
-    font-family: Arial, sans-serif;
-    box-sizing: border-box;
-    /* Linhas de fundo para facilitar a leitura */
-    background-image: linear-gradient(to top, #e9ecef 1px, transparent 1px);
-    background-size: 100% 20%; /* Divide em 5 blocos (0, 1.2, 2.4, 3.6, 4.8) */
-  }
-
-  .coluna-barra {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    width: 18%;
-    height: 100%;
-  }
-
-  .barra {
-    width: 100%;
-    background: linear-gradient(to top, #2C5F8A, #4A90D9);
-    border-radius: 6px 6px 0 0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 8px;
-    color: white;
-    font-weight: bold;
-    font-size: 13px;
-    box-sizing: border-box;
-    position: relative;
-  }
-
-  .rotulo-condicao {
-    font-size: 12px;
-    color: #333;
-    text-align: center;
-    margin-top: 10px;
-    height: 45px; /* Altura fixa para alinhar os textos */
-    line-height: 1.2;
-  }
-
-  .rotulo-pressao {
-    font-size: 11px;
-    color: #666;
-    text-align: center;
-  }
-
-  /* Responsividade para telas pequenas (celular) */
-  @media (max-width: 600px) {
-    .rotulo-condicao { font-size: 10px; height: 50px; }
-    .rotulo-pressao { font-size: 9px; }
-    .barra { font-size: 11px; padding-top: 4px; }
-    .grafico-barras-v { padding: 15px 5px 0 5px; }
-  }
-</style>
-
-<div class="grafico-barras-v">
-  <!-- Escala base: 4,5V = 100% de altura -->
-  
-  <div class="coluna-barra">
-    <!-- (0.5 / 4.5) * 100 = 11.1% -->
-    <div class="barra" style="height: 11.1%;">0,5V</div>
-    <div class="rotulo-condicao">
-      Chave ligada<br>
-      <span class="rotulo-pressao">(~0 bar)</span>
+    <!-- Área do Gráfico -->
+    <div class="chart-container">
+        <canvas id="railChart"></canvas>
     </div>
-  </div>
 
-  <div class="coluna-barra">
-    <!-- (1.2 / 4.5) * 100 = 26.7% -->
-    <div class="barra" style="height: 26.7%;">1,2V</div>
-    <div class="rotulo-condicao">
-      Partida<br>
-      <span class="rotulo-pressao">(250-350 bar)</span>
-    </div>
-  </div>
-
-  <div class="coluna-barra">
-    <!-- (1.3 / 4.5) * 100 = 28.9% -->
-    <div class="barra" style="height: 28.9%;">1,3V</div>
-    <div class="rotulo-condicao">
-      Marcha lenta<br>
-      <span class="rotulo-pressao">(300-400 bar)</span>
-    </div>
-  </div>
-
-  <div class="coluna-barra">
-    <!-- (3.0 / 4.5) * 100 = 66.7% -->
-    <div class="barra" style="height: 66.7%;">3,0V</div>
-    <div class="rotulo-condicao">
-      Acel. média<br>
-      <span class="rotulo-pressao">(~1000 bar)</span>
-    </div>
-  </div>
-
-  <div class="coluna-barra">
-    <!-- (4.5 / 4.5) * 100 = 100% -->
-    <div class="barra" style="height: 100%;">4,5V</div>
-    <div class="rotulo-condicao">
-      Acel. alta<br>
-      <span class="rotulo-pressao">(~1600 bar)</span>
-    </div>
-  </div>
-
+    <h1>Tabela de Referência para Diagnóstico</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Condição do Motor</th>
+                <th>Rotação Aproximada</th>
+                <th>Tensão Típica (Sinal)</th>
+                <th>Pressão Estimada</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="highlight">Chave ligada / Motor parado</td>
+                <td>0 RPM</td>
+                <td>~0,5 V a 0,8 V</td>
+                <td>0 bar</td>
+            </tr>
+            <tr>
+                <td class="highlight">Fase de Partida</td>
+                <td>~200 RPM</td>
+                <td>&gt; 1,3 V</td>
+                <td>&gt; 300 bar</td>
+            </tr>
+            <tr>
+                <td class="highlight">Marcha Lenta</td>
+                <td>~800 RPM</td>
+                <td>~1,0 V a 1,3 V</td>
+                <td>~250 a 350 bar</td>
+            </tr>
+            <tr>
+                <td class="highlight">Torque Máximo</td>
+                <td>1800 RPM</td>
+                <td>~2,2 V a 2,5 V</td>
+                <td>~700 a 900 bar</td>
+            </tr>
+            <tr>
+                <td class="highlight">Plena Carga / Potência Máxima</td>
+                <td>3500 RPM</td>
+                <td>&gt; 3,5 V</td>
+                <td>&gt; 1300 bar</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
+
+<script>
+    const ctx = document.getElementById('railChart').getContext('2d');
+    
+    // Dados para plotagem da curva característica
+    const dataPoints = [
+        { x: 0, y: 0.5, label: 'Chave Ligada (0.5V)' },
+        { x: 200, y: 0.7, label: 'Fase de Partida (0.7V)' },
+        { x: 800, y: 1.1, label: 'Marcha Lenta (1.1V)' },
+        { x: 1800, y: 2.2, label: 'Torque Máximo (2.2V)' },
+        { x: 3000, y: 3.1, label: 'Alta Rotação (3.1V)' },
+        { x: 3500, y: 3.5, label: 'Potência Máxima (3.5V)' }
+    ];
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            datasets: [{
+                label: 'Sinal do Sensor (V)',
+                data: dataPoints,
+                borderColor: '#2b6cb0',
+                backgroundColor: 'rgba(43, 108, 176, 0.1)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.2, // Suavização da curva
+                pointRadius: 6,
+                pointBackgroundColor: '#2b6cb0'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false // Série única, dispensa legenda
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let point = dataPoints[context.dataIndex];
+                            return ` Rotação: ${point.x} RPM | Tensão: ${point.y} V (${point.label})`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    type: 'linear',
+                    title: {
+                        display: true,
+                        text: 'Rotação do Motor (RPM)',
+                        font: { weight: 'bold', size: 14 }
+                    },
+                    min: 0,
+                    max: 3600,
+                    ticks: {
+                        stepSize: 500
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Tensão de Sinal (Volts)',
+                        font: { weight: 'bold', size: 14 }
+                    },
+                    min: 0,
+                    max: 4.0,
+                    ticks: {
+                        stepSize: 0.5
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
+
 
 <ul>
   <li>Teste a alimentação de 5 V entre os pinos 1 e 3, de preferência com o chicote conectado ao sensor;</li>
