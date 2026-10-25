@@ -32,7 +32,7 @@
 
 <div class="aviso">
   <strong>Cuidado de Segurança Extremo na Oficina</strong>
-  <p><b>Nunca</b> tente descascar ou agulhar (backprobing) os fios dos bicos injetores com o motor funcionando para medir tensão com um multímetro comum. O pico de <b>80V</b> pode queimar o multímetro, danificar o driver interno da ECU ou provocar um choque elétrico severo. Da mesma forma, <b>nunca</b> desligue a tomada de um bico com o motor em funcionamento; o arco elétrico gerado queima a central instantaneamente.</p>
+  <p><b>Nunca</b> tente descascar ou agulhar (backprobing) os fios dos bicos injetores com o motor funcionando para medir tensão com um multímetro comum. O pico de tensão pode queimar o multímetro e danificar o driver da ECU. Da mesma forma, <b>nunca</b> desligue a tomada de um bico com o motor em funcionamento; o arco elétrico gerado queima a central instantaneamente.</p>
 </div>
 
 <h2 id="parte-eletrica">Testes com Multímetro (Estáticos)</h2>
@@ -65,26 +65,32 @@
 
 <div class="aviso">
   <strong>Análise</strong>
-  <p>Se o multímetro indicar qualquer valor numérico de resistência (mesmo que alto, em quilo-ohms ou megaohms), significa que o isolamento interno de cerâmica falhou e a fiação do bico está jogando corrente para o bloco do motor. Isso faz a ECU Bosch EDC16C8 entrar em <b>modo de proteção total imediato e desligar o motor de segurança</b>.</p>
+  <p>Se o multímetro indicar qualquer valor numérico de resistência, significa que o isolamento interno falhou e a fiação do bico está jogando corrente para o bloco do motor. Isso faz a ECU Bosch EDC16C8 entrar em <b>modo de proteção total imediato e desligar o motor de segurança</b>.</p>
 </div>
 
-<h3 id="teste-pwm">3. Sinal de Comando (PWM e Tensão)</h3>
-<p>O sinal de comando do injetor <b>não é uma simples onda quadrada de 12V</b>. A ECU controla o bico chaveando o circuito em duas fases elétricas distintas por pulso:</p>
+<h3 id="teste-pwm">3. Sinal de Comando (Estratégia Peak and Hold)</h3>
+<p>O sinal de comando do injetor não é uma simples onda quadrada de 12V. A ECU utiliza uma estratégia chamada <b>Peak and Hold</b> (Pico e Manutenção), que consiste em duas fases elétricas distintas[reference:1]:</p>
 <ul>
-  <li><b>Fase de Atração (Tensão de Pico / Boost):</b> No exato milissegundo de abertura, a ECU descarrega capacitores internos enviando um pico de alta tensão contínua que varia entre <b>70 Volts e 80 Volts DC</b> para o injetor. Essa pancada de energia gera o campo magnético forte necessário para puxar a agulha para cima rapidamente;</li>
-  <li><b>Fase de Manutenção (Tensão de Hold):</b> Assim que o bico abre, a ECU corta a alta tensão e passa a enviar uma tensão modulada por largura de pulso (PWM) de aproximadamente <b>12 Volts a 14 Volts DC</b> apenas para manter o bico aberto pelo tempo determinado pelo mapa de injeção.</li>
+  <li><b>Fase de Atração (Boost):</b> No exato milissegundo de abertura, a ECU descarrega capacitores internos enviando um pico de alta tensão contínua que varia entre <b>60 Volts e 80 Volts DC</b> por um curtíssimo período (cerca de 100 microssegundos)[reference:2][reference:3]. Essa pancada de energia gera o campo magnético forte necessário para puxar a agulha para cima rapidamente;</li>
+  <li><b>Fase de Manutenção (Hold):</b> Assim que o bico abre, a ECU corta a alta tensão e passa a enviar uma <b>onda quadrada PWM de aproximadamente 12 Volts a 14 Volts DC</b>[reference:4]. O objetivo é manter o bico aberto pelo tempo determinado pelo mapa de injeção, sem superaquecer a bobina.</li>
 </ul>
 
-<!-- GRÁFICO DE TENSÃO PWM (INJETOR) -->
+<!-- GRÁFICO DE TENSÃO PWM (PEAK AND HOLD) -->
 <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif; overflow-x: auto;">
   <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
     <div style="display: flex; align-items: center; gap: 8px;">
       <div style="width: 16px; height: 4px; background: #3B82F6; border-radius: 2px;"></div>
-      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Sinal de Comando da ECU (Osciloscópio)</span>
+      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Sinal de Comando da ECU (Peak and Hold)</span>
     </div>
   </div>
 
   <svg viewBox="0 0 850 350" style="width: 100%; height: auto; min-width: 650px;">
+    <defs>
+      <filter id="shadow-inj" x="-10%" y="-10%" width="120%" height="120%">
+        <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.1"/>
+      </filter>
+    </defs>
+
     <g stroke="#f1f5f9" stroke-width="1">
       <line x1="60" y1="50" x2="780" y2="50" />
       <line x1="60" y1="100" x2="780" y2="100" />
@@ -93,8 +99,10 @@
       <line x1="60" y1="250" x2="780" y2="250" />
       <line x1="60" y1="300" x2="780" y2="300" />
     </g>
+
     <line x1="60" y1="300" x2="780" y2="300" stroke="#cbd5e1" stroke-width="2" />
     <line x1="60" y1="50" x2="60" y2="300" stroke="#cbd5e1" stroke-width="2" />
+
     <g fill="#64748b" font-size="12" font-weight="600" text-anchor="end">
       <text x="50" y="54">80V</text>
       <text x="50" y="104">60V</text>
@@ -103,25 +111,29 @@
       <text x="50" y="254">12V</text>
       <text x="50" y="304">0V</text>
     </g>
+
     <g fill="#64748b" font-size="12" font-weight="600" text-anchor="middle">
       <text x="100" y="325">Abertura (Boost)</text>
-      <text x="100" y="340" font-size="10" fill="#94a3b8">(Pico de 70-80V)</text>
+      <text x="100" y="340" font-size="10" fill="#94a3b8">(Pico de 60-80V / ~100µs)</text>
       <text x="300" y="325">Manutenção (Hold)</text>
       <text x="300" y="340" font-size="10" fill="#94a3b8">(PWM 12-14V)</text>
       <text x="600" y="325">Corte</text>
       <text x="600" y="340" font-size="10" fill="#94a3b8">(Fechamento)</text>
     </g>
+
     <g stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4">
       <line x1="100" y1="50" x2="100" y2="300" />
       <line x1="300" y1="50" x2="300" y2="300" />
       <line x1="600" y1="50" x2="600" y2="300" />
     </g>
-    <polyline points="60,300 80,300 80,50 120,50 120,250 500,250 500,300 780,300" fill="none" stroke="#3B82F6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <polyline points="60,300 80,300 80,50 120,50 120,250 500,250 500,300 780,300" fill="none" stroke="#3B82F6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#shadow-inj)"/>
     <circle cx="80" cy="50" r="5" fill="#3B82F6" />
     <circle cx="120" cy="250" r="5" fill="#3B82F6" />
     <circle cx="500" cy="300" r="5" fill="#3B82F6" />
+
     <g font-size="11" font-weight="700" fill="#1e293b">
-      <text x="80" y="38" text-anchor="middle">Pico 70-80V</text>
+      <text x="80" y="38" text-anchor="middle">Pico 60-80V</text>
       <text x="120" y="240" text-anchor="middle">~12-14V</text>
       <text x="500" y="288" text-anchor="middle">0V</text>
     </g>
@@ -188,7 +200,7 @@
   </svg>
 </div>
 
-<!-- GRÁFICO DE DUTY CYCLE VS ROTAÇÃO (CORRIGIDO) -->
+<!-- GRÁFICO DE DUTY CYCLE VS ROTAÇÃO -->
 <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif; overflow-x: auto;">
   <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
     <div style="display: flex; align-items: center; gap: 8px;">
@@ -232,10 +244,6 @@
       <line x1="700" y1="50" x2="700" y2="300" />
     </g>
     <!-- Curva de Duty Cycle caindo com a rotação -->
-    <!-- Idle (800 RPM): ~25% (y=175) -->
-    <!-- Torque Max (1800 RPM): ~18% (y=210) -->
-    <!-- Plena Carga (3000 RPM): ~12% (y=240) -->
-    <!-- Rotação Max (3500 RPM): ~10% (y=250) -->
     <polyline points="100,175 300,210 550,240 700,250" fill="none" stroke="#10B981" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
     <circle cx="100" cy="175" r="6" fill="#ffffff" stroke="#10B981" stroke-width="3" />
     <circle cx="300" cy="210" r="6" fill="#ffffff" stroke="#10B981" stroke-width="3" />
@@ -251,7 +259,7 @@
 
   <div class="dica">
     <strong>Por que o Duty Cycle diminui em alta rotação?</strong>
-    <p>O Duty Cycle é a porcentagem de tempo que o injetor fica aberto em relação ao tempo total do ciclo do motor. Em alta rotação, o tempo total do ciclo encurta drasticamente (a 3000 RPM, o motor completa um ciclo em menos de 10ms). Embora o injetor precise ficar aberto por mais tempo absoluto (em milissegundos) para fornecer combustível, essa duração representa uma <b>porcentagem menor</b> do ciclo total. Por isso, a linha do Duty Cycle cai.</p>
+    <p>O Duty Cycle é a porcentagem de tempo que o injetor fica aberto em relação ao tempo total do ciclo do motor. Em alta rotação, o tempo total do ciclo encurta drasticamente (a 3000 RPM, o motor completa um ciclo em menos de 10ms). Embora o injetor precise ficar aberto por mais tempo absoluto (em milissegundos) para fornecer combustível, essa duração representa uma <b>porcentagem menor</b> do ciclo total. Por isso, a linha do Duty Cycle cai[reference:5].</p>
   </div>
 </div>
 
