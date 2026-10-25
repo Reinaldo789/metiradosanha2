@@ -1,176 +1,135 @@
-<!-- Sensor de Temperatura da Água (ECT). Imagens: salve em conteudo/imagens/sensor-temp-agua/ -->
-<header class="art-head">
-  <h1>Sensor de Temperatura da Água (ECT) – MWM 2.8</h1>
-</header>
-
-<nav class="toc" aria-label="Neste artigo">
-  <strong>Neste artigo</strong>
-  <ul>
-    <li><a href="#" data-goto="localizacao-funcionamento">Localização e Funcionamento</a></li>
-    <li><a href="#" data-goto="codigos-de-falha">Mapeamento de Códigos (OBD-II)</a></li>
-    <li><a href="#" data-goto="tabela-ntc">Tabela de Resistência e Tensão (Curva NTC)</a></li>
-    <li><a href="#" data-goto="pinagem">Mapeamento de Pinagem (Sensor x ECU)</a></li>
-    
-    <li><a href="#" data-goto="roteiro-diagnostico">Roteiro de Diagnóstico Avançado</a>
-      <ul>
-        <li><a href="#" data-goto="passo-1">1. Varredura Física Inicial</a></li>
-        <li><a href="#" data-goto="passo-2">2. Teste de Referência (ECU)</a></li>
-        <li><a href="#" data-goto="passo-3">3. Teste Estático (Sensor)</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-
-<!-- ==========================================
-     CONTEÚDO DO ARTIGO
-     ========================================== -->
-
-<h2 id="localizacao-funcionamento">Localização Física e Estratégia de Funcionamento</h2>
-<p>O sensor de temperatura do líquido de arrefecimento (código Bosch de referência <b>0281002209</b>) está rosqueado diretamente no bloco do motor, posicionado na parte frontal, próximo à carcaça da válvula termostática.</p>
-
-<!-- IMAGEM: Localização do sensor no bloco -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-temp-agua/01-localizacao.jpg" alt="Localização do sensor de temperatura da água no bloco do motor" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<p>A central de injeção (ECU) utiliza esse componente (um resistor do tipo <b>NTC - Coeficiente de Temperatura Negativo</b>) para monitorar a variação térmica do bloco. A central envia uma tensão estável de 5,0V e mede a queda de tensão provocada pela variação da resistência interna do sensor.</p>
-
-<div class="aviso">
-  <strong>Estratégia de Sobrevivência (Limp Home)</strong>
-  <p>Se o sinal falhar, a ECU adota um valor substituto padrão gravado em seu mapa interno. O motor continua funcionando para evitar que o condutor fique parado na via, mas perde a correção fina de avanço e débito.</p>
-</div>
-
-<div class="aviso">
-  <strong>Efeito de Partida</strong>
-  <p>O sensor dita o enriquecimento e o tempo de acionamento das estratégias de partida a frio. Por isso, se ele falhar, o motor pode apresentar dificuldade de pegar e excesso de fumaça preta/escura na partida.</p>
-</div>
-
-<h2 id="codigos-de-falha">Mapeamento de Códigos de Falha (OBD-II)</h2>
-<p>Os códigos armazenados na memória da ECU referentes a este circuito são divididos pela lógica de disparo:</p>
-
-<div class="codigos">
-  <div class="codigo"><span class="num">P0116</span><div>
-    <h4>Falha no Teste Dinâmico do Sensor</h4>
-    <p>Ocorre quando o motor entra em funcionamento e a central nota que a temperatura lida não altera (sensor travado em uma leitura fixa) ou varia de forma abrupta incompatível com a física térmica do motor.</p>
-  </div></div>
-  
-  <div class="codigo"><span class="num">P0117</span><div>
-    <h4>Tensão Baixa no Circuito</h4>
-    <p>A tensão de retorno lida pela ECU caiu perto de 0V. Indica que o fio de sinal sofreu um esmagamento e está em curto-circuito direto com a massa (terra), ou o próprio sensor entrou em curto interno.</p>
-  </div></div>
-  
-  <div class="codigo"><span class="num">P0118</span><div>
-    <h4>Tensão Alta no Circuito</h4>
-    <p>A tensão de retorno lida pela ECU estabilizou em 5,0V (ou acima). Significa que a corrente elétrica não encontra caminho para o terra, denunciando circuito aberto (fio partido, conector desconectado ou pinos com forte oxidação/zinabre).</p>
-  </div></div>
-</div>
-
 <h2 id="tabela-ntc">Tabela Cirúrgica de Resistência e Tensão (Curva NTC Bosch)</h2>
 <p>Para testes reais de bancada, a resistência e a tensão devem seguir estritamente o padrão Bosch para a injeção Common Rail:</p>
 
+<!-- A SUA TABELA AQUI -->
 <table>
-  <thead>
-    <tr>
-      <th>Temperatura do Motor (°C)</th>
-      <th>Resistência Interna Esperada (Ω)</th>
-      <th>Tensão Lida no Sinal (V)</th>
-      <th>Status de Operação</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><b>-10 °C</b></td>
-      <td>8.100 a 10.770 Ω (8.1 a 10.7 kΩ)</td>
-      <td>~4,2 V a 4,5 V</td>
-      <td>Partida em frio extremo</td>
-    </tr>
-    <tr>
-      <td><b>+20 °C</b></td>
-      <td>2.280 a 2.720 Ω (2.2 a 2.7 kΩ)</td>
-      <td>~3,0 V a 3,5 V</td>
-      <td>Temperatura ambiente / Oficina</td>
-    </tr>
-    <tr>
-      <td><b>+40 °C</b></td>
-      <td>1.000 a 1.200 Ω (1.0 a 1.2 kΩ)</td>
-      <td>~2,2 V</td>
-      <td>Aquecimento inicial</td>
-    </tr>
-    <tr>
-      <td><b>+80 °C</b></td>
-      <td>290 a 364 Ω</td>
-      <td>~0,8 V a 1,1 V</td>
-      <td>Motor em temperatura de trabalho</td>
-    </tr>
-    <tr>
-      <td><b>+90 °C</b></td>
-      <td>200 a 270 Ω</td>
-      <td>~0,6 V a 0,7 V</td>
-      <td>Efetividade máxima do radiador</td>
-    </tr>
-  </tbody>
+  <!-- ... conteúdo da tabela ... -->
 </table>
 
-<h2 id="pinagem">Mapeamento de Pinagem Extremo (Do Sensor até a ECU)</h2>
-<p>Para testar a fiação contra curto-circuito, alta resistência ou interrupção, o teste de continuidade (resistência do fio) deve ser feito da tomada do sensor até o conector correspondente da central de injeção.</p>
-<p>No sistema do motor MWM 4.07, os fios do sensor de temperatura correm diretamente para o <b>Conector A ("Motor") da ECU</b>:</p>
+<!-- GRÁFICO DA CURVA NTC -->
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif; overflow-x: auto;">
+  
+  <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <div style="width: 16px; height: 4px; background: #3B82F6; border-radius: 2px;"></div>
+      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Tensão do Sinal (V)</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <div style="width: 16px; height: 4px; background: #F59E0B; border-radius: 2px;"></div>
+      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Resistência Interna (Ω)</span>
+    </div>
+  </div>
 
-<!-- IMAGEM: Conector e pinos do sensor -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-temp-agua/02-conector-pinos.jpg" alt="Conector e pinagem do sensor de temperatura da água" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
+  <svg viewBox="0 0 700 350" style="width: 100%; height: auto; min-width: 550px;">
+    <defs>
+      <filter id="shadow-ntc" x="-10%" y="-10%" width="120%" height="120%">
+        <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.1"/>
+      </filter>
+    </defs>
 
-<div class="specs">
-  <div class="spec"><b>Sensor Pino 1</b><span>Alimentação 5V/Sinal → <b>ECU Pino A05</b> (Entrada de Sinal)</span></div>
-  <div class="spec"><b>Sensor Pino 2</b><span>Massa/Aterramento → <b>ECU Pino A22</b> (Terra dos Sensores)</span></div>
-</div>
+    <!-- Grid Horizontal -->
+    <g stroke="#f1f5f9" stroke-width="1">
+      <line x1="60" y1="50" x2="640" y2="50" />
+      <line x1="60" y1="100" x2="640" y2="100" />
+      <line x1="60" y1="150" x2="640" y2="150" />
+      <line x1="60" y1="200" x2="640" y2="200" />
+      <line x1="60" y1="250" x2="640" y2="250" />
+      <line x1="60" y1="300" x2="640" y2="300" />
+    </g>
 
-<div class="dica">
-  <strong>Nota de Medição</strong>
-  <p>Com o motor quente entre 60°C e 90°C, a medição direta por agulhamento entre os pinos <b>A05 e A22</b> na central deve apresentar uma variação contínua entre <b>0,6V e 2,4V</b>.</p>
-</div>
+    <!-- Eixos -->
+    <line x1="60" y1="300" x2="640" y2="300" stroke="#cbd5e1" stroke-width="2" />
+    <line x1="60" y1="50" x2="60" y2="300" stroke="#cbd5e1" stroke-width="2" />
+    <line x1="640" y1="50" x2="640" y2="300" stroke="#cbd5e1" stroke-width="2" />
 
-<h2 id="roteiro-diagnostico">Roteiro Passo a Passo de Diagnóstico Avançado</h2>
+    <!-- Valores Eixo Y Esquerdo (Tensão) -->
+    <g fill="#3B82F6" font-size="12" font-weight="600" text-anchor="end">
+      <text x="50" y="54">5,0V</text>
+      <text x="50" y="104">4,0V</text>
+      <text x="50" y="154">3,0V</text>
+      <text x="50" y="204">2,0V</text>
+      <text x="50" y="254">1,0V</text>
+      <text x="50" y="304">0V</text>
+    </g>
 
-<h3 id="passo-1">1. Varredura Física Inicial</h3>
-<p>Avalie o conector em busca de folgas ou zinabre. Certifique-se de que o aterramento principal do módulo preso na capa-seca da embreagem está limpo e apertado.</p>
-<div class="aviso">
-  <strong>Atenção</strong>
-  <p>Se o terra da capa-seca falhar, <b>todos</b> os sensores NTC apresentarão leitura maluca ou código de tensão alta.</p>
-</div>
+    <!-- Valores Eixo Y Direito (Resistência em Escala Log) -->
+    <g fill="#F59E0B" font-size="12" font-weight="600" text-anchor="start">
+      <text x="650" y="54">10.000 Ω</text>
+      <text x="650" y="104">5.000 Ω</text>
+      <text x="650" y="154">2.000 Ω</text>
+      <text x="650" y="204">1.000 Ω</text>
+      <text x="650" y="254">500 Ω</text>
+      <text x="650" y="304">200 Ω</text>
+    </g>
 
-<h3 id="passo-2">2. Teste de Referência (ECU para Chicote)</h3>
-<p>Desconecte a tomada do sensor. Ligue a chave de ignição. Meça a tensão elétrica no conector do chicote elétrico (fio que vai para o pino A05 da ECU contra o terra do chassi).</p>
-<p>O multímetro deve registrar <b>5,0 Volts cravados</b>. Se marcar 0V, há interrupção na linha ou falha interna na ECU.</p>
+    <!-- Valores Eixo X (Temperatura) -->
+    <g fill="#64748b" font-size="12" font-weight="600" text-anchor="middle">
+      <text x="80" y="325">-10°C</text>
+      <text x="200" y="325">20°C</text>
+      <text x="320" y="325">40°C</text>
+      <text x="480" y="325">80°C</text>
+      <text x="560" y="325">90°C</text>
+    </g>
 
-<!-- IMAGEM: Teste de tensão no conector do chicote com multímetro -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-temp-agua/03-teste-multimetro.jpg" alt="Teste de tensão de referência de 5V no conector do chicote" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
+    <!-- Linhas Verticais de Grade (Temperaturas) -->
+    <g stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4">
+      <line x1="80" y1="50" x2="80" y2="300" />
+      <line x1="200" y1="50" x2="200" y2="300" />
+      <line x1="320" y1="50" x2="320" y2="300" />
+      <line x1="480" y1="50" x2="480" y2="300" />
+      <line x1="560" y1="50" x2="560" y2="300" />
+    </g>
 
-<h3 id="passo-3">3. Teste Estático do Componente (Sensor)</h3>
-<p>Com o sensor desconectado, meça a resistência diretamente nos seus dois pinos metálicos.</p>
-<ul>
-  <li>Se o motor estiver frio (temperatura de oficina de ~20°C), o valor deve estar em torno de <b>2,5 kΩ</b>;</li>
-  <li>Coloque o sensor em um recipiente com água quente: a resistência deve cair de forma <b>limpa e progressiva</b>, sem saltos, até atingir cerca de <b>300 Ω</b> perto dos 80°C.</li>
-</ul>
+    <!-- Curva de Tensão (Azul) - Variação de ~4.35V a ~0.65V -->
+    <polyline points="80,82 200,137 320,190 480,252 560,267" fill="none" stroke="#3B82F6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#shadow-ntc)"/>
+    
+    <!-- Curva de Resistência (Laranja) - Variação em Escala Logarítmica -->
+    <polyline points="80,65 200,125 320,170 480,236 560,254" fill="none" stroke="#F59E0B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#shadow-ntc)"/>
 
-<!-- IMAGEM: Teste de resistência (Ohmímetro) nos terminais do sensor -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-temp-agua/04-teste-resistencia.jpg" alt="Teste de resistência elétrica nos terminais do sensor NTC" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
+    <!-- Pontos Interativos Tensão (Azul) -->
+    <g fill="#ffffff" stroke="#3B82F6" stroke-width="3">
+      <circle cx="80" cy="82" r="6" />
+      <circle cx="200" cy="137" r="6" />
+      <circle cx="320" cy="190" r="6" />
+      <circle cx="480" cy="252" r="6" />
+      <circle cx="560" cy="267" r="6" />
+    </g>
 
-<!-- IMAGEM: Teste do sensor imerso em água quente para verificar variação -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-temp-agua/05-teste-aquecimento.jpg" alt="Teste de variação de resistência do sensor com aquecimento em água" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<div class="aviso">
-  <strong>Atenção</strong>
-  <p>Se o mostrador do multímetro oscilar para infinito (OL) durante o aquecimento, o sensor possui uma trinca interna e deve ser substituído.</p>
+    <!-- Pontos Interativos Resistência (Laranja) -->
+    <g fill="#ffffff" stroke="#F59E0B" stroke-width="3">
+      <circle cx="80" cy="65" r="6" />
+      <circle cx="200" cy="125" r="6" />
+      <circle cx="320" cy="170" r="6" />
+      <circle cx="480" cy="236" r="6" />
+      <circle cx="560" cy="254" r="6" />
+    </g>
+    
+    <!-- Etiquetas de Valores nos Pontos -->
+    <g font-size="11" font-weight="700">
+      <!-- Tensão -->
+      <text x="80" y="72" fill="#3B82F6" text-anchor="middle">4,3V</text>
+      <text x="200" y="127" fill="#3B82F6" text-anchor="middle">3,2V</text>
+      <text x="320" y="180" fill="#3B82F6" text-anchor="middle">2,2V</text>
+      <text x="480" y="242" fill="#3B82F6" text-anchor="middle">0,9V</text>
+      <text x="560" y="257" fill="#3B82F6" text-anchor="middle">0,6V</text>
+      
+      <!-- Resistência -->
+      <text x="80" y="55" fill="#F59E0B" text-anchor="middle">9.4kΩ</text>
+      <text x="200" y="115" fill="#F59E0B" text-anchor="middle">2.5kΩ</text>
+      <text x="320" y="160" fill="#F59E0B" text-anchor="middle">1.1kΩ</text>
+      <text x="480" y="226" fill="#F59E0B" text-anchor="middle">327Ω</text>
+      <text x="560" y="244" fill="#F59E0B" text-anchor="middle">235Ω</text>
+    </g>
+  </svg>
+  
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
+    <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 12px; text-align: center;">
+      <strong style="color: #1e40af; display: block; margin-bottom: 4px;">Comportamento da Tensão</strong>
+      <span style="font-size: 0.85rem; color: #3b82f6; font-weight: 600;">Cai suavemente conforme aquece</span>
+    </div>
+    <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 12px; text-align: center;">
+      <strong style="color: #92400e; display: block; margin-bottom: 4px;">Comportamento da Resistência</strong>
+      <span style="font-size: 0.85rem; color: #d97706; font-weight: 600;">Queda acentuada (Curva NTC)</span>
+    </div>
+  </div>
 </div>
