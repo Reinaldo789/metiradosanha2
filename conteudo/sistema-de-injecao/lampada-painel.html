@@ -1,290 +1,352 @@
-<!-- Bicos Injetores. Imagens: salve em conteudo/imagens/bicos-injetores/ -->
+<!-- Sensor de Rotação (CKP). Imagens: salve em conteudo/imagens/sensor-ckp/ -->
 <header class="art-head">
-  <h1>Bicos Injetores (Common Rail)</h1>
+  <h1>Sensor de Rotação (CKP)</h1>
 </header>
 
 <nav class="toc" aria-label="Neste artigo">
   <strong>Neste artigo</strong>
   <ul>
     <li><a href="#" data-goto="localizacao">Localização</a></li>
-    <li><a href="#" data-goto="como-retirar">Como retirar</a>
+    <li><a href="#" data-goto="funcionamento">Funcionamento</a></li>
+    <li><a href="#" data-goto="parte-eletrica">Parte elétrica e testes</a>
       <ul>
-        <li><a href="#" data-goto="tabela-aperto">Tabela de aperto</a></li>
+        <li><a href="#" data-goto="teste-resistencia">Teste de resistência (motor desligado)</a></li>
       </ul>
     </li>
-    <li><a href="#" data-goto="funcionamento">Como funciona</a></li>
-    
-    <li><a href="#" data-goto="parte-eletrica">Parte elétrica</a>
+    <li><a href="#" data-goto="testes-ac">Testes em corrente alternada</a>
       <ul>
-        <li><a href="#" data-goto="teste-pulso">Teste de pulso</a></li>
+        <li><a href="#" data-goto="diagnostico-chicote">Diagnóstico de chicote vs. componente</a></li>
       </ul>
     </li>
-    
     <li><a href="#" data-goto="problemas-comuns">Problemas comuns</a>
       <ul>
-        <li><a href="#" data-goto="excesso-retorno">Excesso de retorno dos bicos</a></li>
-        <li><a href="#" data-goto="castanhado-forte">Castanhado forte e motor fraco</a></li>
-        <li><a href="#" data-goto="limpeza-bico">Limpeza do bico injetor</a></li>
+        <li><a href="#" data-goto="motor-gira-mas-nao-pega">Motor gira mas não pega</a></li>
+        <li><a href="#" data-goto="motor-apaga-quando-aquece">Motor apaga quando aquece</a></li>
       </ul>
     </li>
-    
-    <li><a href="#" data-goto="teste-retorno">Teste de retorno dos injetores</a>
-      <ul>
-        <li><a href="#" data-goto="medidas-referencia">Medidas de referência</a></li>
-      </ul>
-    </li>
+    <li><a href="#" data-goto="codigos-de-falha">Códigos de falha</a></li>
   </ul>
 </nav>
 
-<!-- ==========================================
-     CONTEÚDO DO ARTIGO
-     ========================================== -->
-
 <h2 id="localizacao">Localização</h2>
-<p>Os bicos injetores estão montados no cabeçote e têm a finalidade de pulverizar o combustível na câmara de combustão. O controle dos bicos é feito pela ECM, que determina a quantidade e o momento exato da injeção de combustível para cada cilindro.</p>
-
-<!-- IMAGEM: Localização -->
 <figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/01-localizacao.jpg" alt="Localização dos bicos injetores no motor" loading="lazy">
+  <img src="conteudo/imagens/sensor-ckp/01-localizacao.jpg" alt="Localização do sensor de rotação CKP" loading="lazy">
   <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
 </figure>
+<p>Fica no bloco do motor, na parte traseira inferior esquerda (lado do motorista), posicionado em frente à roda fônica integrada ao volante do motor. É o sensor mais crítico do sistema — sem ele a ECM não reconhece que o motor está girando e bloqueia tudo.</p>
 
-<h2 id="como-retirar">Como retirar</h2>
-<div class="aviso">
-  <strong>Atenção</strong>
-  <p>Ao usar chaves para soltar a tubulação de alta pressão ou o próprio bico, cuidado com a torção do cano. Se a chave escapar, pode quebrar o plug da bobina do injetor.</p>
-</div>
-
-<!-- IMAGEM: Cuidados ao retirar (Chave e plug) -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/02-cuidados-retirada.jpg" alt="Cuidados ao soltar a tubulação e o plug do injetor" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<h3 id="tabela-aperto">Tabela de Aperto</h3>
-<div class="specs">
-  <div class="spec"><b>8,5 ± 1 Nm</b><span>Abraçadeira / Tubo de retorno</span></div>
-  <div class="spec"><b>20 ± 3 Nm</b><span>Parafusos da flange / Tubo de alta</span></div>
-  <div class="spec"><b>25 ± 4 Nm</b><span>Porca do tubo de alta no Rail</span></div>
-  <div class="spec"><b>27 ± 3 Nm</b><span>Conexão do tubo de alta no bico</span></div>
-  <div class="spec"><b>1ª 14 ± 1 Nm<br>2ª 55° ± 2°</b><span>Parafuso de fixação do bico (garra)</span></div>
-</div>
-
-<!-- IMAGEM: Tabela de Aperto Visual -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/03-tabela-aperto.jpg" alt="Tabela de aperto visual dos parafusos" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<h2 id="funcionamento">Como funciona</h2>
-<p>Os bicos injetores estão montados no cabeçote e pulverizam o combustível na câmara de combustão. A ECM controla os bicos, determinando a quantidade e o momento da injeção para cada cilindro.</p>
-
+<h2 id="funcionamento">Funcionamento</h2>
 <ul>
-  <li><b>Posição de Repouso:</b> o bico está fechado (desenergizado). A agulha permanece fechada pela ação da alta pressão do combustível na haste do bico, que possui uma área maior em relação à área inferior do bico injetor;</li>
-  <li><b>Início de Injeção:</b> a ECM energiza a válvula eletromagnética, que abre a passagem de saída do combustível para o retorno. O combustível pressurizado entra pelo furo calibrado, criando uma depressão na câmara de controle. Essa depressão faz a agulha do injetor se movimentar para cima, iniciando a pulverização na câmara de combustão;</li>
-  <li><b>Fim da Injeção:</b> ocorre quando a válvula eletromagnética é desenergizada pela ECM. A mola aciona a válvula que fecha a passagem do furo de retorno. O combustível pressurizado ocupa a câmara de controle, fazendo a agulha do injetor descer e voltar à posição de repouso.</li>
+  <li>Sensor <b>magnético indutivo</b> — funciona como um mini gerador;</li>
+  <li>Não recebe alimentação da ECM: gera sua própria energia;</li>
+  <li>Possui ímã permanente + bobina de fios de cobre;</li>
+  <li>Ao passar pelos dentes da roda fônica (60-2), o campo magnético varia e induz uma corrente alternada;</li>
+  <li>A falha de dois dentes na roda serve como <b>ponto de referência</b> do pistão;</li>
+  <li>Frequência e amplitude aumentam proporcionalmente à rotação.</li>
+</ul>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/sensor-ckp/02-funcionamento.jpg" alt="Funcionamento do sensor indutivo" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<p>O sinal chega à ECM em forma de <b>onda senoidal</b> (V AC). Esse é o único sensor do motor que o mecânico <b>precisa obrigatoriamente</b> mudar o multímetro para a escala de alternada (V AC) para ler o sinal real.</p>
+
+<h2 id="parte-eletrica">Parte elétrica e testes</h2>
+<p>O conector tem 3 fios:</p>
+<ul>
+  <li><b>Pino 1:</b> Sinal (+) enviado à ECM;</li>
+  <li><b>Pino 2:</b> Sinal (-) de retorno/referência;</li>
+  <li><b>Pino 3:</b> Blindagem de aterramento (massa, contra interferências do alternador e motor de partida).</li>
 </ul>
 
-<h2 id="parte-eletrica">Parte elétrica</h2>
-<p>Ligação do módulo ECM (Conector A - 60 vias) até os bicos injetores.</p>
+<h3 id="teste-resistencia">Teste de resistência (motor desligado)</h3>
+<ul>
+  <li>Tomada <b>DESCONECTADA</b> e chave desligada;</li>
+  <li>Multímetro na escala de Resistência <b>Ω em 2k</b>;</li>
+  <li>Meça entre os <b>pinos 1 e 2 do próprio sensor</b>.</li>
+</ul>
 
-<table>
-  <thead>
-    <tr>
-      <th>Cilindro</th>
-      <th>Pino ECM (Alimentação)</th>
-      <th>Pino ECM (Chaveamento)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><b>Cilindro 1</b></td>
-      <td>A47</td>
-      <td>A16</td>
-    </tr>
-    <tr>
-      <td><b>Cilindro 2</b></td>
-      <td>A31</td>
-      <td>A02</td>
-    </tr>
-    <tr>
-      <td><b>Cilindro 3</b></td>
-      <td>A46</td>
-      <td>A01</td>
-    </tr>
-    <tr>
-      <td><b>Cilindro 4</b></td>
-      <td>A33</td>
-      <td>A17</td>
-    </tr>
-  </tbody>
-</table>
+<div class="specs">
+  <div class="spec"><b>860 Ω a 1.060 Ω</b><span>Frio (20°C)</span></div>
+  <div class="spec"><b>1.100 Ω a 1.250 Ω</b><span>Quente (80°C)</span></div>
+</div>
 
-<!-- IMAGEM: Esquema elétrico ECM -> Bicos -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/04-ligacao-ecm-bicos.jpg" alt="Esquema elétrico de ligação do ECM aos bicos injetores" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
+<!-- GRÁFICO: Resistência vs Temperatura -->
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif; overflow-x: auto;">
+  <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <div style="width: 16px; height: 4px; background: #3B82F6; border-radius: 2px;"></div>
+      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Resistência Nominal (Ω)</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <div style="width: 16px; height: 12px; background: rgba(59, 130, 246, 0.2); border-radius: 2px;"></div>
+      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Faixa Tolerada (Mín. / Máx.)</span>
+    </div>
+  </div>
 
-<h3 id="teste-pulso">Teste de pulso</h3>
-<p>Com a caneta de teste, é possível ver os pulsos e também o Duty Cycle (ciclo de trabalho). Para testes básicos, o Duty Cycle não é importante.</p>
+  <svg viewBox="0 0 700 350" style="width: 100%; height: auto; min-width: 550px;">
+    <defs>
+      <filter id="shadow-res" x="-10%" y="-10%" width="120%" height="120%">
+        <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.1"/>
+      </filter>
+    </defs>
+
+    <!-- Grid Horizontal -->
+    <g stroke="#f1f5f9" stroke-width="1">
+      <line x1="80" y1="50" x2="620" y2="50" />
+      <line x1="80" y1="100" x2="620" y2="100" />
+      <line x1="80" y1="150" x2="620" y2="150" />
+      <line x1="80" y1="200" x2="620" y2="200" />
+      <line x1="80" y1="250" x2="620" y2="250" />
+      <line x1="80" y1="300" x2="620" y2="300" />
+    </g>
+
+    <!-- Eixos -->
+    <line x1="80" y1="300" x2="620" y2="300" stroke="#cbd5e1" stroke-width="2" />
+    <line x1="80" y1="50" x2="80" y2="300" stroke="#cbd5e1" stroke-width="2" />
+
+    <!-- Valores Eixo Y (Resistência) -->
+    <g fill="#64748b" font-size="12" font-weight="600" text-anchor="end">
+      <text x="70" y="54">1300 Ω</text>
+      <text x="70" y="104">1200 Ω</text>
+      <text x="70" y="154">1100 Ω</text>
+      <text x="70" y="204">1000 Ω</text>
+      <text x="70" y="254">900 Ω</text>
+      <text x="70" y="304">800 Ω</text>
+    </g>
+
+    <!-- Valores Eixo X (Temperatura) -->
+    <g fill="#64748b" font-size="12" font-weight="600" text-anchor="middle">
+      <text x="200" y="325">20°C (Frio)</text>
+      <text x="500" y="325">80°C (Quente)</text>
+    </g>
+
+    <!-- Linhas Verticais de Grade -->
+    <g stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4">
+      <line x1="200" y1="50" x2="200" y2="300" />
+      <line x1="500" y1="50" x2="500" y2="300" />
+    </g>
+
+    <!-- Área de Tolerância (Faixa) -->
+    <!-- 20°C: 860 a 1060 -->
+    <polygon points="200,177 200,167 500,121 500,103" fill="rgba(59, 130, 246, 0.15)" />
+    <!-- 80°C: 1100 a 1250 -->
+    <polygon points="200,177 200,167 500,121 500,103" fill="rgba(59, 130, 246, 0.15)" />
+
+    <!-- Curva Nominal (Média) -->
+    <!-- 20°C = 960Ω (y=172) -->
+    <!-- 80°C = 1175Ω (y=112.5) -->
+    <polyline points="200,172 500,112" fill="none" stroke="#3B82F6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#shadow-res)"/>
+
+    <!-- Pontos -->
+    <circle cx="200" cy="172" r="6" fill="#ffffff" stroke="#3B82F6" stroke-width="3" />
+    <circle cx="500" cy="112" r="6" fill="#ffffff" stroke="#3B82F6" stroke-width="3" />
+    
+    <!-- Etiquetas -->
+    <g font-size="12" font-weight="700" fill="#1e293b">
+      <text x="200" y="160" text-anchor="middle">~960 Ω</text>
+      <text x="500" y="100" text-anchor="middle">~1175 Ω</text>
+    </g>
+  </svg>
+</div>
 
 <div class="aviso">
   <strong>Atenção</strong>
-  <p>Só haverá pulso nos bicos injetores se a tensão de retorno no <b>sensor de pressão do Rail</b> for de no mínimo <b>0,9 Volts</b>.</p>
+  <p>Se a resistência passar de 1.300 Ω ou der circuito aberto (OL) com o motor quente, o motor apaga sozinho e só volta a pegar quando esfriar. É o defeito térmico clássico.</p>
 </div>
 
-<!-- IMAGEM: Teste de pulso com caneta (Fio Azul / Fio Preto) -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/05-teste-pulso.jpg" alt="Teste de pulso com caneta de teste nos fios do injetor" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
+<h2 id="testes-ac">Testes em corrente alternada</h2>
+<p>Aqui você <b>DEVE</b> mudar o multímetro para <b>Tensão Alternada (V AC / V~)</b>. Insira duas agulhas por trás do conector (backprobing) nos fios dos pinos 1 e 2 — a cor das pontas não importa, pois a corrente alternada não tem polaridade fixa.</p>
+
+<div class="specs">
+  <div class="spec"><b>1,0 a 2,5 V AC</b><span>Arranque (~200 RPM)</span></div>
+  <div class="spec"><b>4,0 a 6,0 V AC</b><span>Marcha lenta (~800 RPM)</span></div>
+  <div class="spec"><b>15 a 20 V AC</b><span>Alta rotação (~3000 RPM)</span></div>
+</div>
+
+<!-- GRÁFICO: Tensão AC vs Rotação -->
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif; overflow-x: auto;">
+  <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <div style="width: 16px; height: 4px; background: #10B981; border-radius: 2px;"></div>
+      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Tensão Nominal (V AC)</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <div style="width: 16px; height: 12px; background: rgba(16, 185, 129, 0.2); border-radius: 2px;"></div>
+      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Faixa Tolerada</span>
+    </div>
+  </div>
+
+  <svg viewBox="0 0 700 350" style="width: 100%; height: auto; min-width: 550px;">
+    <defs>
+      <filter id="shadow-ac" x="-10%" y="-10%" width="120%" height="120%">
+        <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.1"/>
+      </filter>
+    </defs>
+
+    <!-- Grid Horizontal -->
+    <g stroke="#f1f5f9" stroke-width="1">
+      <line x1="80" y1="50" x2="620" y2="50" />
+      <line x1="80" y1="100" x2="620" y2="100" />
+      <line x1="80" y1="150" x2="620" y2="150" />
+      <line x1="80" y1="200" x2="620" y2="200" />
+      <line x1="80" y1="250" x2="620" y2="250" />
+      <line x1="80" y1="300" x2="620" y2="300" />
+    </g>
+
+    <!-- Eixos -->
+    <line x1="80" y1="300" x2="620" y2="300" stroke="#cbd5e1" stroke-width="2" />
+    <line x1="80" y1="50" x2="80" y2="300" stroke="#cbd5e1" stroke-width="2" />
+
+    <!-- Valores Eixo Y (Tensão AC) -->
+    <g fill="#64748b" font-size="12" font-weight="600" text-anchor="end">
+      <text x="70" y="54">25 V</text>
+      <text x="70" y="104">20 V</text>
+      <text x="70" y="154">15 V</text>
+      <text x="70" y="204">10 V</text>
+      <text x="70" y="254">5 V</text>
+      <text x="70" y="304">0 V</text>
+    </g>
+
+    <!-- Valores Eixo X (Rotação) -->
+    <g fill="#64748b" font-size="12" font-weight="600" text-anchor="middle">
+      <text x="130" y="325">Arranque</text>
+      <text x="130" y="340" font-size="10" fill="#94a3b8">(~200 RPM)</text>
+      
+      <text x="350" y="325">Marcha Lenta</text>
+      <text x="350" y="340" font-size="10" fill="#94a3b8">(~800 RPM)</text>
+      
+      <text x="570" y="325">Alta Rotação</text>
+      <text x="570" y="340" font-size="10" fill="#94a3b8">(~3000 RPM)</text>
+    </g>
+
+    <!-- Linhas Verticais de Grade -->
+    <g stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4">
+      <line x1="130" y1="50" x2="130" y2="300" />
+      <line x1="350" y1="50" x2="350" y2="300" />
+      <line x1="570" y1="50" x2="570" y2="300" />
+    </g>
+
+    <!-- Área de Tolerância -->
+    <!-- 200 RPM: 1.0 a 2.5 -->
+    <rect x="110" y="275" width="40" height="15" fill="rgba(16, 185, 129, 0.2)" />
+    <!-- 800 RPM: 4.0 a 6.0 -->
+    <rect x="330" y="240" width="40" height="20" fill="rgba(16, 185, 129, 0.2)" />
+    <!-- 3000 RPM: 15 a 20 -->
+    <rect x="550" y="100" width="40" height="50" fill="rgba(16, 185, 129, 0.2)" />
+
+    <!-- Curva Nominal (Média) -->
+    <!-- 200 RPM = 1.75V (y=282.5) -->
+    <!-- 800 RPM = 5.0V (y=250) -->
+    <!-- 3000 RPM = 17.5V (y=125) -->
+    <polyline points="130,282.5 350,250 570,125" fill="none" stroke="#10B981" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#shadow-ac)"/>
+
+    <!-- Pontos -->
+    <circle cx="130" cy="282.5" r="6" fill="#ffffff" stroke="#10B981" stroke-width="3" />
+    <circle cx="350" cy="250" r="6" fill="#ffffff" stroke="#10B981" stroke-width="3" />
+    <circle cx="570" cy="125" r="6" fill="#ffffff" stroke="#10B981" stroke-width="3" />
+    
+    <!-- Etiquetas -->
+    <g font-size="12" font-weight="700" fill="#1e293b">
+      <text x="130" y="270" text-anchor="middle">~1.75 V</text>
+      <text x="350" y="238" text-anchor="middle">~5.0 V</text>
+      <text x="570" y="113" text-anchor="middle">~17.5 V</text>
+    </g>
+  </svg>
+</div>
+
+<div class="dica">
+  <strong>Regra de ouro na oficina</strong>
+  <p>Se marcar <b>menos de 1,0 V AC</b> durante o arranque, a ECM não reconhece que o motor está girando e bloqueia o pulso dos bicos injetores. O motor gira no arranque, mas não liga.</p>
+</div>
+
+<h3 id="diagnostico-chicote">Diagnóstico de chicote vs. componente</h3>
+<ul>
+  <li><b>Isolamento:</b> com o sensor desconectado, meça continuidade entre os pinos do chicote e a carcaça do motor (massa). Não deve haver continuidade;</li>
+  <li><b>Integridade:</b> meça continuidade dos fios do plugue até o conector da ECM para descartar fios partidos.</li>
+</ul>
 
 <h2 id="problemas-comuns">Problemas comuns</h2>
 
+<h3 id="motor-gira-mas-nao-pega">Motor gira mas não pega</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Motor de partida gira normal;</li>
+      <li>Conta-giros marca 0;</li>
+      <li>Sem pulso nos bicos injetores.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Sensor com defeito ou desplugado;</li>
+      <li>Limalha de ferro na ponta magnética;</li>
+      <li>Chicote partido ou com mau contato;</li>
+      <li>Roda fônica com dentes amassados.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Testar resistência (860–1.060 Ω);</li>
+      <li>Testar V AC no arranque (mín. 1,0 V AC);</li>
+      <li>Limpar a ponta magnética;</li>
+      <li>Verificar o gap e a roda fônica.</li>
+    </ul>
+  </div>
+</div>
+
+<h3 id="motor-apaga-quando-aquece">Motor apaga quando aquece</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Motor funciona por 20 min e apaga;</li>
+      <li>Só volta a pegar depois de esfriar;</li>
+      <li>Defeito intermitente.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Bobina interna dilata e abre circuito quando quente (OL);</li>
+      <li>Sensor de origem duvidosa.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Medir resistência <b>imediatamente</b> após o carro apagar;</li>
+      <li>Substituir o sensor por peça original.</li>
+    </ul>
+  </div>
+</div>
+
 <div class="aviso">
   <strong>Atenção</strong>
-  <p>Os testes usando spray são extremamente básicos, pois o spray tem apenas 6 bar de pressão. Na marcha lenta, o sistema trabalha com no mínimo 250 bar.</p>
+  <p>Nunca injete 12 V nos fios de sinal do CKP conectados à ECM nem use lâmpada de teste comum — queima o circuito integrado de entrada do módulo.</p>
 </div>
 
-<h3 id="excesso-retorno">Excesso de retorno dos bicos injetores</h3>
-<div class="trio">
-  <div>
-    <h4>Sintomas</h4>
+<h2 id="codigos-de-falha">Códigos de falha</h2>
+<div class="codigos">
+  <div class="codigo"><span class="num">P0335</span><div>
+    <h4>Falha no circuito do sensor de posição do virabrequim</h4>
+    <p>Não há sinal elétrico adequado chegando à ECM. Causas:</p>
     <ul>
-      <li>Motor de partida gira, mas não liga;</li>
-      <li>Partidas muito longas.</li>
+      <li>Sensor desconectado ou queimado;</li>
+      <li>Chicote rompido;</li>
+      <li>Blindagem em curto.</li>
     </ul>
-  </div>
-  <div>
-    <h4>Possíveis causas</h4>
+  </div></div>
+  <div class="codigo"><span class="num">P0336</span><div>
+    <h4>Sinal incorreto/fora de faixa do sensor de rotação</h4>
+    <p>O sinal existe, mas está irregular. Causas:</p>
     <ul>
-      <li>Baixa pressão na linha de baixa;</li>
-      <li>Baixa pressão na linha de alta;</li>
-      <li>Válvula de alívio do tubo Rail com vazamento;</li>
-      <li>Excesso de retorno nos bicos injetores.</li>
+      <li>Limalha de ferro na ponta magnética;</li>
+      <li>Dentes da roda fônica amassados/quebrados;</li>
+      <li>Folga excessiva no virabrequim alterando o gap;</li>
+      <li>Ruído de interferência (blindagem ruim).</li>
     </ul>
-  </div>
-  <div>
-    <h4>Possíveis soluções</h4>
-    <ul>
-      <li>Após verificar o excesso de retorno, é preciso trocar o reparo do bico injetor.</li>
-    </ul>
-  </div>
-</div>
-
-<h3 id="castanhado-forte">Castanhado forte e motor fraco</h3>
-<div class="trio">
-  <div>
-    <h4>Sintomas</h4>
-    <ul>
-      <li>Motor de partida gira e às vezes o motor liga, com castanhado forte;</li>
-      <li>Motor sem potência;</li>
-      <li>Partidas muito longas.</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Possíveis causas</h4>
-    <ul>
-      <li>Bico injetor travado aberto;</li>
-      <li>Válvula MPROP travada aberta (medir tensão no sensor do Rail).</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Possíveis soluções</h4>
-    <ul>
-      <li>Sacar os bicos injetores e realizar a limpeza.</li>
-    </ul>
-  </div>
-</div>
-
-<h3 id="limpeza-bico">Limpeza do bico injetor</h3>
-<p>É preciso limpar também o tubo Rail e as tubulações de ligação (veja em <a href="#alimentacao-de-combustivel/tubo-rail">Tubo Rail</a>).</p>
-
-<!-- IMAGEM: Bico sujo e pino -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/06-limpeza-1.jpg" alt="Bico injetor sujo e o pino de controle" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<div class="dica">
-  <strong>Dica de Desmontagem e Limpeza</strong>
-  <ul>
-    <li>Para <b>retirar</b> o pino do bico, bata no pino do lado da rosca do bico injetor.</li>
-    <li>Para <b>montar</b>, bata no pino do lado da rosca do tubo do Rail.</li>
-  </ul>
-</div>
-
-<!-- IMAGEM: Retirar e Montar o pino (Lado da rosca) -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/07-limpeza-2.jpg" alt="Demonstração de como retirar e montar o pino do bico injetor" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<p>Faça o teste de retorno do bico: ele verifica a estanqueidade do reparo da caneta do bico e o assentamento da esfera de controle de retorno.</p>
-<p>Usando spray no primeiro furo do bico (furo maior), realize o teste de retorno: injete spray e, nesse caso, <b>não pode sair líquido pelo retorno</b>.</p>
-
-<!-- IMAGEM: Teste de retorno com spray no furo maior -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/08-teste-retorno-spray.jpg" alt="Teste de retorno com spray injetado no furo maior do bico" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<p>Teste usando desengripante em spray para verificar a pulverização da ponteira.</p>
-
-<!-- IMAGEM: Teste da ponteira com desengripante -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/09-teste-ponteira.jpg" alt="Teste da ponteira do bico com desengripante em spray" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<!-- IMAGEM: Componentes internos do bico (Reparo da caneta e esfera) -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/10-reparo-1.jpg" alt="Componentes internos do bico injetor: reparo da caneta e esfera de controle" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<!-- IMAGEM: Teste de estanqueidade com desengripante no reparo -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/11-reparo-2.jpg" alt="Teste de estanqueidade do reparo do bico com spray" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<h3>Montagem no motor</h3>
-<ul>
-  <li>Use o O-ring de vedação no bico para não enferrujar o injetor;</li>
-  <li>Recomenda-se trocar a arruela de cobre sempre que desmontar;</li>
-  <li>Verifique a <a href="#" data-goto="tabela-aperto">tabela de aperto</a> para não danificar a rosca do cabeçote.</li>
-</ul>
-
-<!-- IMAGEM: Bico pronto para montar (com O-ring e arruela) -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/12-montagem-1.jpg" alt="Bico injetor com O-ring e arruela de cobre pronto para montagem" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<!-- IMAGEM: Bico sendo montado no cabeçote -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/13-montagem-2.jpg" alt="Bico injetor sendo instalado no cabeçote do motor" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<h2 id="teste-retorno">Teste de retorno dos injetores</h2>
-<ul>
-  <li>Use mangueiras transparentes e frascos para coleta do retorno individual;</li>
-  <li>Com o motor em marcha lenta por 1 minuto, os volumes devem ser quase iguais entre os injetores;</li>
-  <li>Um injetor com alto volume de retorno indica desgaste interno e compromete a manutenção da pressão do Rail.</li>
-</ul>
-
-<!-- IMAGEM: Teste de retorno com mangueiras transparentes -->
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/bicos-injetores/14-teste-retorno-mangueiras.jpg" alt="Teste de retorno dos injetores usando mangueiras transparentes e frascos" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<h3 id="medidas-referencia">Medidas de referência</h3>
-<div class="specs">
-  <div class="spec"><b>12,4 mm</b><span>Fundo da bobina sem calço</span></div>
-  <div class="spec"><b>10,7 mm</b><span>Fundo da bobina com calço de 1,7 mm</span></div>
-  <div class="spec"><b>17,8 mm</b><span>Ponta sem calço</span></div>
+  </div></div>
 </div>
