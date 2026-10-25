@@ -236,6 +236,10 @@ function ativarAba(bar, panels, i) {
   panels.forEach((p, j) => p.classList.toggle('on', j === i));
 }
 
+// true = cada título h2 vira uma aba (e o índice "Neste artigo" some)
+// false = mantém o índice "Neste artigo" com sub-itens e a página rola normalmente
+const USAR_ABAS = false;
+
 function melhorarArtigo() {
   // o artigo já traz o próprio título
   if (card.querySelector('.art-head')) card.querySelector(':scope > h1')?.remove();
@@ -287,7 +291,7 @@ function melhorarArtigo() {
 
   // cada título h2 vira uma aba
   const h2s = [...card.querySelectorAll(':scope > h2')];
-  if (h2s.length >= 3) {
+  if (USAR_ABAS && h2s.length >= 3) {
     const bar = document.createElement('div');
     bar.className = 'art-tabs';
     bar.setAttribute('role', 'tablist');
