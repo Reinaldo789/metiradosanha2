@@ -50,7 +50,7 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
 </div>
 
 <h3 id="teste-multimetro">Testes com multímetro</h3>
-<p>Tensão no pino 02 (sinal), por condição do motor (MWM 2.8):</p>
+<p>Tensão no pino 02 (sinal), por condição do motor:</p>
 
 <style>
   .grafico-barras-v {
@@ -65,9 +65,9 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
     margin: 20px 0;
     font-family: Arial, sans-serif;
     box-sizing: border-box;
-    /* Linhas de fundo divididas em 4 blocos para guiar a leitura do sinal (0.9V, 1.8V, 2.7V, 3.6V) */
+    /* Linhas de fundo para facilitar a leitura */
     background-image: linear-gradient(to top, #e9ecef 1px, transparent 1px);
-    background-size: 100% 25%;
+    background-size: 100% 20%; /* Divide em 5 blocos (0, 1.2, 2.4, 3.6, 4.8) */
   }
 
   .coluna-barra {
@@ -92,7 +92,6 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
     font-size: 13px;
     box-sizing: border-box;
     position: relative;
-    transition: height 0.5s ease-in-out;
   }
 
   .rotulo-condicao {
@@ -120,11 +119,11 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
 </style>
 
 <div class="grafico-barras-v">
-  <!-- Escala base corrigida: Tensão máxima nominal de 3,6V = 100% de altura -->
+  <!-- Escala base: 4,5V = 100% de altura -->
   
   <div class="coluna-barra">
-    <!-- (0.5 / 3.6) * 100 = 13.8% -->
-    <div class="barra" style="height: 13.8%;">0,5V</div>
+    <!-- (0.5 / 4.5) * 100 = 11.1% -->
+    <div class="barra" style="height: 11.1%;">0,5V</div>
     <div class="rotulo-condicao">
       Chave ligada<br>
       <span class="rotulo-pressao">(~0 bar)</span>
@@ -132,42 +131,42 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
   </div>
 
   <div class="coluna-barra">
-    <!-- (1.1 / 3.6) * 100 = 30.5% -->
-    <div class="barra" style="height: 30.5%;">1,1V</div>
+    <!-- (1.2 / 4.5) * 100 = 26.7% -->
+    <div class="barra" style="height: 26.7%;">1,2V</div>
     <div class="rotulo-condicao">
       Partida<br>
-      <span class="rotulo-pressao">(~300 bar)</span>
+      <span class="rotulo-pressao">(250-350 bar)</span>
     </div>
   </div>
 
   <div class="coluna-barra">
-    <!-- (1.3 / 3.6) * 100 = 36.1% -->
-    <div class="barra" style="height: 36.1%;">1,3V</div>
+    <!-- (1.3 / 4.5) * 100 = 28.9% -->
+    <div class="barra" style="height: 28.9%;">1,3V</div>
     <div class="rotulo-condicao">
       Marcha lenta<br>
-      <span class="rotulo-pressao">(350 bar)</span>
+      <span class="rotulo-pressao">(300-400 bar)</span>
     </div>
   </div>
 
   <div class="coluna-barra">
-    <!-- (2.3 / 3.6) * 100 = 63.8% -->
-    <div class="barra" style="height: 63.8%;">2,3V</div>
+    <!-- (3.0 / 4.5) * 100 = 66.7% -->
+    <div class="barra" style="height: 66.7%;">3,0V</div>
     <div class="rotulo-condicao">
-      Torque máx.<br>
-      <span class="rotulo-pressao">(~850 bar)</span>
+      Acel. média<br>
+      <span class="rotulo-pressao">(~1000 bar)</span>
     </div>
   </div>
 
   <div class="coluna-barra">
-    <!-- (3.6 / 3.6) * 100 = 100% -->
-    <div class="barra" style="height: 100%;">3,6V</div>
+    <!-- (4.5 / 4.5) * 100 = 100% -->
+    <div class="barra" style="height: 100%;">4,5V</div>
     <div class="rotulo-condicao">
-      Potência máx.<br>
-      <span class="rotulo-pressao">(1350 bar)</span>
+      Acel. alta<br>
+      <span class="rotulo-pressao">(~1600 bar)</span>
     </div>
   </div>
+
 </div>
-
 
 <ul>
   <li>Teste a alimentação de 5 V entre os pinos 1 e 3, de preferência com o chicote conectado ao sensor;</li>
