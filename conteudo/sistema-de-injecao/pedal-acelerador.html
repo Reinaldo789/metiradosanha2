@@ -1,55 +1,280 @@
-<header class="art-head">
-  <span class="art-kicker">Diagnóstico · Atuadores</span>
-  <h1>Pedal do Acelerador</h1>
-  <p class="art-lead">Posição do pedal, lida por dois sinais (acelerador 1 e 2).</p>
-  <div class="chips"><span>MWM Sprint 4.07 TCE</span><span>4 códigos</span><span>Manual de Diagnóstico V-3.4</span></div>
-</header>
-<nav class="toc" aria-label="Neste artigo">
-  <strong>Neste artigo</strong>
-  <ul>
-    <li><a href="#" data-goto="cod">Códigos de falha</a></li>
-    <li><a href="#" data-goto="roteiro">Roteiros de diagnóstico</a></li>
-    <li><a href="#" data-goto="cuidados">Antes de testar</a></li>
-  </ul>
-</nav>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensor de Posição do Pedal do Acelerador - MWM 2.8</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1a365d;
+            font-size: 26px;
+            border-bottom: 3px solid #2b6cb0;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #2b6cb0;
+            font-size: 20px;
+            margin-top: 30px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #2d3748;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        p, ul, ol {
+            color: #4a5568;
+            font-size: 15px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .alerta {
+            background-color: #fffaf0;
+            border-left: 4px solid #dd6b20;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .alerta-titulo {
+            font-weight: bold;
+            color: #dd6b20;
+            margin-bottom: 5px;
+        }
+        /* Gráfico de Barras CSS */
+        .grafico-wrapper {
+            margin: 30px 0;
+            background: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .grafico-titulo {
+            text-align: center;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .grafico-barras-v {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 300px;
+            background-image: linear-gradient(to top, #e9ecef 1px, transparent 1px);
+            background-size: 100% 20%;
+            padding-top: 20px;
+            position: relative;
+        }
+        .coluna-barra {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            width: 22%;
+            height: 100%;
+        }
+        .duas-barras {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 4px;
+            width: 100%;
+            height: 85%;
+        }
+        .barra-s1 {
+            width: 40%;
+            background: linear-gradient(to top, #2b6cb0, #4299e1);
+            border-radius: 4px 4px 0 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 5px;
+            color: white;
+            font-weight: bold;
+            font-size: 11px;
+            box-sizing: border-box;
+        }
+        .barra-s2 {
+            width: 40%;
+            background: linear-gradient(to top, #c53030, #f56565);
+            border-radius: 4px 4px 0 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 5px;
+            color: white;
+            font-weight: bold;
+            font-size: 11px;
+            box-sizing: border-box;
+        }
+        .rotulo-condicao {
+            font-size: 12px;
+            color: #333;
+            text-align: center;
+            margin-top: 10px;
+            height: 40px;
+            font-weight: 500;
+        }
+        .legenda-grafico {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+            font-size: 12px;
+        }
+        .legenda-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .quadrado-s1 { width: 12px; height: 12px; background: #4299e1; border-radius: 2px; }
+        .quadrado-s2 { width: 12px; height: 12px; background: #f56565; border-radius: 2px; }
 
-<p>Escolha uma seção no índice: os códigos de falha deste componente, os roteiros de diagnóstico do manual ou os cuidados antes de testar.</p><div class="dica"><strong>Fluxograma interativo</strong><p>Para o motor que não responde ao acelerador, use o roteiro <a href="#sistema-de-injecao/motor-nao-acelera">Motor Não Acelera</a>.</p></div>
+        /* Tabelas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+        }
+        th {
+            background-color: #2b6cb0;
+            color: white;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f7fafc;
+        }
+        .codigo-falha {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            color: #c53030;
+            background: #fff5f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #fed7d7;
+        }
+    </style>
+</head>
+<body>
 
-<h2 id="cod">Códigos de falha</h2>
-<div class="codigos">
-  <div class="codigo"><span class="num">P0121</span><div>
-    <h4>Sensor do Pedal do Acelerador</h4>
-    <p><strong>Causa:</strong> Não plausibilidade entre os sinais do acelerador 1, com o acelerador 2, ou o sinal foi interrompido</p>
-    <p>Foi detectada uma variação de tensão no potenciômetro do pedal do acelerador ou o sinal foi interrompido. Essa tensão é comparada entre os dois potenciômetros e, caso a diferença entre ambos esteja maior que 415mV, a falha será novamente reconhecida.</p>
-    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada O ECM reconhece a falha e o pedal do acelerador perde a funcionalidade e vai para 0%. A marcha-lenta é aumentada, limitada a uma rotação de 1500 rpm, não inibindo torque e débito. Este sinal é utilizado pelo ECM para validar a marcha-lenta e variar rpm de acordo com a solicitação do condutor.</p>
-  </div></div>
-  <div class="codigo"><span class="num">P0123</span><div>
-    <h4>Sensor do Pedal do Acelerador 1</h4>
-    <p><strong>Causa:</strong> Sinal de tensão elevada no acelerador 1</p>
-    <p>Foi detectado um sinal de tensão elevada no sensor de pedal do acelerador 1. Possivelmente a resistência do sensor esteja alterada ou haja um curto-circuito ao positivo.</p>
-    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada O ECM reconhece a falha e o pedal do acelerador perde a funcionalidade e vai para 0%. A marcha-lenta é aumentada, limitada a uma rotação de 1500 rpm, não inibindo torque e débito. Este sinal é utilizado pelo ECM para validar a marcha-lenta e variar rpm de acordo com a solicitação do condutor.</p>
-  </div></div>
-  <div class="codigo"><span class="num">P0221</span><div>
-    <h4>Sensor do Pedal do Acelerador</h4>
-    <p><strong>Causa:</strong> Não plausibilidade entre os sinais do acelerador 2, com o acelerador 1</p>
-    <p>Foi detectada uma variação de tensão no potenciômetro do pedal do acelerador ou o sinal foi interrompido. Essa tensão é comparada entre os dois potenciômetros e, caso a diferença entre ambos esteja maior que 415mV, a falha será novamente reconhecida.</p>
-    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada O ECM reconhece a falha e o pedal do acelerador perde a funcionalidade e vai para 0%. A marcha-lenta é aumentada, limitada a uma rotação de 1500 rpm, não inibindo torque e débito. Este sinal é utilizado pelo ECM para validar a marcha-lenta e variar rpm de acordo com a solicitação do condutor.</p>
-  </div></div>
-  <div class="codigo"><span class="num">P0223</span><div>
-    <h4>Sensor do Pedal do Acelerador 2</h4>
-    <p><strong>Causa:</strong> Sinal de tensão alta no acelerador 2</p>
-    <p>Foi detectado um sinal de tensão elevada no sensor de pedal do acelerador 2. Possivelmente a resistência do sensor esteja alterada ou há um curto-circuito ao positivo.</p>
-    <p><strong>Reação do ECM:</strong> Luz amarela de advertência é acionada O ECM reconhece a falha e o pedal do acelerador perde a funcionalidade e vai para 0%. A marcha-lenta é aumentada, limitada a uma rotação de 1500 rpm, não inibindo torque e débito. Este sinal é utilizado pelo ECM para validar a marcha-lenta e variar rpm de acordo com a solicitação do condutor.</p>
-  </div></div>
-</div>
+<div class="container">
+    <h1>Sensor de Posição do Pedal do Acelerador (GPA) - MWM 2.8</h1>
 
-<h2 id="roteiro">Roteiros de diagnóstico</h2>
-<p>Fluxogramas do manual para cada código. Toque na imagem para ampliar.</p>
-<figure><img src="img/diagnostico/p64.jpg" alt="Roteiro P0121" loading="lazy"><figcaption>Roteiro P0121</figcaption></figure>
-<figure><img src="img/diagnostico/p66.jpg" alt="Roteiro P0123" loading="lazy"><figcaption>Roteiro P0123</figcaption></figure>
-<figure><img src="img/diagnostico/p80.jpg" alt="Roteiro P0221" loading="lazy"><figcaption>Roteiro P0221</figcaption></figure>
-<figure><img src="img/diagnostico/p82.jpg" alt="Roteiro P0223" loading="lazy"><figcaption>Roteiro P0223</figcaption></figure>
+    <h2>Localização</h2>
+    <p>O sensor está acoplado diretamente ao mecanismo do pedal do acelerador, localizado no interior da cabine do veículo, acima do assoalho do motorista.</p>
 
-<h2 id="cuidados">Antes de testar</h2>
-<ol><li>Use pontas de prova apropriadas e desconecte o sensor ou o atuador antes de medir;</li><li>Confronte os terminais com o esquema do chicote e procure corrosão, umidade e terminais danificados;</li><li>Confira a fixação dos conectores e se não há curto com partes metálicas;</li><li>Verifique a bateria, os bornes, o cabo B+ e o regulador do alternador: tensão ruim gera falhas em vários componentes.</li></ol>
-<p>Mais detalhes em <a href="#sistema-de-injecao/sensores-e-atuadores">Sensores e Atuadores</a>.</p>
+    <h2>Como funciona</h2>
+    <ul>
+        <li><strong>Redundância de Segurança:</strong> O sensor possui dois potenciômetros internos independentes (Sensor 1 e Sensor 2) montados na mesma carcaça.</li>
+        <li><strong>Estratégia do Sinal (Razão 2:1):</strong> O Sensor 1 opera enviando exatamente o <strong>dobro da tensão</strong> do Sensor 2. Por exemplo, em marcha lenta, o Sensor 1 envia ~0,7V e o Sensor 2 envia ~0,35V.</li>
+        <li><strong>Monitoramento da ECM:</strong> A central eletrônica compara os dois sinais continuamente. Se a proporção matemática de segurança entre os dois divergir, a ECU ignora o sinal para evitar acelerações involuntárias.</li>
+        <li><strong>Modo de Segurança (Limp Home):</strong> Caso um dos sensores falhe, a ECM acende a luz de injeção no painel e limita o giro do motor a uma rotação fixa de segurança (geralmente entre 1200 RPM e 1500 RPM) para que o motorista consiga remover o veículo da via, mas sem torque de aceleração livre.</li>
+    </ul>
+
+    <h2>Testes com Multímetro</h2>
+    <p>Abaixo está o mapeamento de leitura de sinal nos pinos de retorno para a central eletrônica de acordo com a posição física do pedal:</p>
+
+    <div class="grafico-wrapper">
+        <div class="grafico-titulo">Curva de Resposta de Tensão: Sensor 1 (Pino 4) vs. Sensor 2 (Pino 3)</div>
+        <div class="grafico-barras-v">
+            <!-- Escala base: 5V = 100% de altura máxima -->
+            
+            <div class="coluna-barra">
+                <div class="duas-barras">
+                    <!-- (0.7 / 5.0) * 100 = 14% -->
+                    <div class="barra-s1" style="height: 14%;">0.7V</div>
+                    <!-- (0.35 / 5.0) * 100 = 7% -->
+                    <div class="barra-s2" style="height: 7%;">0.35V</div>
+                </div>
+                <div class="rotulo-condicao">Pedal em Repouso<br>(Marcha Lenta)</div>
+            </div>
+
+            <div class="coluna-barra">
+                <div class="duas-barras">
+                    <!-- (2.0 / 5.0) * 100 = 40% -->
+                    <div class="barra-s1" style="height: 40%;">2.0V</div>
+                    <!-- (1.0 / 5.0) * 100 = 20% -->
+                    <div class="barra-s2" style="height: 20%;">1.0V</div>
+                </div>
+                <div class="rotulo-condicao">Pedal a Meio Curso<br>(Acel. Média)</div>
+            </div>
+
+            <div class="coluna-barra">
+                <div class="duas-barras">
+                    <!-- (4.0 / 5.0) * 100 = 80% -->
+                    <div class="barra-s1" style="height: 80%;">4.0V</div>
+                    <!-- (2.0 / 5.0) * 100 = 40% -->
+                    <div class="barra-s2" style="height: 40%;">2.0V</div>
+                </div>
+                <div class="rotulo-condicao">Pedal Fundo<br>(Plena Carga)</div>
+            </div>
+        </div>
+        
+        <div class="legenda-grafico">
+            <div class="legenda-item"><span class="quadrado-s1"></span> Sensor 1 (Pino 4)</div>
+            <div class="legenda-item"><span class="quadrado-s2"></span> Sensor 2 (Pino 3)</div>
+        </div>
+    </div>
+
+    <h3>Mapeamento e Pinagem do Conector do Pedal</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Pino</th>
+                <th>Função do Circuito</th>
+                <th>Valor de Referência (Multímetro)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Pino 01</strong></td>
+                <td>Alimentação (+5V) - Sensor 1</td>
+                <td>5,0 V constantes (Chave ligada)</td>
+            </tr>
+            <tr>
+                <td><strong>Pino 02</strong></td>
+                <td>Alimentação (+5V) - Sensor 2</td>
+                <td>5,0 V constantes (Chave ligada)</td>
+            </tr>
+            <tr>
+                <td><strong>Pino 03</strong></td>
+                <td>Sinal de Retorno - Sensor 2</td>
+                <td>0,35 V (Livre) a 2,0 V (Pressionado ao máximo)</td>
+            </tr>
+            <tr>
+                <td><strong>Pino 04</strong></td>
+                <td>Sinal de Retorno - Sensor 1</td>
+                <td>0,70 V (Livre) a 4,0 V (Pressionado ao máximo)</td>
+            </tr>
+            <tr>
+                <td><strong>Pino 05</strong></td>
+                <td>Aterramento (Massa) - Sensor 2</td>
+                <td>&lt; 0,1 V (Continuidade com o negativo da bateria)</td>
+            </tr>
+            <tr>
+                <td><strong>Pino 06</strong></td>
