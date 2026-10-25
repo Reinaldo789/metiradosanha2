@@ -964,3 +964,97 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
   .page-card th, .page-card td { padding: 0.5rem 0.55rem; font-size: 0.88rem; line-height: 1.4; overflow-wrap: break-word; vertical-align: top; }
   .page-card th { font-size: 0.8rem; }
 }
+
+/* ==========================================
+   19. ÍNDICE DO ARTIGO COM SUBCATEGORIAS (NOVO)
+   ========================================== */
+.indice-artigo {
+  background-color: #f4f6fb; /* Fundo azul bem claro */
+  border-radius: 16px;       /* Bordas arredondadas */
+  padding: 1.5rem 1.8rem;
+  margin: 1.5rem 0 2rem 0;
+  border: 1px solid #e2e8f0;
+}
+
+.indice-artigo strong {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 1rem;
+}
+
+/* Lista principal */
+.indice-artigo ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Itens principais */
+.indice-artigo > ul > li {
+  margin-bottom: 0.8rem;
+  position: relative;
+}
+
+/* Bolinha roxa dos itens principais */
+.indice-artigo > ul > li::before {
+  content: '•';
+  position: absolute;
+  left: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #4f46e5; /* var(--primary) */
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+/* Links */
+.indice-artigo a {
+  text-decoration: none;
+  color: #475569;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.indice-artigo a:hover {
+  color: #4f46e5;
+  text-decoration: underline;
+}
+
+/* ==========================================
+   SUBCATEGORIAS DO ÍNDICE
+   ========================================== */
+.sub-indice {
+  margin-top: 0.6rem !important;
+  padding-left: 1.2rem !important;
+  border-left: 2px solid #cbd5e1; /* Linha guia lateral */
+}
+
+.sub-indice li {
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+/* Remove a bolinha grande das subcategorias */
+.indice-artigo .sub-indice > li::before {
+  display: none; 
+}
+
+/* Adiciona uma bolinha menor para as subcategorias */
+.indice-artigo .sub-indice > li::after {
+  content: '';
+  position: absolute;
+  left: -1.35rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  background-color: #94a3b8;
+  border-radius: 50%;
+}
+
+.sub-indice a {
+  font-size: 0.88rem;
+  color: #64748b;
+}
