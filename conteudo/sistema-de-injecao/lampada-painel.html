@@ -1,6 +1,6 @@
-<!-- Sensor de Rotação (CKP). Imagens: salve em conteudo/imagens/sensor-ckp/ -->
+<!-- Sensor de Fase (CMP). Imagens: salve em conteudo/imagens/sensor-cmp/ -->
 <header class="art-head">
-  <h1>Sensor de Rotação (CKP)</h1>
+  <h1>Sensor de Fase (CMP) – Comando de 1 Dente</h1>
 </header>
 
 <nav class="toc" aria-label="Neste artigo">
@@ -8,89 +8,74 @@
   <ul>
     <li><a href="#" data-goto="localizacao">Localização</a></li>
     <li><a href="#" data-goto="funcionamento">Funcionamento</a></li>
+    
     <li><a href="#" data-goto="parte-eletrica">Parte elétrica e testes</a>
       <ul>
-        <li><a href="#" data-goto="teste-resistencia">Teste de resistência (motor desligado)</a></li>
+        <li><a href="#" data-goto="teste-alimentacao">Pino 1: Alimentação (5V)</a></li>
+        <li><a href="#" data-goto="teste-sinal">Pino 2: Sinal de Retorno</a></li>
+        <li><a href="#" data-goto="teste-terra">Pino 3: Aterramento</a></li>
       </ul>
     </li>
-    <li><a href="#" data-goto="testes-ac">Testes em corrente alternada</a>
-      <ul>
-        <li><a href="#" data-goto="limitacao-multimetro">Limitação do Multímetro e Proteção da ECU</a></li>
-        <li><a href="#" data-goto="diagnostico-chicote">Diagnóstico de chicote vs. componente</a></li>
-      </ul>
-    </li>
-    <li><a href="#" data-goto="problemas-comuns">Problemas comuns</a>
-      <ul>
-        <li><a href="#" data-goto="motor-gira-mas-nao-pega">Motor gira mas não pega</a></li>
-        <li><a href="#" data-goto="motor-apaga-quando-aquece">Motor apaga quando aquece</a></li>
-      </ul>
-    </li>
+    
+    <li><a href="#" data-goto="problemas-comuns">Sintomas Práticos de Falha</a></li>
     <li><a href="#" data-goto="codigos-de-falha">Códigos de falha</a></li>
   </ul>
 </nav>
 
+<!-- ==========================================
+     CONTEÚDO DO ARTIGO
+     ========================================== -->
+
 <h2 id="localizacao">Localização</h2>
+<p>Fica na parte superior do motor, fixado na tampa de válvulas / cabeçote, logo acima do comando de válvulas. Trabalha em par com o sensor de rotação para sincronizar o motor.</p>
+
+<!-- IMAGEM: Localização do sensor de fase -->
 <figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-ckp/01-localizacao.jpg" alt="Localização do sensor de rotação CKP" loading="lazy">
+  <img src="conteudo/imagens/sensor-cmp/01-localizacao.jpg" alt="Localização do sensor de fase no cabeçote" loading="lazy">
   <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
 </figure>
-<p>Fica no bloco do motor, na parte traseira inferior esquerda (lado do motorista), posicionado em frente à roda fônica integrada ao volante do motor. É o sensor mais crítico do sistema — sem ele a ECM não reconhece que o motor está girando e bloqueia tudo.</p>
 
-<h2 id="funcionamento">Funcionamento</h2>
-<ul>
-  <li>Sensor <b>magnético indutivo</b> — funciona como um mini gerador;</li>
-  <li>Não recebe alimentação da ECM: gera sua própria energia;</li>
-  <li>Possui ímã permanente + bobina de fios de cobre;</li>
-  <li>Ao passar pelos dentes da roda fônica (60-2), o campo magnético varia e induz uma corrente alternada;</li>
-  <li>A falha de dois dentes na roda serve como <b>ponto de referência</b> do pistão;</li>
-  <li>Frequência e amplitude aumentam proporcionalmente à rotação.</li>
-</ul>
+<h2 id="funcionamento">Funcionamento (Comando de 1 Dente)</h2>
+<p>O sensor de fase (CMP) do motor MWM 2.8 Eletrônico utiliza a tecnologia de <b>Efeito Hall</b> e opera como um sensor digital ativo com alimentação estabilizada em <b>5,0 Volts</b>.</p>
+<p>A característica técnica crucial deste motor é que o comando de válvulas possui <b>apenas 1 único dente (ou ressalto) de referência</b> por volta completa. Isso significa que o sensor passa a maior parte do tempo lendo o "vazio" (0V) e apenas uma fração mínima de tempo lendo o dente (5V).</p>
+
+<!-- IMAGEM: Detalhe do dente único no comando -->
 <figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-ckp/02-funcionamento.jpg" alt="Funcionamento do sensor indutivo" loading="lazy">
+  <img src="conteudo/imagens/sensor-cmp/02-funcionamento.jpg" alt="Detalhe do dente único no comando de válvulas" loading="lazy">
   <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
 </figure>
-<p>O sinal chega à ECM em forma de <b>onda senoidal</b> (V AC). Esse é o único sensor do motor que o mecânico <b>precisa obrigatoriamente</b> mudar o multímetro para a escala de alternada (V AC) para ler o sinal real.</p>
 
-<h2 id="parte-eletrica">Parte elétrica e testes</h2>
-<p>O conector tem 3 fios:</p>
-<ul>
-  <li><b>Pino 1:</b> Sinal (+) enviado à ECM;</li>
-  <li><b>Pino 2:</b> Sinal (-) de retorno/referência;</li>
-  <li><b>Pino 3:</b> Blindagem de aterramento (massa, contra interferências do alternador e motor de partida).</li>
-</ul>
+<h2 id="parte-eletrica">Parte Elétrica e Testes (V CC)</h2>
+<p>Para testar este componente, o multímetro deve ser configurado na escala de <b>Tensão Contínua (V CC ou VDC)</b>. O teste é realizado por trás do conector (backprobing) utilizando o polo negativo da bateria como referência de aterramento para a ponta preta.</p>
 
-<h3 id="teste-resistencia">Teste de resistência (motor desligado)</h3>
-<ul>
-  <li>Tomada <b>DESCONECTADA</b> e chave desligada;</li>
-  <li>Multímetro na escala de Resistência <b>Ω em 2k</b>;</li>
-  <li>Meça entre os <b>pinos 1 e 2 do próprio sensor</b>.</li>
-</ul>
+<h3 id="teste-alimentacao">Pino 1 – Alimentação (+5,0V)</h3>
+<p>Com a chave ligada ou o motor em funcionamento, este pino deve registrar uma tensão contínua constante de <b>5,0 Volts</b> (com tolerância de 4,8V a 5,2V) enviada pela ECU Bosch EDC16C8. O valor deve ser totalmente estável e linear em qualquer regime de rotação.</p>
+
+<h3 id="teste-sinal">Pino 2 – Sinal de Retorno (Chaveamento Digital)</h3>
+<p>Este pino transmite o sinal de sincronismo digital para a central. Por causa da configuração mecânica de apenas 1 dente no comando, e devido à taxa de amostragem do multímetro convencional ao calcular a média desse pulso único, <b>a tensão lida é inversamente proporcional à velocidade do motor</b>.</p>
 
 <div class="specs">
-  <div class="spec"><b>860 Ω a 1.060 Ω</b><span>Frio (20°C)</span></div>
-  <div class="spec"><b>1.100 Ω a 1.250 Ω</b><span>Quente (80°C)</span></div>
+  <div class="spec"><b>2,0 V a 3,5 V</b><span>Fase de Arranque / Marcha Lenta (~800 RPM)</span></div>
+  <div class="spec"><b>0,2 V a 0,8 V</b><span>Alta Rotação (~3000 RPM)</span></div>
 </div>
 
-<!-- GRÁFICO: Resistência vs Temperatura -->
+<!-- GRÁFICO: Tensão Média vs Rotação (Inversamente Proporcional) -->
 <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif; overflow-x: auto;">
   <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
     <div style="display: flex; align-items: center; gap: 8px;">
-      <div style="width: 16px; height: 4px; background: #3B82F6; border-radius: 2px;"></div>
-      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Resistência Nominal (Ω)</span>
-    </div>
-    <div style="display: flex; align-items: center; gap: 8px;">
-      <div style="width: 16px; height: 12px; background: rgba(59, 130, 246, 0.2); border-radius: 2px;"></div>
-      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Faixa Tolerada (Mín. / Máx.)</span>
+      <div style="width: 16px; height: 4px; background: #8B5CF6; border-radius: 2px;"></div>
+      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Tensão Média Lida no Multímetro (V CC)</span>
     </div>
   </div>
 
   <svg viewBox="0 0 700 350" style="width: 100%; height: auto; min-width: 550px;">
     <defs>
-      <filter id="shadow-res" x="-10%" y="-10%" width="120%" height="120%">
+      <filter id="shadow-cmp" x="-10%" y="-10%" width="120%" height="120%">
         <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.1"/>
       </filter>
     </defs>
 
+    <!-- Grid Horizontal -->
     <g stroke="#f1f5f9" stroke-width="1">
       <line x1="80" y1="50" x2="620" y2="50" />
       <line x1="80" y1="100" x2="620" y2="100" />
@@ -100,237 +85,97 @@
       <line x1="80" y1="300" x2="620" y2="300" />
     </g>
 
+    <!-- Eixos -->
     <line x1="80" y1="300" x2="620" y2="300" stroke="#cbd5e1" stroke-width="2" />
     <line x1="80" y1="50" x2="80" y2="300" stroke="#cbd5e1" stroke-width="2" />
 
+    <!-- Valores Eixo Y (Tensão) -->
     <g fill="#64748b" font-size="12" font-weight="600" text-anchor="end">
-      <text x="70" y="54">1300 Ω</text>
-      <text x="70" y="104">1200 Ω</text>
-      <text x="70" y="154">1100 Ω</text>
-      <text x="70" y="204">1000 Ω</text>
-      <text x="70" y="254">900 Ω</text>
-      <text x="70" y="304">800 Ω</text>
+      <text x="70" y="54">5,0 V</text>
+      <text x="70" y="104">4,0 V</text>
+      <text x="70" y="154">3,0 V</text>
+      <text x="70" y="204">2,0 V</text>
+      <text x="70" y="254">1,0 V</text>
+      <text x="70" y="304">0 V</text>
     </g>
 
+    <!-- Valores Eixo X (Rotação) -->
     <g fill="#64748b" font-size="12" font-weight="600" text-anchor="middle">
-      <text x="200" y="325">20°C (Frio)</text>
-      <text x="500" y="325">80°C (Quente)</text>
+      <text x="200" y="325">Marcha Lenta</text>
+      <text x="200" y="340" font-size="10" fill="#94a3b8">(~800 RPM)</text>
+      
+      <text x="500" y="325">Alta Rotação</text>
+      <text x="500" y="340" font-size="10" fill="#94a3b8">(~3000 RPM)</text>
     </g>
 
+    <!-- Linhas Verticais de Grade -->
     <g stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4">
       <line x1="200" y1="50" x2="200" y2="300" />
       <line x1="500" y1="50" x2="500" y2="300" />
     </g>
 
-    <polygon points="200,177 200,167 500,121 500,103" fill="rgba(59, 130, 246, 0.15)" />
-
-    <polyline points="200,172 500,112" fill="none" stroke="#3B82F6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#shadow-res)"/>
-
-    <circle cx="200" cy="172" r="6" fill="#ffffff" stroke="#3B82F6" stroke-width="3" />
-    <circle cx="500" cy="112" r="6" fill="#ffffff" stroke="#3B82F6" stroke-width="3" />
+    <!-- Faixa de Tolerância (Idle: 2.0 a 3.5V) -->
+    <rect x="180" y="154" width="40" height="50" fill="rgba(139, 92, 246, 0.15)" />
     
+    <!-- Faixa de Tolerância (Alta: 0.2 a 0.8V) -->
+    <rect x="480" y="274" width="40" height="20" fill="rgba(139, 92, 246, 0.15)" />
+
+    <!-- Linha de Tendência Inversa -->
+    <!-- Idle (Média de 2.75V) = y=200 -->
+    <!-- Alta (Média de 0.5V) = y=285 -->
+    <polyline points="200,200 500,285" fill="none" stroke="#8B5CF6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#shadow-cmp)"/>
+
+    <!-- Pontos Interativos -->
+    <circle cx="200" cy="200" r="6" fill="#ffffff" stroke="#8B5CF6" stroke-width="3" />
+    <circle cx="500" cy="285" r="6" fill="#ffffff" stroke="#8B5CF6" stroke-width="3" />
+    
+    <!-- Etiquetas -->
     <g font-size="12" font-weight="700" fill="#1e293b">
-      <text x="200" y="160" text-anchor="middle">~960 Ω</text>
-      <text x="500" y="100" text-anchor="middle">~1175 Ω</text>
+      <text x="200" y="188" text-anchor="middle">~2.75 V</text>
+      <text x="500" y="273" text-anchor="middle">~0.5 V</text>
     </g>
   </svg>
+</div>
+
+<div class="dica">
+  <strong>Por que a tensão cai?</strong>
+  <p>Em alta rotação, o pulso gerado pela passagem desse único dente fica tão rápido e curto que o multímetro não consegue processar o pico de 5V. O aparelho calcula a média ponderada do tempo e puxa a leitura física do visor para baixo, bem perto de 0V.</p>
 </div>
 
 <div class="aviso">
   <strong>Atenção</strong>
-  <p>Se a resistência passar de 1.300 Ω ou der circuito aberto (OL) com o motor quente, o motor apaga sozinho e só volta a pegar quando esfriar. É o defeito térmico clássico.</p>
+  <p>Se a tensão média travar fixa em 0V ou fixa na tensão máxima de alimentação (5V) sem oscilar nada durante a partida ou aceleração, o sensor queimou ou o comando de válvulas está desalinhado fisicamente.</p>
 </div>
 
-<h2 id="testes-ac">Testes em corrente alternada (V AC)</h2>
-<p>O sensor de rotação indutivo do motor MWM 2.8 atua como um gerador elétrico de baixa potência. Embora a voltagem suba conforme a rotação aumenta, o sinal é controlado para não saturar e danificar os drivers internos de entrada da ECU Bosch EDC16C8.</p>
-<p>Com o multímetro configurado na escala de <b>Tensão Alternada (V AC ou V~)</b>, inserindo duas agulhas por trás do conector (backprobing) nos Pinos 1 e 2, os valores físicos reais de trabalho são:</p>
+<h3 id="teste-terra">Pino 3 – Aterramento (Massa dos Sensores)</h3>
+<p>Este pino fornece o terra eletrônico isolado vindo do módulo de injeção. Ao medir contra o polo negativo da bateria, o valor deve registrar no máximo <b>0,1 Volt</b>. Valores acima disso indicam alta resistência no chicote ou deficiência no aterramento principal da injeção.</p>
 
-<div class="specs">
-  <div class="spec"><b>0,8 a 1,5 V AC</b><span>Arranque (~200 RPM)<br><small>Tensão mínima para sincronismo</small></span></div>
-  <div class="spec"><b>2,0 a 3,5 V AC</b><span>Marcha lenta (~800 RPM)<br><small>Sinal estabilizado</small></span></div>
-  <div class="spec"><b>4,5 a 6,5 V AC</b><span>Alta rotação (~3000 RPM)<br><small>Teto de leitura no multímetro</small></span></div>
-</div>
+<h2 id="problemas-comuns">Sintomas Práticos de Falha</h2>
+<p>Se o sensor de fase falhar totalmente, a ECU perde a referência de qual cilindro está no tempo de compressão para iniciar a sequência correta de injeção. O motor MWM 2.8 adotará as seguintes reações em oficina:</p>
 
-<!-- GRÁFICO: Tensão AC vs Rotação -->
-<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif; overflow-x: auto;">
-  <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
-    <div style="display: flex; align-items: center; gap: 8px;">
-      <div style="width: 16px; height: 4px; background: #10B981; border-radius: 2px;"></div>
-      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Tensão Nominal (V AC)</span>
-    </div>
-    <div style="display: flex; align-items: center; gap: 8px;">
-      <div style="width: 16px; height: 12px; background: rgba(16, 185, 129, 0.2); border-radius: 2px;"></div>
-      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Faixa Tolerada</span>
-    </div>
-  </div>
-
-  <svg viewBox="0 0 700 350" style="width: 100%; height: auto; min-width: 550px;">
-    <defs>
-      <filter id="shadow-ac" x="-10%" y="-10%" width="120%" height="120%">
-        <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.1"/>
-      </filter>
-    </defs>
-
-    <g stroke="#f1f5f9" stroke-width="1">
-      <line x1="80" y1="50" x2="620" y2="50" />
-      <line x1="80" y1="100" x2="620" y2="100" />
-      <line x1="80" y1="150" x2="620" y2="150" />
-      <line x1="80" y1="200" x2="620" y2="200" />
-      <line x1="80" y1="250" x2="620" y2="250" />
-      <line x1="80" y1="300" x2="620" y2="300" />
-    </g>
-
-    <line x1="80" y1="300" x2="620" y2="300" stroke="#cbd5e1" stroke-width="2" />
-    <line x1="80" y1="50" x2="80" y2="300" stroke="#cbd5e1" stroke-width="2" />
-
-    <g fill="#64748b" font-size="12" font-weight="600" text-anchor="end">
-      <text x="70" y="54">8,0 V</text>
-      <text x="70" y="104">6,0 V</text>
-      <text x="70" y="154">4,0 V</text>
-      <text x="70" y="204">2,0 V</text>
-      <text x="70" y="304">0 V</text>
-    </g>
-
-    <g fill="#64748b" font-size="12" font-weight="600" text-anchor="middle">
-      <text x="130" y="325">Arranque</text>
-      <text x="130" y="340" font-size="10" fill="#94a3b8">(~200 RPM)</text>
-      
-      <text x="350" y="325">Marcha Lenta</text>
-      <text x="350" y="340" font-size="10" fill="#94a3b8">(~800 RPM)</text>
-      
-      <text x="570" y="325">Alta Rotação</text>
-      <text x="570" y="340" font-size="10" fill="#94a3b8">(~3000 RPM)</text>
-    </g>
-
-    <g stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4">
-      <line x1="130" y1="50" x2="130" y2="300" />
-      <line x1="350" y1="50" x2="350" y2="300" />
-      <line x1="570" y1="50" x2="570" y2="300" />
-    </g>
-
-    <rect x="110" y="262" width="40" height="18" fill="rgba(16, 185, 129, 0.2)" />
-    <rect x="330" y="212" width="40" height="38" fill="rgba(16, 185, 129, 0.2)" />
-    <rect x="550" y="137" width="40" height="50" fill="rgba(16, 185, 129, 0.2)" />
-
-    <polyline points="130,271 350,231 570,162" fill="none" stroke="#10B981" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#shadow-ac)"/>
-
-    <circle cx="130" cy="271" r="6" fill="#ffffff" stroke="#10B981" stroke-width="3" />
-    <circle cx="350" cy="231" r="6" fill="#ffffff" stroke="#10B981" stroke-width="3" />
-    <circle cx="570" cy="162" r="6" fill="#ffffff" stroke="#10B981" stroke-width="3" />
-    
-    <g font-size="12" font-weight="700" fill="#1e293b">
-      <text x="130" y="258" text-anchor="middle">~1.15 V</text>
-      <text x="350" y="218" text-anchor="middle">~2.75 V</text>
-      <text x="570" y="149" text-anchor="middle">~5.5 V</text>
-    </g>
-  </svg>
-</div>
-
-<h3 id="limitacao-multimetro">Por que os valores não chegam a 15V ou 20V AC?</h3>
-<div class="dica" style="background: #eff6ff; border-left-color: #3b82f6;">
-  <strong>1. Frequência versus Amostragem do Multímetro</strong>
-  <p>A roda fônica do MWM 2.8 possui 60 dentes (menos 2 de falha). A 3000 RPM, o motor dá 50 voltas por segundo. Isso significa que cerca de 2.900 dentes passam pelo sensor a cada segundo, gerando uma frequência de quase <b>3 kHz</b>.</p>
-  <p>Os multímetros automotivos comuns não conseguem calcular o valor RMS verdadeiro (True RMS) nessa frequência e tendem a atenuar a leitura, registrando no máximo entre 4,5V e 6,5V AC.</p>
-</div>
-
-<div class="dica" style="background: #fef2f2; border-left-color: #ef4444;">
-  <strong>2. Proteção Interna da ECU</strong>
-  <p>O circuito da central de injeção possui <b>diodos zener de proteção</b> na entrada dos pinos A12 e A27. Esses diodos ceifam e limitam qualquer pico de tensão excessivo para proteger o processador do módulo contra queimas por sobretensão induzida.</p>
-</div>
-
-<div class="aviso">
-  <strong>Regra de ouro na oficina</strong>
-  <p>Se marcar <b>menos de 0,8 V AC</b> durante o arranque, a ECM não reconhece que o motor está girando e bloqueia o pulso dos bicos injetores. O motor gira no arranque, mas não liga.</p>
-</div>
-
-<h3 id="diagnostico-chicote">Diagnóstico de chicote vs. componente</h3>
 <ul>
-  <li><b>Isolamento:</b> com o sensor desconectado, meça continuidade entre os pinos do chicote e a carcaça do motor (massa). Não deve haver continuidade;</li>
-  <li><b>Integridade:</b> meça continuidade dos fios do plugue até o conector da ECM para descartar fios partidos.</li>
+  <li><b>Partida longa e pesada:</b> A central precisará forçar várias voltas extras no virabrequim para tentar deduzir a posição dos pistões usando apenas o sensor de rotação (CKP);</li>
+  <li><b>Motor não pega:</b> Em alguns mapas de software mais restritos, se o sinal de fase sumir completamente junto com uma perda momentânea de rotação, o motor simplesmente não pega.</li>
 </ul>
-
-<h2 id="problemas-comuns">Problemas comuns</h2>
-
-<h3 id="motor-gira-mas-nao-pega">Motor gira mas não pega</h3>
-<div class="trio">
-  <div>
-    <h4>Sintomas</h4>
-    <ul>
-      <li>Motor de partida gira normal;</li>
-      <li>Conta-giros marca 0;</li>
-      <li>Sem pulso nos bicos injetores.</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Possíveis causas</h4>
-    <ul>
-      <li>Sensor com defeito ou desplugado;</li>
-      <li>Limalha de ferro na ponta magnética;</li>
-      <li>Chicote partido ou com mau contato;</li>
-      <li>Roda fônica com dentes amassados.</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Possíveis soluções</h4>
-    <ul>
-      <li>Testar resistência (860–1.060 Ω);</li>
-      <li>Testar V AC no arranque (mín. 0,8 V AC);</li>
-      <li>Limpar a ponta magnética;</li>
-      <li>Verificar o gap e a roda fônica.</li>
-    </ul>
-  </div>
-</div>
-
-<h3 id="motor-apaga-quando-aquece">Motor apaga quando aquece</h3>
-<div class="trio">
-  <div>
-    <h4>Sintomas</h4>
-    <ul>
-      <li>Motor funciona por 20 min e apaga;</li>
-      <li>Só volta a pegar depois de esfriar;</li>
-      <li>Defeito intermitente.</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Possíveis causas</h4>
-    <ul>
-      <li>Bobina interna dilata e abre circuito quando quente (OL);</li>
-      <li>Sensor de origem duvidosa.</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Possíveis soluções</h4>
-    <ul>
-      <li>Medir resistência <b>imediatamente</b> após o carro apagar;</li>
-      <li>Substituir o sensor por peça original.</li>
-    </ul>
-  </div>
-</div>
-
-<div class="aviso">
-  <strong>Atenção</strong>
-  <p>Nunca injete 12 V nos fios de sinal do CKP conectados à ECM nem use lâmpada de teste comum — queima o circuito integrado de entrada do módulo.</p>
-</div>
 
 <h2 id="codigos-de-falha">Códigos de falha</h2>
 <div class="codigos">
-  <div class="codigo"><span class="num">P0335</span><div>
-    <h4>Falha no circuito do sensor de posição do virabrequim</h4>
-    <p>Não há sinal elétrico adequado chegando à ECM. Causas:</p>
+  <div class="codigo"><span class="num">P0340</span><div>
+    <h4>Falha no circuito do sensor de fase</h4>
+    <p>Sem sinal da árvore de comando chegando à ECU. Causas:</p>
     <ul>
       <li>Sensor desconectado ou queimado;</li>
       <li>Chicote rompido;</li>
-      <li>Blindagem em curto.</li>
+      <li>Alimentação 5V ausente.</li>
     </ul>
   </div></div>
-  <div class="codigo"><span class="num">P0336</span><div>
-    <h4>Sinal incorreto/fora de faixa do sensor de rotação</h4>
-    <p>O sinal existe, mas está irregular. Causas:</p>
+  <div class="codigo"><span class="num">P0341</span><div>
+    <h4>Sinal incorreto ou fora de faixa do CMP</h4>
+    <p>O sinal existe, mas está com ruído ou fora de sincronismo. Causas:</p>
     <ul>
-      <li>Limalha de ferro na ponta magnética;</li>
-      <li>Dentes da roda fônica amassados/quebrados;</li>
-      <li>Folga excessiva no virabrequim alterando o gap;</li>
-      <li>Ruído de interferência (blindagem ruim).</li>
+      <li>Sensor perdendo referência;</li>
+      <li>Folga mecânica no comando;</li>
+      <li>Motor fora de ponto.</li>
     </ul>
   </div></div>
 </div>
