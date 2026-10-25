@@ -59,7 +59,7 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
 <h3 id="teste-multimetro">Testes com multímetro</h3>
 <p>Tensão no pino 02 (sinal), por condição do motor:</p>
 
-<!-- Seus cards de especificação (mantidos) -->
+<!-- Cards existentes -->
 <div class="specs">
   <div class="spec"><b>~0,5 V</b><span>Chave ligada (~0 bar)</span></div>
   <div class="spec"><b>~1,2 V</b><span>Partida (250 a 350 bar)</span></div>
@@ -68,18 +68,25 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
   <div class="spec"><b>~4,5 V</b><span>Aceleração alta (1600 bar)</span></div>
 </div>
 
-<!-- GRÁFICO ADICIONADO AQUI -->
-<div style="position: relative; height: 380px; width: 100%; margin: 25px 0; background: #fff; padding: 15px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-    <canvas id="graficoRail"></canvas>
+<!-- Gráfico isolado (estilos inline para não conflitar com o CSS do site) -->
+<div id="grafico-rail-wrap" style="position: relative; width: 100%; height: 380px; margin: 25px 0; padding: 15px; box-sizing: border-box; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); overflow: hidden;">
+    <canvas id="graficoRail" style="display: block; width: 100% !important; height: 100% !important;"></canvas>
 </div>
 
-<!-- Script do Chart.js (adicione uma única vez no final do seu site ou dentro do <body>) -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Chart.js + script (no final do body, com verificação de carregamento) -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>
-    // Verifica se o canvas existe na página antes de renderizar (evita erros em outras páginas)
-    const canvasRail = document.getElementById('graficoRail');
-    if (canvasRail) {
-        const ctx = canvasRail.getContext('2d');
+(function() {
+    function iniciarGrafico() {
+        const canvas = document.getElementById('graficoRail');
+        if (!canvas) return;
+
+        // Se já existe um gráfico neste canvas, destrói antes de recriar
+        if (canvas._chartInstance) {
+            canvas._chartInstance.destroy();
+        }
+
+        const ctx = canvas.getContext('2d');
 
         const labels = [
             'Chave ligada\n(~0 bar)',
@@ -88,15 +95,14 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
             'Aceleração média\n(1000 bar)',
             'Aceleração alta\n(1600 bar)'
         ];
-
         const tensao = [0.5, 1.2, 1.3, 3.0, 4.5];
         const pressao = [0, 300, 350, 1000, 1600];
 
-        const gradiente = ctx.createLinearGradient(0, 0, 0, 400);
+        const gradiente = ctx.createLinearGradient(0, 0, 0, 380);
         gradiente.addColorStop(0, '#4A90D9');
         gradiente.addColorStop(1, '#2C5F8A');
 
-        new Chart(ctx, {
+        canvas._chartInstance = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: labels,
@@ -117,13 +123,12 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
                         label: 'Pressão no rail (bar)',
                         data: pressao,
                         borderColor: '#E74C3C',
-                        backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                        backgroundColor: 'rgba(231,76,60,0.1)',
                         borderWidth: 3,
-                        pointBackgroundColor: '#ffffff',
+                        pointBackgroundColor: '#fff',
                         pointBorderColor: '#E74C3C',
                         pointBorderWidth: 3,
                         pointRadius: 6,
-                        pointHoverRadius: 8,
                         tension: 0.3,
                         fill: false,
                         yAxisID: 'y1',
@@ -134,87 +139,59 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                interaction: {
-                    mode: 'index',
-                    intersect: false
-                },
+                animation: { duration: 600 },
+                interaction: { mode: 'index', intersect: false },
                 plugins: {
                     legend: {
                         position: 'top',
-                        labels: {
-                            font: { size: 12, weight: 'bold' },
-                            padding: 15,
-                            usePointStyle: true
-                        }
+                        labels: { font: { size: 12, weight: 'bold' }, padding: 15, usePointStyle: true }
                     },
                     tooltip: {
-                        backgroundColor: 'rgba(26, 26, 46, 0.95)',
-                        titleFont: { size: 12 },
-                        bodyFont: { size: 12 },
+                        backgroundColor: 'rgba(26,26,46,0.95)',
                         padding: 10,
                         cornerRadius: 6,
                         callbacks: {
-                            label: function(context) {
-                                if (context.dataset.label.includes('Tensão')) {
-                                    return ` Tensão: ${context.parsed.y.toFixed(1)} V`;
-                                } else {
-                                    return ` Pressão: ${context.parsed.y} bar`;
-                                }
+                            label: function(ctx) {
+                                if (ctx.dataset.label.includes('Tensão')) return ` Tensão: ${ctx.parsed.y.toFixed(1)} V`;
+                                return ` Pressão: ${ctx.parsed.y} bar`;
                             }
                         }
                     }
                 },
                 scales: {
-                    x: {
-                        grid: { display: false },
-                        ticks: {
-                            font: { size: 10 },
-                            maxRotation: 0,
-                            minRotation: 0
-                        }
-                    },
+                    x: { grid: { display: false }, ticks: { font: { size: 10 }, maxRotation: 0 } },
                     y: {
-                        position: 'left',
-                        beginAtZero: true,
-                        max: 5.5,
-                        title: {
-                            display: true,
-                            text: 'Tensão (V)',
-                            color: '#2C5F8A',
-                            font: { size: 12, weight: 'bold' }
-                        },
-                        ticks: {
-                            color: '#2C5F8A',
-                            font: { size: 10 },
-                            callback: value => value + ' V'
-                        },
-                        grid: {
-                            color: 'rgba(0,0,0,0.06)'
-                        }
+                        position: 'left', beginAtZero: true, max: 5.5,
+                        title: { display: true, text: 'Tensão (V)', color: '#2C5F8A', font: { size: 12, weight: 'bold' } },
+                        ticks: { color: '#2C5F8A', font: { size: 10 }, callback: v => v + ' V' },
+                        grid: { color: 'rgba(0,0,0,0.06)' }
                     },
                     y1: {
-                        position: 'right',
-                        beginAtZero: true,
-                        max: 1800,
-                        title: {
-                            display: true,
-                            text: 'Pressão (bar)',
-                            color: '#E74C3C',
-                            font: { size: 12, weight: 'bold' }
-                        },
-                        ticks: {
-                            color: '#E74C3C',
-                            font: { size: 10 },
-                            callback: value => value + ' bar'
-                        },
-                        grid: {
-                            drawOnChartArea: false
-                        }
+                        position: 'right', beginAtZero: true, max: 1800,
+                        title: { display: true, text: 'Pressão (bar)', color: '#E74C3C', font: { size: 12, weight: 'bold' } },
+                        ticks: { color: '#E74C3C', font: { size: 10 }, callback: v => v + ' bar' },
+                        grid: { drawOnChartArea: false }
                     }
                 }
             }
         });
     }
+
+    // Aguarda o DOM e o Chart.js estarem prontos
+    function tentarIniciar() {
+        if (typeof Chart !== 'undefined') {
+            iniciarGrafico();
+        } else {
+            setTimeout(tentarIniciar, 200);
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', tentarIniciar);
+    } else {
+        tentarIniciar();
+    }
+})();
 </script>
 
 <ul>
