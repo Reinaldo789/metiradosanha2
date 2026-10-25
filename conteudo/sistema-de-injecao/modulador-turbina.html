@@ -1,74 +1,217 @@
-<!-- Atuador do Turboalimentador com falha (luz acesa) - MWM Sprint 2.8 -->
+<!-- Válvula Moduladora Solenoide do Turbo. Imagens: salve em conteudo/imagens/valvula-turbo/ -->
 <header class="art-head">
-  <span class="art-kicker">Sistema de Injeção · Diagnóstico</span>
-  <h1>Atuador do Turboalimentador (Modulador)</h1>
-  <p class="art-lead">Fluxograma de diagnóstico com a luz amarela acesa: responda Sim ou Não em cada passo até chegar à solução.</p>
-  <div class="chips"><span>MWM Sprint 2.8</span><span>S10 até 2011</span><span>P0243 · P0244 · P0245 · P0246</span></div>
+  <h1>Válvula Moduladora Solenoide do Turbo</h1>
 </header>
 
 <nav class="toc" aria-label="Neste artigo">
   <strong>Neste artigo</strong>
   <ul>
-    <li><a href="#" data-goto="fluxo">Fluxograma</a></li>
-    <li><a href="#" data-goto="valores">Valores e pinos</a>
+    <li><a href="#" data-goto="localizacao-funcionamento">Localização e Funcionamento</a></li>
+    <li><a href="#" data-goto="pinagem">Pinagem do Conector</a></li>
+    
+    <li><a href="#" data-goto="testes-multimetro">Testes com Multímetro</a>
       <ul>
-        <li><a href="#" data-goto="pinos-do-atuador-e-do-ecm">Pinos do atuador e do ECM</a></li>
+        <li><a href="#" data-goto="teste-resistencia">Teste de Resistência</a></li>
+        <li><a href="#" data-goto="teste-alimentacao">Teste de Alimentação</a></li>
+        <li><a href="#" data-goto="teste-sinal-ecu">Teste do Sinal da ECU</a></li>
       </ul>
     </li>
-    <li><a href="#" data-goto="solucoes">Soluções comuns</a></li>
-    <li><a href="#" data-goto="codigos">Códigos relacionados</a></li>
+    
+    <li><a href="#" data-goto="defeitos">Defeitos, Causas e Soluções</a>
+      <ul>
+        <li><a href="#" data-goto="falta-potencia">Falta crônica de potência</a></li>
+        <li><a href="#" data-goto="limp-home">Corte de potência (Limp Home)</a></li>
+        <li><a href="#" data-goto="trancos">Pressão oscilando (trancos)</a></li>
+      </ul>
+    </li>
+    
+    <li><a href="#" data-goto="codigos-de-falha">Códigos de Falha OBD-II</a></li>
   </ul>
 </nav>
 
-<p>Use este roteiro quando a diagnose registrar P0243 (sinal perdido), P0244 (temperatura elevada no CI), P0245 (tensão baixa) ou P0246 (tensão alta). Sem o atuador, a pressão do turbo fica limitada e o motor perde potência.</p>
+<!-- ==========================================
+     CONTEÚDO DO ARTIGO
+     ========================================== -->
 
-<div class="aviso"><strong>Atenção</strong><p>O atuador do turbo é uma válvula eletromagnética que controla a passagem de vácuo para a waste-gate. É comandada pelo ECM e ajusta a pressão do ar na admissão.</p></div>
+<h2 id="localizacao-funcionamento">Localização e Funcionamento</h2>
+<p><b>Localização:</b> A válvula moduladora solenoide está fixada no cofre do motor (geralmente próxima à parede corta-fogo ou no para-lama interno), conectada a três mangueiras de vácuo (uma vinda da bomba de vácuo, uma que vai para a cápsula do turbo e um respiro com filtro) e a um conector elétrico de 2 pinos.</p>
 
-<h2 id="fluxo">Fluxograma</h2>
-<div class="fluxo">
-  <div class="passo" id="p1"><span class="passo-n">Passo 1</span><p><strong>A ferramenta registrou P0243, P0244, P0245 ou P0246?</strong></p>
-    <div class="resp"><button type="button" class="sim" data-ir="p2">Sim</button><button type="button" class="nao" data-ir="r1">Não</button></div></div>
-  <div class="passo fim acao" id="r1"><span class="passo-n">Outro código</span><p>Siga o fluxograma do código apresentado.</p></div>
-  <div class="passo" id="p2"><span class="passo-n">Passo 2</span><p>Desligue o conector do atuador do turbo. Ligue o contato, sem dar partida, e meça a tensão entre o negativo da bateria e o pino <strong>1</strong> do conector do atuador. <strong>O valor é igual à tensão da bateria?</strong></p>
-    <div class="resp"><button type="button" class="sim" data-ir="p3">Sim</button><button type="button" class="nao" data-ir="r2">Não</button></div></div>
-  <div class="passo fim erro" id="r2"><span class="passo-n">Alimentação incorreta</span><ul><li>Meça a continuidade do fusível F29 e do pino 1 do atuador à base do fusível. Valores devem ser menores que 1 Ω;</li><li>Verifique tensão e terminais da bateria;</li><li>Providencie reparos e refaça o teste.</li></ul></div>
-  <div class="passo" id="p3"><span class="passo-n">Passo 3</span><p>Instale um frequentímetro entre o negativo da bateria e o pino <strong>2</strong> do conector do atuador. Ligue o contato sem dar partida. <strong>O valor está entre 300 Hz e 310 Hz?</strong></p>
-    <div class="resp"><button type="button" class="sim" data-ir="p4">Sim</button><button type="button" class="nao" data-ir="r3">Não</button></div></div>
-  <div class="passo fim erro" id="r3"><span class="passo-n">Chicote interrompido</span><ul><li>Meça a continuidade do chicote entre o pino 2 do atuador e o pino A15 do conector do ECM (menor que 1 Ω);</li><li>Se o valor estiver OK, verifique alimentação elétrica do ECM;</li><li>Se o chicote estiver OK e a falha persistir, substitua o ECM.</li></ul></div>
-  <div class="passo" id="p4"><span class="passo-n">Passo 4</span><p>Meça a resistência do atuador do turbo entre os pinos 1 e 2. <strong>O valor está entre 14 Ω e 17 Ω?</strong></p>
-    <div class="resp"><button type="button" class="sim" data-ir="r4">Sim</button><button type="button" class="nao" data-ir="r5">Não</button></div></div>
-  <div class="passo fim ok" id="r4"><span class="passo-n">Atuador OK</span><ul><li>Verifique mau contato ou oxidações nos conectores;</li><li>Apague os códigos de falha e refaça o teste;</li><li>Se não houver mais falhas, libere o veículo.</li></ul></div>
-  <div class="passo fim erro" id="r5"><span class="passo-n">Substituir atuador</span><ul><li>Substitua o atuador do turboalimentador;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+<h3>Princípio de Operação</h3>
+<ol>
+  <li>A ECU controla a solenoide enviando um sinal de massa pulsante por largura de pulso (PWM).</li>
+  <li>O ciclo de trabalho (Duty Cycle) varia conforme o regime do motor.</li>
+  <li>Quando a ECU exige pressão máxima de turbo (ex: saídas de marcha lenta ou retomadas sob carga), ela eleva o Duty Cycle. A solenoide abre totalmente a passagem de vácuo, puxando a haste da cápsula pneumática para fechar as aletas internas da turbina (restringindo o fluxo dos gases para fazer o turbo encher mais rápido).</li>
+  <li>Ao atingir a pressão estipulada de segurança no coletor (medida pelo sensor MAP), a ECU reduz o Duty Cycle, aliviando o vácuo para abrir as aletas e estabilizar a pressão do ar.</li>
+</ol>
+
+<h2 id="pinagem">Pinagem do Conector da Válvula Solenoide (2 Pinos)</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Pino</th>
+      <th>Função do Circuito</th>
+      <th>Origem / Destino</th>
+      <th>Valor de Referência Esperado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>01</b></td>
+      <td>Alimentação (+12V Positivo)</td>
+      <td>Linha pós-relé principal da injeção</td>
+      <td>~12,0 V a 14,2 V (Com chave ligada ou motor funcionando)</td>
+    </tr>
+    <tr>
+      <td><b>02</b></td>
+      <td>Sinal de Controle (Massa Pulsante)</td>
+      <td>Comando da ECU (Pino correspondente)</td>
+      <td>Sinal PWM Negativo (Varia de 0V a 12V em frequência fixa)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="testes-multimetro">Testes com Multímetro e Diagnóstico Físico</h2>
+
+<h3 id="teste-resistencia">Teste de Resistência Elétrica (Bobina Interna)</h3>
+<ul>
+  <li><b>Condição:</b> Chave desligada e conector da solenoide desconectado.</li>
+  <li><b>Medição:</b> Ajuste o multímetro na escala de Resistência (Ω). Meça diretamente nos dois pinos metálicos da válvula solenoide (isolada do chicote).</li>
+</ul>
+
+<div class="specs">
+  <div class="spec"><b>15 Ω a 22 Ω</b><span>Valor correto (a ~20°C)</span></div>
 </div>
 
-<h2 id="valores">Valores e pinos</h2>
-<table><tr><th>Teste</th><th>Valor esperado</th></tr>
-<tr><td>Alimentação do atuador (pino 1)</td><td>tensão da bateria</td></tr>
-<tr><td>Frequência do sinal PWM (pino 2)</td><td>300 Hz a 310 Hz</td></tr>
-<tr><td>Resistência do atuador (pinos 1-2)</td><td>14 Ω a 17 Ω</td></tr>
-<tr><td>Fusível F29</td><td>menor que 1 Ω</td></tr></table>
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Valor próximo de zero indica curto-circuito interno; circuito aberto (∞ ou OL) indica bobina queimada/rompida.</p>
+</div>
 
-<h3 id="pinos-do-atuador-e-do-ecm">Pinos do atuador e do ECM</h3>
-<table><tr><th>Pino do atuador</th><th>Pino do ECM / Origem</th><th>Função</th></tr>
-<tr><td>1</td><td>Pino 87 do relé principal (via F29)</td><td>Alimentação positiva</td></tr>
-<tr><td>2</td><td>A15</td><td>Sinal PWM de controle</td></tr></table>
-
-<div class="dica"><strong>Função do atuador</strong><p>Controla a válvula waste-gate do turbo. O ECM varia a largura de pulso (PWM) para regular a pressão do ar admitido, evitando excesso de pressão na admissão.</p></div>
-
-<h2 id="solucoes">Soluções comuns</h2>
+<h3 id="teste-alimentacao">Teste de Alimentação Elétrica</h3>
 <ul>
-<li><strong>Conector com oxidação:</strong> limpe e reapente os terminais;</li>
-<li><strong>Fusível F29 queimado:</strong> substitua e refaça o teste;</li>
-<li><strong>Mangueiras de vácuo soltas ou rasgadas:</strong> verifique as conexões entre atuador, waste-gate e bomba de vácuo;</li>
-<li><strong>Bomba tandem (gerador de vácuo) com desgaste:</strong> teste a pressão negativa;</li>
-<li><strong>Atuador com resistência fora do especificado:</strong> substitua o atuador;</li>
-<li><strong>ECM com defeito:</strong> se chicote e atuador estiverem OK e a falha persistir, substitua o ECM.</li>
+  <li><b>Condição:</b> Chave ligada (ignição na posição ON), motor parado. Conector elétrico desconectado.</li>
+  <li><b>Medição:</b> Ajuste o multímetro na escala de Tensão Contínua (V). Aterrar a ponta preta do multímetro no bloco do motor ou no borne negativo da bateria. Inserir a ponta vermelha no Pino 01 do chicote elétrico.</li>
 </ul>
 
-<h2 id="codigos">Códigos relacionados</h2>
+<div class="specs">
+  <div class="spec"><b>~12,0 V a 12,6 V</b><span>Tensão nominal da bateria esperada</span></div>
+</div>
+
+<h3 id="teste-sinal-ecu">Teste do Sinal de Controle da ECU (Escala de Tensão)</h3>
 <ul>
-<li><strong>P0243</strong>: Sinal do atuador perdido — válvula em 50%;</li>
-<li><strong>P0244</strong>: Temperatura elevada no CI do atuador — válvula em 50%;</li>
-<li><strong>P0245</strong>: Tensão baixa no atuador — válvula em 50%;</li>
-<li><strong>P0246</strong>: Tensão alta no atuador — válvula em 50%.</li>
+  <li><b>Condição:</b> Motor funcionando em marcha lenta. Conector conectado (utilizando agulhas/backprobing por trás do conector).</li>
+  <li><b>Medição:</b> Ponta vermelha no Pino 01 (+12V) e ponta preta no Pino 02 (Sinal ECU).</li>
 </ul>
+
+<div class="dica">
+  <strong>Comportamento Esperado</strong>
+  <p>Na marcha lenta, a ECU envia um pulso forte para acionar a geometria. A leitura no multímetro deve ficar em uma média de <b>~8,0 V a 10,5 V</b> (isso ocorre porque o multímetro convencional calcula a média de tensão do sinal quadrado PWM). Ao acelerar forte em vazio, essa leitura média deve oscilar momentaneamente para baixo (aliviando a pressão).</p>
+</div>
+
+<h2 id="defeitos">Principais Defeitos, Causas e Soluções</h2>
+
+<h3 id="falta-potencia">Falta crônica de potência (Motor "amarrado")</h3>
+<div class="trio">
+  <div>
+    <h4>Provável Causa</h4>
+    <ul>
+      <li>Mangueira de vácuo furada, invertida ou desconectada;</li>
+      <li>Falta de alimentação de 12V no Pino 01;</li>
+      <li>Filtro de respiro da solenoide entupido de poeira.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Diagnóstico</h4>
+    <ul>
+      <li>Inspecionar todas as linhas de vácuo da bomba até o turbo;</li>
+      <li>Medir fusíveis e chicotes elétricos;</li>
+      <li>Substituir ou limpar o respiro.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Solução</h4>
+    <ul>
+      <li>Reparo das linhas de vácuo;</li>
+      <li>Correção do circuito elétrico;</li>
+      <li>Limpeza do respiro.</li>
+    </ul>
+  </div>
+</div>
+
+<h3 id="limp-home">Motor corta potência sob aceleração e entra em Limp Home</h3>
+<div class="trio">
+  <div>
+    <h4>Provável Causa</h4>
+    <ul>
+      <li>Geometria variável do turbo travada por carbonização interna;</li>
+      <li>Válvula moduladora travada mecanicamente aberta (vácuo direto).</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Diagnóstico</h4>
+    <ul>
+      <li>Remover o braço do atuador do turbo e checar se as aletas movem-se livremente sem travar.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Solução</h4>
+    <ul>
+      <li>Descarbonização do turbo;</li>
+      <li>Troca da solenoide moduladora.</li>
+    </ul>
+  </div>
+</div>
+
+<h3 id="trancos">Pressão de turbo oscilando (Motor dando "trancos")</h3>
+<div class="trio">
+  <div>
+    <h4>Provável Causa</h4>
+    <ul>
+      <li>Mau contato elétrico no conector da solenoide (oxidação nos terminais);</li>
+      <li>Perda parcial de isolamento interno da bobina.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Diagnóstico</h4>
+    <ul>
+      <li>Aplicar limpa-contato de alta qualidade nos conectores;</li>
+      <li>Testar resistência novamente após limpeza.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Solução</h4>
+    <ul>
+      <li>Substituir a válvula moduladora.</li>
+    </ul>
+  </div>
+</div>
+
+<h2 id="codigos-de-falha">Códigos de Falha Relacionados (OBD-II)</h2>
+<p>Quando ocorre uma anomalia elétrica no circuito da solenoide da turbina, a ECU Bosch registra os seguintes códigos de falha na memória:</p>
+
+<div class="codigos">
+  <div class="codigo"><span class="num">P0234</span><div>
+    <h4>Pressão de Sobrealimentação do Motor - Limite Excedido</h4>
+    <p>A pressão real do turbo ultrapassou o teto seguro mapeado na central eletrônica. Indica geralmente que a geometria variável travou fechada ou que as mangueiras de vácuo estão direcionando sucção direta sem controle da solenoide.</p>
+  </div></div>
+  
+  <div class="codigo"><span class="num">P0299</span><div>
+    <h4>Pressão de Sobrealimentação do Motor - Limite Não Atingido</h4>
+    <p>O turbo não consegue gerar a pressão solicitada pela central. Causas comuns incluem mangueira de vácuo furada (cápsula não puxa a haste), bomba de vácuo ineficiente ou bobina da solenoide queimada (circuito aberto).</p>
+  </div></div>
+  
+  <div class="codigo"><span class="num">P2261</span><div>
+    <h4>Válvula de Controle de Pressão do Turbo - Falha Mecânica</h4>
+    <p>Indica que a ECU enviou o sinal elétrico PWM correto para modular a peça, mas a resposta de pressão gerada pelo turbo (lida pelo sensor MAP) permaneceu incoerente com o comando enviado.</p>
+  </div></div>
+</div>
+
+<div class="dica" style="margin-top: 2rem;">
+  <strong>Roteiro de Diagnóstico Rápido</strong>
+  <p>Se você estiver diagnosticando uma falha de pressão de turbo nesse motor MWM 2.8, verifique:</p>
+  <ul>
+    <li>O motor está apresentando falta de pressão (código P0299) ou excesso de pressão (código P0234)?</li>
+    <li>Você já verificou se a haste mecânica da turbina se move livremente ao ligar o motor ou se ela está travada por carbonização?</li>
+  </ul>
+  <p>Com esses dados, é possível isolar se o problema é estritamente elétrico (chicote/solenoide) ou mecânico (turbo/mangueiras).</p>
+</div>
