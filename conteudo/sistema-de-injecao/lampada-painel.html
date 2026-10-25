@@ -6,20 +6,31 @@
 <nav class="toc" aria-label="Neste artigo">
   <strong>Neste artigo</strong>
   <ul>
-    <li><a href="#" data-goto="funcionamento">Funcionamento</a></li>
-    
-    <li><a href="#" data-goto="parte-eletrica">Parte Elétrica e Testes</a>
+    <li><a href="#" data-goto="localizacao">Localização</a></li>
+    <li><a href="#" data-goto="como-retirar">Como retirar</a>
       <ul>
-        <li><a href="#" data-goto="pinagem">Pinagem do Chicote</a></li>
-        <li><a href="#" data-goto="teste-resistencia">Teste de Resistência</a></li>
-        <li><a href="#" data-goto="teste-pulso">Teste de Pulso</a></li>
+        <li><a href="#" data-goto="tabela-aperto">Tabela de aperto</a></li>
+      </ul>
+    </li>
+    <li><a href="#" data-goto="funcionamento">Como funciona</a></li>
+    
+    <li><a href="#" data-goto="parte-eletrica">Parte elétrica</a>
+      <ul>
+        <li><a href="#" data-goto="teste-pulso">Teste de pulso</a></li>
       </ul>
     </li>
     
-    <li><a href="#" data-goto="codigos-de-falha">Códigos de Falha</a>
+    <li><a href="#" data-goto="problemas-comuns">Problemas comuns</a>
       <ul>
-        <li><a href="#" data-goto="injetor-desconectado">Injetor não Conectado (P0201 a P0204)</a></li>
-        <li><a href="#" data-goto="curto-banco">Curto no Banco de Injetores</a></li>
+        <li><a href="#" data-goto="excesso-retorno">Excesso de retorno dos bicos</a></li>
+        <li><a href="#" data-goto="castanhado-forte">Castanhado forte e motor fraco</a></li>
+        <li><a href="#" data-goto="limpeza-bico">Limpeza do bico injetor</a></li>
+      </ul>
+    </li>
+    
+    <li><a href="#" data-goto="teste-retorno">Teste de retorno dos injetores</a>
+      <ul>
+        <li><a href="#" data-goto="medidas-referencia">Medidas de referência</a></li>
       </ul>
     </li>
   </ul>
@@ -29,31 +40,42 @@
      CONTEÚDO DO ARTIGO
      ========================================== -->
 
-<h2 id="funcionamento">Funcionamento</h2>
-<p>Os bicos injetores estão montados no cabeçote e têm a finalidade de pulverizar o combustível na câmara de combustão. O controle dos bicos é feito pela ECM, que determina a quantidade e o momento exato da injeção de combustível para cada cilindro.</p>
+<h2 id="localizacao">Localização</h2>
+<p>Os bicos injetores estão montados no cabeçote e têm a finalidade de pulverizar o combustível na câmara de combustão. O controle dos bicos é feito pela ECM, que determina a quantidade e o momento exato da injeção para cada cilindro.</p>
 
-<h3>Início da Injeção</h3>
-<p>O ECM determina o início de injeção energizando a válvula eletromagnética, que abre a passagem de saída do combustível para o retorno. O combustível pressurizado entra pelo furo calibrado, criando uma depressão na câmara de controle; essa depressão faz a agulha do injetor se movimentar para cima, iniciando a pulverização do combustível na câmara de combustão.</p>
-
-<h3>Fim da Injeção</h3>
-<p>O fim da injeção ocorre quando a válvula eletromagnética é desenergizada pelo ECM. A mola aciona a válvula que fecha a passagem do furo de retorno. O combustível pressurizado ocupa a câmara de controle fazendo a agulha do injetor se movimentar para baixo, voltando à posição de repouso.</p>
-
+<h2 id="como-retirar">Como retirar</h2>
 <div class="aviso">
   <strong>Atenção</strong>
-  <p>O sistema Common Rail trabalha com pressões extremamente altas (até 1400 bar). Nunca desconecte os tubos de alta pressão com o motor em funcionamento. Risco grave de queimaduras e acidentes.</p>
+  <p>Ao usar chaves para soltar a tubulação de alta pressão ou o próprio bico, cuidado com a torção do cano. Se a chave escapar, pode quebrar o plug da bobina do injetor.</p>
 </div>
 
-<h2 id="parte-eletrica">Parte Elétrica e Testes</h2>
+<h3 id="tabela-aperto">Tabela de Aperto</h3>
+<div class="specs">
+  <div class="spec"><b>8,5 ± 1 Nm</b><span>Abraçadeira / Tubo de retorno</span></div>
+  <div class="spec"><b>20 ± 3 Nm</b><span>Parafusos da flange / Tubo de alta</span></div>
+  <div class="spec"><b>25 ± 4 Nm</b><span>Porca do tubo de alta no Rail</span></div>
+  <div class="spec"><b>27 ± 3 Nm</b><span>Conexão do tubo de alta no bico</span></div>
+  <div class="spec"><b>1ª 14 ± 1 Nm<br>2ª 55° ± 2°</b><span>Parafuso de fixação do bico (garra)</span></div>
+</div>
 
-<h3 id="pinagem">Pinagem do Chicote (Conector A da ECM)</h3>
-<p>Cada bico injetor é acionado individualmente pela ECM. A continuidade do chicote deve ser testada entre o conector do bico e o Conector A do módulo.</p>
+<h2 id="funcionamento">Como funciona</h2>
+<p>Os bicos injetores estão montados no cabeçote e pulverizam o combustível na câmara de combustão. A ECM controla os bicos, determinando a quantidade e o momento da injeção para cada cilindro.</p>
+
+<ul>
+  <li><b>Posição de Repouso:</b> o bico está fechado (desenergizado). A agulha permanece fechada pela ação da alta pressão do combustível na haste do bico, que possui uma área maior em relação à área inferior do bico injetor;</li>
+  <li><b>Início de Injeção:</b> a ECM energiza a válvula eletromagnética, que abre a passagem de saída do combustível para o retorno. O combustível pressurizado entra pelo furo calibrado, criando uma depressão na câmara de controle. Essa depressão faz a agulha do injetor se movimentar para cima, iniciando a pulverização na câmara de combustão;</li>
+  <li><b>Fim da Injeção:</b> ocorre quando a válvula eletromagnética é desenergizada pela ECM. A mola aciona a válvula que fecha a passagem do furo de retorno. O combustível pressurizado ocupa a câmara de controle, fazendo a agulha do injetor descer e voltar à posição de repouso.</li>
+</ul>
+
+<h2 id="parte-eletrica">Parte elétrica</h2>
+<p>Ligação do módulo ECM (Conector A - 60 vias) até os bicos injetores.</p>
 
 <table>
   <thead>
     <tr>
       <th>Cilindro</th>
-      <th>Pino de Alimentação (ECM)</th>
-      <th>Pino de Chaveamento (ECM)</th>
+      <th>Pino ECM (Alimentação)</th>
+      <th>Pino ECM (Chaveamento)</th>
     </tr>
   </thead>
   <tbody>
@@ -80,86 +102,104 @@
   </tbody>
 </table>
 
-<h3 id="teste-resistencia">Teste de Resistência (Bobina Interna)</h3>
-<ul>
-  <li><b>Condição:</b> Chave desligada e conector do injetor desconectado.</li>
-  <li><b>Medição:</b> Meça a resistência entre os dois terminais do próprio injetor.</li>
-</ul>
-
-<div class="specs">
-  <div class="spec"><b>≤ 0,8 Ω</b><span>Valor correto esperado</span></div>
-</div>
+<h3 id="teste-pulso">Teste de pulso</h3>
+<p>Com a caneta de teste, é possível ver os pulsos e também o Duty Cycle (ciclo de trabalho). Para testes básicos, o Duty Cycle não é importante.</p>
 
 <div class="aviso">
   <strong>Atenção</strong>
-  <p>Se a resistência for muito alta (ou circuito aberto/OL), a bobina do injetor está rompida. Se for próxima de zero, há um curto-circuito interno. Em ambos os casos, o injetor deve ser substituído.</p>
+  <p>Só haverá pulso nos bicos injetores se a tensão de retorno no <b>sensor de pressão do Rail</b> for de no mínimo <b>0,9 Volts</b>.</p>
 </div>
 
-<h3 id="teste-pulso">Teste de Pulso</h3>
-<p>Com uma caneta de teste (lâmpada de LED) ou osciloscópio, é possível verificar se a ECM está enviando o sinal de chaveamento (PWM) para os injetores.</p>
+<h2 id="problemas-comuns">Problemas comuns</h2>
+
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Os testes usando spray são extremamente básicos, pois o spray tem apenas 6 bar de pressão. Na marcha lenta, o sistema trabalha com no mínimo 250 bar.</p>
+</div>
+
+<h3 id="excesso-retorno">Excesso de retorno dos bicos injetores</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Motor de partida gira, mas não liga;</li>
+      <li>Partidas muito longas.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Baixa pressão na linha de baixa;</li>
+      <li>Baixa pressão na linha de alta;</li>
+      <li>Válvula de alívio do tubo Rail com vazamento;</li>
+      <li>Excesso de retorno nos bicos injetores.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Após verificar o excesso de retorno, é preciso trocar o reparo do bico injetor.</li>
+    </ul>
+  </div>
+</div>
+
+<h3 id="castanhado-forte">Castanhado forte e motor fraco</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Motor de partida gira e às vezes o motor liga, com castanhado forte;</li>
+      <li>Motor sem potência;</li>
+      <li>Partidas muito longas.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Bico injetor travado aberto;</li>
+      <li>Válvula MPROP travada aberta (medir tensão no sensor do Rail).</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Sacar os bicos injetores e realizar a limpeza.</li>
+    </ul>
+  </div>
+</div>
+
+<h3 id="limpeza-bico">Limpeza do bico injetor</h3>
+<p>É preciso limpar também o tubo Rail e as tubulações de ligação (veja em <a href="#alimentacao-de-combustivel/tubo-rail">Tubo Rail</a>).</p>
 
 <div class="dica">
-  <strong>Dica de Oficina</strong>
-  <p>Só há pulso nos bicos injetores se a tensão de retorno no <a href="#sistema-de-injecao/sensor-pres-rail">sensor de pressão do Rail</a> for de no mínimo <b>0,9 V</b> durante a partida. A ECM bloqueia a injeção se não detectar pressão suficiente no sistema.</p>
+  <strong>Dica de Desmontagem e Limpeza</strong>
+  <ul>
+    <li>Para <b>retirar</b> o pino do bico, bata no pino do lado da rosca do bico injetor.</li>
+    <li>Para <b>montar</b>, bata no pino do lado da rosca do tubo do Rail.</li>
+  </ul>
 </div>
 
-<h2 id="codigos-de-falha">Códigos de Falha (OBD-II)</h2>
+<p>Faça o teste de retorno do bico: ele verifica a estanqueidade do reparo da caneta do bico e o assentamento da esfera de controle de retorno.</p>
+<p>Usando spray no primeiro furo do bico (furo maior), realize o teste de retorno: injete spray e, nesse caso, <b>não pode sair líquido pelo retorno</b>.</p>
+<p>Teste usando desengripante em spray para verificar a pulverização da ponteira.</p>
 
-<h3 id="injetor-desconectado">P0201 a P0204 - Bico Injetor não Conectado</h3>
-<div class="trio">
-  <div>
-    <h4>Detalhamento</h4>
-    <ul>
-      <li>Possivelmente o conector esteja desligado, o chicote elétrico ou a solenoide do bico injetor esteja em circuito aberto.</li>
-      <li>O código varia conforme o cilindro: P0201 (Cil 1), P0202 (Cil 2), P0203 (Cil 3), P0204 (Cil 4).</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Estratégia da ECM</h4>
-    <ul>
-      <li>A luz amarela de advertência não é acionada.</li>
-      <li>O débito de combustível é limitado e a rotação do motor é reduzida para <b>2000 rpm</b>.</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Solução</h4>
-    <ul>
-      <li>Verificar a conexão do chicote no injetor.</li>
-      <li>Medir a continuidade entre o conector e a ECM.</li>
-      <li>Se o chicote estiver OK, substituir o injetor.</li>
-    </ul>
-  </div>
-</div>
-
-<h3 id="curto-banco">P0261 a P0270 - Curto-Circuito nos Injetores</h3>
-<p>Os injetores estão divididos em dois bancos elétricos controlados pela ECM:</p>
+<h3>Montagem no motor</h3>
 <ul>
-  <li><b>Banco 1:</b> Injetores 1 e 4 (Código P0261 para o banco ou P0262/P0270 para injetor específico);</li>
-  <li><b>Banco 2:</b> Injetores 2 e 3 (Código P0263 para o banco ou P0264/P0267 para injetor específico).</li>
+  <li>Use o O-ring de vedação no bico para não enferrujar o injetor;</li>
+  <li>Recomenda-se trocar a arruela de cobre sempre que desmontar;</li>
+  <li>Verifique a <a href="#" data-goto="tabela-aperto">tabela de aperto</a> para não danificar a rosca do cabeçote.</li>
 </ul>
 
-<div class="trio">
-  <div>
-    <h4>Detalhamento</h4>
-    <ul>
-      <li>Curto-circuito do banco em relação ao terra ou ao positivo da bateria.</li>
-      <li>Pode ser causado por chicote esmagado, conector com umidade ou falha interna na bobina do injetor.</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Estratégia da ECM</h4>
-    <ul>
-      <li>A luz amarela de advertência é acionada.</li>
-      <li>Ao reconhecer a falha, o ECM <b>desliga o motor</b> imediatamente.</li>
-      <li>Após alguns segundos, uma nova partida poderá ser efetuada (dependendo do banco afetado).</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Solução</h4>
-    <ul>
-      <li>Isolar o chicote e verificar curtos com a massa.</li>
-      <li>Testar a resistência dos injetores do banco afetado.</li>
-      <li>Se o circuito estiver íntegro e a falha persistir, substituir o ECM.</li>
-    </ul>
-  </div>
+<h2 id="teste-retorno">Teste de retorno dos injetores</h2>
+<ul>
+  <li>Use mangueiras transparentes e frascos para coleta do retorno individual;</li>
+  <li>Com o motor em marcha lenta por 1 minuto, os volumes devem ser quase iguais entre os injetores;</li>
+  <li>Um injetor com alto volume de retorno indica desgaste interno e compromete a manutenção da pressão do Rail.</li>
+</ul>
+
+<h3 id="medidas-referencia">Medidas de referência</h3>
+<div class="specs">
+  <div class="spec"><b>12,4 mm</b><span>Fundo da bobina sem calço</span></div>
+  <div class="spec"><b>10,7 mm</b><span>Fundo da bobina com calço de 1,7 mm</span></div>
+  <div class="spec"><b>17,8 mm</b><span>Ponta sem calço</span></div>
 </div>
