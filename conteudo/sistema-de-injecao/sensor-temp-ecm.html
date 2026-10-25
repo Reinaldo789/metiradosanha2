@@ -1,74 +1,146 @@
-<!-- Sensor de Temperatura do Líquido de Arrefecimento - MWM Sprint 2.8 -->
+<!-- Sensor de Temperatura da Água (ECT). Imagens: salve em conteudo/imagens/sensor-temp-agua/ -->
 <header class="art-head">
-  <span class="art-kicker">Sistema de Injeção · Diagnóstico</span>
-  <h1>Sensor de Temperatura do Líquido de Arrefecimento</h1>
-  <p class="art-lead">Fluxograma de diagnóstico com a luz amarela acesa: responda Sim ou Não em cada passo até chegar à solução.</p>
-  <div class="chips"><span>MWM Sprint 2.8</span><span>S10 até 2011</span><span>P0117 · P0118</span></div>
+  <h1>Sensor de Temperatura da Água (ECT) – MWM 2.8</h1>
 </header>
 
 <nav class="toc" aria-label="Neste artigo">
   <strong>Neste artigo</strong>
   <ul>
-    <li><a href="#" data-goto="fluxo">Fluxograma</a></li>
-    <li><a href="#" data-goto="valores">Valores e pinos</a>
+    <li><a href="#" data-goto="localizacao-funcionamento">Localização e Funcionamento</a></li>
+    <li><a href="#" data-goto="codigos-de-falha">Mapeamento de Códigos (OBD-II)</a></li>
+    
+    <li><a href="#" data-goto="tabela-ntc">Tabela de Resistência e Tensão (Curva NTC)</a></li>
+    <li><a href="#" data-goto="pinagem">Mapeamento de Pinagem (Sensor x ECU)</a></li>
+    
+    <li><a href="#" data-goto="roteiro-diagnostico">Roteiro de Diagnóstico Avançado</a>
       <ul>
-        <li><a href="#" data-goto="pinos-do-sensor-e-do-ecm">Pinos do sensor e do ECM</a></li>
+        <li><a href="#" data-goto="passo-1">1. Varredura Física Inicial</a></li>
+        <li><a href="#" data-goto="passo-2">2. Teste de Referência (ECU)</a></li>
+        <li><a href="#" data-goto="passo-3">3. Teste Estático (Sensor)</a></li>
       </ul>
     </li>
-    <li><a href="#" data-goto="solucoes">Soluções comuns</a></li>
-    <li><a href="#" data-goto="codigos">Códigos relacionados</a></li>
   </ul>
 </nav>
 
-<p>Use este roteiro quando a diagnose registrar P0117 (tensão baixa) ou P0118 (tensão alta). O ECM assume valores substitutos quando o sinal falha.</p>
+<!-- ==========================================
+     CONTEÚDO DO ARTIGO
+     ========================================== -->
 
-<h2 id="fluxo">Fluxograma</h2>
-<div class="fluxo">
-  <div class="passo" id="p1"><span class="passo-n">Passo 1</span><p><strong>A ferramenta registrou P0117 ou P0118?</strong></p>
-    <div class="resp"><button type="button" class="sim" data-ir="p2">Sim</button><button type="button" class="nao" data-ir="r1">Não</button></div></div>
-  <div class="passo fim acao" id="r1"><span class="passo-n">Outro código</span><p>Siga o fluxograma do código apresentado.</p></div>
-  <div class="passo" id="p2"><span class="passo-n">Passo 2</span><p>Verifique o conector do sensor no bloco. Há <strong>oxidação, umidade ou terminais tortos</strong>?</p>
-    <div class="resp"><button type="button" class="sim" data-ir="r2">Sim</button><button type="button" class="nao" data-ir="p3">Não</button></div></div>
-  <div class="passo fim erro" id="r2"><span class="passo-n">Corrigir conector</span><ul><li>Limpe e reapente os terminais;</li><li>Apague os códigos e repita o teste.</li></ul></div>
-  <div class="passo" id="p3"><span class="passo-n">Passo 3</span><p>Desligue o conector do sensor. Meça a <strong>resistência</strong> entre os pinos 1 e 2. <strong>O valor varia com a temperatura</strong> (NTC)?</p>
-    <ul><li>20 °C → ≈ 2,5 kΩ</li><li>40 °C → ≈ 1,2 kΩ</li><li>80 °C → ≈ 0,3 kΩ</li></ul>
-    <div class="resp"><button type="button" class="sim" data-ir="p4">Sim</button><button type="button" class="nao" data-ir="r3">Não</button></div></div>
-  <div class="passo fim erro" id="r3"><span class="passo-n">Sensor com defeito</span><ul><li>Substitua o sensor de temperatura do líquido de arrefecimento;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
-  <div class="passo" id="p4"><span class="passo-n">Passo 4</span><p>Verifique a continuidade do chicote entre o pino 1 do sensor e o pino <strong>A41</strong> do ECM, e entre o pino 2 do sensor e o pino <strong>A58</strong> do ECM. <strong>O valor é menor que 1 Ω?</strong></p>
-    <div class="resp"><button type="button" class="sim" data-ir="p5">Sim</button><button type="button" class="nao" data-ir="r4">Não</button></div></div>
-  <div class="passo fim erro" id="r4"><span class="passo-n">Chicote interrompido</span><ul><li>Repare ou substitua o chicote;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
-  <div class="passo" id="p5"><span class="passo-n">Passo 5</span><p>Verifique <strong>curto-circuito</strong> entre os pinos 1 e 2 do sensor e o terra. <strong>Existe continuidade?</strong></p>
-    <div class="resp"><button type="button" class="sim" data-ir="r5">Sim</button><button type="button" class="nao" data-ir="p6">Não</button></div></div>
-  <div class="passo fim erro" id="r5"><span class="passo-n">Curto-circuito</span><ul><li>Repare o chicote;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
-  <div class="passo" id="p6"><span class="passo-n">Passo 6</span><p>Com o motor frio, ligue o contato (sem dar partida). Leia a temperatura do líquido na tela "Status do Motor". <strong>O valor está próximo da temperatura ambiente?</strong></p>
-    <div class="resp"><button type="button" class="sim" data-ir="r6">Sim</button><button type="button" class="nao" data-ir="r7">Não</button></div></div>
-  <div class="passo fim ok" id="r6"><span class="passo-n">Sensor OK</span><ul><li>Apague os códigos de falha;</li><li>Se não houver mais falhas, libere o veículo.</li></ul></div>
-  <div class="passo fim erro" id="r7"><span class="passo-n">Substituir sensor</span><ul><li>Substitua o sensor de temperatura do líquido de arrefecimento;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+<h2 id="localizacao-funcionamento">Localização Física e Estratégia de Funcionamento</h2>
+<p>O sensor de temperatura do líquido de arrefecimento (código Bosch de referência <b>0281002209</b>) está rosqueado diretamente no bloco do motor, posicionado na parte frontal, próximo à carcaça da válvula termostática.</p>
+<p>A central de injeção (ECU) utiliza esse componente (um resistor do tipo <b>NTC - Coeficiente de Temperatura Negativo</b>) para monitorar a variação térmica do bloco. A central envia uma tensão estável de 5,0V e mede a queda de tensão provocada pela variação da resistência interna do sensor.</p>
+
+<div class="aviso">
+  <strong>Estratégia de Sobrevivência (Limp Home)</strong>
+  <p>Se o sinal falhar, a ECU adota um valor substituto padrão gravado em seu mapa interno. O motor continua funcionando para evitar que o condutor fique parado na via, mas perde a correção fina de avanço e débito.</p>
 </div>
 
-<h2 id="valores">Valores e pinos</h2>
-<table><tr><th>Teste</th><th>Valor esperado</th></tr>
-<tr><td>Resistência a 20 °C</td><td>≈ 2,5 kΩ</td></tr>
-<tr><td>Resistência a 40 °C</td><td>≈ 1,2 kΩ</td></tr>
-<tr><td>Resistência a 80 °C</td><td>≈ 0,3 kΩ</td></tr>
-<tr><td>Continuidade chicote ↔ ECM</td><td>menor que 1 Ω</td></tr></table>
+<div class="aviso">
+  <strong>Efeito de Partida</strong>
+  <p>O sensor dita o enriquecimento e o tempo de acionamento das estratégias de partida a frio. Por isso, se ele falhar, o motor pode apresentar dificuldade de pegar e excesso de fumaça preta/escura na partida.</p>
+</div>
 
-<h3 id="pinos-do-sensor-e-do-ecm">Pinos do sensor e do ECM</h3>
-<table><tr><th>Pino do sensor</th><th>Pino do ECM</th><th>Função</th></tr>
-<tr><td>1</td><td>A41</td><td>GND do sensor</td></tr>
-<tr><td>2</td><td>A58</td><td>Sinal da temperatura do líquido</td></tr></table>
+<h2 id="codigos-de-falha">Mapeamento de Códigos de Falha (OBD-II)</h2>
+<p>Os códigos armazenados na memória da ECU referentes a este circuito são divididos pela lógica de disparo:</p>
 
-<h2 id="solucoes">Soluções comuns</h2>
+<div class="codigos">
+  <div class="codigo"><span class="num">P0116</span><div>
+    <h4>Falha no Teste Dinâmico do Sensor</h4>
+    <p>Ocorre quando o motor entra em funcionamento e a central nota que a temperatura lida não altera (sensor travado em uma leitura fixa) ou varia de forma abrupta incompatível com a física térmica do motor.</p>
+  </div></div>
+  
+  <div class="codigo"><span class="num">P0117</span><div>
+    <h4>Tensão Baixa no Circuito</h4>
+    <p>A tensão de retorno lida pela ECU caiu perto de 0V. Indica que o fio de sinal sofreu um esmagamento e está em curto-circuito direto com a massa (terra), ou o próprio sensor entrou em curto interno.</p>
+  </div></div>
+  
+  <div class="codigo"><span class="num">P0118</span><div>
+    <h4>Tensão Alta no Circuito</h4>
+    <p>A tensão de retorno lida pela ECU estabilizou em 5,0V (ou acima). Significa que a corrente elétrica não encontra caminho para o terra, denunciando circuito aberto (fio partido, conector desconectado ou pinos com forte oxidação/zinabre).</p>
+  </div></div>
+</div>
+
+<h2 id="tabela-ntc">Tabela Cirúrgica de Resistência e Tensão (Curva NTC Bosch)</h2>
+<p>Para testes reais de bancada, a resistência e a tensão devem seguir estritamente o padrão Bosch para a injeção Common Rail:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Temperatura do Motor (°C)</th>
+      <th>Resistência Interna Esperada (Ω)</th>
+      <th>Tensão Lida no Sinal (V)</th>
+      <th>Status de Operação</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>-10 °C</b></td>
+      <td>8.100 a 10.770 Ω (8.1 a 10.7 kΩ)</td>
+      <td>~4,2 V a 4,5 V</td>
+      <td>Partida em frio extremo</td>
+    </tr>
+    <tr>
+      <td><b>+20 °C</b></td>
+      <td>2.280 a 2.720 Ω (2.2 a 2.7 kΩ)</td>
+      <td>~3,0 V a 3,5 V</td>
+      <td>Temperatura ambiente / Oficina</td>
+    </tr>
+    <tr>
+      <td><b>+40 °C</b></td>
+      <td>1.000 a 1.200 Ω (1.0 a 1.2 kΩ)</td>
+      <td>~2,2 V</td>
+      <td>Aquecimento inicial</td>
+    </tr>
+    <tr>
+      <td><b>+80 °C</b></td>
+      <td>290 a 364 Ω</td>
+      <td>~0,8 V a 1,1 V</td>
+      <td>Motor em temperatura de trabalho</td>
+    </tr>
+    <tr>
+      <td><b>+90 °C</b></td>
+      <td>200 a 270 Ω</td>
+      <td>~0,6 V a 0,7 V</td>
+      <td>Efetividade máxima do radiador</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="pinagem">Mapeamento de Pinagem Extremo (Do Sensor até a ECU)</h2>
+<p>Para testar a fiação contra curto-circuito, alta resistência ou interrupção, o teste de continuidade (resistência do fio) deve ser feito da tomada do sensor até o conector correspondente da central de injeção.</p>
+<p>No sistema do motor MWM 4.07, os fios do sensor de temperatura correm diretamente para o <b>Conector A ("Motor") da ECU</b>:</p>
+
+<div class="specs">
+  <div class="spec"><b>Sensor Pino 1</b><span>Alimentação 5V/Sinal → <b>ECU Pino A05</b> (Entrada de Sinal)</span></div>
+  <div class="spec"><b>Sensor Pino 2</b><span>Massa/Aterramento → <b>ECU Pino A22</b> (Terra dos Sensores)</span></div>
+</div>
+
+<div class="dica">
+  <strong>Nota de Medição</strong>
+  <p>Com o motor quente entre 60°C e 90°C, a medição direta por agulhamento entre os pinos <b>A05 e A22</b> na central deve apresentar uma variação contínua entre <b>0,6V e 2,4V</b>.</p>
+</div>
+
+<h2 id="roteiro-diagnostico">Roteiro Passo a Passo de Diagnóstico Avançado</h2>
+
+<h3 id="passo-1">1. Varredura Física Inicial</h3>
+<p>Avalie o conector em busca de folgas ou zinabre. Certifique-se de que o aterramento principal do módulo preso na capa-seca da embreagem está limpo e apertado.</p>
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Se o terra da capa-seca falhar, <b>todos</b> os sensores NTC apresentarão leitura maluca ou código de tensão alta.</p>
+</div>
+
+<h3 id="passo-2">2. Teste de Referência (ECU para Chicote)</h3>
+<p>Desconecte a tomada do sensor. Ligue a chave de ignição. Meça a tensão elétrica no conector do chicote elétrico (fio que vai para o pino A05 da ECU contra o terra do chassi).</p>
+<p>O multímetro deve registrar <b>5,0 Volts cravados</b>. Se marcar 0V, há interrupção na linha ou falha interna na ECU.</p>
+
+<h3 id="passo-3">3. Teste Estático do Componente (Sensor)</h3>
+<p>Com o sensor desconectado, meça a resistência diretamente nos seus dois pinos metálicos.</p>
 <ul>
-<li><strong>Conector com oxidação:</strong> limpe e reapente os terminais;</li>
-<li><strong>Chicote rompido:</strong> repare o trecho danificado;</li>
-<li><strong>Sensor com resistência fora do especificado:</strong> substitua o sensor;</li>
-<li><strong>Nível de líquido baixo:</strong> complete o sistema e sangre;</li>
-<li><strong>Válvula termostática travada:</strong> substitua a termostática.</li>
+  <li>Se o motor estiver frio (temperatura de oficina de ~20°C), o valor deve estar em torno de <b>2,5 kΩ</b>;</li>
+  <li>Coloque o sensor em um recipiente com água quente: a resistência deve cair de forma <b>limpa e progressiva</b>, sem saltos, até atingir cerca de <b>300 Ω</b> perto dos 80°C.</li>
 </ul>
 
-<h2 id="codigos">Códigos relacionados</h2>
-<ul>
-<li><strong>P0117</strong>: Tensão baixa no sensor — ECM assume 90 °C na partida e -10 °C no desligamento;</li>
-<li><strong>P0118</strong>: Tensão alta no sensor — mesmo comportamento do P0117.</li>
-</ul>
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Se o mostrador do multímetro oscilar para infinito (OL) durante o aquecimento, o sensor possui uma trinca interna e deve ser substituído.</p>
+</div>
