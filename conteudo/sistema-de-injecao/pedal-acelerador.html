@@ -1,280 +1,213 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sensor de Posição do Pedal do Acelerador - MWM 2.8</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f4f6f9;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #1a365d;
-            font-size: 26px;
-            border-bottom: 3px solid #2b6cb0;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-        h2 {
-            color: #2b6cb0;
-            font-size: 20px;
-            margin-top: 30px;
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 5px;
-        }
-        h3 {
-            color: #2d3748;
-            font-size: 16px;
-            margin-top: 20px;
-        }
-        p, ul, ol {
-            color: #4a5568;
-            font-size: 15px;
-        }
-        li {
-            margin-bottom: 8px;
-        }
-        .alerta {
-            background-color: #fffaf0;
-            border-left: 4px solid #dd6b20;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 0 4px 4px 0;
-        }
-        .alerta-titulo {
-            font-weight: bold;
-            color: #dd6b20;
-            margin-bottom: 5px;
-        }
-        /* Gráfico de Barras CSS */
-        .grafico-wrapper {
-            margin: 30px 0;
-            background: #f8f9fa;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 20px;
-        }
-        .grafico-titulo {
-            text-align: center;
-            font-weight: bold;
-            color: #1a365d;
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-        .grafico-barras-v {
-            display: flex;
-            justify-content: space-around;
-            align-items: flex-end;
-            height: 300px;
-            background-image: linear-gradient(to top, #e9ecef 1px, transparent 1px);
-            background-size: 100% 20%;
-            padding-top: 20px;
-            position: relative;
-        }
-        .coluna-barra {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            width: 22%;
-            height: 100%;
-        }
-        .duas-barras {
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            gap: 4px;
-            width: 100%;
-            height: 85%;
-        }
-        .barra-s1 {
-            width: 40%;
-            background: linear-gradient(to top, #2b6cb0, #4299e1);
-            border-radius: 4px 4px 0 0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding-top: 5px;
-            color: white;
-            font-weight: bold;
-            font-size: 11px;
-            box-sizing: border-box;
-        }
-        .barra-s2 {
-            width: 40%;
-            background: linear-gradient(to top, #c53030, #f56565);
-            border-radius: 4px 4px 0 0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding-top: 5px;
-            color: white;
-            font-weight: bold;
-            font-size: 11px;
-            box-sizing: border-box;
-        }
-        .rotulo-condicao {
-            font-size: 12px;
-            color: #333;
-            text-align: center;
-            margin-top: 10px;
-            height: 40px;
-            font-weight: 500;
-        }
-        .legenda-grafico {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 15px;
-            font-size: 12px;
-        }
-        .legenda-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .quadrado-s1 { width: 12px; height: 12px; background: #4299e1; border-radius: 2px; }
-        .quadrado-s2 { width: 12px; height: 12px; background: #f56565; border-radius: 2px; }
+<!-- Sensor de Posição do Pedal do Acelerador. Imagens: salve em conteudo/imagens/pedal-acelerador/ -->
+<header class="art-head">
+  <h1>Sensor de Posição do Pedal do Acelerador (GPA / APP)</h1>
+</header>
 
-        /* Tabelas */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
-            font-size: 14px;
-        }
-        th {
-            background-color: #2b6cb0;
-            color: white;
-            font-weight: 600;
-        }
-        tr:nth-child(even) {
-            background-color: #f7fafc;
-        }
-        .codigo-falha {
-            font-family: 'Courier New', Courier, monospace;
-            font-weight: bold;
-            color: #c53030;
-            background: #fff5f5;
-            padding: 2px 6px;
-            border-radius: 4px;
-            border: 1px solid #fed7d7;
-        }
-    </style>
-</head>
-<body>
+<nav class="toc" aria-label="Neste artigo">
+  <strong>Neste artigo</strong>
+  <ul>
+    <li><a href="#" data-goto="introducao">Introdução e Arquitetura</a></li>
+    <li><a href="#" data-goto="funcionamento">Funcionamento e Redundância</a></li>
+    
+    <li><a href="#" data-goto="parte-eletrica">Testes e Diagnóstico</a>
+      <ul>
+        <li><a href="#" data-goto="teste-alimentacao">Teste de Alimentação e Terra</a></li>
+        <li><a href="#" data-goto="teste-dinamico">Teste Dinâmico de Pista</a></li>
+      </ul>
+    </li>
+    
+    <li><a href="#" data-goto="problemas-comuns">Matriz de Defeitos</a>
+      <ul>
+        <li><a href="#" data-goto="marcha-lenta-travada">Marcha lenta travada</a></li>
+        <li><a href="#" data-goto="cortes-intermitentes">Cortes intermitentes</a></li>
+        <li><a href="#" data-goto="oscilacao-marcha-re">Oscilação em manobras</a></li>
+        <li><a href="#" data-goto="infiltracao-agua">Infiltração de água</a></li>
+      </ul>
+    </li>
+    
+    <li><a href="#" data-goto="codigos-de-falha">Códigos de Falha OBD-II</a></li>
+    
+    <li><a href="#" data-goto="calibracao">Calibração Pós-Troca</a></li>
+  </ul>
+</nav>
 
-<div class="container">
-    <h1>Sensor de Posição do Pedal do Acelerador (GPA) - MWM 2.8</h1>
+<!-- ==========================================
+     CONTEÚDO DO ARTIGO
+     ========================================== -->
 
-    <h2>Localização</h2>
-    <p>O sensor está acoplado diretamente ao mecanismo do pedal do acelerador, localizado no interior da cabine do veículo, acima do assoalho do motorista.</p>
+<h2 id="introducao">Introdução e Arquitetura</h2>
+<p>O Sensor de Posição do Pedal do Acelerador (GPA - Gas Pedal Actuator ou APP - Accelerator Pedal Position) é o componente primário de entrada do gerenciamento de torque do motor MWM Sprint 2.8 Eletrônico (4.07 TCE).</p>
+<p>Diferente dos sistemas mecânicos antigos controlados por cabo de aço, o MWM Eletrônico utiliza a estratégia <b>Drive-by-Wire</b> (Aceleração Eletrônica). O curso do pedal é convertido em sinais de tensão elétrica analógicos contínuos e transmitido em tempo real para a Unidade de Controle Eletrônico (ECU Bosch EDC16C8).</p>
 
-    <h2>Como funciona</h2>
+<h2 id="funcionamento">Funcionamento e Redundância</h2>
+<p>Para atender aos critérios automotivos internacionais de segurança funcional (ISO 26262), o pedal de aceleração integra <b>dois potenciômetros lineares rotativos independentes</b> dentro de um mesmo invólucro blindado. Essa arquitetura redundante garante que qualquer falha interna no circuito elétrico ou de leitura mecânica seja imediatamente interceptada pela central, mitigando riscos de aceleração involuntária em pista.</p>
+
+<ul>
+  <li><b>Estratégia de Correlação de Sinal:</b> O Sensor principal (Pista 1) opera com o dobro da taxa de variação de tensão elétrica do Sensor secundário (Pista 2). A equação de validação contínua executada pela ECU é definida como: <b>V_sinal_1 = 2 × V_sinal_2</b> (com uma tolerância calibrada de ±0,2V);</li>
+  <li><b>Modo Limp Home (Segurança Ativa):</b> Se houver colapso em qualquer uma das pistas de grafite ou chicote partido, a ECU aciona a luz de anomalia (injeção) e fixa a rotação do motor em um patamar de segurança limite (1200 a 1500 RPM). O torque livre do acelerador é desativado, forçando o motorista a direcionar o veículo para oficina sem potência operacional aberta.</li>
+</ul>
+
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>As imagens e esquemas elétricos deste artigo devem ser consultados no manual de oficina oficial do veículo. Nunca substitua o conjunto do pedal por peças de procedência duvidosa.</p>
+</div>
+
+<h2 id="parte-eletrica">Testes e Diagnóstico</h2>
+
+<h3 id="teste-alimentacao">Teste de Alimentação e Terra</h3>
+<ul>
+  <li>Desconecte o conector do pedal;</li>
+  <li>Com a chave de ignição ligada, meça a tensão entre os pinos de alimentação (geralmente pino 1 e 5, ou 2 e 3, dependendo do modelo);</li>
+  <li>A tensão de referência deve ser de <b>5V</b>;</li>
+  <li>Meça a resistência entre o pino de terra do conector e a carcaça/massa do motor. O valor de queda de tensão deve ser inferior a <b>50mV</b>. Resistência acima de 1.0 Ohm indica chicote esmagado ou oxidação nos pontos de aterramento.</li>
+</ul>
+
+<h3 id="teste-dinamico">Teste Dinâmico de Pista e Ponto Cego (Glitch)</h3>
+<p>Mantenha a ponta preta fixada no terra e conecte a ponta vermelha no Pino do Sinal 1. Com a mão, pressione o acelerador de forma <b>extremamente lenta</b> do início do curso até o fundo, levando cerca de 10 a 15 segundos no movimento.</p>
+<p>Observe atentamente o display do equipamento: a subida deve ser linear, sem saltos e sem zerar. Repita a mesma operação milimétrica no Pino do Sinal 2. Quedas abruptas para zero ou congelamentos em um valor fixo revelam desgaste mecânico na película resistiva interna (conhecido como <b>ponto cego do acelerador</b>), exigindo a troca imediata da peça.</p>
+
+<div class="dica">
+  <strong>Dica Exclusiva de Osciloscópio</strong>
+  <p>O teste dinâmico realizado com multímetro digital pode camuflar micro-falhas de pista rápidas de milissegundos devido à baixa taxa de amostragem física do visor digital (Refresh Rate). Para diagnósticos avançados e intermitentes, conecte um osciloscópio automotivo configurado em 1V/Divisão com tempo de 1s/Divisão. Qualquer micro-ruído elétrico ou queda rápida em forma de dente na linha contínua caracteriza falha de isolamento de pista de grafite.</p>
+</div>
+
+<h2 id="problemas-comuns">Matriz Avançada de Defeitos, Causas e Soluções</h2>
+
+<h3 id="marcha-lenta-travada">Motor em marcha lenta travada (1200 RPM), sem resposta ao pedal</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
     <ul>
-        <li><strong>Redundância de Segurança:</strong> O sensor possui dois potenciômetros internos independentes (Sensor 1 e Sensor 2) montados na mesma carcaça.</li>
-        <li><strong>Estratégia do Sinal (Razão 2:1):</strong> O Sensor 1 opera enviando exatamente o <strong>dobro da tensão</strong> do Sensor 2. Por exemplo, em marcha lenta, o Sensor 1 envia ~0,7V e o Sensor 2 envia ~0,35V.</li>
-        <li><strong>Monitoramento da ECM:</strong> A central eletrônica compara os dois sinais continuamente. Se a proporção matemática de segurança entre os dois divergir, a ECU ignora o sinal para evitar acelerações involuntárias.</li>
-        <li><strong>Modo de Segurança (Limp Home):</strong> Caso um dos sensores falhe, a ECM acende a luz de injeção no painel e limita o giro do motor a uma rotação fixa de segurança (geralmente entre 1200 RPM e 1500 RPM) para que o motorista consiga remover o veículo da via, mas sem torque de aceleração livre.</li>
+      <li>Perda completa de comunicação de uma das pistas;</li>
+      <li>Umidade severa ou oxidação por zinabre nos pinos do conector elétrico.</li>
     </ul>
+  </div>
+  <div>
+    <h4>Diagnóstico</h4>
+    <ul>
+      <li>Desconectar o chicote elétrico;</li>
+      <li>Aplicar produto limpa-contatos de alta evaporação;</li>
+      <li>Testar continuidade do fio se o defeito persistir.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Solução</h4>
+    <ul>
+      <li>Limpeza profunda dos contatos;</li>
+      <li>Substituição do chicote em casos de oxidação severa.</li>
+    </ul>
+  </div>
+</div>
 
-    <h2>Testes com Multímetro</h2>
-    <p>Abaixo está o mapeamento de leitura de sinal nos pinos de retorno para a central eletrônica de acordo com a posição física do pedal:</p>
+<h3 id="cortes-intermitentes">Cortes intermitentes em aceleração de estrada</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Veículo perde força e retoma bruscamente;</li>
+      <li>Desgaste físico localizado da trilha condutiva interna de grafite (ponto de cruzeiro).</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Diagnóstico</h4>
+    <ul>
+      <li>Limpezas líquidas externas não consertam o desgaste químico da pista;</li>
+      <li>Necessário substituir o conjunto completo do pedal.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Solução</h4>
+    <ul>
+      <li>Substituição mecânica do conjunto completo do pedal.</li>
+    </ul>
+  </div>
+</div>
 
-    <div class="grafico-wrapper">
-        <div class="grafico-titulo">Curva de Resposta de Tensão: Sensor 1 (Pino 4) vs. Sensor 2 (Pino 3)</div>
-        <div class="grafico-barras-v">
-            <!-- Escala base: 5V = 100% de altura máxima -->
-            
-            <div class="coluna-barra">
-                <div class="duas-barras">
-                    <!-- (0.7 / 5.0) * 100 = 14% -->
-                    <div class="barra-s1" style="height: 14%;">0.7V</div>
-                    <!-- (0.35 / 5.0) * 100 = 7% -->
-                    <div class="barra-s2" style="height: 7%;">0.35V</div>
-                </div>
-                <div class="rotulo-condicao">Pedal em Repouso<br>(Marcha Lenta)</div>
-            </div>
+<h3 id="oscilacao-marcha-re">Motor oscila rotação ou morre nas manobras de marcha ré</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Folga mecânica excessiva nos eixos internos do pedal;</li>
+      <li>Leitura fora da faixa inicial tolerável (&lt; 0.2V ou &gt; 0.9V na pista 1).</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Diagnóstico</h4>
+    <ul>
+      <li>Verificar folgas estruturais na carcaça plástica do pedal;</li>
+      <li>Checar o batente de fim de curso.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Solução</h4>
+    <ul>
+      <li>Substituir o componente se houver desgaste no batente.</li>
+    </ul>
+  </div>
+</div>
 
-            <div class="coluna-barra">
-                <div class="duas-barras">
-                    <!-- (2.0 / 5.0) * 100 = 40% -->
-                    <div class="barra-s1" style="height: 40%;">2.0V</div>
-                    <!-- (1.0 / 5.0) * 100 = 20% -->
-                    <div class="barra-s2" style="height: 20%;">1.0V</div>
-                </div>
-                <div class="rotulo-condicao">Pedal a Meio Curso<br>(Acel. Média)</div>
-            </div>
+<h3 id="infiltracao-agua">Luz de injeção acende após lavagem ou vazamento de ar quente</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Infiltração direta de água no módulo de contato do pedal;</li>
+      <li>Curto-circuito resistivo entre os pinos de 5V e os pinos de sinal.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Diagnóstico</h4>
+    <ul>
+      <li>Remover o pedal do local;</li>
+      <li>Abrir a tampa de proteção traseira (se aplicável).</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Solução</h4>
+    <ul>
+      <li>Efetuar secagem térmica controlada com ar quente;</li>
+      <li>Verificar a vedação do assoalho.</li>
+    </ul>
+  </div>
+</div>
 
-            <div class="coluna-barra">
-                <div class="duas-barras">
-                    <!-- (4.0 / 5.0) * 100 = 80% -->
-                    <div class="barra-s1" style="height: 80%;">4.0V</div>
-                    <!-- (2.0 / 5.0) * 100 = 40% -->
-                    <div class="barra-s2" style="height: 40%;">2.0V</div>
-                </div>
-                <div class="rotulo-condicao">Pedal Fundo<br>(Plena Carga)</div>
-            </div>
-        </div>
-        
-        <div class="legenda-grafico">
-            <div class="legenda-item"><span class="quadrado-s1"></span> Sensor 1 (Pino 4)</div>
-            <div class="legenda-item"><span class="quadrado-s2"></span> Sensor 2 (Pino 3)</div>
-        </div>
-    </div>
+<h2 id="codigos-de-falha">Códigos de Falha OBD-II</h2>
+<p>Ao efetuar a varredura da memória de erros da ECU utilizando um scanner automotivo, os seguintes códigos apontam diretamente para o circuito do pedal:</p>
 
-    <h3>Mapeamento e Pinagem do Conector do Pedal</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Pino</th>
-                <th>Função do Circuito</th>
-                <th>Valor de Referência (Multímetro)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><strong>Pino 01</strong></td>
-                <td>Alimentação (+5V) - Sensor 1</td>
-                <td>5,0 V constantes (Chave ligada)</td>
-            </tr>
-            <tr>
-                <td><strong>Pino 02</strong></td>
-                <td>Alimentação (+5V) - Sensor 2</td>
-                <td>5,0 V constantes (Chave ligada)</td>
-            </tr>
-            <tr>
-                <td><strong>Pino 03</strong></td>
-                <td>Sinal de Retorno - Sensor 2</td>
-                <td>0,35 V (Livre) a 2,0 V (Pressionado ao máximo)</td>
-            </tr>
-            <tr>
-                <td><strong>Pino 04</strong></td>
-                <td>Sinal de Retorno - Sensor 1</td>
-                <td>0,70 V (Livre) a 4,0 V (Pressionado ao máximo)</td>
-            </tr>
-            <tr>
-                <td><strong>Pino 05</strong></td>
-                <td>Aterramento (Massa) - Sensor 2</td>
-                <td>&lt; 0,1 V (Continuidade com o negativo da bateria)</td>
-            </tr>
-            <tr>
-                <td><strong>Pino 06</strong></td>
+<div class="codigos">
+  <div class="codigo"><span class="num">P0220</span><div>
+    <h4>Sensor de Posição do Acelerador 1 - Mau Funcionamento do Circuito</h4>
+    <p>A central detectou ausência de voltagem de retorno ou sinal permanentemente travado em nível lógico baixo (0V) ou alto (5V). Chicote partido ou curto-circuito direto.</p>
+  </div></div>
+  
+  <div class="codigo"><span class="num">P0225</span><div>
+    <h4>Sensor de Posição do Acelerador 2 - Mau Funcionamento do Circuito</h4>
+    <p>Falha análoga ao código anterior, porém mapeada especificamente no canal da pista secundária de redundância de segurança.</p>
+  </div></div>
+  
+  <div class="codigo"><span class="num">P2135</span><div>
+    <h4>Correlação de Tensão dos Sensores de Posição do Pedal 1 / 2</h4>
+    <p>A central eletrônica identificou que a proporção exata de 2:1 foi violada fora da tolerância dinâmica aceitável. Ativação imediata da estratégia de corte de torque.</p>
+  </div></div>
+  
+  <div class="codigo"><span class="num">P0120</span><div>
+    <h4>Circuito do Potenciômetro do Acelerador - Sinal Inválido</h4>
+    <p>Erro genérico de consistência lógica interna, geralmente disparado quando há flutuação violenta provocada por mau contato crônico nas conexões elétricas centrais.</p>
+  </div></div>
+</div>
+
+<h2 id="calibracao">Procedimento Prático de Calibração Pós-Troca</h2>
+<p>Sempre que o pedal de aceleração for substituído ou a ECU passar por processos de reprogramação de software, é fundamental realizar o procedimento de auto-aprendizado dos batentes físicos para sincronizar o curso zero (marcha lenta) e o curso cem por cento (plena carga). Siga o roteiro manual abaixo:</p>
+
+<ol>
+  <li>Desligue completamente a chave de ignição por pelo menos 60 segundos (tempo para o Power Down da ECU);</li>
+  <li>Ligue a chave de ignição na posição 'ON' (painel aceso), sem acionar o motor de partida, e aguarde 15 segundos;</li>
+  <li>Pressione lentamente o pedal do acelerador até o fim do curso (100% pressionado) e mantenha-o no batente por 5 segundos;</li>
+  <li>Solte o pedal do acelerador de forma suave até retornar à posição de repouso completa;</li>
+  <li>Desligue a chave de ignição, aguarde 30 segundos e dê a partida no motor. Teste a resposta em marcha lenta e aceleração livre.</li>
+</ol>
+
+<p style="font-size: 0.85rem; color: #64748b; margin-top: 2rem; border-top: 1px solid #e2e8f0; padding-top: 1rem;">
+  <em>Este documento foi desenvolvido com base nos parâmetros originais da engenharia automotiva Bosch e MWM Motores. Uso exclusivo para treinamento e diagnóstico mecânico profissional.</em>
+</p>
