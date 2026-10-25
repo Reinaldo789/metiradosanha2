@@ -3,118 +3,22 @@
   <h1>Sensor de Rotação (CKP)</h1>
 </header>
 
-<!-- CSS DO ÍNDICE (Padrão Bicos Injetores com isolamento de estilo) -->
-<style>
-  .toc-custom {
-    background-color: #fffaf2 !important;
-    border-left: 5px solid #f59e0b !important;
-    border-radius: 8px !important;
-    padding: 1.5rem 2rem !important;
-    margin: 1.5rem 0 2.5rem 0 !important;
-    font-family: 'Inter', 'Segoe UI', sans-serif !important;
-  }
-
-  .toc-custom > strong {
-    display: block !important;
-    font-size: 1.1rem !important;
-    font-weight: 800 !important;
-    color: #b45309 !important;
-    margin-bottom: 1rem !important;
-  }
-
-  .toc-custom ul {
-    list-style: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-
-  .toc-custom > ul > li {
-    position: relative !important;
-    padding-left: 1.2rem !important;
-    margin-bottom: 0.6rem !important;
-    line-height: 1.5 !important;
-  }
-
-  .toc-custom > ul > li::before {
-    content: '•' !important;
-    position: absolute !important;
-    left: 0 !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    color: #3b82f6 !important;
-    font-size: 1.6rem !important;
-    line-height: 0 !important;
-  }
-
-  .toc-custom a {
-    text-decoration: none !important;
-    color: #3b82f6 !important;
-    font-size: 0.95rem !important;
-    font-weight: 500 !important;
-    transition: color 0.2s ease !important;
-    display: inline-block !important;
-  }
-
-  .toc-custom a:hover {
-    color: #2563eb !important;
-    text-decoration: underline !important;
-  }
-
-  .toc-custom .sub-toc-custom {
-    margin-top: 0.3rem !important;
-    padding-left: 0 !important;
-  }
-
-  .toc-custom .sub-toc-custom li {
-    position: relative !important;
-    padding-left: 1rem !important;
-    margin-bottom: 0.3rem !important;
-  }
-
-  .toc-custom .sub-toc-custom li::before {
-    content: '' !important;
-    position: absolute !important;
-    left: 0 !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    width: 6px !important;
-    height: 6px !important;
-    border: 1.5px solid #93c5fd !important;
-    border-radius: 50% !important;
-    background: transparent !important;
-  }
-
-  .toc-custom .sub-toc-custom a {
-    font-size: 0.9rem !important;
-    color: #60a5fa !important;
-    font-weight: 400 !important;
-  }
-  
-  h2[id], h3[id] {
-    scroll-margin-top: 100px !important;
-  }
-</style>
-
-<!-- ESTRUTURA DO ÍNDICE -->
-<div class="toc-custom">
+<nav class="toc" aria-label="Neste artigo">
   <strong>Neste artigo</strong>
   <ul>
     <li><a href="#" data-goto="localizacao">Localização</a></li>
-    
     <li><a href="#" data-goto="funcionamento">Funcionamento</a></li>
     
-    <li>
-      <a href="#" data-goto="parte-eletrica">Parte elétrica e testes</a>
-      <ul class="sub-toc-custom">
+    <li><a href="#" data-goto="parte-eletrica">Parte elétrica e testes</a>
+      <ul>
         <li><a href="#" data-goto="teste-resistencia">Teste de resistência</a></li>
         <li><a href="#" data-goto="testes-ac">Testes em corrente alternada</a></li>
         <li><a href="#" data-goto="diagnostico-chicote">Diagnóstico de chicote</a></li>
       </ul>
     </li>
     
-    <li>
-      <a href="#" data-goto="problemas-comuns">Problemas comuns</a>
-      <ul class="sub-toc-custom">
+    <li><a href="#" data-goto="problemas-comuns">Problemas comuns</a>
+      <ul>
         <li><a href="#" data-goto="motor-gira-nao-pega">Motor gira mas não pega</a></li>
         <li><a href="#" data-goto="motor-apaga-aquece">Motor apaga quando aquece</a></li>
       </ul>
@@ -122,7 +26,7 @@
     
     <li><a href="#" data-goto="codigos-de-falha">Códigos de falha</a></li>
   </ul>
-</div>
+</nav>
 
 <!-- ==========================================
      CONTEÚDO DO ARTIGO
