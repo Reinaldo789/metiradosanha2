@@ -1,80 +1,189 @@
-<!-- Bicos Injetores com falha (luz acesa) - MWM Sprint 2.8 -->
+<!-- Bicos Injetores. Imagens: salve em conteudo/imagens/bicos-injetores/ com estes nomes:
+01-como-retirar.jpg           Como retirar os bicos
+02-tabela-aperto-1.jpg        Tabela de aperto (1)
+03-tabela-aperto-2.jpg        Tabela de aperto (2)
+04-ligacao-ecm-bicos.jpg      Ligação do módulo ECM até os bicos (Manual Agrale Marruá)
+05-teste-pulso.jpg            Teste de pulso com a caneta de teste
+06-limpeza-1.jpg              Limpeza do bico (1)
+07-limpeza-2.jpg              Limpeza do bico (2)
+08-teste-retorno-spray.jpg    Teste de retorno com spray no furo maior
+09-teste-ponteira.jpg         Teste da ponteira do bico com spray
+10-reparo-1.jpg               Limpeza e reparo do bico (1)
+11-reparo-2.jpg               Limpeza e reparo do bico (2)
+12-montagem-1.jpg             Montagem do bico no motor (1)
+13-montagem-2.jpg             Montagem do bico no motor (2)
+Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentacao-de-combustivel/...). -->
 <header class="art-head">
-  <span class="art-kicker">Sistema de Injeção · Diagnóstico</span>
-  <h1>Bicos Injetores (Common Rail)</h1>
-  <p class="art-lead">Fluxograma de diagnóstico com a luz amarela acesa: responda Sim ou Não em cada passo até chegar à solução.</p>
-  <div class="chips"><span>MWM Sprint 2.8</span><span>S10 até 2011</span><span>P0201 a P0204 · P0261 a P0270</span></div>
+  <h1>Bicos Injetores</h1>
 </header>
 
-<p>Use este roteiro quando a diagnose registrar falhas de conexão (P0201 a P0204) ou curto-circuito nos injetores (P0261 a P0270). O motor pode falhar, perder potência ou desligar.</p>
+<nav class="toc" aria-label="Neste artigo">
+  <strong>Neste artigo</strong>
+  <ul>
+    <li><a href="#" data-goto="localizacao">Localização</a></li>
+    <li><a href="#" data-goto="como-retirar">Como retirar</a></li>
+    <li><a href="#" data-goto="funcionamento">Como funciona</a></li>
+    <li><a href="#" data-goto="parte-eletrica">Parte elétrica</a></li>
+    <li><a href="#" data-goto="problemas-comuns">Problemas comuns</a></li>
+    <li><a href="#" data-goto="teste-retorno">Teste de retorno dos injetores</a></li>
+  </ul>
+</nav>
 
-<h2 id="fluxo">Fluxograma</h2>
-<div class="fluxo">
-  <div class="passo" id="p1"><span class="passo-n">Passo 1</span><p><strong>Qual código foi registrado?</strong></p>
-    <ul>
-      <li>P0201 a P0204 → injetor não conectado</li>
-      <li>P0261 a P0270 → curto-circuito no injetor</li>
-    </ul>
-    <div class="resp"><button type="button" class="sim" data-ir="p2">Não conectado (P020x)</button><button type="button" class="nao" data-ir="p5">Curto-circuito (P026x/P027x)</button></div></div>
+<h2 id="localizacao">Localização</h2>
+<p>Os bicos injetores ficam montados no cabeçote, um para cada cilindro.</p>
 
-  <div class="passo" id="p2"><span class="passo-n">Passo 2</span><p>Verifique a conexão do chicote no injetor indicado pelo código. <strong>O chicote está ligado adequadamente?</strong></p>
-    <div class="resp"><button type="button" class="sim" data-ir="p3">Sim</button><button type="button" class="nao" data-ir="r1">Não</button></div></div>
-  <div class="passo fim acao" id="r1"><span class="passo-n">Ligar conector</span><ul><li>Ligue o conector do injetor;</li><li>Verifique se o código foi apagado;</li><li>Se persistir, siga para o passo 3.</li></ul></div>
+<h2 id="como-retirar">Como retirar</h2>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bicos-injetores/01-como-retirar.jpg" alt="Como retirar os bicos injetores" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<h3 id="tabela-aperto">Tabela de aperto</h3>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bicos-injetores/02-tabela-aperto-1.jpg" alt="Tabela de aperto dos bicos injetores, parte 1" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bicos-injetores/03-tabela-aperto-2.jpg" alt="Tabela de aperto dos bicos injetores, parte 2" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
 
-  <div class="passo" id="p3"><span class="passo-n">Passo 3</span><p>Desligue o conector do injetor. Meça a continuidade entre os pinos 1 e 2 do conector do injetor e os pinos correspondentes no ECM. <strong>O valor é menor que 1 Ω?</strong></p>
-    <ul>
-      <li>Cil. 1 → A47 e A16</li>
-      <li>Cil. 2 → A31 e A02</li>
-      <li>Cil. 3 → A46 e A01</li>
-      <li>Cil. 4 → A33 e A17</li>
-    </ul>
-    <div class="resp"><button type="button" class="sim" data-ir="p4">Sim</button><button type="button" class="nao" data-ir="r2">Não</button></div></div>
-  <div class="passo fim erro" id="r2"><span class="passo-n">Chicote interrompido</span><ul><li>Verifique mau contato no conector do ECM;</li><li>Repare ou substitua o chicote;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+<h2 id="funcionamento">Como funciona</h2>
+<p>Os bicos injetores estão montados no cabeçote e pulverizam o combustível na câmara de combustão. A ECM controla os bicos: determina a quantidade e o momento da injeção para cada cilindro.</p>
+<ul>
+  <li><b>Posição de repouso:</b> o bico está fechado (desenergizado). A agulha permanece fechada pela alta pressão do combustível na haste do bico, que tem área maior que a área inferior;</li>
+  <li><b>Início da injeção:</b> a ECM energiza a válvula eletromagnética, que abre a passagem de saída do combustível para o retorno. O combustível pressurizado entra pelo furo calibrado e cria uma depressão na câmara de controle. Essa depressão faz a agulha subir e começa a pulverização na câmara de combustão;</li>
+  <li><b>Fim da injeção:</b> ocorre quando a ECM desenergiza a válvula eletromagnética. A mola fecha a passagem do furo de retorno, o combustível pressurizado ocupa de novo a câmara de controle e a agulha desce, voltando à posição de repouso.</li>
+</ul>
 
-  <div class="passo" id="p4"><span class="passo-n">Passo 4</span><p>Chicote OK. Meça a resistência entre os terminais da bobina do injetor. <strong>O valor é menor ou igual a 0,8 Ω?</strong></p>
-    <div class="resp"><button type="button" class="sim" data-ir="r3">Sim</button><button type="button" class="nao" data-ir="r4">Não</button></div></div>
-  <div class="passo fim ok" id="r3"><span class="passo-n">Injetor OK</span><ul><li>Verifique oxidações ou mau contato no conector do injetor;</li><li>Ligue o chicote, apague os códigos e funcione o motor;</li><li>Se não houver mais falhas, libere o veículo.</li></ul></div>
-  <div class="passo fim erro" id="r4"><span class="passo-n">Substituir injetor</span><ul><li>Substitua o injetor com defeito;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
+<h2 id="parte-eletrica">Parte elétrica</h2>
+<p>Ligação do módulo ECM até os bicos injetores (Manual Agrale Marruá).</p>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bicos-injetores/04-ligacao-ecm-bicos.jpg" alt="Ligação elétrica entre o módulo ECM e os bicos injetores" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<h3 id="teste-pulso">Teste de pulso</h3>
+<p>Com a caneta de teste dá para ver os pulsos e também o Duty Cycle (ciclo de trabalho). Para testes básicos, o Duty Cycle não é importante.</p>
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Só há pulso nos bicos injetores se a tensão de retorno no <a href="#sistema-de-injecao/sensor-pres-rail">sensor de pressão do Rail</a> for de no mínimo 0,9 V.</p>
+</div>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bicos-injetores/05-teste-pulso.jpg" alt="Teste de pulso nos bicos injetores com a caneta de teste" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
 
-  <div class="passo" id="p5"><span class="passo-n">Passo 5 (curto)</span><p>Identifique o injetor do código. Desligue o conector do injetor e do ECM. Meça a continuidade entre os pinos do injetor e o terra/positivo da bateria. <strong>Existe curto-circuito?</strong></p>
-    <div class="resp"><button type="button" class="sim" data-ir="r5">Sim</button><button type="button" class="nao" data-ir="p6">Não</button></div></div>
-  <div class="passo fim erro" id="r5"><span class="passo-n">Chicote em curto</span><ul><li>Verifique curto-circuito no chicote do injetor;</li><li>Repare o trecho danificado;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
-
-  <div class="passo" id="p6"><span class="passo-n">Passo 6</span><p>Verifique a bobina do injetor em relação à carcaça do mesmo. <strong>Existe curto-circuito?</strong></p>
-    <div class="resp"><button type="button" class="sim" data-ir="r6">Sim</button><button type="button" class="nao" data-ir="r7">Não</button></div></div>
-  <div class="passo fim erro" id="r6"><span class="passo-n">Injetor em curto</span><ul><li>Substitua o injetor;</li><li>Apague os códigos e refaça o teste.</li></ul></div>
-  <div class="passo fim erro" id="r7"><span class="passo-n">Suspeita de ECM</span><ul><li>Se chicote e injetor estiverem OK, o problema está no ECM;</li><li>Substitua o ECM e refaça o teste.</li></ul></div>
+<h2 id="problemas-comuns">Problemas comuns</h2>
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Os testes com spray são extremamente básicos: o spray tem apenas 6 bar de pressão. Na marcha lenta, o sistema trabalha com no mínimo 250 bar.</p>
 </div>
 
-<h2 id="valores">Valores e pinos</h2>
-<table><tr><th>Teste</th><th>Valor esperado</th></tr>
-<tr><td>Resistência da bobina do injetor</td><td>≤ 0,8 Ω</td></tr>
-<tr><td>Continuidade chicote ↔ ECM</td><td>menor que 1 Ω</td></tr>
-<tr><td>Curto com terra/positivo</td><td>não deve haver</td></tr></table>
+<h3>Excesso de retorno dos bicos injetores</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Motor de partida gira, mas o motor não liga;</li>
+      <li>Partidas muito longas.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Baixa pressão na linha de baixa;</li>
+      <li>Baixa pressão na linha de alta;</li>
+      <li>Válvula de alívio do <a href="#alimentacao-de-combustivel/tubo-rail">tubo Rail</a> com vazamento;</li>
+      <li>Excesso de retorno nos bicos injetores.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Depois de confirmar o excesso de retorno, trocar o reparo do bico injetor.</li>
+    </ul>
+  </div>
+</div>
 
-<h3>Pinos do injetor e do ECM</h3>
-<table><tr><th>Cilindro</th><th>Acionador</th><th>Retorno</th></tr>
-<tr><td>1</td><td>A47</td><td>A16</td></tr>
-<tr><td>2</td><td>A31</td><td>A02</td></tr>
-<tr><td>3</td><td>A46</td><td>A01</td></tr>
-<tr><td>4</td><td>A33</td><td>A17</td></tr></table>
+<h3>Castanhado forte e motor fraco</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Motor de partida gira e às vezes o motor liga, com castanholar forte;</li>
+      <li>Motor sem potência;</li>
+      <li>Partidas muito longas.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Bico injetor travado aberto;</li>
+      <li><a href="#sistema-de-injecao/valvula-mprop">Válvula MProp</a> travada aberta: meça a tensão no <a href="#sistema-de-injecao/sensor-pres-rail">sensor do Rail</a>.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Retirar os bicos injetores e fazer a limpeza.</li>
+    </ul>
+  </div>
+</div>
 
-<div class="dica"><strong>Banco de injetores</strong><p>Os injetores 1 e 4 formam o Banco 1 (P0261 / P0262 / P0270). Os injetores 2 e 3 formam o Banco 2 (P0263 / P0264 / P0267). Curto em um banco afeta os dois injetores.</p></div>
-
-<h2 id="solucoes">Soluções comuns</h2>
+<h3 id="limpeza-bico">Limpeza do bico injetor</h3>
+<p>Limpe também o tubo Rail e as tubulações de ligação (veja em <a href="#alimentacao-de-combustivel/tubo-rail">Tubo Rail</a>).</p>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bicos-injetores/06-limpeza-1.jpg" alt="Limpeza do bico injetor, foto 1" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bicos-injetores/07-limpeza-2.jpg" alt="Limpeza do bico injetor, foto 2" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<p>Faça o teste de retorno do bico: ele verifica a estanqueidade do reparo da caneta do bico e o assentamento da esfera de controle do retorno.</p>
+<p>Injete spray no primeiro furo do bico (o furo maior). Nesse teste não pode sair líquido pelo retorno.</p>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bicos-injetores/08-teste-retorno-spray.jpg" alt="Teste de retorno do bico com spray no furo maior" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<p>Teste a ponteira do bico com spray. Se estiver travada fechada, não sai líquido. O líquido deve sair pulverizado.</p>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bicos-injetores/09-teste-ponteira.jpg" alt="Teste da ponteira do bico injetor com spray" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<p><b>Limpeza e reparo do bico</b></p>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bicos-injetores/10-reparo-1.jpg" alt="Limpeza e reparo do bico injetor, foto 1" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bicos-injetores/11-reparo-2.jpg" alt="Limpeza e reparo do bico injetor, foto 2" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<p>Teste usando desengripante em spray.</p>
+<p><b>Montar o bico no motor</b></p>
 <ul>
-<li><strong>Conector do injetor solto:</strong> reaperte até o encaixe;</li>
-<li><strong>Chicote rompido:</strong> repare o trecho danificado;</li>
-<li><strong>Curto-circuito no chicote:</strong> identifique o ponto e isole;</li>
-<li><strong>Bobina do injetor com resistência alta:</strong> substitua o injetor;</li>
-<li><strong>Bobina em curto com a carcaça:</strong> substitua o injetor;</li>
-<li><strong>Suspeita de ECM:</strong> se chicote e injetores estiverem OK, substitua o ECM.</li>
+  <li>Use o O-ring de vedação no bico, para o bico injetor não enferrujar;</li>
+  <li>Troque a arruela de cobre sempre que desmontar;</li>
+  <li>Siga a <a href="#" data-goto="tabela-aperto">tabela de aperto</a> para não danificar a rosca do cabeçote.</li>
 </ul>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bicos-injetores/12-montagem-1.jpg" alt="Montagem do bico injetor no motor, foto 1" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bicos-injetores/13-montagem-2.jpg" alt="Montagem do bico injetor no motor, foto 2" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
 
-<h2 id="codigos">Códigos relacionados</h2>
+<h2 id="teste-retorno">Teste de retorno dos injetores</h2>
 <ul>
-<li><strong>P0201 a P0204</strong>: Bico injetor 1 a 4 não conectado — débito limitado e rotação a 2000 rpm;</li>
-<li><strong>P0261</strong>: Curto-circuito no banco 1 dos injetores — desliga o motor;</li>
-<li><strong>P0262 / P0264 / P0267 / P0270</strong>: Curto-circuito em injetor específico — desliga o motor;</li>
-<li><strong>P0263</strong>: Curto-circuito no banco 2 dos injetores — desliga o motor.</li>
+  <li>Use mangueiras transparentes e frascos para coletar o retorno de cada injetor separadamente;</li>
+  <li>Com o motor em marcha lenta por 1 minuto, os volumes devem ser quase iguais entre os injetores;</li>
+  <li>Um injetor com volume de retorno alto indica desgaste interno e compromete a manutenção da pressão do Rail.</li>
 </ul>
+<h3>Medidas de referência</h3>
+<div class="specs">
+  <div class="spec"><b>12,4 mm</b><span>Fundo da bobina, sem calço</span></div>
+  <div class="spec"><b>10,7 mm</b><span>Fundo da bobina, com calço de 1,7 mm</span></div>
+  <div class="spec"><b>17,8 mm</b><span>Ponta, sem calço</span></div>
+</div>
