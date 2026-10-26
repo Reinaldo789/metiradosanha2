@@ -1,178 +1,169 @@
-<!-- Sensor de Pressão do Rail. Imagens: salve em conteudo/imagens/sensor-pres-rail/ com estes nomes:
-01-localizacao.jpg                   Localização no tubo Rail
-02-funcionamento.jpg                 Como funciona
-03-conector-pinos.jpg                Parte elétrica: conector e pinos
-04-teste-multimetro.jpg              Teste com multímetro
-05-teste-scanner.jpg                 Teste com scanner: pressão na partida
-06-scanner-pressao-1.jpg             Scanner durante a aceleração
-07-scanner-1500-bar.jpg              Atingiu 1.500 bar e desligou o motor
-08-pressao-comandada-real-1.jpg      Pressão comandada x real, marcha lenta
-09-pressao-comandada-real-2.jpg      Pressão comandada x real, 2.000 rpm
-Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #linha-combustivel/...). -->
+<!-- Sensor de Pressão e Temperatura do Ar (MAP/IAT). Imagens: salve em conteudo/imagens/sensor-map-iat/ -->
 <header class="art-head">
-  <h1>Sensor de Pressão do Rail</h1>
+  <h1>Sensor de Pressão e Temperatura do Ar (MAP/IAT)</h1>
 </header>
 
 <nav class="toc" aria-label="Neste artigo">
   <strong>Neste artigo</strong>
   <ul>
     <li><a href="#" data-goto="localizacao">Localização</a></li>
-    <li><a href="#" data-goto="como-funciona">Como funciona</a></li>
-    <li><a href="#" data-goto="parte-eletrica">Parte elétrica e testes</a>
-      <ul>
-        <li><a href="#" data-goto="teste-multimetro">Testes com multímetro</a></li>
-        <li><a href="#" data-goto="teste-scanner">Testes com scanner</a></li>
-      </ul>
-    </li>
-    <li><a href="#" data-goto="problemas-comuns">Problemas comuns</a>
-      <ul>
-        <li><a href="#" data-goto="motor-desliga-durante-a-aceleracao">Motor desliga durante a aceleração</a></li>
-        <li><a href="#" data-goto="pressao-comandada-x-pressao-real">Pressão comandada x pressão real</a></li>
-      </ul>
-    </li>
-    <li><a href="#" data-goto="codigos-de-falha">Códigos de falha comuns</a></li>
+    <li><a href="#" data-goto="funcionamento">Funcionamento</a></li>
+    
+    <li><a href="#" data-goto="parte-eletrica">Parte Elétrica e Pinagem</a></li>
+    
+    <li><a href="#" data-goto="teste-iat">Teste de Resistência (IAT)</a></li>
+    <li><a href="#" data-goto="teste-map">Teste de Tensão (MAP)</a></li>
+    
+    <li><a href="#" data-goto="codigos-de-falha">Códigos de Falha</a></li>
   </ul>
 </nav>
 
+<!-- ==========================================
+     CONTEÚDO DO ARTIGO
+     ========================================== -->
+
 <h2 id="localizacao">Localização</h2>
-<p>Está instalado no próprio tubo Rail.</p>
+<p>O sensor está instalado na curva/tubo de admissão de ar, após o intercooler e antes do coletor de admissão.</p>
+
 <figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-pres-rail/01-localizacao.jpg" alt="Localização do sensor de pressão no tubo Rail" loading="lazy">
+  <img src="conteudo/imagens/sensor-map-iat/01-localizacao.jpg" alt="Localização do sensor MAP/IAT na admissão" loading="lazy">
   <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
 </figure>
 
-<h2 id="como-funciona">Como funciona</h2>
+<h2 id="funcionamento">Funcionamento</h2>
+<p>Este é um componente duplo que integra duas funções em um único corpo:</p>
 <ul>
-  <li>Monitora constantemente a pressão do combustível no sistema de alta pressão;</li>
-  <li>É um elemento <b>piezo-resistivo</b> com circuito integrado e compensação de temperatura;</li>
-  <li>Atua por um diafragma que se deforma com a pressão do combustível, o que altera a resistência e o sinal;</li>
-  <li>Quanto maior a pressão no Rail, maior a tensão de sinal no pino 02, de retorno para a Central;</li>
-  <li>A ECM usa esse valor para regular a pressão e controlar a <a href="#sistema-de-injecao/valvula-mprop">válvula MProp</a>.</li>
+  <li><b>Sensor de Pressão (MAP):</b> Monitora a pressão absoluta do ar no coletor de admissão. É um elemento piezo-resistivo que gera uma tensão analógica proporcional à pressão do turbo (carga do motor).</li>
+  <li><b>Sensor de Temperatura (IAT):</b> Mede a temperatura do ar admitido. É um termistor do tipo <b>NTC</b> (Coeficiente de Temperatura Negativo), ou seja, sua resistência elétrica <b>diminui</b> conforme a temperatura do ar <b>aumenta</b>.</li>
 </ul>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-pres-rail/02-funcionamento.jpg" alt="Funcionamento do sensor de pressão do Rail" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-<p>Se a pressão está baixa, a ECM aumenta o Duty Cycle da MProp, que fica mais tempo aberta. Se a pressão está alta, diminui o Duty Cycle e a pressão cai.</p>
-<div class="aviso">
-  <strong>Modo de segurança</strong>
-  <p>Se a Central verificar que a pressão está acima do permitido e não conseguir controlá-la pela MProp, entra em modo de segurança e desliga o motor.</p>
-</div>
 
-<h2 id="parte-eletrica">Parte elétrica e testes</h2>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-pres-rail/03-conector-pinos.jpg" alt="Conector e pinos do sensor de pressão do Rail" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
+<h2 id="parte-eletrica">Parte Elétrica e Pinagem</h2>
+<table>
+  <thead>
+    <tr><th>Pino</th><th>Função</th><th>Descrição</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><b>1</b></td><td>Massa (GND)</td><td>Aterramento do sensor (terra dos sensores).</td></tr>
+    <tr><td><b>2</b></td><td>Sinal IAT (Temperatura)</td><td>Sinal analógico do termistor NTC.</td></tr>
+    <tr><td><b>3</b></td><td>Alimentação 5V</td><td>Tensão de referência de 5V fornecida pela ECU.</td></tr>
+    <tr><td><b>4</b></td><td>Sinal MAP (Pressão)</td><td>Sinal analógico de tensão da pressão do coletor.</td></tr>
+  </tbody>
+</table>
 
-<h3 id="teste-multimetro">Testes com multímetro</h3>
-<p>Tensão no pino 02 (sinal), por condição do motor:</p>
-<div class="specs">
-  <div class="spec"><b>~0,5 V</b><span>Chave ligada (~0 bar)</span></div>
-  <div class="spec"><b>~1,2 V</b><span>Partida (250 a 350 bar)</span></div>
-  <div class="spec"><b>~1,3 V</b><span>Marcha lenta (300 a 400 bar)</span></div>
-  <div class="spec"><b>~3 V</b><span>Aceleração média (1000 bar)</span></div>
-  <div class="spec"><b>~4,5 V</b><span>Aceleração alta (1600 bar)</span></div>
-</div>
-<ul>
-  <li>Teste a alimentação de 5 V entre os pinos 1 e 3, de preferência com o chicote conectado ao sensor;</li>
-  <li>Com a chave ligada, a tensão no pino 02 deve ser de 0,5 V;</li>
-  <li>Durante a partida, a tensão no pino 02 deve ficar em cerca de 1,2 V, o que corresponde a aproximadamente 300 bar;</li>
-  <li>Se não chegar a cerca de 1,2 V, verifique os componentes antes do tubo Rail;</li>
-  <li>Na marcha lenta, a tensão no pino 02 é de cerca de 1,3 V.</li>
-</ul>
-<div class="aviso">
-  <strong>Atenção</strong>
-  <p>Se a tensão não alcançar cerca de 1,2 V, a Central não libera pulso nos bicos injetores.</p>
-</div>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-pres-rail/04-teste-multimetro.jpg" alt="Teste do sensor de pressão do Rail com multímetro" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
+<h2 id="teste-iat">1. Teste de Resistência (Sensor de Temperatura - IAT)</h2>
+<p>Com o sensor desconectado, meça a resistência entre os <b>pinos 1 e 2</b> do próprio sensor. A resistência varia inversamente com a temperatura:</p>
 
-<h3 id="teste-scanner">Testes com scanner</h3>
-<ul>
-  <li>Coloque o scanner em leitura de pressão do Rail e verifique a pressão durante a partida;</li>
-  <li>Em marcha lenta, a pressão deve estar entre 250 e 350 bar;</li>
-  <li>Se a pressão real estiver sempre abaixo, o problema é a bomba, o DRV ou injetores com retorno excessivo.</li>
-</ul>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-pres-rail/05-teste-scanner.jpg" alt="Leitura da pressão do Rail no scanner durante a partida" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<h2 id="problemas-comuns">Problemas comuns</h2>
-
-<h3 id="motor-desliga-durante-a-aceleracao">Motor desliga durante a aceleração</h3>
-<div class="trio">
-  <div>
-    <h4>Sintomas</h4>
-    <ul>
-      <li>Alta pressão no tubo Rail;</li>
-      <li>Acende a luz de injeção e o motor desliga.</li>
-    </ul>
+<!-- GRÁFICO NTC -->
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 15px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif;">
+  <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <div style="width: 16px; height: 4px; background: #F59E0B; border-radius: 2px;"></div>
+      <span style="font-size: 0.85rem; font-weight: 700; color: #1e293b;">Curva NTC (Resistência x Temperatura)</span>
+    </div>
   </div>
-  <div>
-    <h4>Possíveis causas</h4>
-    <ul>
-      <li>Válvula MProp travada aberta;</li>
-      <li>Sensor do Rail avariado.</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Possíveis soluções</h4>
-    <ul>
-      <li>Limpar a válvula MProp;</li>
-      <li>Trocar o sensor do Rail avariado.</li>
-    </ul>
-  </div>
+  <svg viewBox="0 0 700 350" style="width: 100%; height: auto; display: block;">
+    <g stroke="#f1f5f9" stroke-width="1">
+      <line x1="80" y1="50" x2="620" y2="50" />
+      <line x1="80" y1="100" x2="620" y2="100" />
+      <line x1="80" y1="150" x2="620" y2="150" />
+      <line x1="80" y1="200" x2="620" y2="200" />
+      <line x1="80" y1="250" x2="620" y2="250" />
+      <line x1="80" y1="300" x2="620" y2="300" />
+    </g>
+    <line x1="80" y1="300" x2="620" y2="300" stroke="#cbd5e1" stroke-width="2" />
+    <line x1="80" y1="50" x2="80" y2="300" stroke="#cbd5e1" stroke-width="2" />
+    <g fill="#64748b" font-size="12" font-weight="600" text-anchor="end">
+      <text x="70" y="54">10k Ω</text>
+      <text x="70" y="104">8k Ω</text>
+      <text x="70" y="154">6k Ω</text>
+      <text x="70" y="204">4k Ω</text>
+      <text x="70" y="254">2k Ω</text>
+      <text x="70" y="304">0 Ω</text>
+    </g>
+    <g fill="#64748b" font-size="12" font-weight="600" text-anchor="middle">
+      <text x="120" y="325">0°C</text>
+      <text x="250" y="325">20°C</text>
+      <text x="380" y="325">40°C</text>
+      <text x="510" y="325">60°C</text>
+      <text x="600" y="325">80°C</text>
+    </g>
+    <!-- Curva NTC -->
+    <polyline points="120,90 250,165 380,235 510,275 600,290" fill="none" stroke="#F59E0B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="250" cy="165" r="6" fill="#ffffff" stroke="#F59E0B" stroke-width="3" />
+    <circle cx="380" cy="235" r="6" fill="#ffffff" stroke="#F59E0B" stroke-width="3" />
+    <g font-size="11" font-weight="700" fill="#1e293b">
+      <text x="250" y="153" text-anchor="middle">~3.4k Ω</text>
+      <text x="380" y="223" text-anchor="middle">~1.2k Ω</text>
+    </g>
+  </svg>
 </div>
-<div class="dica">
-  <strong>Dica</strong>
-  <p>Problemas no sensor do Rail e na MProp se confundem, porque um depende do outro. Observe se há excesso de fumaça preta no escapamento: indica excesso de combustível nos injetores por falha da MProp.</p>
+
+<h2 id="teste-map">2. Teste de Tensão (Sensor de Pressão - MAP)</h2>
+<p>Com o conector conectado (backprobing), meça a tensão entre os <b>pinos 1 e 4</b> do sensor. A tensão sobe conforme a pressão do turbo aumenta:</p>
+
+<!-- GRÁFICO MAP -->
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 15px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif;">
+  <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <div style="width: 16px; height: 4px; background: #3B82F6; border-radius: 2px;"></div>
+      <span style="font-size: 0.85rem; font-weight: 700; color: #1e293b;">Sinal MAP (Tensão x Rotação)</span>
+    </div>
+  </div>
+  <svg viewBox="0 0 700 350" style="width: 100%; height: auto; display: block;">
+    <g stroke="#f1f5f9" stroke-width="1">
+      <line x1="80" y1="50" x2="620" y2="50" />
+      <line x1="80" y1="100" x2="620" y2="100" />
+      <line x1="80" y1="150" x2="620" y2="150" />
+      <line x1="80" y1="200" x2="620" y2="200" />
+      <line x1="80" y1="250" x2="620" y2="250" />
+      <line x1="80" y1="300" x2="620" y2="300" />
+    </g>
+    <line x1="80" y1="300" x2="620" y2="300" stroke="#cbd5e1" stroke-width="2" />
+    <line x1="80" y1="50" x2="80" y2="300" stroke="#cbd5e1" stroke-width="2" />
+    <g fill="#64748b" font-size="12" font-weight="600" text-anchor="end">
+      <text x="70" y="54">5,0 V</text>
+      <text x="70" y="104">4,0 V</text>
+      <text x="70" y="154">3,0 V</text>
+      <text x="70" y="204">2,0 V</text>
+      <text x="70" y="254">1,0 V</text>
+      <text x="70" y="304">0 V</text>
+    </g>
+    <g fill="#64748b" font-size="12" font-weight="600" text-anchor="middle">
+      <text x="120" y="325">Lenta</text>
+      <text x="250" y="325">1500 RPM</text>
+      <text x="380" y="325">2000 RPM</text>
+      <text x="510" y="325">2500 RPM</text>
+      <text x="600" y="325">3000 RPM</text>
+    </g>
+    <!-- Curva MAP -->
+    <polyline points="120,215 250,205 380,195 510,170 600,150" fill="none" stroke="#3B82F6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="120" cy="215" r="6" fill="#ffffff" stroke="#3B82F6" stroke-width="3" />
+    <circle cx="380" cy="195" r="6" fill="#ffffff" stroke="#3B82F6" stroke-width="3" />
+    <circle cx="600" cy="150" r="6" fill="#ffffff" stroke="#3B82F6" stroke-width="3" />
+    <g font-size="11" font-weight="700" fill="#1e293b">
+      <text x="120" y="203" text-anchor="middle">~1.7 V</text>
+      <text x="380" y="183" text-anchor="middle">~2.1 V</text>
+      <text x="600" y="138" text-anchor="middle">~2.6 V</text>
+    </g>
+  </svg>
 </div>
-<p><b>Multímetro:</b> verifique a tensão no pino 02 do sensor do tubo.</p>
-<ul>
-  <li>Chave ligada, antes da partida: 0,5 V;</li>
-  <li>Marcha lenta: aproximadamente 1,3 V;</li>
-  <li>Rotação alta: aproximadamente até 4,5 V.</li>
-</ul>
-<p><b>Scanner:</b> se durante a aceleração a pressão chegar a 1.500 bar, a ECM entra em modo de proteção e desliga o motor.</p>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-pres-rail/06-scanner-pressao-1.jpg" alt="Scanner mostrando a pressão do Rail durante a aceleração" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-<p>Atingiu 1.500 bar, o motor desligou e a pressão caiu instantaneamente.</p>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-pres-rail/07-scanner-1500-bar.jpg" alt="Scanner mostrando a pressão chegando a 1.500 bar e o motor desligando" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
 
-<h3 id="pressao-comandada-x-pressao-real">Pressão comandada x pressão real</h3>
-<p>Se a pressão real estiver sempre acima da comandada, a válvula MProp pode estar travada ou o sensor de pressão está com defeito.</p>
-<p>Em marcha lenta (750 rpm), a pressão deveria estar entre 200 e 500 bar.</p>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-pres-rail/08-pressao-comandada-real-1.jpg" alt="Pressão comandada e real em marcha lenta" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-<p>Em 2.000 rpm, a pressão já está no limite máximo aceitável para a rotação máxima.</p>
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-pres-rail/09-pressao-comandada-real-2.jpg" alt="Pressão comandada e real a 2.000 rpm" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
-<h2 id="codigos-de-falha">Códigos de falha comuns</h2>
+<h2 id="codigos-de-falha">Códigos de Falha (OBD-II)</h2>
 <div class="codigos">
-  <div class="codigo"><span class="num">P0087</span><div>
-    <h4>Pressão do rail muito baixa</h4>
-    <p>Regulador de pressão (DRV / SCV) travado aberto.</p>
+  <div class="codigo"><span class="num">P0112</span><div>
+    <h4>Tensão Baixa no IAT</h4>
+    <p>Indica curto-circuito à massa ou resistência muito baixa. A ECU assume 40 °C.</p>
   </div></div>
-  <div class="codigo"><span class="num">P0088</span><div>
-    <h4>Pressão do rail muito alta</h4>
-    <p>Regulador de pressão (DRV / SCV) travado fechado.</p>
+  <div class="codigo"><span class="num">P0113</span><div>
+    <h4>Tensão Alta no IAT</h4>
+    <p>Indica circuito aberto ou resistência muito alta. A ECU assume 40 °C.</p>
   </div></div>
-  <div class="codigo"><span class="num">P0191</span><div>
-    <h4>Variação incorreta da pressão (intermitente)</h4>
-    <p>Se a leitura do sensor estiver travada ou incoerente, a ECU pode gerar P0191 ou P0193, ou entrar em modo de emergência.</p>
+  <div class="codigo"><span class="num">P0237</span><div>
+    <h4>Tensão Baixa no MAP</h4>
+    <p>Sinal abaixo de 1,0 V. A ECU assume 1000 hPa.</p>
+  </div></div>
+  <div class="codigo"><span class="num">P0238</span><div>
+    <h4>Tensão Alta no MAP</h4>
+    <p>Sinal acima de 4,7 V. A ECU assume 1000 hPa.</p>
   </div></div>
 </div>
