@@ -412,3 +412,28 @@ card.addEventListener('click', e => {
 cabecalho.classList.toggle('scrolled', window.scrollY > 20);
 
 lbImg.addEventListener('click', () => lbImg.classList.toggle('zoom'));
+
+// ==========================================
+// FILTRO DO GUIA DE DIAGNÓSTICO (campo .filtro-diag)
+// Esconde os grupos (data-grp) que não contêm o texto digitado
+// ==========================================
+const semAcento = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+card.addEventListener('input', e => {
+  const campo = e.target.closest('.filtro-diag');
+  if (!campo) return;
+  const q = semAcento(campo.value.trim());
+  const grupos = new Map();
+  card.querySelectorAll('[data-grp]').forEach(el => {
+    if (!grupos.has(el.dataset.grp)) grupos.set(el.dataset.grp, []);
+    grupos.get(el.dataset.grp).push(el);
+  });
+  let achou = 0;
+  grupos.forEach(els => {
+    const cab = els.find(el => el.dataset.busca !== undefined);
+    const ok = !q || (cab && cab.dataset.busca.includes(q));
+    els.forEach(el => { el.hidden = !ok; });
+    if (ok) achou++;
+  });
+  const info = card.querySelector('.filtro-info');
+  if (info) info.textContent = q ? (achou ? achou + ' de ' + grupos.size + ' grupos' : 'Nada encontrado') : '';
+});
