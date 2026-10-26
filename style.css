@@ -966,7 +966,7 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 @media (max-width: 768px) {
   /* Aumenta o padding lateral do main para afinar o conteúdo no celular */
   main {
-    padding: 1.5rem 1.2rem !important; 
+    padding: 1rem 0.8rem !important; 
   }
 
   /* Ajusta o padding interno dos cartões para o texto não ficar espremido */
