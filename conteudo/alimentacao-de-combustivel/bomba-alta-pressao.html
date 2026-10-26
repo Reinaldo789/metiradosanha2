@@ -1,13 +1,222 @@
-<!-- Escreva aqui o artigo: Bomba Alta Pressão -->
-<p>Texto de introdução sobre Bomba Alta Pressão.</p>
+<!-- Bomba de Alta Pressão. Imagens: salve em conteudo/imagens/bomba-alta-pressao/ -->
+<header class="art-head">
+  <h1>Bomba de Alta Pressão</h1>
+</header>
 
-<h2>Como funciona</h2>
-<p>...</p>
+<nav class="toc" aria-label="Neste artigo">
+  <strong>Neste artigo</strong>
+  <ul>
+    <li><a href="#" data-goto="localizacao">Localização</a></li>
+    <li><a href="#" data-goto="como-retirar">Como retirar</a></li>
+    <li><a href="#" data-goto="funcionamento">Funcionamento</a></li>
+    <li><a href="#" data-goto="tabela-aperto">Tabela de Aperto</a></li>
+    
+    <li><a href="#" data-goto="problemas-comuns">Problemas comuns</a>
+      <ul>
+        <li><a href="#" data-goto="partidas-longas">Partidas longas e baixa pressão no Rail</a></li>
+        <li><a href="#" data-goto="mistura-oleo">Mistura de diesel com óleo lubrificante</a></li>
+        <li><a href="#" data-goto="sem-pressao">Sem pressão de combustível no Rail</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
-<h2>Sintomas de falha</h2>
+<!-- ==========================================
+     CONTEÚDO DO ARTIGO
+     ========================================== -->
+
+<h2 id="localizacao">Localização</h2>
+<p>A bomba de alta pressão tem a função de gerar a pressão necessária para a atomização do combustível. Essa pressão é gerada por <b>três elementos dispostos a 120°</b> entre si. O eixo de acionamento da bomba é movido pelo trem de engrenagens e possui um eixo excêntrico que movimenta os três elementos, produzindo admissão e compressão do combustível.</p>
+
+<!-- IMAGEM: Corte da bomba com legendas -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bomba-alta-pressao/01-corte-bomba.jpg" alt="Corte da bomba de alta pressão com identificação dos componentes" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<h2 id="como-retirar">Como retirar</h2>
+<p>Se for preciso retirar a bomba para manutenção, retire os <b>03 parafusos de 13mm</b>.</p>
+
+<!-- IMAGEM: Parafusos da parte da frente -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bomba-alta-pressao/02-parafusos-frente.jpg" alt="Parafusos de fixação na parte da frente da bomba" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<p>Os dois parafusos de 13mm vistos de frente só devem ser retirados após a remoção da bomba do motor.</p>
+
+<!-- IMAGEM: Parafusos da parte traseira -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bomba-alta-pressao/03-parafusos-traseira.jpg" alt="Parafusos de fixação na parte traseira da bomba" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<!-- IMAGEM: Acesso sem a bomba de vácuo e dica da extensão -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bomba-alta-pressao/04-acesso-extensao.jpg" alt="Acesso aos parafusos com extensão de 10cm" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Não force para descolar a bomba do motor sem ter certeza de que retirou os três parafusos certos. Se forçar, pode danificar ("machucar") o suporte de alumínio da bomba.</p>
+</div>
+
+<h2 id="funcionamento">Funcionamento</h2>
+<p>A engrenagem <b>não tem ponto</b> de sincronismo. Algumas bombas possuem chaveta no eixo com a engrenagem.</p>
+
+<!-- IMAGEM: Componentes internos explodidos -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bomba-alta-pressao/05-componentes-internos.jpg" alt="Vista explodida dos componentes internos da bomba de alta pressão" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<p>Os elementos possuem duas válvulas:</p>
 <ul>
-  <li>...</li>
+  <li>Uma permite somente a <b>entrada</b> de combustível vindo da MProp;</li>
+  <li>A outra permite somente a <b>saída</b> de combustível para o tubo Rail.</li>
 </ul>
 
-<h2>Como testar</h2>
-<p>...</p>
+<!-- IMAGEM: Detalhe das válvulas de admissão/saída -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bomba-alta-pressao/06-valvulas.jpg" alt="Detalhe das válvulas de entrada e saída dos elementos" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Não é recomendado misturar as válvulas, devido ao assentamento individual de cada uma com a carcaça.</p>
+</div>
+
+<div class="dica">
+  <strong>Relação MProp e KUV</strong>
+  <p>As duas válvulas (MProp e KUV) estão ligadas na mesma linha de combustível. Por isso, quando a KUV está com problema, altera todo o funcionamento da bomba de alta:
+  <br>• Se travar <b>fechada</b>: impede a lubrificação e excede a pressão dentro da bomba.
+  <br>• Se travar <b>aberta</b>: fica sem controlar a pressão de combustível, e a MProp não consegue regular a pressão que alimenta os elementos bombeadores.</p>
+</div>
+
+<h2 id="tabela-aperto">Tabela de Aperto</h2>
+<div class="specs">
+  <div class="spec"><b>30 a 35 Nm</b><span>Parafusos da bomba de engrenagem</span></div>
+  <div class="spec"><b>40 Nm</b><span>Tampões das válvulas de admissão</span></div>
+  <div class="spec"><b>4 a 5 Nm</b><span>Parafusos do flange</span></div>
+  <div class="spec"><b>30 Nm</b><span>Válvula KUV</span></div>
+  <div class="spec"><b>13 Nm</b><span>Parafusos de fixação da válvula MProp</span></div>
+</div>
+
+<!-- IMAGEM: Tabela de torques visual -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bomba-alta-pressao/07-tabela-torque.jpg" alt="Tabela visual de torques da bomba" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<h2 id="problemas-comuns">Problemas comuns</h2>
+
+<h3 id="partidas-longas">Partidas longas e baixa pressão no Rail</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Partidas longas;</li>
+      <li>Baixa pressão no Rail.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas (Verificar nesta ordem)</h4>
+    <ul>
+      <li>Excesso de retorno nos <a href="#sistema-de-injecao/bicos-injetores">bicos injetores</a>;</li>
+      <li>Válvula de proteção do Rail com vazamento;</li>
+      <li>Válvula <a href="#alimentacao-de-combustivel/valvula-kuv">KUV</a> travada no fundo do alojamento;</li>
+      <li>Válvula <a href="#sistema-de-injecao/valvula-mprop">MProp</a> travada fechada.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Se todos os itens acima estiverem corretos, provavelmente os elementos da bomba e as válvulas internas não estão funcionando adequadamente;</li>
+      <li>Retirar a bomba para análise mais detalhada.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="aviso">
+  <strong>Verificações antes de retirar a bomba</strong>
+  <ul>
+    <li>Se tem combustível no tanque;</li>
+    <li>Filtros e pescador de combustível desobstruídos;</li>
+    <li>Mangueiras com vazamentos;</li>
+    <li>Verificar se o combustível chega até a bomba de alta;</li>
+    <li>Verificar se a válvula KUV não está travada;</li>
+    <li>Bico com excesso de retorno;</li>
+    <li>Válvula de proteção do Rail com vazamento;</li>
+    <li>Válvula MProp travada fechada.</li>
+  </ul>
+</div>
+
+<h3 id="mistura-oleo">Mistura de óleo diesel com óleo lubrificante</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Óleo lubrificante contaminado com diesel (nível sobe).</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Bico injetor travado aberto;</li>
+      <li>O-ring e retentor do eixo da bomba com defeito.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Verificar bicos injetores;</li>
+      <li>Retirar a bomba para troca do O-ring e retentor.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- IMAGEM: Limpeza do eixo e O-ring -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bomba-alta-pressao/08-limpeza-eixo.jpg" alt="Limpeza e verificação do eixo da bomba" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<div class="dica">
+  <strong>Dica de Montagem</strong>
+  <p>Limpe e verifique se o eixo não possui ferrugem ou desgaste acentuado. Lubrifique a peça após a limpeza para evitar ferrugem.</p>
+</div>
+
+<!-- IMAGEM: Cuidado com as arruelas de encosto -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/bomba-alta-pressao/09-arruelas-encosto.jpg" alt="Cuidado com as arruelas de encosto" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Muito cuidado para não amassar as arruelas de encosto durante a desmontagem ou montagem.</p>
+</div>
+
+<h3 id="sem-pressao">Sem pressão de combustível no Rail</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Motor não liga (sem pressão no Rail).</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Válvulas de combustível travadas.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Retirar a bomba para limpeza.</li>
+    </ul>
+  </div>
+</div>
