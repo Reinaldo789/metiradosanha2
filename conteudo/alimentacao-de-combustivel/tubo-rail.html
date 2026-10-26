@@ -1,13 +1,250 @@
-<!-- Escreva aqui o artigo: Tubo Rail -->
-<p>Texto de introdução sobre Tubo Rail.</p>
+<!-- Tubo Rail. Imagens: salve em conteudo/imagens/tubo-rail/ -->
+<header class="art-head">
+  <h1>Tubo Rail</h1>
+</header>
 
-<h2>Como funciona</h2>
-<p>...</p>
+<nav class="toc" aria-label="Neste artigo">
+  <strong>Neste artigo</strong>
+  <ul>
+    <li><a href="#" data-goto="resumo">Resumo e Funcionamento</a></li>
+    <li><a href="#" data-goto="tabela-aperto">Tabela de Aperto</a></li>
+    <li><a href="#" data-goto="valvula-protecao">Válvula de Proteção do Rail</a></li>
+    
+    <li><a href="#" data-goto="problemas-comuns">Problemas Comuns</a>
+      <ul>
+        <li><a href="#" data-goto="sem-pressao">Sem pressão de combustível no Rail</a></li>
+        <li><a href="#" data-goto="vazamento-conexoes">Vazamento nas conexões</a></li>
+        <li><a href="#" data-goto="vazamento-valvula">Vazamento na válvula de proteção</a></li>
+        <li><a href="#" data-goto="travamento-bicos">Travamento dos bicos (Sujeira)</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
-<h2>Sintomas de falha</h2>
+<!-- ==========================================
+     CONTEÚDO DO ARTIGO
+     ========================================== -->
+
+<h2 id="resumo">Resumo e Funcionamento</h2>
+<p>O acumulador de pressão é um tubo fabricado de aço forjado. Ele tem a função de armazenar combustível exigido para a injeção de todos os cilindros sob alta pressão.</p>
+
+<!-- IMAGEM: Tubo Rail com legendas -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/tubo-rail/01-componentes.jpg" alt="Componentes do Tubo Rail: sensor, saídas e válvula de proteção" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<p>O Tubo Rail possui:</p>
 <ul>
-  <li>...</li>
+  <li><b>01 tubulação</b> de combustível vindo da bomba de alta pressão;</li>
+  <li><b>04 tubulações</b> de combustível para os bicos injetores;</li>
+  <li><b>01 válvula de proteção</b> do Rail (válvula de alívio);</li>
+  <li><b>01 sensor de pressão</b> do Rail.</li>
 </ul>
 
-<h2>Como testar</h2>
-<p>...</p>
+<div class="aviso">
+  <strong>Atenção ao retirar as tubulações</strong>
+  <p>Use sempre <b>duas chaves</b> para retirar a tubulação do lado do bico injetor, para evitar a deformação das tubulações.</p>
+</div>
+
+<!-- IMAGEM: Uso de duas chaves -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/tubo-rail/02-duas-chaves.jpg" alt="Uso de duas chaves para soltar a tubulação sem deformar" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Se as conexões das extremidades das tubulações estiverem danificadas, não adianta exagerar no aperto, pois isso danificará a rosca do tubo Rail. Este tubo é extremamente caro.</p>
+</div>
+
+<h2 id="tabela-aperto">Tabela de Aperto</h2>
+<div class="specs">
+  <div class="spec"><b>27 ± 3 Nm</b><span>Conexões das tubulações de alta no Rail</span></div>
+  <div class="spec"><b>25 ± 4 Nm</b><span>Parafusos do suporte do Rail</span></div>
+  <div class="spec"><b>20 ± 3 Nm</b><span>Sensor de pressão do Rail</span></div>
+  <div class="spec"><b>8,5 ± 1 Nm</b><span>Parafuso de fixação do suporte</span></div>
+</div>
+
+<!-- IMAGEM: Tabela de torques visual -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/tubo-rail/03-tabela-torque-1.jpg" alt="Tabela de torques do Tubo Rail" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<!-- IMAGEM: Torque da engrenagem e do bico -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/tubo-rail/04-tabela-torque-2.jpg" alt="Tabela de torques do bico e engrenagem" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<h2 id="valvula-protecao">Válvula de Proteção do Rail</h2>
+
+<!-- IMAGEM: Válvula de proteção (PRV) -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/tubo-rail/05-valvula-protecao.jpg" alt="Válvula de proteção do Rail (PRV)" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<p>Se a Central não conseguir regular a pressão devido a problemas com a Válvula MProp, esta válvula abre caso a pressão do Tubo Rail ultrapasse <b>1.400 bar</b> (em alguns manuais, o limite crítico é citado entre 1.800 e 2.000 bar para proteção total).</p>
+
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Se a válvula não estiver torqueada o suficiente, haverá vazamento de combustível e a pressão do tubo não atingirá os valores necessários. Problemas mais graves com essa válvula geram códigos de falha referentes à baixa ou alta pressão do Rail.</p>
+</div>
+
+<h2 id="problemas-comuns">Problemas Comuns</h2>
+
+<h3 id="sem-pressao">Sem pressão de combustível no Rail</h3>
+<div class="trio">
+  <div>
+    <h4>Possíveis Causas</h4>
+    <ul>
+      <li>Válvula de proteção do Rail com vazamento;</li>
+      <li>Válvula de proteção danificada;</li>
+      <li>Válvula de proteção sem o torque adequado.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Verificações Preliminares</h4>
+    <ul>
+      <li>Falta de combustível;</li>
+      <li>Filtro de combustível obstruído;</li>
+      <li>Bomba elétrica fraca;</li>
+      <li>Válvula KUV travada;</li>
+      <li>Válvula MProp travada.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis Soluções</h4>
+    <ul>
+      <li>Torquear a válvula corretamente;</li>
+      <li>Se permanecer vazando, trocar a válvula.</li>
+    </ul>
+  </div>
+</div>
+
+<h3 id="vazamento-conexoes">Vazamento nas conexões do Tubo Rail</h3>
+<div class="trio">
+  <div>
+    <h4>Possíveis Causas</h4>
+    <ul>
+      <li>Tubulação do Rail apertada indevidamente, causando fissuras nas tubulações;</li>
+      <li>Rosca do Tubo Rail avariada.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis Soluções</h4>
+    <ul>
+      <li>Verificar a rosca do Tubo Rail e a rosca das tubulações;</li>
+      <li>Trocar o tubo ou recuperar caso a rosca do tubo esteja danificada.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="aviso">
+  <strong>Atenção</strong>
+  <p>Não desenrosque completamente as tubulações e nem aperte se não tiver certeza de que está enroscando certo no Tubo.</p>
+</div>
+
+<!-- IMAGEM: Rosca danificada -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/tubo-rail/06-rosca-danificada.jpg" alt="Rosca do Tubo Rail danificada" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<h3 id="vazamento-valvula">Vazamento na saída da válvula de proteção</h3>
+<div class="trio">
+  <div>
+    <h4>Possíveis Causas</h4>
+    <ul>
+      <li>Válvula sem aperto adequado;</li>
+      <li>Válvula de proteção travada aberta.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis Soluções</h4>
+    <ul>
+      <li>Torquear a válvula com o aperto correto;</li>
+      <li>Trocar a válvula.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="dica">
+  <strong>Dica de Teste</strong>
+  <p>Só pode haver vazamento neste local se acelerar ao máximo o motor. Durante a partida ou em rotação mais baixa, não pode sair nada.</p>
+</div>
+
+<h3 id="travamento-bicos">Travamento constante dos bicos injetores (Sujeira)</h3>
+<div class="trio">
+  <div>
+    <h4>Possíveis Causas</h4>
+    <ul>
+      <li>Sujeira no tubo Rail;</li>
+      <li>Sujeira em todo o sistema de alimentação.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis Soluções</h4>
+    <ul>
+      <li>Realizar limpeza em todo o sistema;</li>
+      <li>Para realizar a limpeza, retire o sensor do Rail e a válvula de segurança do Rail.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- IMAGEM: Sujeira interna no tubo -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/tubo-rail/07-sujeira-interna.jpg" alt="Sujeira acumulada dentro do Tubo Rail" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<!-- IMAGEM: Escova de limpeza -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/tubo-rail/08-escova-limpeza.jpg" alt="Escova para realizar a limpeza interna do tubo" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<div class="dica">
+  <strong>Dica de Limpeza (Linha de Pesca)</strong>
+  <p>É preciso muita atenção aos tubos do Rail. Não insira nenhum objeto que possa entupir durante a limpeza. Para isso, use uma <b>linha de pesca dobrada</b> como guia e, na ponta da dobra, use um <b>barbante de algodão</b> umedecido com tíner para passá-la dentro do tubo. Use um pedaço de aproximadamente 10 cm para não correr o risco de soltá-la dentro do tubo.</p>
+</div>
+
+<!-- IMAGEM: Uso da linha de pesca -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/tubo-rail/09-linha-pesca.jpg" alt="Uso da linha de pesca para limpeza do tubo" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<!-- IMAGEM: Barbante na linha de pesca -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/tubo-rail/10-barbante-guia.jpg" alt="Barbante de algodão umedecido com tíner na guia" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<h3>Sintomas de Falha da Válvula Limitadora de Pressão (PRV)</h3>
+<div class="codigos">
+  <div class="codigo"><span class="num">P0088</span><div>
+    <h4>Pressão do Rail Alta</h4>
+    <p>Códigos de falha relacionados à alta pressão no rail.</p>
+  </div></div>
+  <div class="codigo"><span class="num">Outros</span><div>
+    <h4>Sintomas Gerais</h4>
+    <ul>
+      <li>Dificuldade na partida ou partida demorada;</li>
+      <li>Motor entrando em modo de segurança (limp mode);</li>
+      <li>Perda de potência em carga plena;</li>
+      <li>Pressão de rail acima do esperado em marcha lenta ou sob aceleração leve;</li>
+      <li>Vazamento visível de combustível no retorno (se a válvula estiver travada aberta).</li>
+    </ul>
+  </div></div>
+</div>
+
+<div class="dica">
+  <strong>Testes Recomendados para a PRV</strong>
+  <ul>
+    <li><b>Leitura em scanner:</b> Verifique o valor de pressão do rail em marcha lenta (250 a 350 bar) e durante aceleração (até 1.800 bar).</li>
+    <li><b>Teste de retorno:</b> Retire a válvula limitadora e verifique se há passagem de combustível com baixa pressão (o que indicaria desgaste ou sujeira).</li>
+  </ul>
+</div>
