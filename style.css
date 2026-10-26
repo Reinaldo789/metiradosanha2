@@ -961,25 +961,25 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 }
 
 /* ==========================================
-   19. AJUSTE MOBILE: Largura do Conteúdo (Respiro nas laterais)
+   19. AJUSTE MOBILE: Largura do Conteúdo (Quase 100%)
    ========================================== */
 @media (max-width: 768px) {
-  /* Aumenta o padding lateral do main para afinar o conteúdo no celular */
+  /* Zera o padding lateral do main para a caixa poder crescer */
   main {
-    padding: 1rem 0.8rem !important; 
+    padding: 1.5rem 0 !important; 
   }
 
-  /* Ajusta o padding interno dos cartões para o texto não ficar espremido */
+  /* O cartão ocupa 98% da tela (quase 100%), centralizado */
   .page-card {
-    padding: 1.2rem !important;
+    width: 98% !important;
+    max-width: 98% !important;
+    margin: 0 auto !important; /* Centraliza na tela */
+    padding: 1.2rem !important; /* Margem interna para o texto não encostar na borda da caixa */
+    box-sizing: border-box;
   }
 
-  /* Ajusta o cabeçalho azul (art-head) */
-  .page-card .art-head {
-    padding: 1.2rem !important;
-  }
-
-  /* Ajusta o índice (Neste artigo) */
+  /* Ajusta o cabeçalho azul e o índice para caberem bem dentro do novo tamanho */
+  .page-card .art-head, 
   .toc {
     padding: 1rem !important;
   }
