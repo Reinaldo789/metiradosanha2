@@ -3,17 +3,16 @@
 02-circuito-alimentacao-ecm.jpg  Circuito de alimentação do ECM
 Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentacao-de-combustivel/..., #sistema-eletrico/...). -->
 <header class="art-head">
-  <!-- <span class="art-kicker">Diagnóstico · Motor Sprint Eletrônico</span> -->
+  <span class="art-kicker">Diagnóstico · Motor Sprint Eletrônico</span>
   <h1>Guia de Diagnóstico de Falhas</h1>
-  <!-- <p class="art-lead">Todos os códigos de falha do ECM, o comportamento do motor e o que verificar, além dos defeitos que não geram código.</p>
-  <div class="chips"><span>MWM Sprint 4.07 TCE</span><span>EDC16</span><span>42 grupos de falhas</span><span>Guia de Reparos V-3.0</span></div> -->
+  <p class="art-lead">Todos os códigos de falha do ECM, o comportamento do motor e o que verificar, além dos defeitos que não geram código.</p>
+  <div class="chips"><span>MWM Sprint 4.07 TCE</span><span>EDC16</span><span>42 grupos de falhas</span><span>Guia de Reparos V-3.0</span></div>
 </header>
 
 <nav class="toc" aria-label="Neste artigo">
   <strong>Neste artigo</strong>
   <ul>
     <li><a href="#" data-goto="como-usar">Como usar este guia</a></li>
-    <li><a href="#" data-goto="alimentacao-ecm">Alimentação do ECM</a></li>
     <li><a href="#" data-goto="rotacao-e-fase">Rotação e fase</a>
       <ul>
         <li><a href="#" data-goto="sensor-de-rotacao-virabrequim-p0335-p0336">Sensor de rotação (virabrequim) · P0335, P0336</a></li>
@@ -80,6 +79,7 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
         <li><a href="#" data-goto="motor-bate-e-lanca-diesel-pelo-escapamento">Motor bate e lança diesel pelo escapamento</a></li>
       </ul>
     </li>
+    <li><a href="#" data-goto="alimentacao-ecm">Alimentação do ECM</a></li>
   </ul>
 </nav>
 
@@ -89,16 +89,6 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
 <ul><li>Procure pelo código de falha. Se o motor não tem código registrado, vá em <a href="#" data-goto="defeitos-sem-codigo">Defeitos sem código de falha</a>;</li>
 <li>Em cada item, a aba <b>Comportamento do motor</b> mostra o que o motor faz quando a falha ocorre, e a aba <b>Diagnóstico e solução</b> lista o que verificar;</li>
 <li>Nos códigos de falha, as descrições aparecem na mesma ordem dos códigos informados no guia da Agrale.</li></ul>
-<h2 id="alimentacao-ecm">Alimentação do ECM</h2>
-<p>Pinos de alimentação do ECM (conector K, “Veículo”):</p>
-<ul><li><b>K02, K04 e K06:</b> negativos, vindos do ponto de aterramento na carcaça da capa-seca da embreagem;</li>
-<li><b>K01 e K05:</b> positivos pós-chave, vindos do relé principal (pino 87) e passando pelos fusíveis 26 e 27 da central elétrica da injeção eletrônica;</li>
-<li><b>K28:</b> positivo pós-chave vindo do comutador de ignição, passando pelo fusível 25 da central elétrica da injeção; libera a saída de negativo pelo pino K72;</li>
-<li><b>K72:</b> negativo vindo do ECM para acionar o relé principal pelo pino 85.</li></ul>
-<figure class="img-box-preview"><img src="conteudo/imagens/diagnostico-geral/01-conectores-ecm.jpg" alt="Conectores K (Veículo) e A (Motor) do ECM, com a numeração dos pinos" loading="lazy"><figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption></figure>
-<figure class="img-box-preview"><img src="conteudo/imagens/diagnostico-geral/02-circuito-alimentacao-ecm.jpg" alt="Circuito de alimentação do ECM, com a legenda do diagrama" loading="lazy"><figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption></figure>
-<div class="tw tabela-rolagem"><table class="tabela-diag"><thead><tr><th>Abreviatura</th><th>Cor do fio</th><th>1º dígito</th></tr></thead><tbody><tr><td>PT</td><td>Preto</td><td>0</td></tr><tr><td>MA</td><td>Marrom</td><td>1</td></tr><tr><td>VM</td><td>Vermelho</td><td>2</td></tr><tr><td>LR</td><td>Laranja</td><td>3</td></tr><tr><td>AM</td><td>Amarelo</td><td>4</td></tr><tr><td>VD</td><td>Verde</td><td>5</td></tr><tr><td>AZ</td><td>Azul</td><td>6</td></tr><tr><td>VL</td><td>Violeta</td><td>7</td></tr><tr><td>CZ</td><td>Cinza</td><td>8</td></tr><tr><td>BR</td><td>Branco</td><td>9</td></tr></tbody></table></div>
-<p>Os fios são identificados por letras (VM = vermelho, MA = marrom, PT/AM = preto com listra amarela) e também por números. No número, o primeiro dígito é a cor: o fio 231 começa com 2 (vermelho) e o fio 170 começa com 1 (marrom).</p>
 <h2 id="rotacao-e-fase">Rotação e fase</h2>
 <h3 id="sensor-de-rotacao-virabrequim-p0335-p0336" data-grp="g1" data-busca="sensor de rotacao (virabrequim) p0335 sinal perdido p0336 falha no sensor motor desliga assim que a falha e detectada, e nao sera possivel nova partida ate que a falha seja corrigida presenca de impurezas na ponta de um dos sensores (verificar origem e corrigir) distancia incorreta entre o sensor e a roda de pulsos (corrigir para 0,5 a 1,5 mm) chicote interrompido/resistencia elevada/curto pinos dos conectores soltos ou tortos sensor com defeito (substituir)">Sensor de rotação (virabrequim) · P0335, P0336</h3>
 <div class="tw tabela-rolagem" data-grp="g1"><table class="tabela-diag"><thead><tr><th>Código</th><th>Descrição da falha</th></tr></thead><tbody><tr><td>P0335</td><td>Sinal perdido</td></tr><tr><td>P0336</td><td>Falha no sensor</td></tr></tbody></table></div>
@@ -255,4 +245,14 @@ Links entre páginas: confirme os caminhos (#sistema-de-injecao/..., #alimentaca
 <h3 id="motor-bate-e-lanca-diesel-pelo-escapamento" data-grp="g42" data-busca="motor bate e lanca diesel pelo escapamento — sem codigo de falha motor falhando e batendo bronzina de biela avariada">Motor bate e lança diesel pelo escapamento</h3>
 <p data-grp="g42">Sem código de falha.</p>
 <div class="trio" data-grp="g42"><div><h4>Comportamento do motor</h4><ul><li>Motor falhando e batendo</li></ul></div><div><h4>Diagnóstico e solução</h4><ul><li>Bronzina de biela avariada</li></ul></div></div>
+<h2 id="alimentacao-ecm">Alimentação do ECM</h2>
+<p>Pinos de alimentação do ECM (conector K, “Veículo”):</p>
+<ul><li><b>K02, K04 e K06:</b> negativos, vindos do ponto de aterramento na carcaça da capa-seca da embreagem;</li>
+<li><b>K01 e K05:</b> positivos pós-chave, vindos do relé principal (pino 87) e passando pelos fusíveis 26 e 27 da central elétrica da injeção eletrônica;</li>
+<li><b>K28:</b> positivo pós-chave vindo do comutador de ignição, passando pelo fusível 25 da central elétrica da injeção; libera a saída de negativo pelo pino K72;</li>
+<li><b>K72:</b> negativo vindo do ECM para acionar o relé principal pelo pino 85.</li></ul>
+<figure class="img-box-preview"><img src="conteudo/imagens/diagnostico-geral/01-conectores-ecm.jpg" alt="Conectores K (Veículo) e A (Motor) do ECM, com a numeração dos pinos" loading="lazy"><figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption></figure>
+<figure class="img-box-preview"><img src="conteudo/imagens/diagnostico-geral/02-circuito-alimentacao-ecm.jpg" alt="Circuito de alimentação do ECM, com a legenda do diagrama" loading="lazy"><figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption></figure>
+<div class="tw tabela-rolagem"><table class="tabela-diag"><thead><tr><th>Abreviatura</th><th>Cor do fio</th><th>1º dígito</th></tr></thead><tbody><tr><td>PT</td><td>Preto</td><td>0</td></tr><tr><td>MA</td><td>Marrom</td><td>1</td></tr><tr><td>VM</td><td>Vermelho</td><td>2</td></tr><tr><td>LR</td><td>Laranja</td><td>3</td></tr><tr><td>AM</td><td>Amarelo</td><td>4</td></tr><tr><td>VD</td><td>Verde</td><td>5</td></tr><tr><td>AZ</td><td>Azul</td><td>6</td></tr><tr><td>VL</td><td>Violeta</td><td>7</td></tr><tr><td>CZ</td><td>Cinza</td><td>8</td></tr><tr><td>BR</td><td>Branco</td><td>9</td></tr></tbody></table></div>
+<p>Os fios são identificados por letras (VM = vermelho, MA = marrom, PT/AM = preto com listra amarela) e também por números. No número, o primeiro dígito é a cor: o fio 231 começa com 2 (vermelho) e o fio 170 começa com 1 (marrom).</p>
 <p class="fonte">Fonte: Guia de Reparos Diagnose V-3.0, Motor Sprint Eletronic, Agrale, Departamento de Assistência Técnica.</p>
