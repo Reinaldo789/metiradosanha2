@@ -604,11 +604,6 @@ main {
 .toc ul { margin: 0.3rem 0 0; padding-left: 1.1rem; }
 .toc a { text-decoration: none; }
 .toc a:hover { text-decoration: underline; }
-/* sub-índice: itens h3 dentro de cada seção */
-.toc > ul > li { margin: 0.45rem 0; font-weight: 600; }
-.toc ul ul { margin: 0.25rem 0 0.2rem; padding-left: 1.2rem; list-style: circle; }
-.toc ul ul li { margin: 0.2rem 0; font-weight: 400; }
-.toc ul ul a { font-size: 0.93em; }
 .aviso { background: #fff7ed; border-left: 4px solid #f59e0b; border-radius: 8px; padding: 0.8rem 1rem; margin: 1.2rem 0; }
 .aviso p { margin: 0.3rem 0 0; }
 
@@ -946,8 +941,6 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 
 /* ==========================================
    17. BOTÃO DO MENU DESTACADO NA PÁGINA ABERTA
-   (o JavaScript põe a classe "atual" no botão do menu
-   que contém o item da página que está aberta)
    ========================================== */
 .nav-btn.atual { color: var(--primary); background-color: var(--primary-light); }
 @media (min-width: 961px) {
@@ -956,9 +949,6 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 
 /* ==========================================
    18. TABELAS RESPONSIVAS
-   - ocupam a largura inteira do artigo
-   - no celular continuam tabelas, só mais compactas (menos espaço interno, fonte menor, texto quebrando)
-   - tabelas com 4 ou mais colunas rolam para o lado
    ========================================== */
 .page-card th { background: var(--primary-light); color: var(--primary); font-size: 0.9rem; text-align: left; }
 .page-card tbody tr:nth-child(odd) td { background: #f8fafc; }
@@ -971,37 +961,26 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
 }
 
 /* ==========================================
-   Índice em caixa laranja (igual ao .aviso)
-   e títulos do índice em caixa azul clarinha
+   19. AJUSTE MOBILE: Largura do Conteúdo (Quase 100%)
    ========================================== */
-.page-card .toc {
-  background: #fff7ed;
-  border-left: 4px solid #f59e0b;
-  border-radius: 8px;
-  padding: 0.9rem 1.2rem;
-}
-.page-card .toc > strong { color: #9a3412; }
-.page-card h2[id],
-.page-card h3[id] {
-  background: #eaf3ff;
-  border-radius: 8px;
-  padding: 0.5rem 0.85rem;
-}
+@media (max-width: 768px) {
+  /* Zera o padding lateral do main para a caixa poder crescer */
+  main {
+    padding: 1.5rem 0 !important; 
+  }
 
-/* ==========================================
-   Guia de diagnóstico: tabelas, filtro e grupos
-   ========================================== */
-.page-card [data-grp][hidden] { display: none !important; }
-.tabela-rolagem { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0.4rem 0 0.8rem; }
-.tabela-diag { min-width: 460px; font-size: 0.92rem; }
-.tabela-diag th { background: var(--primary-light); text-align: left; white-space: nowrap; }
-.tabela-diag td:first-child { font-weight: 700; white-space: nowrap; width: 1%; }
-.tabela-diag td { vertical-align: top; }
-.filtro-diag-box { display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; margin: 0.6rem 0 1rem; }
-.filtro-diag { flex: 1 1 280px; padding: 0.7rem 1rem; font: inherit; border: 1px solid var(--border-color); border-radius: 10px; background: #fff; }
-.filtro-diag:focus { outline: 2px solid var(--primary); border-color: var(--primary); }
-.filtro-info { color: var(--text-muted); font-size: 0.88rem; }
-.ver-tambem { font-size: 0.9rem; color: var(--text-muted); margin: 0.3rem 0 0.2rem; }
-.fonte { font-size: 0.85rem; color: var(--text-muted); margin-top: 1.6rem; }
-/* índice longo (ex.: guia de diagnóstico): rola dentro da caixa */
-.page-card .toc { max-height: 24rem; overflow-y: auto; }
+  /* O cartão ocupa 98% da tela (quase 100%), centralizado */
+  .page-card {
+    width: 98% !important;
+    max-width: 98% !important;
+    margin: 0 auto !important; /* Centraliza na tela */
+    padding: 1.2rem !important; /* Margem interna para o texto não encostar na borda da caixa */
+    box-sizing: border-box;
+  }
+
+  /* Ajusta o cabeçalho azul e o índice para caberem bem dentro do novo tamanho */
+  .page-card .art-head, 
+  .toc {
+    padding: 1rem !important;
+  }
+}
