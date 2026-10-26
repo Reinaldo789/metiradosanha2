@@ -604,11 +604,6 @@ main {
 .toc ul { margin: 0.3rem 0 0; padding-left: 1.1rem; }
 .toc a { text-decoration: none; }
 .toc a:hover { text-decoration: underline; }
-/* sub-índice: itens h3 dentro de cada seção */
-.toc > ul > li { margin: 0.45rem 0; font-weight: 600; }
-.toc ul ul { margin: 0.25rem 0 0.2rem; padding-left: 1.2rem; list-style: circle; }
-.toc ul ul li { margin: 0.2rem 0; font-weight: 400; }
-.toc ul ul a { font-size: 0.93em; }
 .aviso { background: #fff7ed; border-left: 4px solid #f59e0b; border-radius: 8px; padding: 0.8rem 1rem; margin: 1.2rem 0; }
 .aviso p { margin: 0.3rem 0 0; }
 
@@ -989,40 +984,3 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
     padding: 1rem !important;
   }
 }
-
-/* ==========================================
-   Índice em caixa laranja (igual ao .aviso)
-   e títulos do índice em caixa azul clarinha
-   ========================================== */
-.page-card .toc {
-  background: #fff7ed;
-  border-left: 4px solid #f59e0b;
-  border-radius: 8px;
-  padding: 0.9rem 1.2rem;
-}
-.page-card .toc > strong { color: #9a3412; }
-.page-card h2[id],
-.page-card h3[id],
-.page-card .componente > h3 {
-  background: #eaf3ff;
-  border-radius: 8px;
-  padding: 0.5rem 0.85rem;
-}
-
-/* ==========================================
-   Guia de diagnóstico: tabelas, filtro e grupos
-   ========================================== */
-.page-card [data-grp][hidden] { display: none !important; }
-.tabela-rolagem { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0.4rem 0 0.8rem; }
-.tabela-diag { min-width: 460px; font-size: 0.92rem; }
-.tabela-diag th { background: var(--primary-light); text-align: left; white-space: nowrap; }
-.tabela-diag td:first-child { font-weight: 700; white-space: nowrap; width: 1%; }
-.tabela-diag td { vertical-align: top; }
-.filtro-diag-box { display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; margin: 0.6rem 0 1rem; }
-.filtro-diag { flex: 1 1 280px; padding: 0.7rem 1rem; font: inherit; border: 1px solid var(--border-color); border-radius: 10px; background: #fff; }
-.filtro-diag:focus { outline: 2px solid var(--primary); border-color: var(--primary); }
-.filtro-info { color: var(--text-muted); font-size: 0.88rem; }
-.ver-tambem { font-size: 0.9rem; color: var(--text-muted); margin: 0.3rem 0 0.2rem; }
-.fonte { font-size: 0.85rem; color: var(--text-muted); margin-top: 1.6rem; }
-/* índice longo (ex.: guia de diagnóstico): rola dentro da caixa */
-.page-card .toc { max-height: 24rem; overflow-y: auto; }
