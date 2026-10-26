@@ -243,11 +243,13 @@ function slugTitulo(s) {
     .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'secao';
 }
 function montarIndice() {
-  const titulos = [...card.querySelectorAll(':scope > h2, :scope > h3')];
+  // h3 que está dentro de um bloco .componente usa o id do bloco
+  const alvoDe = h => (h.tagName === 'H3' && h.parentElement.classList.contains('componente') && h.parentElement.id) || h.id;
+  const titulos = [...card.querySelectorAll(':scope > h2, :scope > h3, :scope > .componente > h3')];
   if (!titulos.length) return;
   const usados = new Set([...card.querySelectorAll('[id]')].map(e => e.id));
   titulos.forEach(h => {          // título sem id ganha um
-    if (h.id) return;
+    if (alvoDe(h)) return;
     const base = slugTitulo(h.textContent);
     let id = base, n = 2;
     while (usados.has(id)) id = base + '-' + n++;
@@ -265,7 +267,7 @@ function montarIndice() {
   const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   let html = '<strong>Neste artigo</strong><ul>', aberto = false, sub = false;
   titulos.forEach(h => {
-    const a = `<a href="#" data-goto="${h.id}">${esc(h.textContent.trim())}</a>`;
+    const a = `<a href="#" data-goto="${alvoDe(h)}">${esc(h.textContent.trim())}</a>`;
     if (h.tagName === 'H2') {
       if (sub) html += '</ul>';
       if (aberto) html += '</li>';
