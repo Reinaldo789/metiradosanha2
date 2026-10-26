@@ -1,13 +1,133 @@
-<!-- Escreva aqui o artigo: Válvula KUV -->
-<p>Texto de introdução sobre Válvula KUV.</p>
+<!-- Válvula KUV (Cascata). Imagens: salve em conteudo/imagens/valvula-kuv/ -->
+<header class="art-head">
+  <h1>Válvula Cascata (KUV)</h1>
+</header>
 
-<h2>Como funciona</h2>
-<p>...</p>
+<nav class="toc" aria-label="Neste artigo">
+  <strong>Neste artigo</strong>
+  <ul>
+    <li><a href="#" data-goto="localizacao">Localização</a></li>
+    <li><a href="#" data-goto="funcionamento">Funcionamento (3 Estágios)</a></li>
+    <li><a href="#" data-goto="fluxo-combustivel">Fluxo Completo Simplificado</a></li>
+    <li><a href="#" data-goto="problemas-comuns">Problemas Comuns e Testes</a>
+      <ul>
+        <li><a href="#" data-goto="motor-nao-liga">Motor não liga</a></li>
+        <li><a href="#" data-goto="teste-travamento">Teste de Travamento</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
-<h2>Sintomas de falha</h2>
+<!-- ==========================================
+     CONTEÚDO DO ARTIGO
+     ========================================== -->
+
+<h2 id="localizacao">Localização</h2>
+<p>A Válvula KUV está localizada na carcaça da Bomba de Alta Pressão, parafusada na lateral da bomba. A chave necessária para removê-la é de <b>16mm</b>.</p>
+
+<!-- IMAGEM: Localização da válvula -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/valvula-kuv/01-localizacao.jpg" alt="Localização da válvula KUV na bomba de alta pressão" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<h2 id="funcionamento">Funcionamento (3 Estágios)</h2>
+<p>A válvula cascata é responsável por controlar a pressão de combustível entre <b>05 e 07 bar</b> e permitir a lubrificação do eixo da bomba de alta pressão. Ela opera em três estágios distintos:</p>
+
+<div class="specs">
+  <div class="spec"><b>1º Estágio</b><span>Baixa pressão (Válvula em repouso)<br>Alimenta a bomba e permite pequena passagem de óleo para lubrificar o eixo.</span></div>
+  <div class="spec"><b>2º Estágio</b><span>Pressão de funcionamento (Semiaberta)<br>Alimenta a bomba e permite maior passagem de óleo para lubrificar.</span></div>
+  <div class="spec"><b>3º Estágio</b><span>Pressão alta (Aberta)<br>Lubrifica o eixo e abre a passagem para o retorno, controlando a pressão em 05-07 bar.</span></div>
+</div>
+
+<!-- IMAGEM: Corte da bomba mostrando a KUV -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/valvula-kuv/02-corte-bomba.jpg" alt="Corte da bomba de alta pressão mostrando a válvula KUV" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<h2 id="fluxo-combustivel">Fluxo Completo Simplificado</h2>
+<p>O diagrama abaixo resume o caminho do combustível no sistema:</p>
 <ul>
-  <li>...</li>
+  <li>Bomba de engrenagem gera pressão;</li>
+  <li>Pressão alimenta a <a href="#sistema-de-injecao/valvula-mprop">MProp</a>;</li>
+  <li>MProp controla quanto combustível entra no elemento pressurizador;</li>
+  <li>O pistão gera alta pressão para o Rail;</li>
+  <li>Válvula KUV controla a pressão interna e a lubrificação;</li>
+  <li>O excesso de combustível vai para o retorno.</li>
 </ul>
 
-<h2>Como testar</h2>
-<p>...</p>
+<!-- IMAGEM: Diagrama de fluxo -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/valvula-kuv/03-fluxo-combustivel.jpg" alt="Diagrama do fluxo de combustível: Bomba, Mprop, KUV e Retorno" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<h2 id="problemas-comuns">Problemas Comuns e Testes</h2>
+
+<h3 id="motor-nao-liga">Motor não liga</h3>
+<div class="trio">
+  <div>
+    <h4>Sintomas</h4>
+    <ul>
+      <li>Motor não liga.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis causas</h4>
+    <ul>
+      <li>Válvula KUV travada aberta (3º Estágio);</li>
+      <li>Válvula MProp travada fechada.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Possíveis soluções</h4>
+    <ul>
+      <li>Retirar a válvula KUV e verificar se está travada.</li>
+      <li>Use um metal pontiagudo e pressione a válvula interna; ela deve retornar sozinha devido à força da mola.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="aviso">
+  <strong>Atenção (Verificações antes de retirar a KUV)</strong>
+  <ul>
+    <li>Se tem combustível no tanque;</li>
+    <li>Filtros e pescador de combustível desobstruídos;</li>
+    <li>Mangueiras com vazamentos;</li>
+    <li>Retire a mangueira e verifique se o combustível chega até a bomba de alta pressão.</li>
+  </ul>
+  <p>Pode verificar direto na bomba de alta ou no retorno do tanque de combustível.</p>
+</div>
+
+<!-- IMAGEM: Tanque (Pescador e Retorno) -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/valvula-kuv/04-tanque-pecador-retorno.jpg" alt="Verificação no tanque: pescador de sucção e retorno" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<h3 id="teste-travamento">Teste de Travamento da Válvula</h3>
+<p>Se a válvula travar no terceiro estágio, o combustível sairá para o retorno mesmo em baixas pressões, deixando de alimentar a bomba de alta e impedindo o motor de funcionar.</p>
+<p>Se a válvula estiver <b>travada aberta</b>, ela estará com uma profundidade de <b>26 mm</b>.</p>
+
+<!-- IMAGEM: Medição da profundidade da válvula (26mm) -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/valvula-kuv/05-medida-26mm.jpg" alt="Medição da profundidade da válvula KUV travada (26mm)" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
+
+<div class="dica">
+  <strong>Como destravar e testar</strong>
+  <ul>
+    <li>Aplique produto de limpeza até que a válvula descole do fundo do alojamento.</li>
+    <li>Para confirmar o funcionamento, pressione a válvula várias vezes e verifique se ela retorna sozinha com a força da mola.</li>
+    <li>Limpe toda a válvula e inspecione o movimento do êmbolo quanto a possíveis travamentos.</li>
+    <li>Com o auxílio de um desingripante, verifique se está saindo líquido no orifício menor do lado do O-ring. Se não sair, deixe a válvula de repouso em um produto de limpeza e refaça o teste.</li>
+  </ul>
+</div>
+
+<!-- IMAGEM: Teste com desingripante -->
+<figure class="img-box-preview">
+  <img src="conteudo/imagens/valvula-kuv/06-teste-desingripante.jpg" alt="Teste de vazão da válvula KUV com desingripante spray" loading="lazy">
+  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
+</figure>
