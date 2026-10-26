@@ -1,20 +1,21 @@
-<!-- Sensor de Pressão e Temperatura do Ar (MAP/IAT). Imagens: salve em conteudo/imagens/sensor-map-iat/ -->
+<!-- Sensor de Pressão e Temperatura do Ar (MAP/MAT). Imagens: salve em conteudo/imagens/sensor-map-mat/ -->
 <header class="art-head">
-  <h1>Sensor de Pressão e Temperatura do Ar (MAP/IAT)</h1>
+  <h1>Sensor de Pressão e Temperatura do Ar (MAP/MAT)</h1>
+  <p style="font-size: 0.9rem; opacity: 0.9; margin-top: 5px;">Bosch 0 281 002 514</p>
 </header>
 
 <nav class="toc" aria-label="Neste artigo">
   <strong>Neste artigo</strong>
   <ul>
-    <li><a href="#" data-goto="localizacao">Localização</a></li>
     <li><a href="#" data-goto="funcionamento">Funcionamento</a></li>
+    <li><a href="#" data-goto="modulador">Relação com o Modulador da Turbina</a></li>
+    <li><a href="#" data-goto="sintomas">Principais Problemas (Fumaça e Potência)</a></li>
+    <li><a href="#" data-goto="pinagem">Pinagem do Conector</a></li>
     
-    <li><a href="#" data-goto="parte-eletrica">Parte Elétrica e Pinagem</a></li>
+    <li><a href="#" data-goto="teste-map">Teste de Pressão (MAP) e Gráfico</a></li>
+    <li><a href="#" data-goto="teste-mat">Teste de Temperatura (MAT) e Gráfico</a></li>
     
-    <li><a href="#" data-goto="teste-iat">Teste de Resistência (IAT)</a></li>
-    <li><a href="#" data-goto="teste-map">Teste de Tensão (MAP)</a></li>
-    
-    <li><a href="#" data-goto="codigos-de-falha">Códigos de Falha</a></li>
+    <li><a href="#" data-goto="diagnostico">Diagnóstico de Falhas</a></li>
   </ul>
 </nav>
 
@@ -22,93 +23,82 @@
      CONTEÚDO DO ARTIGO
      ========================================== -->
 
-<h2 id="localizacao">Localização</h2>
-<p>O sensor está instalado na curva/tubo de admissão de ar, após o intercooler e antes do coletor de admissão.</p>
-
-<figure class="img-box-preview">
-  <img src="conteudo/imagens/sensor-map-iat/01-localizacao.jpg" alt="Localização do sensor MAP/IAT na admissão" loading="lazy">
-  <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
-</figure>
-
 <h2 id="funcionamento">Funcionamento</h2>
-<p>Este é um componente duplo que integra duas funções em um único corpo:</p>
+<p>O Sensor MAP/MAT (sensor conjugado) monitora simultaneamente a pressão absoluta (MAP) e a temperatura (MAT) do ar no coletor de admissão, permitindo que a Unidade de Controle Eletrônico (ECU) calcule a densidade exata do ar para otimizar a queima de combustível.</p>
 <ul>
-  <li><b>Sensor de Pressão (MAP):</b> Monitora a pressão absoluta do ar no coletor de admissão. É um elemento piezo-resistivo que gera uma tensão analógica proporcional à pressão do turbo (carga do motor).</li>
-  <li><b>Sensor de Temperatura (IAT):</b> Mede a temperatura do ar admitido. É um termistor do tipo <b>NTC</b> (Coeficiente de Temperatura Negativo), ou seja, sua resistência elétrica <b>diminui</b> conforme a temperatura do ar <b>aumenta</b>.</li>
+  <li><b>Função MAP (Manifold Absolute Pressure):</b> Mede a pressão do ar que entra no motor. Em marcha lenta, a pressão é baixa (alto vácuo). Quando você acelera, a pressão sobe, indicando que o motor precisa de mais combustível.</li>
+  <li><b>Função MAT (Manifold Air Temperature):</b> Mede a temperatura do ar de admissão utilizando um termistor interno. Como o ar frio é mais denso que o ar quente, essa medição ajuda a ECU a refinar o tempo de injeção e a ignição.</li>
 </ul>
 
-<h2 id="parte-eletrica">Parte Elétrica e Pinagem</h2>
+<h2 id="modulador">Relação com o Modulador da Turbina</h2>
+<p>O sensor MAP/MAT é o componente de <b>referência e realimentação</b> para o controle do modulador (válvula solenoide) da turbina. Ele fecha o loop de controle que a ECU utiliza para regular a pressão de sobrealimentação.</p>
+<ol>
+  <li><b>Leitura:</b> O sensor MAP mede a pressão real do ar no coletor e envia a tensão para a ECU.</li>
+  <li><b>Comparação:</b> A ECU compara a pressão real com a pressão desejada (mapa de injeção).</li>
+  <li><b>Correção:</b> A ECU ajusta o sinal PWM enviado ao modulador. Isso altera o vácuo para a wastegate, abrindo ou fechando as aletas da turbina.</li>
+</ol>
+<div class="dica">
+  <strong>Pressão Alvo</strong>
+  <p>No motor MWM 2.8 da Agrale Marruá, esse controle é calibrado para uma pressão máxima de aproximadamente <b>1,5 kg</b> (cerca de 1,5 bar de pressão positiva).</p>
+</div>
+
+<h2 id="sintomas">Principais Problemas: Fumaça Preta e Perda de Potência</h2>
+<p>Quando o sensor MAP ou o modulador falham, a ECU perde a capacidade de medir a quantidade real de ar, resultando diretamente nos dois sintomas mais comuns:</p>
+
+<div class="trio">
+  <div>
+    <h4>💨 Fumaça Preta Excessiva</h4>
+    <p><b>Mecanismo:</b> A fumaça preta é sinal de <b>excesso de diesel para a quantidade de ar disponível</b>. Se o sensor MAP enviar um sinal de <b>pressão alta falsa</b>, a ECU vai injetar uma quantidade massiva de combustível. Como o ar real é insuficiente, o diesel não queima completamente.</p>
+    <p><b>Outras causas:</b> Modulador travado (impedindo a wastegate de abrir) ou vazamento nas mangueiras de vácuo.</p>
+  </div>
+  <div>
+    <h4>📉 Perda de Potência (Limp Mode)</h4>
+    <p><b>Mecanismo:</b> Se o sensor MAP travar em um valor de <b>pressão baixa</b> (ou o sinal cair), a ECU entende que o turbo não está gerando pressão. Para proteger o motor, ela entra em <b>Limp Mode</b>, cortando o débito e limitando a rotação (geralmente em torno de 2.000 a 2.500 RPM).</p>
+    <p><b>Outras causas:</b> Modulador queimado, chicote partido ou falha na ECU.</p>
+  </div>
+</div>
+
+<h2 id="pinagem">Pinagem do Conector (4 Pinos)</h2>
 <table>
   <thead>
     <tr><th>Pino</th><th>Função</th><th>Descrição</th></tr>
   </thead>
   <tbody>
-    <tr><td><b>1</b></td><td>Massa (GND)</td><td>Aterramento do sensor (terra dos sensores).</td></tr>
-    <tr><td><b>2</b></td><td>Sinal IAT (Temperatura)</td><td>Sinal analógico do termistor NTC.</td></tr>
-    <tr><td><b>3</b></td><td>Alimentação 5V</td><td>Tensão de referência de 5V fornecida pela ECU.</td></tr>
-    <tr><td><b>4</b></td><td>Sinal MAP (Pressão)</td><td>Sinal analógico de tensão da pressão do coletor.</td></tr>
+    <tr><td><b>1</b></td><td>Aterramento (GND)</td><td>Massa fornecida pela ECU.</td></tr>
+    <tr><td><b>2</b></td><td>Sinal de Temperatura (MAT)</td><td>Saída do termistor NTC.</td></tr>
+    <tr><td><b>3</b></td><td>Alimentação (+5,0 V)</td><td>Tensão de referência (Vcc) enviada pela ECU.</td></tr>
+    <tr><td><b>4</b></td><td>Sinal de Pressão (MAP)</td><td>Saída de tensão do circuito piezo-resistivo.</td></tr>
   </tbody>
 </table>
 
-<h2 id="teste-iat">1. Teste de Resistência (Sensor de Temperatura - IAT)</h2>
-<p>Com o sensor desconectado, meça a resistência entre os <b>pinos 1 e 2</b> do próprio sensor. A resistência varia inversamente com a temperatura:</p>
+<h2 id="teste-map">Teste de Pressão (MAP) e Gráfico</h2>
+<p>A faixa nominal de leitura de pressão deste sensor é de <b>0,2 a 2,5 bar</b> (20 a 250 kPa). O sinal de resposta elétrica é linear e proporcional à pressão aplicada.</p>
 
-<!-- GRÁFICO NTC -->
-<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 15px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif;">
-  <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;">
-    <div style="display: flex; align-items: center; gap: 8px;">
-      <div style="width: 16px; height: 4px; background: #F59E0B; border-radius: 2px;"></div>
-      <span style="font-size: 0.85rem; font-weight: 700; color: #1e293b;">Curva NTC (Resistência x Temperatura)</span>
-    </div>
-  </div>
-  <svg viewBox="0 0 700 350" style="width: 100%; height: auto; display: block;">
-    <g stroke="#f1f5f9" stroke-width="1">
-      <line x1="80" y1="50" x2="620" y2="50" />
-      <line x1="80" y1="100" x2="620" y2="100" />
-      <line x1="80" y1="150" x2="620" y2="150" />
-      <line x1="80" y1="200" x2="620" y2="200" />
-      <line x1="80" y1="250" x2="620" y2="250" />
-      <line x1="80" y1="300" x2="620" y2="300" />
-    </g>
-    <line x1="80" y1="300" x2="620" y2="300" stroke="#cbd5e1" stroke-width="2" />
-    <line x1="80" y1="50" x2="80" y2="300" stroke="#cbd5e1" stroke-width="2" />
-    <g fill="#64748b" font-size="12" font-weight="600" text-anchor="end">
-      <text x="70" y="54">10k Ω</text>
-      <text x="70" y="104">8k Ω</text>
-      <text x="70" y="154">6k Ω</text>
-      <text x="70" y="204">4k Ω</text>
-      <text x="70" y="254">2k Ω</text>
-      <text x="70" y="304">0 Ω</text>
-    </g>
-    <g fill="#64748b" font-size="12" font-weight="600" text-anchor="middle">
-      <text x="120" y="325">0°C</text>
-      <text x="250" y="325">20°C</text>
-      <text x="380" y="325">40°C</text>
-      <text x="510" y="325">60°C</text>
-      <text x="600" y="325">80°C</text>
-    </g>
-    <!-- Curva NTC -->
-    <polyline points="120,90 250,165 380,235 510,275 600,290" fill="none" stroke="#F59E0B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="250" cy="165" r="6" fill="#ffffff" stroke="#F59E0B" stroke-width="3" />
-    <circle cx="380" cy="235" r="6" fill="#ffffff" stroke="#F59E0B" stroke-width="3" />
-    <g font-size="11" font-weight="700" fill="#1e293b">
-      <text x="250" y="153" text-anchor="middle">~3.4k Ω</text>
-      <text x="380" y="223" text-anchor="middle">~1.2k Ω</text>
-    </g>
-  </svg>
+<div style="overflow-x: auto;">
+  <table>
+    <thead>
+      <tr><th>Pressão (bar)</th><th>Pressão (kPa)</th><th>Tensão Esperada (Sinal MAP)</th><th>Condição de Referência</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><b>0,20 bar</b></td><td>20 kPa</td><td>~ 0,40 V</td><td>Vácuo máximo (desaceleração)</td></tr>
+      <tr><td><b>0,50 bar</b></td><td>50 kPa</td><td>~ 0,95 V</td><td>Marcha lenta</td></tr>
+      <tr><td><b>1,00 bar</b></td><td>100 kPa</td><td>~ 1,88 V</td><td>Pressão atmosférica (motor desligado)</td></tr>
+      <tr><td><b>1,50 bar</b></td><td>150 kPa</td><td>~ 2,80 V</td><td>Turbo em ação moderada</td></tr>
+      <tr><td><b>2,00 bar</b></td><td>200 kPa</td><td>~ 3,73 V</td><td>Turbo em carga plena</td></tr>
+      <tr><td><b>2,50 bar</b></td><td>250 kPa</td><td>~ 4,65 V</td><td>Limite superior do sensor</td></tr>
+    </tbody>
+  </table>
 </div>
 
-<h2 id="teste-map">2. Teste de Tensão (Sensor de Pressão - MAP)</h2>
-<p>Com o conector conectado (backprobing), meça a tensão entre os <b>pinos 1 e 4</b> do sensor. A tensão sobe conforme a pressão do turbo aumenta:</p>
-
-<!-- GRÁFICO MAP -->
+<!-- GRÁFICO TENSÃO vs PRESSÃO -->
 <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 15px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif;">
   <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;">
     <div style="display: flex; align-items: center; gap: 8px;">
       <div style="width: 16px; height: 4px; background: #3B82F6; border-radius: 2px;"></div>
-      <span style="font-size: 0.85rem; font-weight: 700; color: #1e293b;">Sinal MAP (Tensão x Rotação)</span>
+      <span style="font-size: 0.85rem; font-weight: 700; color: #1e293b;">Tensão de Sinal (V) x Pressão (bar)</span>
     </div>
   </div>
+  
   <svg viewBox="0 0 700 350" style="width: 100%; height: auto; display: block;">
     <g stroke="#f1f5f9" stroke-width="1">
       <line x1="80" y1="50" x2="620" y2="50" />
@@ -120,6 +110,7 @@
     </g>
     <line x1="80" y1="300" x2="620" y2="300" stroke="#cbd5e1" stroke-width="2" />
     <line x1="80" y1="50" x2="80" y2="300" stroke="#cbd5e1" stroke-width="2" />
+    
     <g fill="#64748b" font-size="12" font-weight="600" text-anchor="end">
       <text x="70" y="54">5,0 V</text>
       <text x="70" y="104">4,0 V</text>
@@ -128,42 +119,108 @@
       <text x="70" y="254">1,0 V</text>
       <text x="70" y="304">0 V</text>
     </g>
+    
     <g fill="#64748b" font-size="12" font-weight="600" text-anchor="middle">
-      <text x="120" y="325">Lenta</text>
-      <text x="250" y="325">1500 RPM</text>
-      <text x="380" y="325">2000 RPM</text>
-      <text x="510" y="325">2500 RPM</text>
-      <text x="600" y="325">3000 RPM</text>
+      <text x="80" y="325">0,2</text>
+      <text x="150" y="325">0,5</text>
+      <text x="268" y="325">1,0</text>
+      <text x="385" y="325">1,5</text>
+      <text x="503" y="325">2,0</text>
+      <text x="620" y="325">2,5</text>
+      <text x="350" y="345" font-size="10" fill="#94a3b8">Pressão (bar)</text>
     </g>
-    <!-- Curva MAP -->
-    <polyline points="120,215 250,205 380,195 510,170 600,150" fill="none" stroke="#3B82F6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="120" cy="215" r="6" fill="#ffffff" stroke="#3B82F6" stroke-width="3" />
-    <circle cx="380" cy="195" r="6" fill="#ffffff" stroke="#3B82F6" stroke-width="3" />
-    <circle cx="600" cy="150" r="6" fill="#ffffff" stroke="#3B82F6" stroke-width="3" />
+    
+    <polyline points="80,280 150,252.5 268,206 385,160 503,113.5 620,67.5" fill="none" stroke="#3B82F6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="80" cy="280" r="5" fill="#ffffff" stroke="#3B82F6" stroke-width="3" />
+    <circle cx="268" cy="206" r="5" fill="#ffffff" stroke="#3B82F6" stroke-width="3" />
+    <circle cx="620" cy="67.5" r="5" fill="#ffffff" stroke="#3B82F6" stroke-width="3" />
+    
     <g font-size="11" font-weight="700" fill="#1e293b">
-      <text x="120" y="203" text-anchor="middle">~1.7 V</text>
-      <text x="380" y="183" text-anchor="middle">~2.1 V</text>
-      <text x="600" y="138" text-anchor="middle">~2.6 V</text>
+      <text x="80" y="268" text-anchor="middle">0,40V</text>
+      <text x="268" y="194" text-anchor="middle">1,88V</text>
+      <text x="620" y="55" text-anchor="middle">4,65V</text>
     </g>
   </svg>
 </div>
 
-<h2 id="codigos-de-falha">Códigos de Falha (OBD-II)</h2>
-<div class="codigos">
-  <div class="codigo"><span class="num">P0112</span><div>
-    <h4>Tensão Baixa no IAT</h4>
-    <p>Indica curto-circuito à massa ou resistência muito baixa. A ECU assume 40 °C.</p>
-  </div></div>
-  <div class="codigo"><span class="num">P0113</span><div>
-    <h4>Tensão Alta no IAT</h4>
-    <p>Indica circuito aberto ou resistência muito alta. A ECU assume 40 °C.</p>
-  </div></div>
-  <div class="codigo"><span class="num">P0237</span><div>
-    <h4>Tensão Baixa no MAP</h4>
-    <p>Sinal abaixo de 1,0 V. A ECU assume 1000 hPa.</p>
-  </div></div>
-  <div class="codigo"><span class="num">P0238</span><div>
-    <h4>Tensão Alta no MAP</h4>
-    <p>Sinal acima de 4,7 V. A ECU assume 1000 hPa.</p>
-  </div></div>
+<h2 id="teste-mat">Teste de Temperatura (MAT) e Gráfico</h2>
+<p>O circuito de temperatura opera por meio de um <b>termistor NTC</b>. Quanto maior a temperatura do ar, <b>menor</b> será a resistência elétrica interna e, consequentemente, <b>menor a tensão medida</b>.</p>
+
+<div style="overflow-x: auto;">
+  <table>
+    <thead>
+      <tr><th>Temperatura (°C)</th><th>Resistência Esperada (Ω)</th><th>Tensão Estimada (no circuito)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><b>-10 °C</b></td><td>~ 9.300 a 10.000 Ω</td><td>~ 4,3 V</td></tr>
+      <tr><td><b>0 °C</b></td><td>~ 5.500 a 6.200 Ω</td><td>~ 3,9 V</td></tr>
+      <tr><td><b>20 °C</b></td><td>~ 2.200 a 2.800 Ω</td><td>~ 3,0 V</td></tr>
+      <tr><td><b>40 °C</b></td><td>~ 1.000 a 1.300 Ω</td><td>~ 2,0 V</td></tr>
+      <tr><td><b>60 °C</b></td><td>~ 500 a 650 Ω</td><td>~ 1,2 V</td></tr>
+      <tr><td><b>80 °C</b></td><td>~ 290 a 370 Ω</td><td>~ 0,7 V</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- GRÁFICO TENSÃO vs TEMPERATURA -->
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 15px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif;">
+  <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <div style="width: 16px; height: 4px; background: #F59E0B; border-radius: 2px;"></div>
+      <span style="font-size: 0.85rem; font-weight: 700; color: #1e293b;">Tensão de Sinal (V) x Temperatura (°C)</span>
+    </div>
+  </div>
+  
+  <svg viewBox="0 0 700 350" style="width: 100%; height: auto; display: block;">
+    <g stroke="#f1f5f9" stroke-width="1">
+      <line x1="80" y1="50" x2="620" y2="50" />
+      <line x1="80" y1="100" x2="620" y2="100" />
+      <line x1="80" y1="150" x2="620" y2="150" />
+      <line x1="80" y1="200" x2="620" y2="200" />
+      <line x1="80" y1="250" x2="620" y2="250" />
+      <line x1="80" y1="300" x2="620" y2="300" />
+    </g>
+    
+    <line x1="80" y1="300" x2="620" y2="300" stroke="#cbd5e1" stroke-width="2" />
+    <line x1="80" y1="50" x2="80" y2="300" stroke="#cbd5e1" stroke-width="2" />
+    
+    <g fill="#64748b" font-size="12" font-weight="600" text-anchor="end">
+      <text x="70" y="54">5,0 V</text>
+      <text x="70" y="104">4,0 V</text>
+      <text x="70" y="154">3,0 V</text>
+      <text x="70" y="204">2,0 V</text>
+      <text x="70" y="254">1,0 V</text>
+      <text x="70" y="304">0 V</text>
+    </g>
+    
+    <g fill="#64748b" font-size="12" font-weight="600" text-anchor="middle">
+      <text x="80" y="325">-10</text>
+      <text x="140" y="325">0</text>
+      <text x="260" y="325">20</text>
+      <text x="380" y="325">40</text>
+      <text x="500" y="325">60</text>
+      <text x="620" y="325">80</text>
+      <text x="350" y="345" font-size="10" fill="#94a3b8">Temperatura (°C)</text>
+    </g>
+    
+    <!-- Curva NTC de Tensão -->
+    <polyline points="80,85 140,105 260,150 380,200 500,240 620,265" fill="none" stroke="#F59E0B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="260" cy="150" r="5" fill="#ffffff" stroke="#F59E0B" stroke-width="3" />
+    <circle cx="620" cy="265" r="5" fill="#ffffff" stroke="#F59E0B" stroke-width="3" />
+    
+    <g font-size="11" font-weight="700" fill="#1e293b">
+      <text x="260" y="138" text-anchor="middle">~3,0V</text>
+      <text x="620" y="253" text-anchor="middle">~0,7V</text>
+    </g>
+  </svg>
+</div>
+
+<h2 id="diagnostico">Diagnóstico de Falhas</h2>
+<div class="dica">
+  <strong>Como validar o componente?</strong>
+  <ul>
+    <li>Se a tensão no <b>Pino 4</b> (Pressão) travar próxima a 0V ou 5V sem responder à variação de pressão, o elemento piezoelétrico está danificado.</li>
+    <li>Se a tensão no <b>Pino 2</b> (Temperatura) travar fixa em 0V ou 5V, ou se a resistência entre os Pinos 1 e 2 estiver aberta/zerada, o termistor está inoperante.</li>
+    <li>Se a fumaça preta e a perda de potência persistirem, verifique também o <a href="#sistema-de-injecao/modulador-turbina">Modulador da Turbina</a> e as mangueiras de vácuo, pois eles atuam diretamente na pressão lida por este sensor.</li>
+  </ul>
 </div>
