@@ -72,19 +72,20 @@
 </div>
 
 <!-- GRÁFICO: Resistência vs Temperatura -->
-<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif; overflow-x: auto;">
-  <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 15px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif;">
+  <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
     <div style="display: flex; align-items: center; gap: 8px;">
       <div style="width: 16px; height: 4px; background: #3B82F6; border-radius: 2px;"></div>
-      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Resistência Nominal (Ω)</span>
+      <span style="font-size: 0.85rem; font-weight: 700; color: #1e293b;">Resistência Nominal (Ω)</span>
     </div>
     <div style="display: flex; align-items: center; gap: 8px;">
       <div style="width: 16px; height: 12px; background: rgba(59, 130, 246, 0.2); border-radius: 2px;"></div>
-      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Faixa Tolerada (Mín. / Máx.)</span>
+      <span style="font-size: 0.85rem; font-weight: 700; color: #1e293b;">Faixa Tolerada</span>
     </div>
   </div>
 
-  <svg viewBox="0 0 700 350" style="width: 100%; height: auto; min-width: 550px;">
+  <!-- Ajustado para display: block e removido min-width -->
+  <svg viewBox="0 0 700 350" style="width: 100%; height: auto; display: block;">
     <defs>
       <filter id="shadow-res" x="-10%" y="-10%" width="120%" height="120%">
         <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.1"/>
@@ -152,19 +153,20 @@
 </div>
 
 <!-- GRÁFICO: Tensão AC vs Rotação -->
-<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif; overflow-x: auto;">
-  <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 15px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif;">
+  <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
     <div style="display: flex; align-items: center; gap: 8px;">
       <div style="width: 16px; height: 4px; background: #10B981; border-radius: 2px;"></div>
-      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Tensão Nominal (V AC)</span>
+      <span style="font-size: 0.85rem; font-weight: 700; color: #1e293b;">Tensão Nominal (V AC)</span>
     </div>
     <div style="display: flex; align-items: center; gap: 8px;">
       <div style="width: 16px; height: 12px; background: rgba(16, 185, 129, 0.2); border-radius: 2px;"></div>
-      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Faixa Tolerada</span>
+      <span style="font-size: 0.85rem; font-weight: 700; color: #1e293b;">Faixa Tolerada</span>
     </div>
   </div>
 
-  <svg viewBox="0 0 700 350" style="width: 100%; height: auto; min-width: 550px;">
+  <!-- Ajustado para display: block e removido min-width -->
+  <svg viewBox="0 0 700 350" style="width: 100%; height: auto; display: block;">
     <defs>
       <filter id="shadow-ac" x="-10%" y="-10%" width="120%" height="120%">
         <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.1"/>
