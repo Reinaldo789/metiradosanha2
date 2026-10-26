@@ -1,149 +1,237 @@
-<!-- Escreva aqui o artigo: Correia e Ventoinha -->
-<p>Texto de introdução sobre Correia e Ventoinha.</p>
+<!-- Manutenção e Lubrificação. Imagens: salve em conteudo/imagens/manutencao/ -->
+<header class="art-head">
+  <h1>Manutenção e Lubrificação</h1>
+</header>
 
-<h2>Como funciona</h2>
-<p>
-  </p><!-- Página Técnica: Sensor de Fase (CMP) Bosch 0281002667 -->
-<main class="guia-tecnico-conteudo">
-    <header class="componente-header">
-        <h1># Sensor de Fase (CMP)</h1>
-        <p class="introducao">
-            O sensor de fase Bosch <strong>0281002667</strong> é um componente eletrônico ativo crítico para o sincronismo e funcionamento correto do motor MWM 2.8 Eletrônico, gerenciado pela central <strong>Bosch EDC16C8</strong>. Seu princípio de funcionamento baseado em efeito Hall exige procedimentos específicos de teste — não se aplica medição de resistência, apenas verificação de tensão de alimentação e análise de sinal dinâmico por tensão ou frequência.
-        </p>
-    </header>
+<nav class="toc" aria-label="Neste artigo">
+  <strong>Neste artigo</strong>
+  <ul>
+    <li><a href="#" data-goto="lubrificantes">Tabela de Lubrificantes e Fluidos</a></li>
+    <li><a href="#" data-goto="plano-manutencao">Plano de Manutenção (MWM Sprint 4.07 TCE)</a></li>
+    <li><a href="#" data-goto="observacoes">Observações Importantes</a></li>
+  </ul>
+</nav>
 
-    <hr>
+<!-- ==========================================
+     CONTEÚDO DO ARTIGO
+     ========================================== -->
 
-    <!-- Identificação -->
-    <section class="topico-manual">
-        <h2>## Identificação</h2>
-        <p>O sensor de fase Bosch 0281002667 é aplicado no motor MWM 2.8 Eletrônico, utilizado em veículos como Chevrolet S10/Blazer, Nissan Frontier/Xterra, Agrale Marruá, Fiat Ducato, Iveco Daily e VW Delivery. Confira sempre o código antes de substituir a peça.</p>
-        
-        <ul>
-            <li><strong>Bosch:</strong> 0 281 002 667 / 0281002667</li>
-            <li><strong>Bosch (alternativo):</strong> 0232103052</li>
-            <li><strong>GM / Chevrolet:</strong> 93347211 / 93.347.211</li>
-            <li><strong>Fiat:</strong> 504048261 / 55.187.973</li>
-            <li><strong>MWM:</strong> 9 4070 06 7 0074</li>
-            <li><strong>Iveco:</strong> 5802260743</li>
-            <li><strong>VW:</strong> 2P0133491</li>
-            <li><strong>Magneti Marelli:</strong> SRM6210</li>
-        </ul>
-        <p><em><strong>Atenção:</strong> Não remova nem destrua a identificação do sensor. A conferência do código evita a instalação de peça incorreta.</em></p>
-    </section>
+<h2 id="lubrificantes">Tabela de Lubrificantes e Fluidos</h2>
+<p>Utilize sempre os fluidos especificados abaixo para garantir o correto funcionamento e a durabilidade dos componentes do veículo.</p>
 
-    <!-- Dados técnicos -->
-    <section class="topico-manual">
-        <h2>## Dados técnicos</h2>
-        <ul>
-            <li><strong>Tecnologia:</strong> Efeito Hall (Semicondutor ativo)</li>
-            <li><strong>Conector:</strong> 3 pinos</li>
-            <li><strong>Alimentação:</strong> 5 V ou 12 V DC (Proveniente da ECM Bosch EDC16C8)</li>
-            <li><strong>Tipo de sinal:</strong> Onda quadrada digital</li>
-            <li><strong>Corrente nominal:</strong> &lt; 20 mA</li>
-            <li><strong>Proteção:</strong> IP6K9K</li>
-        </ul>
+<div style="overflow-x: auto;">
+  <table>
+    <thead>
+      <tr>
+        <th>Sistema / Componente</th>
+        <th>Viscosidade / Especificação</th>
+        <th>Quantidade (L)</th>
+        <th>Intervalo de Troca</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Motor</b></td>
+        <td>15W40 API CI-4</td>
+        <td>8,5 L</td>
+        <td>10.000 km</td>
+      </tr>
+      <tr>
+        <td><b>Câmbio</b></td>
+        <td>80W90 API GL3/4</td>
+        <td>3,5 L</td>
+        <td>40.000 km</td>
+      </tr>
+      <tr>
+        <td><b>Caixa de Transferência (CX Transf)</b></td>
+        <td>85W140 API GL 5</td>
+        <td>0,6 L</td>
+        <td>40.000 km</td>
+      </tr>
+      <tr>
+        <td><b>Diferencial Traseiro</b></td>
+        <td>85W140 API GL 5</td>
+        <td>3,8 L (*)</td>
+        <td>30.000 km</td>
+      </tr>
+      <tr>
+        <td><b>Diferencial Dianteiro</b></td>
+        <td>85W140 API GL 5</td>
+        <td>1,8 L (*)</td>
+        <td>30.000 km</td>
+      </tr>
+      <tr>
+        <td><b>Direção Hidráulica</b></td>
+        <td>ATF TE-ML-09</td>
+        <td>1,7 L</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><b>Freio</b></td>
+        <td>DOT 4 / DOT 5</td>
+        <td>1,0 L</td>
+        <td>12 meses</td>
+      </tr>
+      <tr>
+        <td><b>Embreagem</b></td>
+        <td>DOT 4 / DOT 5</td>
+        <td>0,28 L</td>
+        <td>12 meses</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<p><em>(*) Verifique a necessidade de aditivo para diferencial autoblocante (Trac-Lok), se aplicável.</em></p>
 
-        <h3>### Lubrificação e vedação</h3>
-        <ul>
-            <li>Substitua o anel de vedação sempre que remover o sensor;</li>
-            <li>Limpe a ponta magnética com pano limpo e álcool isopropílico;</li>
-            <li>Aperte o parafuso de fixação conforme especificação do fabricante do motor.</li>
-        </ul>
-        <p><em><strong>Ponta magnética:</strong> Mantenha a ponta do sensor sempre limpa. Limalha de ferro acumulada causa curto magnético e leitura incorreta.</em></p>
-    </section>
+<h2 id="plano-manutencao">Plano de Manutenção (MWM Sprint 4.07 TCE)</h2>
+<p>Tabela de serviços periódicos para veículos equipados com o motor MWM Sprint 4.07 TCE. Os intervalos devem ser rigorosamente respeitados.</p>
 
-    <!-- Funcionamento -->
-    <section class="topico-manual">
-        <h2>## Funcionamento</h2>
-        <p>O sensor de fase tipo Hall opera captando a passagem dos ressaltos presentes na engrenagem do comando de válvulas do motor MWM. A função principal é informar à ECM em qual fase do ciclo de quatro tempos cada cilindro se encontra.</p>
-        
-        <p><strong>Trabalho em conjunto com o CKP (Rotação):</strong> O CKP informa a posição e velocidade do virabrequim; o CMP identifica qual cilindro está em final de compressão, permitindo que o sistema de injeção determine a sequência correta, o momento preciso de pulverização do diesel e a sincronização sequencial.</p>
-    </section>
+<div style="overflow-x: auto;">
+  <table>
+    <thead>
+      <tr>
+        <th>Item de Manutenção</th>
+        <th>Diário</th>
+        <th>Semanal</th>
+        <th>5.000 km</th>
+        <th>10.000 km</th>
+        <th>15.000 km</th>
+        <th>30.000 km</th>
+        <th>50.000 km</th>
+        <th>60.000 km</th>
+        <th>100.000 km</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Drenar filtro de combustível</td>
+        <td>●</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Verificar nível de óleo lubrificante</td>
+        <td>●</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Verificar nível da água de arrefecimento</td>
+        <td>●</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Verificar possíveis vazamentos no motor</td>
+        <td>●</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Verificar indicador de restrição do filtro de ar</td>
+        <td></td><td>●</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Limpar filtro de ar (se necessário)</td>
+        <td></td><td>●</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Trocar elemento do filtro de ar (Serviços Pesados)</td>
+        <td></td><td></td><td>●</td><td></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Trocar elemento do filtro de ar (Serviços Leves)</td>
+        <td></td><td></td><td></td><td>●</td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Diagnóstico eletrônico do sistema de injeção</td>
+        <td></td><td></td><td></td><td>●</td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Trocar óleo lubrificante (SAE 15W40 - API CH-4)</td>
+        <td></td><td></td><td></td><td>●</td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Trocar filtro de óleo lubrificante</td>
+        <td></td><td></td><td></td><td>●</td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Trocar filtro de combustível</td>
+        <td></td><td></td><td></td><td>●</td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Verificar conexões elétricas (Partida e Alternador)</td>
+        <td></td><td></td><td></td><td>●</td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Limpar e reapertar terminais da bateria</td>
+        <td></td><td></td><td></td><td>●</td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Verificar estado e reapertar conexões</td>
+        <td></td><td></td><td></td><td></td><td></td><td>●</td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Regular folga de válvulas (motores mecânicos)</td>
+        <td></td><td></td><td></td><td></td><td></td><td>●</td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Examinar correia</td>
+        <td></td><td></td><td></td><td></td><td></td><td>●</td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Inspecionar válvula PCV</td>
+        <td></td><td></td><td></td><td></td><td></td><td>●</td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Verificar estado da tubulação de combustível</td>
+        <td></td><td></td><td></td><td></td><td></td><td>●</td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Reapertar coxins de fixação do motor</td>
+        <td></td><td></td><td></td><td></td><td></td><td>●</td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Verificar torque de parafusos (escape, turbo, cárter)</td>
+        <td></td><td></td><td></td><td></td><td></td><td>●</td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Verificar ventilador</td>
+        <td></td><td></td><td></td><td></td><td></td><td>●</td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td>Verificar amortecedor de vibrações</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>●</td><td></td>
+      </tr>
+      <tr>
+        <td>Trocar correia</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>●</td><td></td>
+      </tr>
+      <tr>
+        <td>Checker turboalimentador (folga eixo/carcaça)</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>●</td><td></td>
+      </tr>
+      <tr>
+        <td>Trocar o líquido de arrefecimento</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>●</td>
+      </tr>
+      <tr>
+        <td><i>Bicos injetores / Bomba de alta pressão</i></td>
+        <td colspan="9" style="text-align: center;">Livre de manutenção</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-    <!-- Diagnóstico de ocorrências -->
-    <section class="topico-manual">
-        <h2>## Diagnóstico de ocorrências</h2>
-        <h3>### Sintomas de sensor defeituoso</h3>
-        <ul>
-            <li><strong>Estratégia de Partida Longa:</strong> Ao contrário do sensor de rotação, se o de fase estiver desplugado ou falhar, o motor <strong>não bloqueia totalmente</strong>. A central adota uma estratégia de "tentativa e erro" baseada apenas no CKP. O arranque vira por 5 a 10 segundos direto até a ECM conseguir sincronizar o ponto de injeção de forma alternativa e o motor finalmente funcionar em modo limitado.</li>
-            <li>Marcha lenta instável ou oscilante;</li>
-            <li>Perda de potência e torque;</li>
-            <li>Aumento do consumo de combustível;</li>
-            <li>Luz de advertência (Check Engine / MIL) acesa ou demorando de 3 a 5 segundos para apagar após a partida.</li>
-        </ul>
-    </section>
+<h2 id="observacoes">Observações Importantes</h2>
 
-    <!-- Códigos de falha -->
-    <section class="topico-manual">
-        <h2>## Códigos de falha</h2>
-        <ul>
-            <li><strong>P0340 - Mau funcionamento do circuito do sensor de posição do comando de válvulas "A":</strong> Indica falta de comunicação elétrica adequada (chicote rompido, conector mal encaixado ou circuito aberto).</li>
-            <li><strong>P0341 - Desempenho ou faixa do circuito do sensor "A" fora do esperado:</strong> Sincronismo virtual incorreto. Pode indicar motor fora de ponto mecânico por montagem incorreta da engrenagem, folga excessiva no comando ou sujeira na ponta do sensor.</li>
-            <li><strong>P0342 - Tensão do circuito do sensor "A" abaixo do mínimo esperado:</strong> Curto-circuito à massa no chicote de sinal ou umidade severa no conector.</li>
-            <li><strong>P0343 - Tensão do circuito do sensor "A" acima do máximo esperado:</strong> Curto-circuito ao positivo (linha de 5V ou 12V) no chicote de sinal ou falha interna no chip Hall.</li>
-            <li><strong>P0344 - Sinal do circuito do sensor "A" intermitente:</strong> O sinal corta com a trepidação do motor. Indica mau contato nos terminais ou falha interna térmica do sensor.</li>
-        </ul>
-    </section>
+<div class="aviso">
+  <strong>Regras Gerais de Manutenção</strong>
+  <ul>
+    <li><b>A)</b> Esta tabela é apenas orientativa. A tabela de manutenção do veículo prevalece sobre esta.</li>
+    <li><b>B)</b> Para os serviços pesados e fora-de-estrada, efetuar a manutenção na <b>metade</b> dos períodos indicados na tabela acima.</li>
+    <li><b>C)</b> Se o motor permanecer fora de uso por muito tempo, deve-se executar uma marcha-lenta de ensaio quinzenalmente, até que sejam atingidas as respectivas temperaturas de uso.</li>
+    <li><b>D)</b> Independente dos intervalos indicados entre as trocas de óleo lubrificante do motor, este deve ser trocado o mais tardar a <b>cada 6 meses</b>.</li>
+    <li><b>E)</b> Itens eletrônicos BOSCH (sensores de fase, rotação, pressão e temperatura do ar, pressão e temperatura da água) são <b>isentos de manutenção</b> e verificados via ferramenta de diagnose especificada com erros armazenados na memória de falha.</li>
+  </ul>
+</div>
 
-    <!-- Causas comuns -->
-    <section class="topico-manual">
-        <h2>## Causas comuns</h2>
-        <ul>
-            <li><strong>Sujeira magnética:</strong> Acúmulo de limalhas de ferro na ponta do sensor bloqueando o campo magnético.</li>
-            <li><strong>Oxidação:</strong> Corrosão nos pinos do conector elétrico devido a lavagens de motor ou infiltração.</li>
-            <li><strong>Danos no chicote:</strong> Fios ressecados pelo calor do cabeçote, rompidos ou raspando na carcaça.</li>
-            <li><strong>Desalinhamento:</strong> Folga axial excessiva no eixo do comando de válvulas alterando a distância de leitura (entreferro).</li>
-        </ul>
-    </section>
-
-    <!-- Teste com multímetro -->
-    <section class="topico-manual">
-        <h2>## Teste com multímetro</h2>
-        
-        <h3>### Teste de resistência — NÃO APLICÁVEL</h3>
-        <p><em><strong>⚠️ ATENÇÃO CRÍTICA:</strong> O sensor tipo Hall <strong>NÃO PODE</strong> ser testado por medição de resistência ohmica. Tentar medir a resistência entre os pinos de um sensor Hall com o multímetro injeta corrente elétrica nos semicondutores internos, podendo <strong>queimar o componente instantaneamente</strong>.</em></p>
-
-        <h3>### Teste de tensão de alimentação (Circuito de Base)</h3>
-        <p><strong>Condição:</strong> Chave de ignição ligada, motor parado, conector <strong>DESCONECTADO</strong>.</p>
-        <ul>
-            <li>Ajuste o multímetro para a escala de Tensão Contínua (<strong>V DC</strong>);</li>
-            <li>Identifique o pino negativo de aterramento (deve apresentar continuidade com a massa do motor);</li>
-            <li>Meça a tensão nos pinos de alimentação vindos do chicote da central. Deve registrar <strong>5,0 V ou 12,0 V DC cravados</strong> (conforme calibração de hardware da ECM).</li>
-        </ul>
-
-        <h3>### Teste de sinal dinâmico em Marcha Lenta (Média Matemática)</h3>
-        <p><strong>Condição:</strong> Sensor instalado, conector <strong>CONECTADO</strong>, motor funcionando em marcha lenta.</p>
-        <ul>
-            <li>Multímetro em escala de Tensão Contínua (<strong>V DC</strong>);</li>
-            <li>Insira uma agulha por trás do conector (<em>backprobing</em>) no <strong>Pino 2 (Sinal)</strong> e meça contra o aterramento do motor;</li>
-            <li>Como o sinal digital comuta de 0V a 5V de forma ultra-rápida, o multímetro não acompanha a onda quadrada e exibirá uma <strong>média matemática estável entre 2,0V e 2,8V DC</strong>.</li>
-            <li><strong>⚠️ Comportamento na Aceleração:</strong> Ao acelerar o motor, o giro do comando aumenta mas a proporção das janelas permanece fixa. Logo, <strong>o valor em V DC no multímetro deve continuar praticamente estático na mesma média (~2,5V DC)</strong>. Se a tensão flutuar para 1V ou subir para 4V ao acelerar, o sensor ou chicote está com defeito.</li>
-        </ul>
-
-        <h3>### O Teste de Aceleração Correto (Escala de Frequência em Hz)</h3>
-        <p><strong>Condição:</strong> Sensor instalado, conector <strong>CONECTADO</strong>, motor em funcionamento.</p>
-        <ul>
-            <li>Mude a chave do multímetro para a escala de <strong>Frequência (Hz)</strong>;</li>
-            <li>Mantenha a ponta de prova na agulha do <strong>Pino 2 (Sinal)</strong> contra a massa;</li>
-            <li><strong>Em Marcha Lenta:</strong> Deve registrar uma frequência baixa e estável (entre <strong>13 Hz e 20 Hz</strong>);</li>
-            <li><strong>Durante a Aceleração:</strong> O valor exibido na tela em Hz <strong>deve subir de forma perfeitamente linear e rápida</strong>, acompanhando o ganho de rotação do motor (podendo ultrapassar <strong>60 Hz a 80 Hz</strong> em alta rotação). Se o valor em Hz travar ou cortar, o sensor está danificado.</li>
-        </ul>
-    </section>
-
-    <!-- Teste com osciloscópio -->
-    <section class="topico-manual">
-        <h2>## Teste com osciloscópio</h2>
-        <h3>### Configuração</h3>
-        <ul>
-            <li><strong>Acoplamento:</strong> DC (Corrente Contínua);</li>
-            <li><strong>Escala de Tensão:</strong> 2 V/div ou 5 V/div;</li>
-          </p>
-
-<h2>Sintomas de falha</h2>
-<ul>
-  <li>...</li>
-</ul>
-
-<h2>Como testar</h2>
-<p>...
+<div class="dica">
+  <strong>Classificação de Serviços</strong>
+  <ul>
+    <li><b>Serviços Leves:</b> Pick-ups e Utilitários Esportivos.</li>
+    <li><b>Serviços Pesados:</b> Ônibus, Caminhões, Caminhões Leves, Vans.</li>
+  </ul>
+</div>
