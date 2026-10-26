@@ -60,20 +60,21 @@
 </div>
 
 <!-- GRÁFICO DE SINAL DIGITAL (CMP) -->
-<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif; overflow-x: auto;">
+<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 15px; margin: 25px 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); font-family: 'Inter', 'Segoe UI', sans-serif;">
   
-  <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px;">
+  <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
     <div style="display: flex; align-items: center; gap: 8px;">
       <div style="width: 16px; height: 4px; background: #8B5CF6; border-radius: 2px;"></div>
-      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Sinal Digital da ECU (0V / 5V)</span>
+      <span style="font-size: 0.85rem; font-weight: 700; color: #1e293b;">Sinal Digital da ECU (0V / 5V)</span>
     </div>
     <div style="display: flex; align-items: center; gap: 8px;">
       <div style="width: 16px; height: 4px; background: #F59E0B; border-radius: 2px; border-top: 2px dashed #F59E0B; background: transparent; border-bottom: none; border-left: none; border-right: none;"></div>
-      <span style="font-size: 0.9rem; font-weight: 700; color: #1e293b;">Tensão Média Lida no Multímetro</span>
+      <span style="font-size: 0.85rem; font-weight: 700; color: #1e293b;">Tensão Média Lida no Multímetro</span>
     </div>
   </div>
 
-  <svg viewBox="0 0 830 550" style="width: 100%; height: auto; min-width: 600px;">
+  <!-- Removido o min-width: 600px e adicionado display: block -->
+  <svg viewBox="0 0 830 550" style="width: 100%; height: auto; display: block;">
     <defs>
       <filter id="shadow-cmp" x="-10%" y="-10%" width="120%" height="120%">
         <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.1"/>
