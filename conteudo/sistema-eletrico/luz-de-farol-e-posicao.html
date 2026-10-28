@@ -1,3 +1,52 @@
+<style>
+  /* ESTILOS PARA O EFEITO DE ZOOM (LIGHTBOX) */
+  .img-box-preview {
+    display: inline-block;
+    max-width: 350px; /* ALTERE AQUI O TAMANHO DA MINIATURA (ex: 250px) */
+    margin: 15px 0;
+  }
+  .img-box-preview img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    cursor: pointer; /* Cursor de mãozinha */
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+  .img-box-preview img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+  
+  /* Fundo escuro do modal */
+  .modal-zoom {
+    display: none; 
+    position: fixed;
+    z-index: 9999;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    justify-content: center;
+    align-items: center;
+  }
+  .modal-zoom img {
+    max-width: 95%;
+    max-height: 95%;
+    border-radius: 4px;
+  }
+  .modal-zoom .fechar-zoom {
+    position: absolute;
+    top: 15px; right: 30px;
+    color: #fff;
+    font-size: 45px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .modal-zoom .fechar-zoom:hover {
+    color: #ff0000;
+  }
+</style>
+
 <!-- Sensor de Fase (CMP). Imagens: salve em conteudo/imagens/sensor-cmp/ -->
 <header class="art-head">
   <h1>Farol e Luz de Posição</h1>
@@ -30,7 +79,8 @@
   <li>O circuito interno chaveia o pino de sinal, gerando uma <b>onda quadrada digital</b>;</li>
   <li>Permite à ECM identificar <b>o primeiro cilindro no ciclo de compressão</b> (sincronismo de fase).</li>
 </ul>
-<figure>
+<figure class="img-box-preview">
+  <!-- Adicionada a classe img-box-preview nesta imagem para o zoom funcionar -->
   <img src="conteudo/sistema-eletrico/imagens/chave-farol.png" alt="Funcionamento do sensor Hall" loading="lazy">
 </figure>
 
@@ -42,7 +92,9 @@
 </ul>
 
 <h2 id="parte-eletrica">Parte elétrica e testes</h2>
-<h2 id="localizacao">Pinos da Chave</h2>
+
+<!-- CORRIGIDO: O ID estava como "localizacao" (duplicado), alterado para "pinos-chave" -->
+<h2 id="pinos-chave">Pinos da Chave</h2>
 <figure class="img-box-preview">
   <img src="conteudo/imagens/sensor-cmp/01-localizacao.jpg" alt="Localização do sensor de fase CMP" loading="lazy">
   <figcaption><i class="fa-solid fa-magnifying-glass-plus"></i> Clique na imagem para ampliar</figcaption>
@@ -143,3 +195,43 @@
     </ul>
   </div></div>
 </div>
+
+<script>
+  // SCRIPT DO EFEITO DE ZOOM (MODAL)
+  document.addEventListener('DOMContentLoaded', function() {
+    // Cria a estrutura do Modal (fundo escuro + botão X + imagem grande)
+    const modal = document.createElement('div');
+    modal.className = 'modal-zoom';
+    modal.innerHTML = `
+      <span class="fechar-zoom">&times;</span>
+      <img id="imagem-ampliada" src="" alt="Imagem ampliada">
+    `;
+    document.body.appendChild(modal);
+
+    const imagemAmpliada = document.getElementById('imagem-ampliada');
+    const btnFechar = modal.querySelector('.fechar-zoom');
+
+    // Seleciona todas as imagens que estão dentro da sua classe
+    const miniaturas = document.querySelectorAll('.img-box-preview img');
+
+    // Adiciona o evento de clique em cada uma
+    miniaturas.forEach(function(img) {
+      img.addEventListener('click', function() {
+        imagemAmpliada.src = this.src; // Pega o link da imagem clicada
+        modal.style.display = 'flex';  // Mostra o modal
+      });
+    });
+
+    // Fecha o modal ao clicar no X
+    btnFechar.addEventListener('click', function() {
+      modal.style.display = 'none';
+    });
+
+    // Fecha o modal ao clicar no fundo escuro
+    modal.addEventListener('click', function(event) {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+  });
+</script>
